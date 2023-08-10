@@ -1,0 +1,50 @@
+.form {
+  display: flex;
+  flex-direction: column;
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    column-gap: .6rem;
+    margin-top: -1rem;
+  }
+
+  &__fieldset {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    align-items: flex-start;
+    width: 100%;
+    gap: 1rem;
+
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__field-label {
+    font-size: 10.2pt;
+    font-weight: 500;
+    line-height: 1.8rem;
+  }
+
+  &__field-hint {
+    font-size: .9rem;
+  }
+
+  &__field-required-hint:after {
+    content: '*';
+    color: #ee2222;
+    margin-left: .35rem;
+  }
+
+  &__search-grid {
+    display: grid;
+    gap: 2rem;
+  }
+
+  &__validation-error {
+    font-size: .9rem;
+    padding: .4rem 0;
+    color: red;
+  }
+}

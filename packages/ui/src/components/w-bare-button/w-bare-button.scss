@@ -1,0 +1,29 @@
+.barebutton {
+  display: flex;
+  place-items: center;
+  column-gap: .2rem;
+  user-select: none;
+  outline: none;
+
+  background: transparent;
+  border: none;
+
+  &:active {
+    text-decoration: underline;
+  }
+
+  &:not(.button) {
+    padding: 0;
+  }
+
+  &--enabled {
+    @media screen and (min-width: 600px) {
+      cursor: pointer;
+    }
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+    opacity: .5;
+  }
+}

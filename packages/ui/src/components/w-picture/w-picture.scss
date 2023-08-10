@@ -1,0 +1,29 @@
+.picture {
+  margin: 0;
+
+  &__image {
+    &--bordered {
+      @include themed() {
+        border: 1px solid t(border-color);
+      }
+    }
+
+    &--expandable {
+      cursor: pointer;
+    }
+  }
+
+  &__background {
+    width: 100%;
+    height: 100%;
+    @include themed() {
+      &>* {
+        stroke: t(border-color);
+      }
+    }
+  }
+
+  &__meta {
+    font-size: 11pt;
+  }
+}

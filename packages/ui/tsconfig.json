@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "types": [
+    "../web/global.d.ts"
+  ],
+  "exclude": [
+    "vite.config.ts",
+    "dist"
+  ]
+}

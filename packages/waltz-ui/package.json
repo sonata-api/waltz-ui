@@ -1,0 +1,25 @@
+{
+  "name": "waltz-ui",
+  "version": "0.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@waltz-ui/ui": "file:../ui",
+    "@waltz-ui/web": "file:../web"
+  },
+  "peerDependencies": {
+    "@semantic-api/common": "latest"
+  }
+}

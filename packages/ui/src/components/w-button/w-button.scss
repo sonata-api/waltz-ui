@@ -1,0 +1,89 @@
+@keyframes progress {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+    opacity: 0;
+  }
+}
+
+.button {
+  position: relative;
+  transition: all .2s;
+  padding: .35em 1em;
+  text-align: center;
+  border-radius: 5px;
+  outline: none;
+
+  @include themed() {
+    color: t(foreground-color);
+
+    :deep([data-component=icon]) {
+      height: .95rem;
+    }
+
+    &--loading:before {
+      display: block;
+      position: absolute;
+      left: 0;
+      content: ' ';
+      background: #000;
+      opacity: .4;
+      height: 100%;
+      width: 2rem;
+
+      animation: progress 1s forwards;
+    }
+
+    &--alt,
+    &--transparent {
+      &:hover {
+        background: t(button-background-color-hover);
+      }
+    }
+
+    &--alt {
+      background: t(button-background-color-alt);
+      border: 1px solid t(button-border-color);
+
+      :deep(*) {
+        color: t(foreground-color-alt);
+        fill: t(foreground-color-alt);
+      }
+    }
+
+    &--normal, &--brand {
+      background: t(button-background-color);
+      border: 1px solid t(button-border-color);
+
+      :deep(*) {
+        color: t(background-color);
+        fill: t(background-color);
+      }
+
+      font-weight: 700;
+    }
+
+    &--brand {
+      background: t(brand-color);
+    }
+  }
+
+  &--small {
+    min-height: 2.2rem;
+    padding: .4rem 1rem;
+    font-size: 10pt;
+  }
+
+  &--medium {
+    min-height: 2.4rem;
+    padding: .4rem 1.4rem;
+    font-size: 11pt;
+  }
+
+  &--large {
+    padding: 1rem 2.4rem;
+    font-size: 12pt;
+  }
+}

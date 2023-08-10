@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "build": "./bin/build.sh",
+    "package": "./bin/build.sh pack",
+    "watch": "tsc --watch",
+    "publish": "./bin/publish.sh"
+  }
+}

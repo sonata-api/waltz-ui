@@ -1,0 +1,39 @@
+@import 'themes';
+
+$themed-properties: brand-color
+  ,border-color
+  ,button-background-color
+  ,button-background-color-alt
+  ,button-background-color-hover
+  ,button-background-color-active
+  ,button-border-color
+  ,switch-background-color
+  ,switch-border-color
+  ,foreground-color
+  ,foreground-color-alt
+  ,foreground-color-weak
+  ,background-color
+  ,background-color-alt
+  ,background-color-hover
+  ,background-color-opaque
+  ,body-background
+  ,shadow-color;
+
+@mixin themed() {
+  @each $theme in $themes {
+    .main--#{$theme} & {
+      $theme-map: () !global;
+      @each $key in $themed-properties{
+        $value: var(--#{$theme}-#{$key}, var(--default-#{$key}));
+        $theme-map: map-merge($theme-map, ($key: $value)) !global;
+      }
+
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function t($key) {
+  @return map-get($theme-map, $key);
+}

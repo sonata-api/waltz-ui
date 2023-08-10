@@ -1,0 +1,8 @@
+export { default as WCheckbox } from './w-checkbox/w-checkbox.vue'
+export { default as WFile } from './w-file/w-file.vue'
+export { default as WForm } from './w-form/w-form.vue'
+export { default as WInput } from './w-input/w-input.vue'
+export { default as WOptions } from './w-options/w-options.vue'
+export { default as WSearch } from './w-search/w-search.vue'
+export { default as WSelect } from './w-select/w-select.vue'
+export { default as WSwitch } from './w-switch/w-switch.vue'

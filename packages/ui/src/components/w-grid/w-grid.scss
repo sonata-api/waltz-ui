@@ -1,0 +1,8 @@
+.grid {
+  display: grid;
+  gap: 1.8rem;
+  
+  @media screen and (min-width: 600px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

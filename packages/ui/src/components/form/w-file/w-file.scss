@@ -1,0 +1,33 @@
+$image-size: 20rem;
+
+.file {
+  display: flex;
+  flex-direction: column;
+  row-gap: .8rem;
+  width: min-content;
+
+  &__image {
+    width: $image-size;
+    height: $image-size;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: .6rem;
+
+    color: #000;
+    background: lightyellow;
+  }
+
+  &__buttons {
+    display: flex;
+    column-gap: .4rem;
+  }
+}

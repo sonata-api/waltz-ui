@@ -1,0 +1,44 @@
+$icon-size: 1.2rem;
+
+@keyframes slide {
+  from {
+    max-height: 0;
+  }
+
+  to {
+    max-height: 20rem;
+  }
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
+
+  &__icons {
+    display: flex;
+    padding: .4rem;
+
+    :deep([data-component=icon]) {
+      width: $icon-size;
+      height: $icon-size;
+    }
+  }
+
+  &__container {
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    :deep(>*) {
+      padding: .6rem;
+    }
+
+    &--selected {
+      background: #e7f1ca;
+    }
+
+    &--results {
+      box-shadow: inset 0 0 12px #ddd;
+      animation: slide .35s forwards;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+.tabs {
+  display: flex;
+
+  &__tab {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    margin-top: 4px;
+    padding: 0 .4rem;
+
+    &--current {
+      @include themed() {
+        color: #5090fa;
+        font-weight: 500;
+      }
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+
+    &__tab {
+      &:first-child {
+        @include themed() {
+          border: 1px solid t(border-color);
+        }
+      }
+
+      &:not(:first-child) {
+        display: none;
+      }
+    }
+  }
+}

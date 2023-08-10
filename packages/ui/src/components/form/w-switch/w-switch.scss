@@ -1,0 +1,48 @@
+$slider-radius: 1rem;
+
+.switch-wrapper {
+  display: flex;
+  align-items: center;
+  column-gap: .6rem;
+}
+
+.switch {
+  display: flex;
+  border-radius: 1rem;
+  padding: 4px;
+
+  justify-content: flex-end;
+  overflow: hidden;
+
+  background: #ddd;
+  transition: background .4s;
+
+  width: 3rem;
+
+  @include themed() {
+    &--active {
+      background: t(brand-color);
+    }
+  }
+
+  &--readOnly {
+    opacity: .6;
+  }
+
+  &__slider {
+    width: $slider-radius;
+    height: $slider-radius;
+
+    background: #fff;
+    border-radius: 50%;
+  }
+
+  &__dummy {
+    flex: 0;
+    transition: flex .35s;
+
+    &--flex {
+      flex: 1;
+    }
+  }
+}

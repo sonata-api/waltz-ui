@@ -1,0 +1,43 @@
+.pagination {
+  display: flex;
+  column-gap: 2rem;
+  box-sizing: content-box;
+
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+
+  &__control {
+    display: flex;
+    align-items: center;
+
+    &>:not(button) {
+      padding: 0 !important;
+    }
+
+    &>select,
+    &>button,
+    :deep(input) {
+      align-self: stretch;
+    }
+
+    &>button,
+    :deep(input){
+      padding: .4rem .6rem;
+    }
+
+    &>select {
+      padding: 0 .6rem !important;
+    }
+  }
+
+  &__page-input {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+
+    :deep([data-component=input]) {
+      width: 2.8rem;
+    }
+  }
+}

@@ -1,0 +1,48 @@
+.contextmenu {
+  &__trigger {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  &__content {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    min-width: 10rem;
+    border-radius: 4px;
+    overflow: hidden;
+
+    @include themed() {
+      :deep(*) {
+        color: t(foreground-color);
+      }
+
+      background: t(background-color);
+      box-shadow: 0 1px 4px t(shadow-color);
+      border: 1px solid t(border-color);
+    }
+  }
+
+  &__section {
+    &:not(:last-child) {
+      @include themed() {
+        border-bottom: 1px solid t(border-color);
+      }
+    }
+  }
+
+  &__item {
+    display: flex;
+    width: 100%;
+    padding: .8rem !important;
+
+    @include themed() {
+      &--reactive {
+        &:hover {
+          background: t(background-color-hover);
+        }
+      }
+    }
+  }
+}

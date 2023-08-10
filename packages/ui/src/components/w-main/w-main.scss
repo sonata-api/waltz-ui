@@ -1,0 +1,16 @@
+.main {
+  display: grid;
+  min-height: 100vh;
+
+  &__toasts {
+    position: fixed;
+    top: 1.6rem;
+    right: 1.6rem;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: .6rem;
+
+    z-index: 20;
+  }
+}

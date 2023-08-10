@@ -1,0 +1,17 @@
+.select {
+  width: 100%;
+  padding: var(--default-input-padding);
+  min-width: 5rem;
+
+  border-radius: 4px;
+  line-height: 1.5rem;
+
+  @include themed() {
+    background: #f8f8f8;
+    color: t(foreground-color);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}

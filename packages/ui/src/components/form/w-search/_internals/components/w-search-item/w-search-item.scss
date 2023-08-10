@@ -1,0 +1,32 @@
+.item {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+
+  // border: 1px solid #dedede;
+  //
+
+  @include themed() {
+    &:not(:last-child) {
+      border-bottom: 1px solid t(border-color);
+    }
+
+    color: t(foreground-color);
+  }
+
+
+  &__values {
+    display: flex;
+    flex-direction: column;
+    row-gap: .4rem;
+  }
+
+  &__value {
+    display: flex;
+    font-size: 10pt;
+
+    // &:first-child {
+    //   font-weight: bold;
+    // }
+  }
+}

@@ -1,0 +1,138 @@
+@mixin focus {
+  .input {
+    @include themed() {
+      &__container--bordered:after {
+        width: 100%;
+      }
+
+      &__icon {
+        :deep([data-component=icon]) {
+          fill: t(brand-color);
+        }
+      }
+    }
+  }
+}
+
+.input, .textarea {
+  &:focus-within {
+    @include focus;
+  }
+}
+
+.input {
+  &__label {
+    font-size: 10pt;
+    font-weight: 500;
+  }
+
+  &__container {
+    position: relative;
+    display: flex;
+    height: 100%;
+
+    &--bordered {
+      @include themed() {
+        &>.input__input,
+        &>.input__textarea {
+          background: #f8f8f8;
+        }
+
+        &:after {
+          content: '';
+          transition: width .1s ease;
+          position: absolute;
+          bottom: -1px;
+          left: 0;
+          height: 3px;
+          width: 0;
+          background: t(brand-color);
+        }
+      }
+    }
+
+    &--normal, &--bold {
+      border-radius: 3px;
+    }
+
+    &--light {
+      border-bottom: 1px solid #dedede;
+    }
+  }
+
+  &__input {
+    width: 100%;
+    outline: none;
+    border: 0;
+
+    &--normal, &--bold {
+      border-radius: 3px;
+      @include themed() {
+        color: t(foreground-color);
+        background: t(background-color);
+      }
+    }
+
+    &--normal {
+      padding: var(--default-input-padding);
+    }
+
+    &--bold {
+      padding: 1rem .8rem;
+      font-size: 12pt;
+
+      &::placeholder {
+        font-weight: 600;
+      }
+    }
+
+    &--light {
+      padding: .6rem;
+      background: transparent;
+    }
+
+    &--icon {
+      padding-left: 2.6em !important;
+    }
+
+    &--readOnly {
+      background: #eee;
+    }
+  }
+
+  &__textarea {
+    display: block;
+    width: 100%;
+    height: 8em;
+    outline: none;
+  }
+
+  &__icon {
+    position: absolute;
+    width: 1.1em;
+
+    :deep([data-component=icon]) {
+      fill: #bbb;
+    }
+
+    &--bold {
+      :deep([data-component=icon]) {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+    }
+
+    top: 50%;
+    left: .6em;
+    transform: translateY(-50%);
+  }
+
+  &__clipboard {
+    display: flex;
+    place-items: center;
+    border: 1px solid #dedede;
+    background: #ddd;
+
+    padding: 0 .6em;
+  }
+}

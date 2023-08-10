@@ -1,0 +1,20 @@
+@import 'theming';
+
+.w-border {
+  @include themed() {
+    border: 1px solid t(border-color);
+  }
+}
+
+.w-surface {
+  @include themed() {
+    background: t(background-color);
+    color: t(foreground-color);
+  }
+}
+
+.w-branded-text {
+  @include themed() {
+    color: t(brand-color);
+  }
+}

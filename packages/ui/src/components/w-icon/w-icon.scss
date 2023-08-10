@@ -1,0 +1,54 @@
+.icon {
+  display: flex;
+  line-height: 100%;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  @include themed() {
+    fill: t(foreground-color);
+
+    &--alt {
+      fill: t(foreground-color-alt);
+    }
+
+    &--reactive {
+      padding: 8px;
+      border-radius: 5px;
+
+      &:hover {
+        background: t(background-color-alt);
+      }
+
+      &:active {
+        background: #ccc;
+      }
+    }
+  }
+
+  &--centered {
+    align-items: center;
+    column-gap: .3rem;
+  }
+
+  &__icon {
+    display: grid;
+    place-items: center;
+
+    &--right {
+      order: 1;
+    }
+
+    &--small {
+      width: 16px;
+      height: 16px;
+    }
+
+    &--medium {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

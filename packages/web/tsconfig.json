@@ -1,0 +1,31 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "module": "esnext",
+    "lib": [
+      "dom",
+      "esnext"
+    ],
+    "types": [
+      "vite/client"
+    ],
+    "paths": {
+      "@sonata-api/common": [
+        "./node_modules/@sonata-api/common/dist"
+      ],
+      "@sonata-api/common/*": [
+        "./node_modules/@sonata-api/common/dist/*"
+      ],
+      "@sonata-api/types": [
+        "./node_modules/@sonata-api/types/dist"
+      ],
+      "@sonata-api/types/*": [
+        "./node_modules/@sonata-api/types/dist/*"
+      ],
+      "@sonata-api/system": [
+        "./node_modules/@sonata-api/system/dist"
+      ]
+    }
+  }
+}

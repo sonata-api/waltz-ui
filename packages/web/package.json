@@ -1,0 +1,42 @@
+{
+  "name": "@waltz-ui/web",
+  "type": "module",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "prepublishOnly": "npm run build",
+    "postinstall": "node dist/__scripts__/postinstall.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./types": "./dist/types/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@sonata-api/common": "latest",
+    "@sonata-api/system": "latest",
+    "@sonata-api/types": "latest",
+    "pinia": "^2.1.4",
+    "vue": "^3.3.4",
+    "vue-demi": "^0.13.6",
+    "vue-i18n": "^9.2.0-beta.16",
+    "vue-router": "^4.2.1"
+  },
+  "devDependencies": {
+    "vite": "^4.4.8",
+    "typescript": "^5.1.6"
+  }
+}

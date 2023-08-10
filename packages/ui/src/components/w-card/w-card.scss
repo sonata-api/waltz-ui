@@ -1,0 +1,31 @@
+.card {
+  overflow: hidden;
+  @include themed() {
+    background: t(background-color-alt);
+    border-radius: 20px;
+  }
+
+  &__picture {
+    width: 100%;
+    height: 18rem;
+    overflow: hidden;
+
+    :deep(figure) {
+      height: 100%;
+    }
+  }
+
+  &__footer {
+    width: 100%;
+    padding: 1rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include themed() {
+      background: #f4f4f4;
+      border-top: 1px solid t(border-color);
+    }
+  }
+}
