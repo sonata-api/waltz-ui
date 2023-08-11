@@ -19,8 +19,8 @@
     "dist"
   ],
   "dependencies": {
-    "@waltz-ui/ui": "^0.0.0",
-    "@waltz-ui/web": "^0.0.0"
+    "@waltz-ui/ui": "latest",
+    "@waltz-ui/web": "latest"
   },
   "gitHead": "12d7d861731240d2cfc40104def04406dae1d0b1"
 }
