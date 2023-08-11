@@ -39,6 +39,6 @@
     "@sonata-api/common": "latest",
     "@sonata-api/system": "latest",
     "@sonata-api/types": "latest",
-    "@waltz-ui/web": "file:../web"
+    "@waltz-ui/web": "latest"
   }
 }

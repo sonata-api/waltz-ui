@@ -5,6 +5,9 @@
     "watch": "tsc --watch",
     "publish": "./bin/publish.sh"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "dependencies": {},
   "devDependencies": {
     "lerna": "^7.1.5"
