@@ -19,7 +19,7 @@
     "dist"
   ],
   "dependencies": {
-    "@waltz-ui/ui": "file:../ui",
-    "@waltz-ui/web": "file:../web"
+    "@waltz-ui/ui": "latest",
+    "@waltz-ui/web": "latest"
   }
 }
