@@ -23,7 +23,7 @@ export default defineConfig(async () => {
     },
     plugins: [
       braun({
-        tag: 'sv-icon',
+        tag: 'w-icon',
         hash: true,
         libraries: [
           '@waltz-ui/ui'
@@ -78,7 +78,7 @@ export default defineConfig(async () => {
         exclude: [
           /\/node_modules\//,
           /\.git\//,
-          /\/@?waltz-ui\//,
+          /@?waltz-ui/,
         ],
         imports: [
           'vue',
@@ -119,7 +119,7 @@ export default defineConfig(async () => {
         ],
         resolvers: [
           (componentName) => {
-            if( componentName.startsWith('Sv') ) {
+            if( /^W[A-Z]/.test(componentName) ) {
               return {
                 name: componentName,
                 from: '@waltz-ui/ui'

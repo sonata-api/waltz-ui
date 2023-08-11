@@ -15,11 +15,11 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@waltz-ui/ui": "file:../ui",
     "@waltz-ui/web": "file:../web"
-  },
-  "peerDependencies": {
-    "@semantic-api/common": "latest"
   }
 }

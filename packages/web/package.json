@@ -22,6 +22,9 @@
     ".": "./dist/index.js",
     "./types": "./dist/types/index.js"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",

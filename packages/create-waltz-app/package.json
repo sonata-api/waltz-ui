@@ -11,6 +11,10 @@
   "scripts": {
     "build": "tsc"
   },
+  "files": [
+    "bin",
+    "dist"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC"

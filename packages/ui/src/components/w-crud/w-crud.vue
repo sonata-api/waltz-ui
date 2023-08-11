@@ -446,16 +446,16 @@ provide('parentStore', parentStore)
           <slot name="tfoot"></slot>
         </template>
       </component>
+    </div>
 
+    <div
+      v-if="!noControls && !store.loading.getAll && store.itemsCount > 0"
+      class="crud__controls"
+    >
+      <w-pagination :collection="collection"></w-pagination>
     </div>
   </div>
 
-  <div
-    v-if="!noControls && !store.loading.getAll && store.itemsCount > 0"
-    class="crud__controls"
-  >
-    <w-pagination :collection="collection"></w-pagination>
-  </div>
 </template>
 
 <style scoped src="./w-crud.scss"></style>

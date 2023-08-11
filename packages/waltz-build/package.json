@@ -13,16 +13,22 @@
     "prepublishOnly": "npm run build"
   },
   "bin": {
-    "waltz-ui-build": "bin/index.js"
+    "waltz-build": "bin/index.js"
   },
   "exports": {
     ".": "./dist/index.js"
   },
+  "files": [
+    "bin",
+    "dist"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@rollup/plugin-node-resolve": "^15.0.1",
+    "@sonata-api/common": "latest",
+    "@sonata-api/types": "latest",
     "@vitejs/plugin-vue": "^4.1.0",
     "braun": "latest",
     "ejs": "^3.1.9",
@@ -31,6 +37,7 @@
     "unplugin-auto-import": "^0.15.3",
     "unplugin-vue-components": "^0.24.1",
     "unplugin-vue-router": "^0.5.5",
+    "sass": "^1.55.0",
     "vite": "^4.3.3",
     "vue": "^3.3.4"
   },
