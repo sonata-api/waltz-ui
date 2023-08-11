@@ -27,7 +27,12 @@
   "dependencies": {
     "maska": "^1.4.6"
   },
+  "dependencies": {
+    "@sonata-api/common": "latest"
+  },
   "devDependencies": {
+    "@sonata-api/system": "^0.0.0",
+    "@sonata-api/types": "^0.0.0",
     "@vitejs/plugin-vue": "^4.2.3",
     "rollup-plugin-typescript2": "^0.35.0",
     "vite": "^4.4.8",
@@ -36,9 +41,6 @@
     "waltz-build": "^0.0.0"
   },
   "peerDependencies": {
-    "@sonata-api/common": "latest",
-    "@sonata-api/system": "latest",
-    "@sonata-api/types": "latest",
     "@waltz-ui/web": "^0.0.0"
   }
 }

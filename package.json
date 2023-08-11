@@ -1,4 +1,6 @@
 {
+  "name": "waltz-ui-monorepo",
+  "private": true,
   "scripts": {
     "build": "./bin/build.sh",
     "package": "./bin/build.sh pack",
