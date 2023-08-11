@@ -4,5 +4,16 @@
     "package": "./bin/build.sh pack",
     "watch": "tsc --watch",
     "publish": "./bin/publish.sh"
+  },
+  "workspaces": [
+    "packages/create-waltz-app",
+    "packages/ui",
+    "packages/waltz-build",
+    "packages/waltz-ui",
+    "packages/web"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "lerna": "^7.1.5"
   }
 }
