@@ -2,11 +2,6 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
-    "module": "commonjs",
-    "paths": {
-      "braun/*": [
-        "./node_modules/braun/dist/*"
-      ]
-    }
+    "module": "commonjs"
   }
 }

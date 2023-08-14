@@ -1,5 +1,8 @@
 {
   "name": "create-waltz-app",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "version": "0.0.1",
   "description": "",
   "publishConfig": {
@@ -14,8 +17,5 @@
   "files": [
     "bin",
     "dist"
-  ],
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  ]
 }

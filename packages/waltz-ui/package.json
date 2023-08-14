@@ -2,6 +2,9 @@
   "name": "waltz-ui",
   "version": "0.0.6",
   "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "publishConfig": {
@@ -12,9 +15,6 @@
     "build": "tsc",
     "prepublishOnly": "npm run build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "files": [
     "dist"
   ],

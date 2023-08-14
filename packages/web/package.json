@@ -2,6 +2,9 @@
   "name": "@waltz-ui/web",
   "type": "module",
   "version": "0.0.3",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "publishConfig": {
@@ -25,9 +28,6 @@
   "files": [
     "dist"
   ],
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@sonata-api/common": "*",
     "@sonata-api/system": "*",
