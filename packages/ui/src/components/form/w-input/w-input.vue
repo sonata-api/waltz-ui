@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { FormFieldProps } from '../types'
-import { ref, inject, watch, computed } from 'vue'
-import { maska as vMaska } from 'maska'
+import { ref, inject, watch } from 'vue'
+import { vMaska } from 'maska'
 import { useClipboard } from '@waltz-ui/web'
 
 import WInfo from '../../w-info/w-info.vue'
