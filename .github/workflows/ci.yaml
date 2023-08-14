@@ -18,7 +18,5 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm i
-      - name: Install packages
-        run: npm run install:all
       - name: Build packages
         run: npm run build --workspaces
