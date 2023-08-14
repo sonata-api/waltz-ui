@@ -25,7 +25,8 @@
     "dist"
   ],
   "dependencies": {
-    "@sonata-api/common": "*"
+    "@sonata-api/common": "*",
+    "maska": "^2.1.10"
   },
   "devDependencies": {
     "@sonata-api/system": "*",
