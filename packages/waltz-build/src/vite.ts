@@ -3,8 +3,8 @@ import vue from '@vitejs/plugin-vue'
 import vueRouter from 'unplugin-vue-router/vite'
 import vueComponents from 'unplugin-vue-components/vite'
 import autoImport from 'unplugin-auto-import/vite'
-import braun from 'braun/vite'
-import { icons } from 'braun/common'
+import waltzIcons from 'waltz-icons/vite'
+import { icons } from 'waltz-icons/common'
 
 import { sassData } from './sassData.js'
 import { getInstanceConfig } from './instance'
@@ -22,7 +22,7 @@ export default defineConfig(async () => {
       }
     },
     plugins: [
-      braun({
+      waltzIcons({
         tag: 'w-icon',
         hash: true,
         libraries: [

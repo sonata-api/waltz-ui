@@ -19,4 +19,10 @@ jobs:
       - name: Install dependencies
         run: npm i
       - name: Build packages
-        run: npm run build --workspaces
+        run: |
+          npm run build \
+            --workspace=packages/waltz-build \
+            --workspace=packages/web \
+            --workspace=packages/ui \
+            --workspace=packages/create-waltz-app \
+            --workspace=packages/waltz-ui
