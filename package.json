@@ -1,8 +1,15 @@
 {
   "name": "waltz-ui-monorepo",
   "private": true,
-  "dependencies": {},
+  "scripts": {
+    "build:all": "npx lerna exec -- \"npm run build\"",
+    "postinstall": "for d in $(find node_modules/@waltz-ui -mindepth 1); do r=$(realpath $d); unlink $d; cp -r $r $d; done"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
-    "lerna": "^7.1.5"
+    "lerna": "^7.1.5",
+    "typescript": "^5.1.6"
   }
 }

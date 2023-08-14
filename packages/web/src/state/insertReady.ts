@@ -21,7 +21,7 @@ export const insertReady = <
     const keys = required as Array<Lowercase<string>> || Object.keys(properties||{})
 
     return keys.every((k) => {
-      const property = description?.properties?.[k]!
+      const property = description?.properties?.[k]! || {}
       if( property.s$meta ) {
         return true
       }

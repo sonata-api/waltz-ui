@@ -422,7 +422,6 @@ const isInsertReady = computed(() => {
     <slot v-if="$slots.after" name="after"></slot>
 
     <div v-if="$slots.footer" class="form__footer">
-      <pre>{{ required }}</pre>
       <slot
         name="footer"
         v-bind="{

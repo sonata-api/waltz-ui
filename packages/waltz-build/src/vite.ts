@@ -107,7 +107,10 @@ export default defineConfig(async () => {
         ]
       }),
       vueRouter({
-        routesFolder: process.cwd() + '/pages',
+        routesFolder: [
+          process.cwd() + '/pages',
+          process.cwd() + '/src/pages'
+        ],
         exclude: [
           '**/_*'
         ],

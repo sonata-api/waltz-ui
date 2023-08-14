@@ -1,15 +1,14 @@
 ## Waltz UI
-> Forget about struggling with complex state management patterns. Jump straight to the business logic and be your team wizard.
 
 ## Introduction
 
-Waltz UI is an UI framework built on top of Vue. It is a [Sonata API](https://github.com/sonata-api/sonata-api) sibling project designed to leverage all of its features.
+Waltz UI is an UI framework built on top of Vue. As a [Sonata API](https://github.com/sonata-api/sonata-api) sibling project it's main goal is to provide maximum interoperability between backend and frontend.
 
 ## Features
 
 - Builtin typed RPC-over-HTTP
 - Filesystem-based routing and automatic component imports thanks to the [Vite](https://vitejs.dev/) ecossystem
-- Declarative and traditional approaches for building forms and tables
+- Easily generate visual representations of your collections with form and table components
 - Tiny bundle footprint
 
 
