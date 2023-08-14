@@ -9,7 +9,7 @@
     "types": [
       "vite/client"
     ],
-    "path": {
+    "paths": {
       "@waltz-ui/ui": [
         "../ui/dist"
       ],
