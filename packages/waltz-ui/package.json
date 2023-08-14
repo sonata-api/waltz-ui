@@ -2,6 +2,11 @@
   "name": "waltz-ui",
   "version": "0.0.6",
   "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -9,11 +14,6 @@
   "types": "dist/index.d.ts",
   "publishConfig": {
     "access": "public"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "prepublishOnly": "npm run build"
   },
   "files": [
     "dist"

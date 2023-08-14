@@ -2,6 +2,13 @@
   "name": "@waltz-ui/web",
   "type": "module",
   "version": "0.0.3",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "prepublishOnly": "npm run build",
+    "postinstall": "node dist/__scripts__/postinstall.js || true"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -9,13 +16,6 @@
   "types": "dist/index.d.ts",
   "publishConfig": {
     "access": "public"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "watch": "tsc --watch",
-    "prepublishOnly": "npm run build",
-    "postinstall": "node dist/__scripts__/postinstall.js || true"
   },
   "repository": {
     "type": "git",
