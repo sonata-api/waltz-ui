@@ -118,7 +118,8 @@ export default defineConfig(async () => {
       }),
       vueComponents({
         dirs: [
-          process.cwd() + '/components'
+          process.cwd() + '/components',
+          process.cwd() + '/src/components'
         ],
         resolvers: [
           (componentName) => {
