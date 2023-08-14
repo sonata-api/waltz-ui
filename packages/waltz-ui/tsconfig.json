@@ -8,6 +8,14 @@
     ],
     "types": [
       "vite/client"
-    ]
+    ],
+    "path": {
+      "@waltz-ui/ui": [
+        "../ui/dist"
+      ],
+      "@waltz-ui/web": [
+        "../web/dist"
+      ]
+    }
   }
 }
