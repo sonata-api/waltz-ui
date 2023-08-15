@@ -128,13 +128,13 @@ const onInput = (
   }
 ) => {
   const { masked } = options || {}
-  if( !masked && (<CustomEvent<MaskaDetail>>event).detail.unmasked ) {
+  if( !masked && (<CustomEvent<MaskaDetail>>event).detail?.unmasked ) {
     return
   }
 
   const value = inputValue.value = (<any>event).target.value
   const newValue = masked
-    ? (<CustomEvent<MaskaDetail>>event).detail.unmasked
+    ? (<CustomEvent<MaskaDetail>>event).detail?.unmasked
     : value
     
   if( property.type === 'number' && !newValue ) {
