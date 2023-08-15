@@ -178,12 +178,13 @@ watch(() => props.modelValue, (value, oldValue) => {
         ${bordered && 'input__container--bordered'}
     `">
       <input
-        v-maska="mask"
+        v-maska
         v-bind="inputBind"
         v-focus="rerenderFixture > 0 || property.s$focus"
         ref="input"
         :value="inputValue"
         data-component="input"
+        :data-maska="mask"
 
         :class="`
           input__input
