@@ -202,7 +202,7 @@ watch(() => actionEventBus.value, async (event) => {
           return {}
         }
         if( property.s$inline && value ) {
-          const { _id, id, ...rest } = value
+          const { _id, ...rest } = value
           return rest
         }
         return value

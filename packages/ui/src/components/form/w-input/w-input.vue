@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { CollectionProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
 import { ref, inject, watch } from 'vue'
-import { vMaska } from 'maska'
+import { type MaskaDetail, vMaska } from 'maska'
 import { useClipboard } from '@waltz-ui/web'
 
 import WInfo from '../../w-info/w-info.vue'
@@ -20,7 +21,7 @@ type Props = FormFieldProps<InputType> & {
 }
 
 const props = defineProps<Props>()
-const property = props.property||{} as Props['property']
+const property = props.property || {} as CollectionProperty
 const bordered = props.bordered || inject('inputBordered', false)
 
 const searchOnly = inject('searchOnly', false)
@@ -121,24 +122,20 @@ const updateValue = (value: InputType) => {
 }
 
 const onInput = (
-  event: (Event & { target: any }) | (Event & {
-    target: {
-      value: string,
-      dataset?: {
-        maskRawValue: string
-      }
-    }
-  }),
-  masked?: boolean
+  event: CustomEvent<MaskaDetail> | InputEvent,
+  options?: {
+    masked?: true
+  }
 ) => {
-  if( !masked && event.target.dataset?.maskRawValue ) {
+  const { masked } = options || {}
+  if( !masked && (<CustomEvent<MaskaDetail>>event).detail.unmasked ) {
     return
   }
 
-  inputValue.value = event.target.value
+  const value = inputValue.value = (<any>event).target.value
   const newValue = masked
-    ? event.target.dataset?.maskRawValue
-    : event.target.value
+    ? (<CustomEvent<MaskaDetail>>event).detail.unmasked
+    : value
     
   if( property.type === 'number' && !newValue ) {
     updateValue(0)
@@ -193,7 +190,7 @@ watch(() => props.modelValue, (value, oldValue) => {
           ${readOnly && 'input__input--readOnly'}
         `"
 
-        @maska="onInput($event, true)"
+        @maska="onInput($event, { masked: true })"
         @input="onInput"
         @change="emit('change', $event)"
       />
