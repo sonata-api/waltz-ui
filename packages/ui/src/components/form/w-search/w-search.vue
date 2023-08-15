@@ -224,7 +224,7 @@ cancelClearResponse = cancel_
           :key="`matching-${item._id}`"
           @click="select(item, +index)"
         >
-          <w-icon name="plus"></w-icon>
+          <w-icon icon="plus"></w-icon>
         </w-search-item>
 
         <div v-if="pagination.recordsTotal > pagination.recordsCount">

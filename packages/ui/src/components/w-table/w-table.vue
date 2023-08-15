@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject, computed } from 'vue'
 import { useStore, useCondition } from '@waltz-ui/web'
-import type { CollectionProperty } from '@sonata-api/types'
+import type { CollectionProperty, CollectionAction } from '@sonata-api/types'
 
 import WButton from '../w-button/w-button.vue'
 import WIcon from '../w-icon/w-icon.vue'
@@ -16,7 +16,7 @@ type Props = {
   checkbox?: boolean
   border?: boolean
   headers?: boolean
-  actions?: Array<CollectionAction & {
+  actions?: Array<CollectionAction<any> & {
     action: string
     click: (...args: any[]) => void
   }>
@@ -152,7 +152,7 @@ const buttonStyle = (subject: any, action: any) => {
                 <w-icon
                   v-if="row[column]"
                   small
-                  name="check"
+                  icon="check"
                   fill="green"
                 >
                   {{ $t('yes') }}
@@ -160,7 +160,7 @@ const buttonStyle = (subject: any, action: any) => {
                 <w-icon
                   v-else
                   small
-                  name="times"
+                  icon="times"
                   fill="red"
                 >
                   {{ $t('no') }}
@@ -254,7 +254,7 @@ const buttonStyle = (subject: any, action: any) => {
               <w-icon
                 v-clickable
                 reactive
-                name="ellipsis-h"
+                icon="ellipsis-h"
               ></w-icon>
             </w-context-menu>
           </div>

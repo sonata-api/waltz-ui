@@ -198,7 +198,7 @@ watch(() => props.modelValue, (value, oldValue) => {
       />
       <w-icon 
         v-if="icon"
-        :name="icon"
+        :icon="icon"
         :class="`
           input__icon
           input__icon--${variant}
@@ -212,7 +212,7 @@ watch(() => props.modelValue, (value, oldValue) => {
           <template #text>Copiar</template>
           <w-icon
             v-clickable
-            name="clipboard"
+            icon="clipboard"
             @click="copyToClipboard(modelValue)"
           ></w-icon>
         </w-info>

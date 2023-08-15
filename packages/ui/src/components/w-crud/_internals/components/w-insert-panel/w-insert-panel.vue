@@ -119,7 +119,7 @@ watch(() => store.item._id, (_id) => {
           v-clickable
           v-if="store.item._id"
           reactive
-          name="ellipsis-h"
+          icon="ellipsis-h"
         ></w-icon>
       </w-context-menu>
     </template>

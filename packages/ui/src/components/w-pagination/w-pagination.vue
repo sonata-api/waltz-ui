@@ -69,7 +69,7 @@ watch([page, limit], ([newPage]: [number, number]) => {
         </option>
       </w-select>
       <w-icon
-        name="list-ul"
+        icon="list-ul"
         fill="gray"
         style="margin-left: .8rem"
       ></w-icon>
@@ -79,7 +79,7 @@ watch([page, limit], ([newPage]: [number, number]) => {
       <w-bare-button @click="page = 0">
         <w-icon
           reactive
-          name="angle-double-left"
+          icon="angle-double-left"
         ></w-icon>
       </w-bare-button>
       <w-bare-button
@@ -88,7 +88,7 @@ watch([page, limit], ([newPage]: [number, number]) => {
       >
         <w-icon
           reactive
-          name="angle-left"
+          icon="angle-left"
         ></w-icon>
       </w-bare-button>
       <div class="pagination__page-input">
@@ -111,13 +111,13 @@ watch([page, limit], ([newPage]: [number, number]) => {
       >
         <w-icon
           reactive
-          name="angle-right"
+          icon="angle-right"
         ></w-icon>
       </w-bare-button>
       <w-bare-button @click="page = pageCount - 1">
         <w-icon
           reactive
-          name="angle-double-right"
+          icon="angle-double-right"
         ></w-icon>
       </w-bare-button>
     </div>

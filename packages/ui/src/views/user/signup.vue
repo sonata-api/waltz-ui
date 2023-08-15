@@ -57,7 +57,7 @@ const insert = async () => {
     <h1>Criar conta</h1>
     <w-icon
       v-clickable
-      name="arrow-left"
+      icon="arrow-left"
       @click="router.push({ name: '/user/signin' })"
     >
       Efetuar login

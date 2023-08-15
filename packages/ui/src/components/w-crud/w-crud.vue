@@ -317,7 +317,7 @@ provide('parentStore', parentStore)
         <w-icon
           v-clickable
           reactive
-          name="refresh"
+          icon="refresh"
           @click="fetchItems"
         ></w-icon>
       </w-info>
@@ -326,7 +326,7 @@ provide('parentStore', parentStore)
         v-if="store && Object.keys(store.availableFilters).length > 0"
         v-clickable
         reactive
-        name="filter"
+        icon="filter"
         @click="isFilterVisible = true"
       >
         Filtros
@@ -343,7 +343,7 @@ provide('parentStore', parentStore)
           <w-icon
             v-if="store && Object.keys(store.availableFilters).length > 0"
             reactive
-            name="trash"
+            icon="trash"
             @click="() => (store.clearFilters() && store.filter(undefined, { unproxied: true }))"
           ></w-icon>
         </w-bare-button>
@@ -362,7 +362,7 @@ provide('parentStore', parentStore)
         <w-icon
           v-clickable
           reactive
-          name="table"
+          icon="table"
           @click="toggleLayout(store)"
         ></w-icon>
       </w-info>

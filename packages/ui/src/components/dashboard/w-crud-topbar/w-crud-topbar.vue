@@ -79,7 +79,7 @@ watch(route, (currRoute, prevRoute) => {
           <w-icon
             small
             v-if="preset.icon"
-            :name="preset.icon"
+            :icon="preset.icon"
           >
             {{ preset.name || $tc(presetName, 2) }}
           </w-icon>

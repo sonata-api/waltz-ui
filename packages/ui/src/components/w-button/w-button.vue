@@ -52,7 +52,7 @@ const size = (() => {
     <div style="width: 100%">
       <w-icon
         v-if="icon"
-        :name="icon"
+        :icon="icon"
         :small="size === 'small'"
         class="button__icon"
       >

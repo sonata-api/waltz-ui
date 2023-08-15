@@ -96,7 +96,7 @@ const position = computed(() => ({
               <w-icon
                 small
                 v-if="action.icon"
-                :name="action.icon"
+                :icon="action.icon"
               >
                 {{
                   action.translate

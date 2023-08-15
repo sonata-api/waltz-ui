@@ -2,7 +2,7 @@
 import { inject } from 'vue'
 
 type Props = {
-  name: string
+  icon: string
   variant?: string
   size?: string
   small?: boolean
@@ -59,7 +59,7 @@ const reactive = typeof props.reactive === 'boolean'
           ...(fill ? { fill } : {})
         }"
       >
-        <use :href="`/assets/icons.svg#${variant}:${name}`"></use>
+        <use :href="`/assets/icons.svg#${variant}:${icon}`"></use>
       </svg>
     </div>
     <div v-if="$slots.default" data-component="icon-label">

@@ -127,14 +127,14 @@ const toggleCollapsed = (value: boolean) => {
           v-clickable
           v-if="collapsible"
           reactive
-          :name="!isCollapsed ? 'minus' : 'plus'"
+          :icon="!isCollapsed ? 'minus' : 'plus'"
           @click="toggleCollapsed(!isCollapsed)"
         />
         <w-icon
           v-clickable
           v-else-if="closeHint"
           reactive
-          name="multiply"
+          icon="multiply"
           @click="close"
         />
       </div>

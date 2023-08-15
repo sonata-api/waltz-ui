@@ -357,7 +357,7 @@ const isInsertReady = computed(() => {
             <w-icon
               v-clickable
               reactive
-              name="trash"
+              icon="trash"
               @click="spliceFromArray(modelValue[key], listIndex)"
             ></w-icon>
           </div>

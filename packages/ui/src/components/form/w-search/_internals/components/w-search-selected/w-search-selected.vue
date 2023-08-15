@@ -67,6 +67,6 @@ const unselect = async (item: any, purge=true) => {
     :key="item._id"
     @click="unselect(item, false)"
   >
-    <w-icon v-clickable name="check-circle"></w-icon>
+    <w-icon v-clickable icon="check-circle"></w-icon>
   </w-search-item>
 </template>

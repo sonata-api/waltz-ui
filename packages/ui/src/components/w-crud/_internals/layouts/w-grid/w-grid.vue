@@ -51,8 +51,8 @@ const firstIfArray = (what: any) => {
           <w-icon
             v-clickable
             reactive
-            name="ellipsis-h"
-            ></w-icon>
+            icon="ellipsis-h"
+          ></w-icon>
         </w-context-menu>
       </template>
     </w-card>

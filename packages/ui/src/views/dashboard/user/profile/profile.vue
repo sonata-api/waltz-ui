@@ -53,7 +53,7 @@ const signout = async () => {
           v-clickable
           small
           icon-right
-          name="edit"
+          icon="edit"
           @click="editPanel = true"
         >
           <h2>{{ userStore.item.full_name }}</h2>
@@ -67,14 +67,14 @@ const signout = async () => {
 
           <w-icon
             v-clickable
-            name="key-skeleton"
+            icon="key-skeleton"
             @click="$router.push('/dashboard/user/changepass')"
           >
             Mudar senha
           </w-icon>
           <w-icon
             v-clickable
-            name="signout"
+            icon="signout"
             @click="signout"
           >
             Sair
