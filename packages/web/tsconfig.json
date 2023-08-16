@@ -26,5 +26,9 @@
         "./node_modules/@sonata-api/system/dist"
       ]
     }
-  }
+  },
+  "include": [
+    "@types/*.d.ts",
+    "src"
+  ]
 }
