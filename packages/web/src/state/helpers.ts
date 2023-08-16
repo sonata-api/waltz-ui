@@ -1,11 +1,11 @@
 import type { CollectionActions, Description } from '@sonata-api/types'
+import { freshItem as _freshItem } from '@sonata-api/common'
 
 const isObject = (property: any) =>
   property.$ref
     || property.type === 'object'
     || property.items?.$ref
     || property.items?.type === 'object'
-
 
 export const condenseItem = (item: Record<string, any>): Record<string, Exclude<any, '_id'>> => {
   return Object.entries(item||{}).reduce((a, [key, value]) => {
@@ -69,32 +69,7 @@ export const normalizeFilters = (filters: Description['filters']) => {
   }, {}) || {}
 }
 
-export const freshItem = (description: Description) => {
-  const item: Record<string, any> = Object.entries(description.properties).reduce((a, [key, property]) => {
-    const value = (() => {
-      if( property.$ref ) {
-        return {}
-      }
-
-      switch( property.type ) {
-        case 'array': return []
-        case 'object': return {}
-        default: return null
-      }
-    })()
-
-    return {
-      ...a,
-      [key]: value
-    }
-  }, {})
-
-  if( description.freshItem ) {
-    Object.assign(item, description.freshItem)
-  }
-
-  return item
-}
+export const freshItem = (description: Description) => _freshItem(description)
 
 export const freshFilters = (description: Description) => {
   return Object.entries(description.properties||{})
