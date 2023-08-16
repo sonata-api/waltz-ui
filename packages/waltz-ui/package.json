@@ -1,6 +1,6 @@
 {
   "name": "waltz-ui",
-  "version": "0.0.14",
+  "version": "0.0.13",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -22,5 +22,5 @@
     "@waltz-ui/ui": "^0.0.12",
     "@waltz-ui/web": "^0.0.5"
   },
-  "gitHead": "12d7d861731240d2cfc40104def04406dae1d0b1"
+  "gitHead": "1d6ca8fc72c6d648b12621a192462ef35793dcb9"
 }
