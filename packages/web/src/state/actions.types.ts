@@ -1,16 +1,16 @@
 import type { CollectionProperty } from '@sonata-api/types'
 import type { CollectionStore, CollectionState } from '..//types/state'
 
-type CrudParameters = {
+export type CrudParameters = {
   filters: Record<string, any>
   limit: number
   offset: number
   project?: string[]|Record<string, 1|-1>
 }
 
-type ActionFilter = Partial<CrudParameters>
+export type ActionFilter = Partial<CrudParameters>
 
-type ActionOptions = {
+export type ActionOptions = {
   method?:
     'GET'
     | 'POST'

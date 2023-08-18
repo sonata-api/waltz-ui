@@ -2,8 +2,8 @@ import type { CollectionProperty, Layout, LayoutName } from '@sonata-api/types'
 import type { CollectionStore, CollectionState } from '../types/state'
 import { deepClone, deepMerge } from '@sonata-api/common'
 import { deepDiff } from './deepDiff'
+import { useStore, type Store } from '@waltz-ui/state-management'
 import { insertReady } from './insertReady'
-import { useStore } from './use'
 
 import  {
   condenseItem,

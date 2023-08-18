@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useStore, useRouter } from '@waltz-ui/web'
+import { isRight } from '@sonata-api/common'
 import WForm from '../../components/form/w-form/w-form.vue'
 import WButton from '../../components/w-button/w-button.vue'
 
@@ -10,8 +11,10 @@ const metaStore = useStore('meta')
 userStorage.clear()
 
 const authenticate = async () => {
-  await userStore.authenticate(userStore.credentials)
-  router.push('/dashboard')
+  const resultEither = await userStore.authenticate(userStore.credentials)
+  if( isRight(resultEither) ) {
+    router.push('/dashboard')
+  }
 }
 </script>
 

@@ -1,5 +1,5 @@
 import { request } from '@sonata-api/common'
-import { useStore } from './state/use'
+import { useStore } from '@waltz-ui/state-management'
 
 export const SV_API_URL = process.env.NODE_ENV === 'development'
   ? 'http://localhost:3000/api'

@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router/auto'
-import { useStore } from './state/use'
+import { isRight } from '@sonata-api/common'
+import { useMetaStore, useUserStore } from './stores'
 
 export type RouteMeta = {
   meta: {
@@ -31,18 +32,21 @@ export const routerInstance = (routes: Array<RouteRecordRaw>) => {
     }
   })
 
-  const metaStore = useStore('meta')
-  // const userStore = useStore('user')
-
   router.beforeEach(async (to, _from, next) => {
-    metaStore.view.title = to.meta?.title
-    if( process.env.NODE_ENV === 'development' ) {
-      return next()
-    }
+    const metaStore = useMetaStore()
+    const userStore = useUserStore()
 
-    // if( to.fullPath.startsWith('/dashboard') && !userStore.$currentUser._id ) {
-    //   next('/user/signin')
-    // }
+    metaStore.view.title = to.meta?.title as string
+
+    if( to.fullPath.startsWith('/dashboard') && !userStore.currentUser.pinged ) {
+      const resultEither = await userStore.functions.ping()
+      if( isRight(resultEither) ) {
+        userStore.currentUser.pinged = true
+        return next()
+      }
+
+      next('/user/signin')
+    }
 
     else next()
   })

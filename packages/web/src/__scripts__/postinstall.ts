@@ -4,7 +4,7 @@ import path from 'path'
 const DTS_FILENAME = 'waltz-ui.d.ts'
 
 const dts = `// WARNING: this file will be overriden
-import type { Context } from '@sonata-api/api'
+import type { Context, ActionOptions } from '@sonata-api/api'
 import type { CollectionStore } from '@waltz-ui/web'
 
 declare module '@waltz-ui/web' {
@@ -20,7 +20,10 @@ declare module '@waltz-ui/web' {
     | 'item'
     | 'items'> & {
     functions: {
-      [P in keyof Collections[StoreId]['functions']]: (arg: Parameters<Collections[StoreId]['functions'][P]>[0]) => ReturnType<Collections[StoreId]['functions'][P]>
+      [P in keyof Collections[StoreId]['functions']]: (
+        arg: Parameters<Collections[StoreId]['functions'][P]>[0],
+        options?: ActionOptions
+      ) => ReturnType<Collections[StoreId]['functions'][P]>
     }
     item: Collections[StoreId]['item']
     items: Array<Collections[StoreId]['item']>

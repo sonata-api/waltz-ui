@@ -1,5 +1,5 @@
 import { Directive } from 'vue'
-import { useStore } from '../state/use'
+import { useStore } from '@waltz-ui/state-management'
 
 const theme: Directive = {
   mounted(_, binding) {

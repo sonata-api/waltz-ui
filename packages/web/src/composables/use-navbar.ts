@@ -1,6 +1,7 @@
 import { ref, computed, watch, } from 'vue'
 import { arraysIntersects } from '@sonata-api/common'
-import { useStore, useRouter, Route, MenuSchema } from '..'
+import { useStore } from '@waltz-ui/state-management'
+import { useRouter, Route, MenuSchema } from '..'
 
 type Props = {
   entrypoint?: string
@@ -55,7 +56,7 @@ export const useNavbar = async (props: Props) => {
       const roles = route?.meta?.roles || node.roles
       if( roles ) {
         if( typeof roles === 'function' ) {
-          if( !await roles(userStore.$currentUser.roles) ) {
+          if( !await roles(userStore.$currentUser.roles || []) ) {
             return
           }
 

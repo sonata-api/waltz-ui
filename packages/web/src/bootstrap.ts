@@ -1,7 +1,7 @@
 import { watch } from 'vue'
 import { arraysIntersects } from '@sonata-api/common'
 import type { Description } from '@sonata-api/types'
-import { useStore } from './state/use'
+import { useStore } from '@waltz-ui/state-management'
 
 export const bootstrapRoutes = () => {
   const metaStore = useStore('meta')

@@ -24,6 +24,9 @@
       ],
       "@sonata-api/system": [
         "./node_modules/@sonata-api/system/dist"
+      ],
+      "@waltz-ui/state-management": [
+        "../state-management/dist"
       ]
     }
   },

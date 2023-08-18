@@ -8,10 +8,9 @@ export * from './state'
 export * from './types'
 export * from './http'
 
-import metaStore from './stores/meta'
-import userStore from './stores/user'
+import { useMetaStore, useUserStore } from './stores'
 
-STORES.meta = metaStore
-STORES.user = userStore
+STORES.meta = useMetaStore
+STORES.user = useUserStore
 
 window.userStorage = localStorage

@@ -10,7 +10,8 @@ import { createI18n } from 'vue-i18n'
 import { routerInstance as createRouter } from './router'
 
 import type { AppOptions } from './options'
-import { useStore, useParentStore } from './state/use'
+import { useStore, useParentStore } from '@waltz-ui/state-management'
+import { useMetaStore, useUserStore } from './stores'
 import registerDirectives from './directives'
 
 export const useApp = (options: AppOptions): Promise<{
@@ -45,8 +46,8 @@ export const useApp = (options: AppOptions): Promise<{
     await options.setup()
   }
 
-  const metaStore = useStore('meta')
-  const userStore = useStore('user')
+  const metaStore = useMetaStore()
+  const userStore = useUserStore()
 
   app.use(router)
   app.use(i18n)
@@ -121,6 +122,7 @@ export const useApp = (options: AppOptions): Promise<{
       await metaStore.describe({
         roles: true
       })
+
     } catch( e ) {
       console.trace(e)
 

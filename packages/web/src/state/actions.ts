@@ -2,9 +2,9 @@ import { formatValue, deepClone } from '@sonata-api/common'
 
 import { useHttp } from '../http'
 import type { Actions, Mutations, Item } from './actions.types'
-import { useStore } from './use'
+import { useStore } from '@waltz-ui/state-management'
 import { condenseItem } from './helpers'
-import useMetaStore from '../stores/meta'
+import { useMetaStore } from '../stores/meta'
 
 const { http, unproxiedHttp } = useHttp()
 

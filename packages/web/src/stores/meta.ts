@@ -2,9 +2,9 @@ import { defineStore } from 'pinia'
 import { deepClone, deserialize } from '@sonata-api/common'
 import { Description } from '@sonata-api/types'
 
+import { useStore, hasStore, registerStore } from '@waltz-ui/state-management'
 import { useHttp } from '../http'
 import { useCollection } from '../state/collection'
-import { useStore, hasStore, registerStore } from '../state/use'
 import { freshItem, freshFilters } from '../state/helpers'
 
 type CollectionName = string
@@ -12,9 +12,9 @@ type PromptAnswer = { name: string }
 
 const { http } = useHttp()
 
-export default defineStore('meta', {
+export const useMetaStore = defineStore('meta', {
   state: () => ({
-    descriptions: [],
+    descriptions: {} as Record<string, Description>,
     roles: {},
 
     isLoading: false,

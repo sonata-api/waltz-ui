@@ -2,7 +2,7 @@
 import type { AssetType, ResourceErrors, Schema, Context as Context_ } from '@sonata-api/api'
 import type { Description } from '@sonata-api/types'
 import type { Model } from 'mongoose'
-import { Either } from '@sonata-api/common'
+import type { Either } from '@sonata-api/common'
 
 declare global {
   type SystemCollections = typeof import('@sonata-api/system/collections')

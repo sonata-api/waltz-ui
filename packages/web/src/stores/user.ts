@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import type { User } from '@sonata-api/system'
+import { left, right, isLeft, unwrapEither } from '@sonata-api/common'
 import { useCollection } from '../state/collection'
-import useMetaStore from './meta'
+import { useMetaStore } from './meta'
 
 type Credentials = {
   email: string
@@ -24,42 +25,59 @@ const collection = useCollection({
     }
   }),
   actions: {
-    authenticate(payload: Credentials | { revalidate: true }) {
+    async authenticate(payload: Credentials | { revalidate: true }) {
+      const metaStore = useMetaStore()
+
       try {
-        return this.customEffect(
-          'authenticate', payload,
-          async ({ user, token: _token }: {
-            user: User
-            token: { 
-              type: 'Bearer'
-              token: string
-            }
-          }) => {
-            this.credentials = {}
-            this.currentUser = user
+        const resultEither = await this.functions.authenticate(payload)
+        if( isLeft(resultEither) ) {
+          const error = unwrapEither(resultEither)
+          metaStore.spawnModal({
+            title: 'Erro!',
+            body: error as string
+          })
 
-            const {
-              type: _tokenType,
-              token
-            } = _token
+          return left(error)
+        }
 
-            userStorage.setItem('auth:token', token)
-            userStorage.setItem('auth:currentUser', JSON.stringify(this.currentUser))
+        const {
+          user,
+          token: _token
 
-            const metaStore = useMetaStore()
-            await metaStore.describe({
-              roles: true
-            })
-          }
-        )
+        } = unwrapEither(resultEither) as any
+
+        this.credentials = {}
+
+        const {
+          type: _tokenType,
+          token
+        } = _token
+
+        this.setCurrentUser(user)
+        userStorage.setItem('auth:token', token)
+
+        await metaStore.describe({
+          roles: true
+        })
+
+        return right('ok')
+
       } catch( err ) {
         this.signout()
-        throw err
+        console.trace(err)
+
+        return left(err)
       }
     },
 
+    setCurrentUser(user: User) {
+      this.currentUser = user
+      userStorage.setItem('auth:currentUser', JSON.stringify(this.currentUser))
+    },
+
     signout() {
-      userStorage.clear()
+      userStorage.removeItem('auth:token')
+      userStorage.removeItem('auth:currentUser')
       this.currentUser = {}
     }
   },
@@ -85,4 +103,4 @@ const collection = useCollection({
   }
 })
 
-export default defineStore('user', collection)
+export const useUserStore = defineStore('user', collection)
