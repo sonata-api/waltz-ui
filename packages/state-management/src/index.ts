@@ -1,4 +1,12 @@
-import { inject, isRef, reactive, type Ref } from 'vue'
+import {
+  inject,
+  isRef,
+  reactive,
+  isReactive,
+  type Ref,
+ 
+  type ComputedRef
+} from 'vue'
 
 export type StoreState<TContent extends object=Record<string, any>> = TContent
 
@@ -35,19 +43,23 @@ export const hasStore = (storeId: string) => {
 
 export const registerStore = <
   const TStoreId extends string,
-  TState extends StoreState,
-  TActions extends Record<string, (...args: any[]) => any>
+  TStoreState extends StoreState,
+  TStoreGetters extends Record<string, ComputedRef<any>>,
+  TStoreActions extends Record<string, (...args: any[]) => any>
 
 >(fn: () => {
   $id: TStoreId
-  state: TState
-  actions?: TActions
+  state: TStoreState
+  getters?: TStoreGetters,
+  actions?: TStoreActions
 }) => {
-  const { $id, state, actions } = fn()
-  const store = reactive(state) as unknown as TState & {
-    $id: TStoreId,
-    actions: TActions
-    functions: Record<string, (...args: any[]) => any>
+  const { $id, state, getters, actions } = fn()
+  const store = isReactive(state)
+    ? state
+    : reactive(state) 
+
+  if( getters ) {
+    Object.assign(store, getters)
   }
 
   if( actions ) {
@@ -65,5 +77,10 @@ export const registerStore = <
   }
 
   STORES[$id] = store
-  return store
+  return store as unknown as TStoreState & TStoreGetters & {
+    $id: TStoreId,
+    actions: TStoreActions
+    functions: Record<string, (...args: any[]) => any>
+  }
+
 }

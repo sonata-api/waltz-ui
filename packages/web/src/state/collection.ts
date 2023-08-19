@@ -1,6 +1,6 @@
 import type { Description, Layout } from '@sonata-api/types'
-import { computed, reactive } from 'vue'
-import { useStore, type StoreState, registerStore } from '@waltz-ui/state-management'
+import { computed, reactive, type ComputedRef } from 'vue'
+import { useStore, type StoreState } from '@waltz-ui/state-management'
 import { deepClone, deepMerge } from '@sonata-api/common'
 import { PAGINATION_PER_PAGE_DEFAULT } from '../constants'
 import { deepDiff } from './deepDiff'
@@ -243,16 +243,18 @@ const internalUseCollectionStore = <TItem extends CollectionStoreItem>() => {
 
 export const useCollectionStore = <TItem extends CollectionStoreItem>() => <
   TStoreState extends StoreState<any>=any,
+  TStoreGetters extends Record<string, ComputedRef<any>>={},
   TStoreActions extends Record<string, (...args: any[]) => any>={}
 >(newer: {
   $id: string
   state?: TStoreState
+  getters?: TStoreGetters
   actions?: TStoreActions
 }) => {
   const initial = internalUseCollectionStore<TItem>()
 
   const state: typeof initial & TStoreState = newer?.state
-    ? deepMerge(initial as any, newer.state)
+    ? Object.assign(newer.state, initial) as any
     : initial
 
   const actions = useActions({
@@ -267,6 +269,7 @@ export const useCollectionStore = <TItem extends CollectionStoreItem>() => <
   return {
     $id: newer?.$id,
     state: state as TStoreState,
+    getters: newer.getters as TStoreGetters,
     actions: actions as TStoreActions extends {}
       ? typeof actions
       : typeof actions & TStoreActions

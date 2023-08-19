@@ -1,7 +1,7 @@
 import type { CollectionStoreActions } from '../state/actions'
 import { registerStore } from '@waltz-ui/state-management'
 import { left, right, isLeft, unwrapEither } from '@sonata-api/common'
-import { ref, reactive, computed } from 'vue'
+import { reactive, computed } from 'vue'
 import { useCollectionStore } from '../state/collection'
 import { useMetaStore } from './meta'
 
@@ -17,42 +17,46 @@ type Credentials = {
 }
 
 export const useUserStore = () => registerStore(() => {
-  const token = ref('')
-  const credentials = ref({
-    email: '',
-    password: ''
-  })
-
-  const currentUser = reactive({} as Partial<User> & {
-    pinged?: boolean
-  })
-
-  const properties = computed(function(this: any) {
-    const metaStore = useMetaStore()
-    const properties = this.description.properties!
-    properties.roles.items.enum = Object.keys(metaStore.roles)
-
-    return properties
-
+  const state = reactive({
+    token: '',
+    currentUser: {} as Partial<User> & {
+      pinged?: boolean
+    },
+    credentials: {
+      email: '',
+      password: ''
+    },
   })
 
   const $currentUser = computed(() => {
-    if( !currentUser._id ) {
-      token.value = userStorage.getItem('auth:token')!
+    if( !state.currentUser._id ) {
+      state.token = userStorage.getItem('auth:token')!
       setCurrentUser(JSON.parse(userStorage.getItem('auth:currentUser')||'{}'))
     }
 
-    return currentUser
+    return state.currentUser
   })
 
-  const signedIn = computed(() => $currentUser.value.roles)
+  const getters = {
+    $currentUser,
+    properties: computed(function(this: any) {
+      const metaStore = useMetaStore()
+      const properties = this.description.properties!
+      properties.roles.items.enum = Object.keys(metaStore.roles)
+
+      return properties
+    }),
+    signedIn: computed(() => !!$currentUser.value.roles?.length)
+  }
+
+  Object.assign(state, getters)
 
   function setCurrentUser(user: User | {}) {
-    for( const key in currentUser ) {
-      delete currentUser[key as keyof typeof currentUser]
+    for( const key in state.currentUser ) {
+      delete state.currentUser[key as keyof typeof state.currentUser]
     }
-    Object.assign(currentUser, user)
-    userStorage.setItem('auth:currentUser', JSON.stringify(currentUser))
+    Object.assign(state.currentUser, user)
+    userStorage.setItem('auth:currentUser', JSON.stringify(state.currentUser))
   }
 
   function signout() {
@@ -63,15 +67,8 @@ export const useUserStore = () => registerStore(() => {
 
   return useCollectionStore<User>()({
     $id: 'user',
-    state: {
-      token: '',
-      currentUser,
-      $currentUser,
-      signedIn,
-
-      credentials,
-      properties
-    },
+    state,
+    getters,
     actions: {
       setCurrentUser,
       signout,
@@ -97,7 +94,7 @@ export const useUserStore = () => registerStore(() => {
 
           } = unwrapEither(resultEither) as any
 
-          credentials.value = {
+          state.credentials = {
             email: '',
             password: ''
           }

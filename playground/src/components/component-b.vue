@@ -5,6 +5,6 @@ const animalStore = useStore('animal')
 
 <template>
   <div>
-    specie (from component b): {{ animalStore.specie }}
+    specie (from component b): {{ animalStore.num }}
   </div>
 </template>
