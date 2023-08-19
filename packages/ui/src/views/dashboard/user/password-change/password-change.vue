@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter, useStore } from '@waltz-ui/web'
+import { useRouter } from '@waltz-ui/web'
+import { useStore } from '@waltz-ui/state-management'
 
 import WButton from '../../../../components/w-button/w-button.vue'
 import WPasswordForm from '../../../../components/dashboard/w-password-form/w-password-form.vue'

@@ -2,7 +2,8 @@
 import type { CollectionProperty, Condition } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
 import { onBeforeMount, computed, provide, inject } from 'vue'
-import { useStore, useCondition, insertReady } from '@waltz-ui/web'
+import { useCondition, insertReady } from '@waltz-ui/web'
+import { useStore } from '@waltz-ui/state-management'
 
 import WIcon from '../../w-icon/w-icon.vue'
 import WButton from '../../w-button/w-button.vue'

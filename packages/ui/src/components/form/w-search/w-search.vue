@@ -1,21 +1,12 @@
 <script setup lang="ts">
 import type { CollectionProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
-import {
-  onMounted,
-  provide,
-  inject,
-  computed,
-  ref,
-  reactive,
-  nextTick
+import { onMounted, provide, inject, computed, ref, nextTick } from 'vue'
+import { useDebounce } from '@waltz-ui/web'
+import { useStore } from '@waltz-ui/state-management'
 
-} from 'vue'
-
-import { useStore, useDebounce } from '@waltz-ui/web'
 import WIcon from '../../w-icon/w-icon.vue'
 import WForm from '../w-form/w-form.vue'
-
 import WSearchSelected from './_internals/components/w-search-selected/w-search-selected.vue'
 import WSearchItem from './_internals/components/w-search-item/w-search-item.vue'
 

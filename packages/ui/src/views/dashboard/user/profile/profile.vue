@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useStore, useRouter } from '@waltz-ui/web'
+import { useRouter } from '@waltz-ui/web'
+import { useStore } from '@waltz-ui/state-management'
 
 import WBox from '../../../../components/w-box/w-box.vue'
 import WForm from '../../../../components/form/w-form/w-form.vue'

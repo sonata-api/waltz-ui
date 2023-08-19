@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useStore, bootstrapRoutes } from '@waltz-ui/web'
+import { bootstrapRoutes } from '@waltz-ui/web'
+import { useStore } from '@waltz-ui/state-management'
 import WModal from '../dashboard/w-modal/w-modal.vue'
 import WPrompt from '../dashboard/w-prompt/w-prompt.vue'
 import WToast from '../dashboard/w-toast/w-toast.vue'

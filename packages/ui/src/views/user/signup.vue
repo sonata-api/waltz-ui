@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useRouter, useStore, hasStore } from '@waltz-ui/web'
+import { useRouter } from '@waltz-ui/web'
+import { useStore } from '@waltz-ui/state-management'
 import WForm from '../../components/form/w-form/w-form.vue'
 import WIcon from '../../components/w-icon/w-icon.vue'
 import WButton from '../../components/w-button/w-button.vue'
@@ -27,9 +28,6 @@ const password = ref({
 const insert = async () => {
   userStore.item.password = password.value.password
   const user = await userStore.insert().catch(async (e) => {
-    await userStore.errorPopup(e)
-    router.back()
-
     throw e
   })
 

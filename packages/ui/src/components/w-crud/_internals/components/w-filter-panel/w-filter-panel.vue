@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useParentStore } from '@waltz-ui/web'
+import { useParentStore } from '@waltz-ui/state-management'
 import WBox from '../../../../w-box/w-box.vue'
 import WForm from '../../../../form/w-form/w-form.vue'
 import WButton from '../../../../w-button/w-button.vue'

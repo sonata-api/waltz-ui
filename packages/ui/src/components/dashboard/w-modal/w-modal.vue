@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useStore } from '@waltz-ui/web'
+import { useStore } from '@waltz-ui/state-management'
 import WBox from '../../w-box/w-box.vue'
 
 type Props = {

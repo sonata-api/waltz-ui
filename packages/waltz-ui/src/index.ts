@@ -2,12 +2,8 @@ export {
   type MenuSchema,
   type AppOptions,
   defineOptions,
-  defineStore,
-  registerStore,
-  useCollection,
+  useCollectionStore,
   useHttp,
-  useStore,
-  useParentStore,
   useRouter,
   useClipboard,
   useAction,
@@ -18,4 +14,5 @@ export {
 
 } from '@waltz-ui/web'
 
+export * from '@waltz-ui/state-management'
 export * from '@waltz-ui/ui'

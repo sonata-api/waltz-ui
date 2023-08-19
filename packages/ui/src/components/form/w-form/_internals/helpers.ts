@@ -1,6 +1,6 @@
 import { CollectionProperty } from '@sonata-api/types'
 import { deepClone } from '@sonata-api/common'
-import { useStore } from '@waltz-ui/web'
+import { useStore } from '@waltz-ui/state-management'
 
 import WInput from '../../w-input/w-input.vue'
 import WOptions from '../../w-options/w-options.vue'

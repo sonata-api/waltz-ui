@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import { useParentStore, PAGINATION_PER_PAGE_DEFAULTS } from '@waltz-ui/web'
+import { PAGINATION_PER_PAGE_DEFAULTS } from '@waltz-ui/web'
+import { useParentStore } from '@waltz-ui/state-management'
 
 import WBareButton from '../w-bare-button/w-bare-button.vue'
 import WIcon from '../w-icon/w-icon.vue'

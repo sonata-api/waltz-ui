@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useRouter, useStore } from '@waltz-ui/web'
+import { useRouter } from '@waltz-ui/web'
+import { useStore } from '@waltz-ui/state-management'
 import { unsafe } from '@sonata-api/common'
 import { ref } from 'vue'
 

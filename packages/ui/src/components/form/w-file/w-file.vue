@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { FormFieldProps } from '../types'
 import { provide, ref, computed } from 'vue'
-import { useParentStore } from '@waltz-ui/web'
+import { useParentStore } from '@waltz-ui/state-management'
 import WPicture from '../../w-picture/w-picture.vue'
 import WButton from '../../w-button/w-button.vue'
 

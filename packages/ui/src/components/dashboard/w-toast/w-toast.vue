@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useStore } from '@waltz-ui/web'
+import { useStore } from '@waltz-ui/state-management'
 import WIcon from '../../w-icon/w-icon.vue'
 
 const props = defineProps<{
@@ -26,7 +26,7 @@ const metaStore = useStore('meta')
       <w-icon
         v-if="icon"
         small
-        :name="icon"
+        :icon="icon"
       >
         <slot></slot>
       </w-icon>

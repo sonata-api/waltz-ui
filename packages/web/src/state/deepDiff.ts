@@ -1,4 +1,11 @@
-export const deepDiff = <T extends Record<string, any>>(origin: T, target: T, preserveIds?: boolean) => {
+export type DiffOptions = {
+  preserveIds?: boolean
+}
+export const deepDiff = <T extends Record<string, any>>(origin: T, target: T, options?: DiffOptions) => {
+  const {
+    preserveIds
+  } = options || {}
+
   const equals = (left: any, right: any) => {
     const toStr = (obj: any) => JSON.stringify(
       obj,

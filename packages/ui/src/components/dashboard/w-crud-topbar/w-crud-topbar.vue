@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed, watch } from 'vue'
 import type { FiltersPreset } from '@sonata-api/types'
-import { useRouter, useParentStore } from '@waltz-ui/web'
+import { computed, watch, type ComputedRef } from 'vue'
+import { useRouter } from '@waltz-ui/web'
+import { useParentStore } from '@waltz-ui/state-management'
 import WTabs from '../../w-tabs/w-tabs.vue'
 import WIcon from '../../w-icon/w-icon.vue'
 
@@ -25,12 +26,16 @@ const store = computed(() => {
   }
 })
 
-const togglePreset = (presetName: string, preset?: FiltersPreset) => {
+const togglePreset = (presetName: string, preset?: FiltersPreset<any>) => {
   if( !store.value ) {
     return
   }
 
-  return (({ value: store }) => {
+  return (({ value: store }: ComputedRef<ReturnType<typeof useParentStore>|null>) => {
+    if( !store ) {
+      return
+    }
+
     store.filtersPreset = preset?.filters || {}
     store.preferredTableProperties = preset?.table || []
     store.pagination.offset = 0
@@ -85,11 +90,12 @@ watch(route, (currRoute, prevRoute) => {
           </w-icon>
           <span v-else>{{ preset.name || $tc(presetName, 2) }}</span>
           <span v-if="preset.badgeFunction">
-            ({{
-              store.customGetter[preset.badgeFunction](presetName, {
-                filters: preset.filters
-              })
-            }})
+            oi
+            <!-- ({{ -->
+            <!--   store.customGetter[preset.badgeFunction](presetName, { -->
+            <!--     filters: preset.filters -->
+            <!--   }) -->
+            <!-- }}) -->
           </span>
         </div>
       </template>

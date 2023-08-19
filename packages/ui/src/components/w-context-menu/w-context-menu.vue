@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useStore } from '@waltz-ui/web'
+import { useStore } from '@waltz-ui/state-management'
 import WBareButton from '../w-bare-button/w-bare-button.vue'
 import WIcon from '../w-icon/w-icon.vue'
 

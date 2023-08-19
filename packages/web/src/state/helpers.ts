@@ -41,21 +41,26 @@ export const removeEmpty = (item: any) => {
 }
 
 
-export const normalizeActions = (actions: CollectionActions<any>) => Object.entries(actions||{})
-  .reduce((a: Array<object>, [key, value]) => {
-    if( !value || key.startsWith('_') ) {
-      return a
-    }
+export const normalizeActions = <const TActions extends CollectionActions<any>>(actions?: CollectionActions<any>) => {
+  if( !actions ) {
+    return [] as Array<TActions>
+  }
 
-    return [
-      ...a,
-      {
-        action: key,
-        ...value
+  return Object.entries(actions)
+    .reduce((a: Array<object>, [key, value]) => {
+      if( !value || key.startsWith('_') ) {
+        return a
       }
-  ]
-}, [])
 
+      return [
+        ...a,
+        {
+          action: key,
+          ...value
+        }
+    ]
+  }, []) as Array<TActions>
+}
 export const normalizeFilters = (filters: Description['filters']) => {
   return filters?.reduce((a, b) => {
     const filter = typeof b === 'object'

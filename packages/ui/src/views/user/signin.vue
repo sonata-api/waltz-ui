@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useStore, useRouter } from '@waltz-ui/web'
+import { useRouter } from '@waltz-ui/web'
+import { useStore } from '@waltz-ui/state-management'
 import { isRight } from '@sonata-api/common'
 import WForm from '../../components/form/w-form/w-form.vue'
 import WButton from '../../components/w-button/w-button.vue'

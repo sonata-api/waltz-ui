@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { inject, computed } from 'vue'
-import { useStore, useCondition } from '@waltz-ui/web'
+import { useCondition } from '@waltz-ui/web'
+import { useStore } from '@waltz-ui/state-management'
 import type { CollectionProperty, CollectionAction } from '@sonata-api/types'
 
 import WButton from '../w-button/w-button.vue'

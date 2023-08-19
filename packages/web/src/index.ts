@@ -5,7 +5,6 @@ export * from './constants'
 export * from './options'
 export * from './router'
 export * from './state'
-export * from './types'
 export * from './http'
 
 import { useMetaStore, useUserStore } from './stores'

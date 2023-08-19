@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import type { CollectionProperty } from '@sonata-api/types'
-import { useParentStore } from '@waltz-ui/web'
+import { computed } from 'vue'
+import { useParentStore } from '@waltz-ui/state-management'
 import WIcon from '../../../../../w-icon/w-icon.vue'
 import WSearchItem from '../w-search-item/w-search-item.vue'
 

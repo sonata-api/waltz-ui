@@ -5,22 +5,15 @@ import {
   computed,
   provide,
   inject,
-  watch
+  watch,
+  type Ref
 
 } from 'vue'
 
-import {
-  useStore,
-  useParentStore,
-  useRouter,
-  useAction,
-  useDebounce,
-  CollectionStore
-
-} from '@waltz-ui/web'
-
 import type { Layout } from '@sonata-api/types'
 import { deepClone } from '@sonata-api/common'
+import { useRouter, useAction, useDebounce, CollectionStore } from '@waltz-ui/web'
+import { useStore, useParentStore } from '@waltz-ui/state-management'
 
 import WPagination from '../w-pagination/w-pagination.vue'
 import WBareButton from '../w-bare-button/w-bare-button.vue'
@@ -52,7 +45,7 @@ type Props = {
   parentCollection?: string
   parentField?: string
   layout?: Layout
-  action?: any
+  action?: Ref<ReturnType<typeof useAction>> | ReturnType<typeof useAction>
   componentProps?: Record<string, any>
 }
 
@@ -243,7 +236,7 @@ watch(() => isInsertVisible, (value) => {
 
 const individualActions = computed(() => {
   return store.individualActions.map((action: any) => ({
-    click: call.value(action),
+    click: call.value!(action),
     ...action
   }))
 })
@@ -377,9 +370,9 @@ provide('parentStore', parentStore)
           :key="`action-${index}`"
 
           :icon="actionProps.icon"
-          :disabled="store.selectedIds.length === 0 && actionProps.selection"
+          :disabled="store.selected.length === 0 && actionProps.selection"
 
-          @click="call(actionProps)({ _id: selectedIds })"
+          @click="call(actionProps)({ _id: store.selected.map((_) => _._id) })"
         >
           {{ $t(actionProps.name) }}
         </w-button>

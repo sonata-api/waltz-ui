@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useStore } from '@waltz-ui/web'
+import { useStore } from '@waltz-ui/state-management'
 import WModal from '../w-modal/w-modal.vue'
 import WButton from '../../w-button/w-button.vue'
 

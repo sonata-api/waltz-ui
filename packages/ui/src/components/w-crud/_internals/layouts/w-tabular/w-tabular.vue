@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject, computed } from 'vue'
 import { LayoutOptions } from '@sonata-api/types'
-import { useParentStore } from '@waltz-ui/web'
+import { useParentStore } from '@waltz-ui/state-management'
 import WTable from '../../../../w-table/w-table.vue'
 
 type Props = {

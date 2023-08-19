@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { LayoutOptions } from '@sonata-api/types'
-import { useParentStore } from '@waltz-ui/web'
+import { useParentStore } from '@waltz-ui/state-management'
 
 import WContextMenu from '../../../../w-context-menu/w-context-menu.vue'
 import WIcon from '../../../../w-icon/w-icon.vue'

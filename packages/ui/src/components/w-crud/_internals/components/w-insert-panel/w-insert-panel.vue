@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { inject, watch } from 'vue'
-import { useStore, CollectionStore } from '@waltz-ui/web'
+import { CollectionStore } from '@waltz-ui/web'
+import { useStore } from '@waltz-ui/state-management'
 
 import WBox from '../../../../w-box/w-box.vue'
 import WForm from '../../../../form/w-form/w-form.vue'
