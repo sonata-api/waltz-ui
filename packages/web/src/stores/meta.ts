@@ -1,5 +1,6 @@
 import { deepClone, deserialize } from '@sonata-api/common'
 import { Description } from '@sonata-api/types'
+import { ref, reactive, computed } from 'vue'
 
 import { useStore, hasStore, registerStore } from '@waltz-ui/state-management'
 import { useHttp } from '../http'
@@ -11,202 +12,224 @@ type PromptAnswer = { name: string }
 
 const { http } = useHttp()
 
-export const useMetaStore = () => ({} as any)
+export const useMetaStore = () => registerStore(() => {
+  const descriptions = ref([])
+  const roles = ref([])
 
-// export const useMetaStore = defineStore('meta', {
-//   state: () => ({
-//     descriptions: {} as Record<string, Description>,
-//     roles: {},
+  const isLoading = ref(false)
+  const theme = ref('')
+  const themeOverride = ref('')
 
-//     isLoading: false,
-//     globalIsLoading: false,
+  const $theme = computed(() => {
+    const currTheme = themeOverride.value || theme.value
+    if( !currTheme ) {
+      const defaultTheme = 'default'
+      theme.value = localStorage.getItem('meta:theme__') || defaultTheme
+      return theme.value
+    }
 
-//     theme: '',
-//     themeOverride: '',
-//     availableThemes: INSTANCE_VARS?.themes || [],
-    
-//     view: {
-//       title: '',
-//       layout: 'tabular',
-//       collection: ''
-//     },
-//     sidepanel: {
-//       visible: true
-//     },
-//     menu: {
-//       visible: true,
-//       isMobileVisible: false
-//     },
-//     modal: {
-//       visible: false,
-//       title: '',
-//       body: '',
-//       component: '',
-//       details: {}
-//     },
-//     prompt: {
-//       visible: false,
-//       title: '',
-//       body: '',
-//       actions: [],
-//     },
-//     toasts: [],
-//   }),
+    return currTheme
+  })
 
-//   actions: {
-//     async describe(props?: Parameters<ReturnType<typeof import('@sonata-api/system').algorithms.meta>['functions']['describe']>[0]) {
-//       this.isLoading = true
-//       const response = (await http('_/meta/describe', props))?.data
-//       const deserialized = deserialize(response)
+  const menu = reactive({
+    visible: true,
+    isMobileVisible: false
+  })
 
-//       const descriptions: Record<CollectionName, Description> =
-//         this.descriptions = deserialized.descriptions
+  const sidepanel = reactive({
+    visible: false
+  })
 
-//       if( deserialized.roles ) {
-//         this.roles = deserialized.roles
-//       }
+  const modal = reactive({
+    visible: false,
+    title: '',
+    body: '',
+    component: '',
+    details: {}
+  })
 
-//       // monkeypatchs '@waltz-ui/web/stores' object
-//       for ( const [collectionName, description] of Object.entries(descriptions) ) {
-//         const rawDescription = Object.assign({}, description)
-//         const item = freshItem(description)
+  const prompt = reactive({
+    visible: false,
+    title: '',
+    body: '',
+    actions: [],
+  })
 
-//         const filters = freshFilters(description)
+  return {
+    $id: 'meta',
+    state: {
+      descriptions: {} as Record<string, Description>,
+      roles: {},
 
-//         if( !description.properties ) {
-//           throw new Error(
-//             `collection ${collectionName} has no properties`
-//           )
-//         }
+      isLoading,
+      globalIsLoading: false,
 
-//         if( hasStore(collectionName) ) {
-//           const store = useStore(collectionName)
-//           store.$patch({
-//             item,
-//             filters,
-//             freshItem: deepClone(item),
-//             freshFilters: deepClone(filters),
-//             _description: description,
-//             rawDescription
-//           })
-//           continue
-//         }
+      theme,
+      $theme,
+      themeOverride,
+      availableThemes: INSTANCE_VARS?.themes || [],
+      
+      view: {
+        title: '',
+        layout: 'tabular',
+        collection: ''
+      },
+      menu,
+      sidepanel,
+      modal,
+      prompt,
+      toasts: [],
+    },
 
-//         const storePrototype = useCollectionStore()
+  actions: {
+    async describe(props?: Parameters<ReturnType<typeof import('@sonata-api/system').algorithms.meta>['functions']['describe']>[0]) {
+      isLoading.value = true
+      const response = (await http('_/meta/describe', props))?.data
+      const deserialized = deserialize(response)
 
-//         const store = defineStore(collectionName, {
-//           state: () => Object.assign(state(), {
-//             item,
-//             filters,
-//             freshItem: deepClone(item),
-//             freshFilters: deepClone(filters),
-//             _description: description,
-//             rawDescription
-//           }),
+      const globalDescriptions: Record<CollectionName, Description> =
+        descriptions.value = deserialized.descriptions
 
-//           actions,
-//           getters
-//         })
+      if( deserialized.roles ) {
+        roles.value = deserialized.roles
+      }
 
-//         registerStore(store)
-//         store()
-//       }
+      for ( const [collectionName, description] of Object.entries(globalDescriptions) ) {
+        const rawDescription = Object.assign({}, description)
+        const item = freshItem(description)
 
-//       this.isLoading = false
-//     },
+        const filters = freshFilters(description)
 
-//     swapMenu() {
-//       this.menu.visible = !this.menu.visible
-//       localStorage.setItem('meta:menu:visible', String(this.menu.visible))
-//     },
-//     swapSidepanel() {
-//       this.sidepanel.visible = !this.sidepanel.visible
-//       localStorage.setItem('meta:sidepanel:visible', String(this.sidepanel.visible))
-//     },
+        if( !description.properties ) {
+          throw new Error(
+            `collection ${collectionName} has no properties`
+          )
+        }
 
-//     spawnPrompt(props: {
-//       title?: string
-//       body?: string
-//       actions: Array<{
-//         name: string
-//         title: string
-//         size?: string
-//         variant?: string
-//       }>
-//     }): Promise<PromptAnswer> {
-//       this.$patch({
-//         prompt: {
-//           ...props,
-//           visible: true
-//         } as any
-//       })
+        if( hasStore(collectionName) ) {
+          const store = useStore(collectionName)
+          store.$patch({
+            item,
+            filters,
+            freshItem: deepClone(item),
+            freshFilters: deepClone(filters),
+            _description: description,
+            rawDescription
+          })
+          continue
+        }
 
-//       return new Promise((resolve) => {
-//         const event = ({ detail }: any) => {
-//           window.removeEventListener('__prompt', event)
-//           this.prompt.visible = false
-//           resolve(detail.option)
-//         }
+        // const store = defineStore(collectionName, {
+        //   state: () => Object.assign(state(), {
+        //     item,
+        //     filters,
+        //     freshItem: deepClone(item),
+        //     freshFilters: deepClone(filters),
+        //     _description: description,
+        //     rawDescription
+        //   }),
 
-//         window.addEventListener('__prompt', event)
-//       })
-//     },
+        //   actions,
+        //   getters
+        // })
+        //
+        registerStore(() => useCollectionStore<any>()({
+          $id: collectionName,
+          state: {
+            item,
+            filters,
+            freshItem: deepClone(item),
+            freshFilters: deepClone(filters),
+            _description: description,
+            rawDescription
+          }
+        }))
 
-//     fulfillPrompt(answer: PromptAnswer) {
-//       window.dispatchEvent(new CustomEvent('__prompt', {
-//         detail: { option: answer }
-//       }))
-//     },
+        // registerStore(store)
+        // store()
+      }
 
-//     spawnModal(props: Partial<Omit<typeof this['modal'], 'visible'>>) {
-//       this.$patch({
-//         modal: {
-//           ...props,
-//           visible: true
-//         }
-//       })
-//     },
+      isLoading.value = false
+    },
 
-//     spawnToast(
-//       this: { toasts: Array<any> },
-//       props: {
-//         text: string
-//         icon?: string
-//       }
-//     ) {
-//       this.toasts.push({
-//         ...props,
-//         itr: Math.random(),
-//         idx: this.toasts.length,
-//         date: new Date()
-//       })
-//     },
+    swapMenu() {
+      menu.visible = !menu.visible
+      localStorage.setItem('meta:menu:visible', String(menu.visible))
+    },
+    swapSidepanel() {
+      sidepanel.visible = !sidepanel.visible
+      localStorage.setItem('meta:sidepanel:visible', String(sidepanel.visible))
+    },
 
-//     popToast(this: { toasts: Array<any> }, itr?: Date) {
-//       if( !itr ) {
-//         this.toasts.shift()
-//         return
-//       }
+    spawnPrompt(props: {
+      title?: string
+      body?: string
+      actions: Array<{
+        name: string
+        title: string
+        size?: string
+        variant?: string
+      }>
+    }): Promise<PromptAnswer> {
+      Object.assign(prompt, {
+        ...props,
+        visible: true
+      })
 
-//       this.toasts = this.toasts
-//         .filter((toast) => toast.itr !== itr)
-//     },
+      return new Promise((resolve) => {
+        const event = ({ detail }: any) => {
+          window.removeEventListener('__prompt', event)
+          prompt.visible = false
+          resolve(detail.option)
+        }
 
-//     saveTheme() {
-//       localStorage.setItem('meta:theme', this.theme)
-//     },
-//   },
+        window.addEventListener('__prompt', event)
+      })
+    },
 
-//   getters: {
-//     $theme(): string {
-//       const theme = this.themeOverride || this.theme
-//       if( !theme ) {
-//         const defaultTheme = 'default'
-//         this.theme = localStorage.getItem('meta:theme__') || defaultTheme
-//         return this.theme
-//       }
+    fulfillPrompt(answer: PromptAnswer) {
+      window.dispatchEvent(new CustomEvent('__prompt', {
+        detail: { option: answer }
+      }))
+    },
 
-//       return theme
-//     },
-//   }
-// })
+    spawnModal(props: Partial<Omit<typeof modal, 'visible'>>) {
+      Object.assign(modal, {
+        ...props,
+        visible: true
+      })
+    },
+
+    spawnToast(
+      this: { toasts: Array<any> },
+      props: {
+        text: string
+        icon?: string
+      }
+    ) {
+      this.toasts.push({
+        ...props,
+        itr: Math.random(),
+        idx: this.toasts.length,
+        date: new Date()
+      })
+    },
+
+    popToast(this: { toasts: Array<any> }, itr?: Date) {
+      if( !itr ) {
+        this.toasts.shift()
+        return
+      }
+
+      this.toasts = this.toasts
+        .filter((toast) => toast.itr !== itr)
+    },
+
+    saveTheme() {
+      localStorage.setItem('meta:theme', theme.value)
+    },
+  },
+  }
+
+})
+

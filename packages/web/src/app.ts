@@ -50,7 +50,7 @@ export const useApp = (options: AppOptions): Promise<{
   app.mixin({
     computed: {
       instanceVars: () => window.INSTANCE_VARS || {},
-      currentUser: () => userStore.$currentUser,
+      currentUser: () => userStore.$currentUser.value,
       viewTitle: () => {
         const currentRoute = router.currentRoute.value
         const title = currentRoute.meta?.title as string
@@ -78,12 +78,12 @@ export const useApp = (options: AppOptions): Promise<{
           return null
         }
 
-        const role = userStore.$currentUser.roles?.find((role: string) => role in dashboardLayout) || 'default'
+        const role = userStore.$currentUser.value.roles?.find((role: string) => role in dashboardLayout) || 'default'
 
         return dashboardLayout[role]?.[optionName]
       },
       hasRoles(roles: string|Array<string>) {
-        return arraysIntersects(roles, userStore.$currentUser.roles)
+        return arraysIntersects(roles, userStore.$currentUser.value.roles)
       },
       useStore(storeName?: string) {
         return useParentStore(storeName)
@@ -108,7 +108,7 @@ export const useApp = (options: AppOptions): Promise<{
 
   if( userStore.signedIn ) {
     try {
-      await metaStore.describe({
+      await metaStore.actions.describe({
         roles: true
       })
 

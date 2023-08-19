@@ -83,7 +83,7 @@ export default defineConfig(async () => {
         imports: [
           'vue',
           {
-            '@waltz-ui/web': [
+            'waltz-ui': [
               'useHttp',
               'useStore',
               'useParentStore',

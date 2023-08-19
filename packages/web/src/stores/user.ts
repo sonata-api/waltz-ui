@@ -1,112 +1,129 @@
-import type { User } from '@sonata-api/system'
+import type { CollectionStoreActions } from '../state/actions'
 import { registerStore } from '@waltz-ui/state-management'
 import { left, right, isLeft, unwrapEither } from '@sonata-api/common'
+import { ref, reactive, computed } from 'vue'
 import { useCollectionStore } from '../state/collection'
 import { useMetaStore } from './meta'
+
+type User = {
+  _id: string
+  full_name: string
+  roles: Array<string>
+}
 
 type Credentials = {
   email: string
   password: string
 }
 
-type UserState = {
-  token: string
-  credentials: Credentials|object
-  currentUser: Partial<User>
-}
-
-export const useUserStore = () => registerStore(() => useCollectionStore<User>()({
-  $id: 'user',
-
-  token: '',
-  currentUser: {} as User,
-  credentials: {
+export const useUserStore = () => registerStore(() => {
+  const token = ref('')
+  const credentials = ref({
     email: '',
     password: ''
+  })
+
+  const currentUser = reactive({} as Partial<User> & {
+    pinged?: boolean
+  })
+
+  const properties = computed(function(this: any) {
+    const metaStore = useMetaStore()
+    const properties = this.description.properties!
+    properties.roles.items.enum = Object.keys(metaStore.roles)
+
+    return properties
+
+  })
+
+  const $currentUser = computed(() => {
+    if( !currentUser._id ) {
+      token.value = userStorage.getItem('auth:token')!
+      setCurrentUser(JSON.parse(userStorage.getItem('auth:currentUser')||'{}'))
+    }
+
+    return currentUser
+  })
+
+  const signedIn = computed(() => $currentUser.value.roles)
+
+  function setCurrentUser(user: User | {}) {
+    for( const key in currentUser ) {
+      delete currentUser[key as keyof typeof currentUser]
+    }
+    Object.assign(currentUser, user)
+    userStorage.setItem('auth:currentUser', JSON.stringify(currentUser))
   }
-  // state: (): UserState => ({
-  //   token: '',
-  //   currentUser: {},
-  //   credentials: {
-  //     email: '',
-  //     password: ''
-  //   }
-  // }),
-  // actions: {
-  //   async authenticate(payload: Credentials | { revalidate: true }) {
-  //     const metaStore = useMetaStore()
 
-  //     try {
-  //       const resultEither = await this.functions.authenticate(payload)
-  //       if( isLeft(resultEither) ) {
-  //         const error = unwrapEither(resultEither)
-  //         metaStore.spawnModal({
-  //           title: 'Erro!',
-  //           body: error as string
-  //         })
+  function signout() {
+    userStorage.removeItem('auth:token')
+    userStorage.removeItem('auth:currentUser')
+    setCurrentUser({})
+  }
 
-  //         return left(error)
-  //       }
+  return useCollectionStore<User>()({
+    $id: 'user',
+    state: {
+      token: '',
+      currentUser,
+      $currentUser,
+      signedIn,
 
-  //       const {
-  //         user,
-  //         token: _token
+      credentials,
+      properties
+    },
+    actions: {
+      setCurrentUser,
+      signout,
 
-  //       } = unwrapEither(resultEither) as any
+      async authenticate(this: CollectionStoreActions, payload: Credentials | { revalidate: true }) {
+        const metaStore = useMetaStore()
 
-  //       this.credentials = {}
+        try {
+          const resultEither = await this.functions.authenticate(payload)
+          if( isLeft(resultEither) ) {
+            const error = unwrapEither(resultEither)
+            metaStore.actions.spawnModal({
+              title: 'Erro!',
+              body: error as string
+            })
 
-  //       const {
-  //         type: _tokenType,
-  //         token
-  //       } = _token
+            return left(error)
+          }
 
-  //       this.setCurrentUser(user)
-  //       userStorage.setItem('auth:token', token)
+          const {
+            user,
+            token: _token
 
-  //       await metaStore.describe({
-  //         roles: true
-  //       })
+          } = unwrapEither(resultEither) as any
 
-  //       return right('ok')
+          credentials.value = {
+            email: '',
+            password: ''
+          }
 
-  //     } catch( err ) {
-  //       this.signout()
-  //       console.trace(err)
+          const {
+            type: _tokenType,
+            token
+          } = _token
 
-  //       return left(err)
-  //     }
-  //   },
+          setCurrentUser(user)
+          userStorage.setItem('auth:token', token)
 
-  //   setCurrentUser(user: User) {
-  //     this.currentUser = user
-  //     userStorage.setItem('auth:currentUser', JSON.stringify(this.currentUser))
-  //   },
+          await metaStore.actions.describe({
+            roles: true
+          })
 
-  //   signout() {
-  //     userStorage.removeItem('auth:token')
-  //     userStorage.removeItem('auth:currentUser')
-  //     this.currentUser = {}
-  //   }
-  // },
-  // getters: {
-  //   properties() {
-  //     const metaStore = useMetaStore()
-  //     const properties = this.description.properties!
-  //     properties.roles.items.enum = Object.keys(metaStore.roles)
+          return right('ok')
 
-  //     return properties
-  //   },
-  //   $currentUser(): User {
-  //     if( !this.currentUser?._id ) {
-  //       this.token = userStorage.getItem('auth:token')
-  //       this.currentUser = JSON.parse(userStorage.getItem('auth:currentUser')||'{}')
-  //     }
+        } catch( err ) {
+          signout()
+          console.trace(err)
 
-  //     return this.currentUser
-  //   },
-  //   signedIn() {
-  //     return !!this.$currentUser.roles
-  //   }
-  // }
-}))
+          return left(err)
+        }
+      },
+    },
+  })
+
+})

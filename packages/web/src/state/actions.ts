@@ -30,6 +30,11 @@ export type CustomOptions = {
   insert?: boolean
 }
 
+export type CollectionStoreActions = {
+  actions: ReturnType<typeof useActions>
+  functions: Record<string, (...args: any[]) => any>
+}
+
 export const useActions = (store: CollectionStore) => {
   const actions = {
     setItem(item: typeof store['item']) {
@@ -301,7 +306,7 @@ export const useActions = (store: CollectionStore) => {
       title?: string
       body?: string
     }) {
-      const answer = await useMetaStore().spawnPrompt({
+      const answer = await useMetaStore().actions.spawnPrompt({
         body: I18N.global.tc(props.body || 'prompt.default'),
         actions: [
           {

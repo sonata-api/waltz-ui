@@ -1,7 +1,15 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "outDir": "dist"
+    "outDir": "dist",
+    "paths": {
+      "@waltz-ui/web": [
+        "../web"
+      ],
+      "@waltz-ui/state-management": [
+        "../state-management"
+      ]
+    }
   },
   "types": [
     "../web/global.d.ts"

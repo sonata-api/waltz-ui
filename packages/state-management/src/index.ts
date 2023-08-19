@@ -1,8 +1,8 @@
-import type { Store } from './types'
 import { inject, isRef, reactive, type Ref } from 'vue'
-export * from './types'
 
-export const STORES = (<any>window).STORES = {} as Record<string, Store>
+export type StoreState<TContent extends object=Record<string, any>> = TContent
+
+export const STORES = (<any>window).STORES = {} as Record<string, StoreState>
 
 export const useStore = (storeId: string) => {
   if( !(storeId in STORES) ) {
@@ -33,25 +33,37 @@ export const hasStore = (storeId: string) => {
   return storeId in STORES
 }
 
-export const registerStore = <const TStore extends Store>(fn: () => {
-  state: TStore
-  actions: Record<string, (...args: any[]) => any>
+export const registerStore = <
+  const TStoreId extends string,
+  TState extends StoreState,
+  TActions extends Record<string, (...args: any[]) => any>
+
+>(fn: () => {
+  $id: TStoreId
+  state: TState
+  actions?: TActions
 }) => {
-  const { state, actions } = fn()
-  const store = reactive(state)
+  const { $id, state, actions } = fn()
+  const store = reactive(state) as unknown as TState & {
+    $id: TStoreId,
+    actions: TActions
+    functions: Record<string, (...args: any[]) => any>
+  }
 
-  Object.defineProperty(store, 'actions', {
-    value: actions
-  })
-
-  Object.defineProperty(store, 'functions', {
-    value: new Proxy({}, {
-      get: (_target, verb: string) => {
-        return (...args: any[]) => actions.custom(verb, ...args)
-      }
+  if( actions ) {
+    Object.defineProperty(store, 'actions', {
+      value: actions
     })
-  })
 
-  STORES[store.$id] = store
+    Object.defineProperty(store, 'functions', {
+      value: new Proxy({}, {
+        get: (_target, verb: string) => {
+          return (...args: any[]) => actions.custom(verb, ...args)
+        }
+      })
+    })
+  }
+
+  STORES[$id] = store
   return store
 }
