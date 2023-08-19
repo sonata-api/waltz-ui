@@ -20,7 +20,11 @@ export type CollectionStore = ReturnType<typeof internalUseCollectionStore> & {
   $id: string
 }
 
-const internalUseCollectionStore = <TItem extends Record<string, any> & { _id?: string|null }>() => {
+export type CollectionStoreItem = Record<string, any> & {
+  _id?: any
+}
+
+const internalUseCollectionStore = <TItem extends CollectionStoreItem>() => {
   const rawDescription = reactive({} as Description)
 
   const description = computed(() => {
@@ -237,8 +241,9 @@ const internalUseCollectionStore = <TItem extends Record<string, any> & { _id?: 
   return state
 }
 
-export const useCollectionStore = <const TStoreContent extends Store<any>=any>(newer?: TStoreContent) => {
-  const initial = internalUseCollectionStore()
+export const useCollectionStore = <TItem extends CollectionStoreItem>() =>
+  <const TStoreContent extends Store<any>=any>(newer?: TStoreContent) => {
+  const initial = internalUseCollectionStore<TItem>()
 
   const state: Store<any> & TStoreContent = newer
     ? deepMerge(initial as any, newer)

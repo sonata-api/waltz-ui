@@ -1,7 +1,5 @@
 import { createApp, App } from 'vue'
 import { Router } from 'vue-router'
-
-import { createPinia } from 'pinia'
 import { arraysIntersects } from '@sonata-api/common'
 import { capitalize, formatDateTime } from '@sonata-api/common/string'
 import { formatToString, daysAgo, getRelativeTimeFromNow } from '@sonata-api/common/date'
@@ -10,7 +8,7 @@ import { createI18n } from 'vue-i18n'
 import { routerInstance as createRouter } from './router'
 
 import type { AppOptions } from './options'
-import { useStore, useParentStore } from '@waltz-ui/state-management'
+import { useParentStore } from '@waltz-ui/state-management'
 import { useMetaStore, useUserStore } from './stores'
 import registerDirectives from './directives'
 
@@ -30,17 +28,8 @@ export const useApp = (options: AppOptions): Promise<{
   const app = createApp(component)
   registerDirectives(app)
 
-  const pinia = window.PINIA = createPinia()
-  app.use(pinia)
-
   const router = createRouter(routes || [])
   const i18n = createI18n(i18nConfig)
-
-  pinia.use(() => ({
-    router,
-    i18n: i18n.global,
-    store: useStore
-  }))
 
   if( options.setup ) {
     await options.setup()

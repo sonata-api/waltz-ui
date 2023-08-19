@@ -29,6 +29,17 @@ declare module '@waltz-ui/web' {
     items: Array<Collections[StoreId]['item']>
   }
 }
+
+declare module 'waltz-ui' {
+  export * from 'waltz-ui/dist'
+  type UserStores = typeof import('./src/stores')
+
+  type Stores = {
+    [P in keyof UserStores as ReturnType<UserStores[P]>['$id']]: ReturnType<UserStores[P]>
+  }
+
+  export function useStore<TStoreId extends keyof Stores>(storeId: TStoreId): Stores[TStoreId]
+}
 //`
 
 const install = async () => {

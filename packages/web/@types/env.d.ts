@@ -30,5 +30,3 @@ var INSTANCE_VARS: {
   dashboardLayout?: Record<string, {
   }>
 }
-
-var PINIA: any

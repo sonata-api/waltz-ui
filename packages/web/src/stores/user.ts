@@ -15,8 +15,15 @@ type UserState = {
   currentUser: Partial<User>
 }
 
-export const useUserStore = () => registerStore(() => useCollectionStore({
-  $id: 'user'
+export const useUserStore = () => registerStore(() => useCollectionStore<User>()({
+  $id: 'user',
+
+  token: '',
+  currentUser: {} as User,
+  credentials: {
+    email: '',
+    password: ''
+  }
   // state: (): UserState => ({
   //   token: '',
   //   currentUser: {},
