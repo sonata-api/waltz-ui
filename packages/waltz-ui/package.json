@@ -1,6 +1,6 @@
 {
   "name": "waltz-ui",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -19,9 +19,9 @@
     "dist"
   ],
   "dependencies": {
-    "@waltz-ui/state-management": "*",
-    "@waltz-ui/ui": "^0.0.12",
-    "@waltz-ui/web": "^0.0.6"
+    "@waltz-ui/state-management": "^0.0.1",
+    "@waltz-ui/ui": "^0.0.13",
+    "@waltz-ui/web": "^0.0.7"
   },
   "gitHead": "1d6ca8fc72c6d648b12621a192462ef35793dcb9"
 }
