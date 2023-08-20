@@ -16,6 +16,9 @@
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "peerDependencies": {
     "vue": "^3.3.4"
   },
