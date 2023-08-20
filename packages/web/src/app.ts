@@ -1,8 +1,14 @@
 import { createApp, App } from 'vue'
 import { Router } from 'vue-router'
 import { arraysIntersects } from '@sonata-api/common'
-import { capitalize, formatDateTime } from '@sonata-api/common/string'
-import { formatToString, daysAgo, getRelativeTimeFromNow } from '@sonata-api/common/date'
+import {
+  capitalize,
+  formatDateTime,
+  formatToString,
+  daysAgo,
+  getRelativeTimeFromNow
+  
+} from '@sonata-api/common'
 
 import { createI18n } from 'vue-i18n'
 import { routerInstance as createRouter } from './router'

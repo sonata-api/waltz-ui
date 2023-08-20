@@ -10,6 +10,7 @@ import {
 } from 'vue'
 
 export type Store = StoreState & {
+  $id: string
   $actions: Record<string, (...args: any[]) => any>
   $functions: Record<string, (...args: any[]) => any>
 }
@@ -76,6 +77,10 @@ export const registerStore = <
   const store = isReactive(state)
     ? state
     : reactive(state) 
+
+  Object.assign(store, {
+    $id
+  })
 
   if( getters ) {
     Object.assign(store, getters)

@@ -66,14 +66,10 @@ const debounce = useDebounce({
 
 const queryString = ref('')
 
-let
-  store: CollectionStore,
-  parentStore: CollectionStore
-
 const metaStore = useStore('meta')
 
-store = useStore(props.collection)
-parentStore = props.parentField
+const store = useStore(props.collection)
+const parentStore = props.parentField
   ? useParentStore(props.parentCollection)
   : null
 

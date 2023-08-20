@@ -12,14 +12,12 @@ export const registerAnimalStore = () => registerStore(() => {
     }
   })
 
-  const getters = {
-    computedName: computed(() => `doguinho: ${initialState.deep.dog.name}`)
-  }
-
   return useCollectionStore()({
     $id: 'animal',
     state: initialState,
-    getters,
+    getters: (state) => ({
+      computedName: computed(() => `doguinho: ${state.deep.dog.name}`)
+    }),
     actions: (state) => ({
       inc() {
         state.num += 1

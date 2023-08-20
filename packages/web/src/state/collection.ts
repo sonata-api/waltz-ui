@@ -1,4 +1,4 @@
-import type { Description, Layout } from '@sonata-api/types'
+import type { Description, Layout, LayoutName } from '@sonata-api/types'
 import { computed, reactive, type ComputedRef } from 'vue'
 import { useStore, type StoreState, type UnRef } from '@waltz-ui/state-management'
 import { deepClone, deepMerge } from '@sonata-api/common'
@@ -26,9 +26,7 @@ export type CollectionStoreItem = Record<string, any> & {
   _id?: any
 }
 
-const internalUseCollectionStore = <TItem extends CollectionStoreItem>(store: {
-  $id: string
-}) => {
+const internalUseCollectionStore = <TItem extends CollectionStoreItem>() => {
   const initialState = reactive({
     rawDescription: {} as Description,
     item: {} as TItem,
@@ -179,7 +177,6 @@ const internalUseCollectionStore = <TItem extends CollectionStoreItem>(store: {
 
       filtersCount: computed(() => Object.values($filters.value).filter((_: any) => !!_).length),
       hasActiveFilters: computed(() => Object.values(state.filters).some((_) => !!_)),
-
       availableFilters: computed(() => {
         if( !description.value.filters || !description.value.properties ) {
           return {}
@@ -219,6 +216,8 @@ const internalUseCollectionStore = <TItem extends CollectionStoreItem>(store: {
         options: {}
       })),
 
+      $currentLayout: computed(() => state.currentLayout || (description.value.layout?.name||'tabular') as LayoutName),
+
       tableProperties: computed(() => {
         const preferredProperties = state.preferredTableProperties.length > 0
           ? state.preferredTableProperties
@@ -244,22 +243,25 @@ export const useCollectionStore = <TItem extends CollectionStoreItem>() => <
 >(newer: {
   $id: string
   state?: TStoreState
-  getters?: (state: TStoreState, actions: TStoreActions) => TStoreGetters
-  actions?: (state: TStoreState) => TStoreActions
+  getters?: (state: TStoreState, actions: ReturnType<typeof useStoreActions> & TStoreActions) => TStoreGetters
+  actions?: (state: TStoreState, actions: ReturnType<typeof useStoreActions>) => TStoreActions
 }) => {
-  const initial: any = internalUseCollectionStore<TItem>(newer)
+  const initial: any = internalUseCollectionStore<TItem>()
   const state = initial.state
-  state.$id = newer.$id
 
   const actions = useStoreActions(state)
   if( newer?.actions ) {
-    Object.assign(actions, newer.actions(state))
+    Object.assign(actions, newer.actions(state, actions))
   }
 
   if( newer.state ) {
     Object.assign(state, newer.state)
-    Object.assign(state, initial.getters(state, actions))
   }
+
+  Object.assign(
+    state,
+    initial.getters(state, actions)
+  )
 
   return {
     $id: newer?.$id,
