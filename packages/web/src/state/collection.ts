@@ -230,7 +230,9 @@ const internalUseCollectionStore = <TItem extends CollectionStoreItem>() => {
         return preferredProperties
           ? storeActions.useProperties(preferredProperties)
           : properties.value
-      })
+      }),
+      
+      tableLayout: computed(() => description.value.tableLayout || {})
     }
   }
 

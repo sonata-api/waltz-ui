@@ -22,6 +22,7 @@ jobs:
         run: |
           npm run build \
             --workspace=packages/waltz-build \
+            --workspace=packages/state-management \
             --workspace=packages/web \
             --workspace=packages/ui \
             --workspace=packages/create-waltz-app \
