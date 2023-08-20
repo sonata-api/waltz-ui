@@ -17,7 +17,7 @@ type Credentials = {
 }
 
 export const useUserStore = registerStore(() => {
-  const initialState = reactive({
+  const state = reactive({
     token: '',
     currentUser: {} as Partial<User> & {
       pinged?: boolean
@@ -38,20 +38,20 @@ export const useUserStore = registerStore(() => {
   })
 
   const $currentUser = computed(() => {
-    if( !initialState.currentUser._id ) {
-      initialState.token = localStorage.getItem('auth:token')!
+    if( !state.currentUser._id ) {
+      state.token = localStorage.getItem('auth:token')!
       setCurrentUser(JSON.parse(localStorage.getItem('auth:currentUser')||'{}'))
     }
 
-    return initialState.currentUser
+    return state.currentUser
   })
 
   function setCurrentUser(user: User | {}) {
-    for( const key in initialState.currentUser ) {
-      delete initialState.currentUser[key as keyof typeof initialState.currentUser]
+    for( const key in state.currentUser ) {
+      delete state.currentUser[key as keyof typeof state.currentUser]
     }
-    Object.assign(initialState.currentUser, user)
-    localStorage.setItem('auth:currentUser', JSON.stringify(initialState.currentUser))
+    Object.assign(state.currentUser, user)
+    localStorage.setItem('auth:currentUser', JSON.stringify(state.currentUser))
   }
 
   function signout() {
@@ -62,7 +62,7 @@ export const useUserStore = registerStore(() => {
 
   return useCollectionStore<User>()({
     $id: 'user',
-    state: initialState,
+    state: state,
     getters: (state) => ({
       $currentUser,
       properties: computed(() => {

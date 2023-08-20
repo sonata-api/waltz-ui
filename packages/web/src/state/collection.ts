@@ -251,11 +251,11 @@ export const useCollectionStore = <TItem extends CollectionStoreItem>() => <
     state: CollectionStoreState & TStoreState & UnRef<TStoreGetters>,
     actions: ReturnType<typeof useStoreActions> & TStoreActions
   ) => TStoreGetters
-
   actions?: (
     state: CollectionStoreState & TStoreState & UnRef<TStoreGetters>,
     actions: ReturnType<typeof useStoreActions>
   ) => TStoreActions
+
 }) => {
   const initial: any = internalUseCollectionStore<TItem>()
   const state = initial.state
