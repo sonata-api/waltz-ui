@@ -16,7 +16,11 @@ import  {
 
 } from './helpers'
 
-export type CollectionStore = ReturnType<typeof internalUseCollectionStore>['state'] & UnRef<ReturnType<ReturnType<typeof internalUseCollectionStore>['getters']>> & {
+export type CollectionStoreState =
+  ReturnType<typeof internalUseCollectionStore>['state']
+  & UnRef<ReturnType<ReturnType<typeof internalUseCollectionStore>['getters']>> 
+
+export type CollectionStore = CollectionStoreState & {
   $id: string
   $functions: Record<string, any>
   $actions: ReturnType<typeof useStoreActions>
@@ -243,8 +247,15 @@ export const useCollectionStore = <TItem extends CollectionStoreItem>() => <
 >(newer: {
   $id: string
   state?: TStoreState
-  getters?: (state: TStoreState, actions: ReturnType<typeof useStoreActions> & TStoreActions) => TStoreGetters
-  actions?: (state: TStoreState, actions: ReturnType<typeof useStoreActions>) => TStoreActions
+  getters?: (
+    state: CollectionStoreState & TStoreState & UnRef<TStoreGetters>,
+    actions: ReturnType<typeof useStoreActions> & TStoreActions
+  ) => TStoreGetters
+
+  actions?: (
+    state: CollectionStoreState & TStoreState & UnRef<TStoreGetters>,
+    actions: ReturnType<typeof useStoreActions>
+  ) => TStoreActions
 }) => {
   const initial: any = internalUseCollectionStore<TItem>()
   const state = initial.state
