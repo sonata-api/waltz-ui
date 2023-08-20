@@ -21,4 +21,6 @@ export type AppOptions = {
   setup?: () => void|Promise<void>
 }
 
-export const defineOptions = <TAppOptions extends AppOptions>(options: TAppOptions) => options
+export const defineOptions = <TAppOptions extends AppOptions>(options: TAppOptions | (() => TAppOptions | Promise<TAppOptions>)) => {
+  return options
+}

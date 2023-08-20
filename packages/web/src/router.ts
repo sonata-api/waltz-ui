@@ -39,7 +39,7 @@ export const routerInstance = (routes: Array<RouteRecordRaw>) => {
     metaStore.view.title = to.meta?.title as string
 
     if( to.fullPath.startsWith('/dashboard') && !userStore.currentUser.pinged ) {
-      const resultEither = await userStore.functions.ping()
+      const resultEither = await userStore.$functions.ping()
       if( isRight(resultEither) ) {
         userStore.currentUser.pinged = true
         return next()

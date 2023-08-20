@@ -26,7 +26,7 @@ const isInsertReadOnly = false
 const parentStore = inject<CollectionStore<any>>('parentStore')
 
 const insert = async () => {
-  const result = await store.deepInsert()
+  const result = await store.$actions.deepInsert()
 
   if( props.parentField ) {
     const newSet = parentStore!.item[props.parentField] ||= []
@@ -46,9 +46,9 @@ const insert = async () => {
 }
 
 const cancel = () => {
-  store.ask({
+  store.$actions.ask({
     action: () => {
-      store.clearItem()
+      store.$actions.clearItem()
       store.validationErrors = {}
       isInsertVisible.value = false
     },

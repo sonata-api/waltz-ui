@@ -82,7 +82,11 @@ const pushBack = (item: any) => {
 const search = async (empty?: boolean) => {
   if( Object.values(inputValue.value).every((v) => !(String(v).length > 0)) ) {
     if( empty && matchingItems.value.length === 0 ) {
-      searchResponse.value = await store.custom('getAll', { limit: 100 }, { fullResponse: true })
+      searchResponse.value = await store.$actions.custom(
+        'getAll',
+        { limit: 100 },
+        { fullResponse: true }
+      )
     }
 
     return
@@ -92,7 +96,7 @@ const search = async (empty?: boolean) => {
     return
   }
 
-  searchResponse.value = await store.custom('getAll', {
+  searchResponse.value = await store.$actions.custom('getAll', {
     limit: 100,
     filters: {
       $or: indexes?.filter((i: string) => inputValue.value[i]?.length > 0)
@@ -108,7 +112,7 @@ const search = async (empty?: boolean) => {
 
 onMounted(async () => {
   if( property.s$prefetch ) {
-    searchResponse.value = await store.custom('getAll', {}, { fullResponse: true })
+    searchResponse.value = await store.$actions.custom('getAll', {}, { fullResponse: true })
   }
 })
 
@@ -153,7 +157,7 @@ cancelClearResponse = cancel_
         collection: property.$ref,
         modelValue,
         form: property.s$form
-          ? store.useProperties(property.s$form)
+          ? store.$actions.useProperties(property.s$form)
           : store.properties,
         layout: store.formLayout
       }"
@@ -166,7 +170,7 @@ cancelClearResponse = cancel_
       v-model="inputValue"
       v-bind="{
         collection: property.$ref,
-        form: store.useProperties(indexes),
+        form: store.$actions.useProperties(indexes),
         layout: store.formLayout,
         searchOnly: true,
         focus: selectClick

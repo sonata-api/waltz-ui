@@ -4,7 +4,7 @@ import { formatValue, deepClone } from '@sonata-api/common'
 import { useHttp } from '../http'
 import { useStore } from '@waltz-ui/state-management'
 import { condenseItem } from './helpers'
-import { useMetaStore } from '../stores/meta'
+import { useMetaStore } from '../stores'
 
 const { http, unproxiedHttp } = useHttp()
 
@@ -30,12 +30,7 @@ export type CustomOptions = {
   insert?: boolean
 }
 
-export type CollectionStoreActions = {
-  actions: ReturnType<typeof useActions>
-  functions: Record<string, (...args: any[]) => any>
-}
-
-export const useActions = (store: CollectionStore) => {
+export const useStoreActions = (store: CollectionStore) => {
   const actions = {
     setItem(item: typeof store['item']) {
       Object.assign(store.item, deepClone(store.freshItem))
@@ -214,8 +209,8 @@ export const useActions = (store: CollectionStore) => {
     },
 
     async deepInsert(payload?: { what: Partial<typeof store['item']> }, options?: CustomOptions) {
-      const inlineReferences = store.inlineReferences.value
-      const newItem = Object.assign({}, payload?.what || store.diffedItem.value)
+      const inlineReferences = store.inlineReferences
+      const newItem = Object.assign({}, payload?.what || store.diffedItem)
 
       for( const [k, { s$referencedCollection: collection, type }] of inlineReferences ) {
         if(
@@ -306,7 +301,7 @@ export const useActions = (store: CollectionStore) => {
       title?: string
       body?: string
     }) {
-      const answer = await useMetaStore().actions.spawnPrompt({
+      const answer = await useMetaStore().$actions.spawnPrompt({
         body: I18N.global.tc(props.body || 'prompt.default'),
         actions: [
           {
@@ -415,7 +410,7 @@ export const useActions = (store: CollectionStore) => {
         : []
       
       return store.items
-    }
+    },
   }
 
   return actions

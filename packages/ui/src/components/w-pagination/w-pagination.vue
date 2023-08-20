@@ -45,7 +45,7 @@ const update = () => {
   return store.filter({
     project: [
       ...Object.keys(store.properties),
-      ...store.tableMeta
+      ...store.description.tableMeta||[]
     ]
   })
 }

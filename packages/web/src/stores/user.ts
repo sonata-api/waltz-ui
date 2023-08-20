@@ -1,9 +1,9 @@
-import type { CollectionStoreActions } from '../state/actions'
+import type { Description } from '@sonata-api/types'
 import { registerStore } from '@waltz-ui/state-management'
 import { left, right, isLeft, unwrapEither } from '@sonata-api/common'
 import { reactive, computed } from 'vue'
-import { useCollectionStore } from '../state/collection'
-import { useMetaStore } from './meta'
+import { useCollectionStore, type CollectionStore } from '../state/collection'
+import { useMetaStore } from '.'
 
 type User = {
   _id: string
@@ -16,8 +16,8 @@ type Credentials = {
   password: string
 }
 
-export const useUserStore = () => registerStore(() => {
-  const state = reactive({
+export const useUserStore = registerStore(() => {
+  const initialState = reactive({
     token: '',
     currentUser: {} as Partial<User> & {
       pinged?: boolean
@@ -26,61 +26,69 @@ export const useUserStore = () => registerStore(() => {
       email: '',
       password: ''
     },
+    description: {} as Description & {
+      properties: {
+        roles: {
+          items: {
+            enum: Array<string>
+          }
+        }
+      }
+    }
   })
 
   const $currentUser = computed(() => {
-    if( !state.currentUser._id ) {
-      state.token = userStorage.getItem('auth:token')!
-      setCurrentUser(JSON.parse(userStorage.getItem('auth:currentUser')||'{}'))
+    if( !initialState.currentUser._id ) {
+      initialState.token = localStorage.getItem('auth:token')!
+      setCurrentUser(JSON.parse(localStorage.getItem('auth:currentUser')||'{}'))
     }
 
-    return state.currentUser
+    return initialState.currentUser
   })
 
-  const getters = {
-    $currentUser,
-    properties: computed(function(this: any) {
-      const metaStore = useMetaStore()
-      const properties = this.description.properties!
-      properties.roles.items.enum = Object.keys(metaStore.roles)
-
-      return properties
-    }),
-    signedIn: computed(() => !!$currentUser.value.roles?.length)
-  }
-
-  Object.assign(state, getters)
-
   function setCurrentUser(user: User | {}) {
-    for( const key in state.currentUser ) {
-      delete state.currentUser[key as keyof typeof state.currentUser]
+    for( const key in initialState.currentUser ) {
+      delete initialState.currentUser[key as keyof typeof initialState.currentUser]
     }
-    Object.assign(state.currentUser, user)
-    userStorage.setItem('auth:currentUser', JSON.stringify(state.currentUser))
+    Object.assign(initialState.currentUser, user)
+    localStorage.setItem('auth:currentUser', JSON.stringify(initialState.currentUser))
   }
 
   function signout() {
-    userStorage.removeItem('auth:token')
-    userStorage.removeItem('auth:currentUser')
+    localStorage.removeItem('auth:token')
+    localStorage.removeItem('auth:currentUser')
     setCurrentUser({})
   }
 
   return useCollectionStore<User>()({
     $id: 'user',
-    state,
-    getters,
-    actions: {
+    state: initialState,
+    getters: (state) => ({
+      $currentUser,
+      properties: computed(() => {
+        const metaStore = useMetaStore()
+        const properties = state.description.properties!
+        if( !properties ) {
+          return {}
+        }
+
+        properties.roles.items.enum = Object.keys(metaStore.roles)
+        return properties
+      }),
+      signedIn: computed(() => !!$currentUser.value.roles?.length)
+    }),
+    actions: (state) => ({
       setCurrentUser,
       signout,
 
-      async authenticate(this: CollectionStoreActions, payload: Credentials | { revalidate: true }) {
+      async authenticate(this: CollectionStore, payload: Credentials | { revalidate: true }) {
         const metaStore = useMetaStore()
 
         try {
-          const resultEither = await this.functions.authenticate(payload)
+          const resultEither = await this.$functions.authenticate(payload)
           if( isLeft(resultEither) ) {
             const error = unwrapEither(resultEither)
-            metaStore.actions.spawnModal({
+            metaStore.$actions.spawnModal({
               title: 'Erro!',
               body: error as string
             })
@@ -105,9 +113,9 @@ export const useUserStore = () => registerStore(() => {
           } = _token
 
           setCurrentUser(user)
-          userStorage.setItem('auth:token', token)
+          localStorage.setItem('auth:token', token)
 
-          await metaStore.actions.describe({
+          await metaStore.$actions.describe({
             roles: true
           })
 
@@ -120,7 +128,7 @@ export const useUserStore = () => registerStore(() => {
           return left(err)
         }
       },
-    },
+    }),
   })
 
 })

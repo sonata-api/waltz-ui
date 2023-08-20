@@ -4,13 +4,23 @@ import {
   reactive,
   isReactive,
   type Ref,
- 
-  type ComputedRef
+  type ComputedRef,
+  type UnwrapRef
+
 } from 'vue'
 
-export type StoreState<TContent extends object=Record<string, any>> = TContent
+export type Store = StoreState & {
+  $actions: Record<string, (...args: any[]) => any>
+  $functions: Record<string, (...args: any[]) => any>
+}
 
-export const STORES = (<any>window).STORES = {} as Record<string, StoreState>
+export type StoreState<TContent extends object=Record<string, Exclude<any, (...args: any[]) => any>>> = TContent
+
+export type UnRef<TObj extends Record<string, ComputedRef<any>>> = {
+  [P in keyof TObj]: UnwrapRef<TObj[P]>
+}
+
+window.STORES ??= {}
 
 export const useStore = (storeId: string) => {
   if( !(storeId in STORES) ) {
@@ -45,7 +55,12 @@ export const registerStore = <
   const TStoreId extends string,
   TStoreState extends StoreState,
   TStoreGetters extends Record<string, ComputedRef<any>>,
-  TStoreActions extends Record<string, (...args: any[]) => any>
+  TStoreActions extends Record<string, (...args: any[]) => any>,
+  Return=TStoreState & UnRef<TStoreGetters> & {
+    $id: TStoreId,
+    $actions: TStoreActions
+    $functions: Record<string, (...args: any[]) => any>
+  }
 
 >(fn: () => {
   $id: TStoreId
@@ -54,6 +69,10 @@ export const registerStore = <
   actions?: TStoreActions
 }) => {
   const { $id, state, getters, actions } = fn()
+  if( hasStore($id) ) {
+    return () => STORES[$id] as Return
+  }
+
   const store = isReactive(state)
     ? state
     : reactive(state) 
@@ -63,24 +82,35 @@ export const registerStore = <
   }
 
   if( actions ) {
-    Object.defineProperty(store, 'actions', {
-      value: actions
+    const functions = new Proxy({}, {
+      get: (_target, verb: string) => {
+        return (...args: any[]) => actions.custom(verb, ...args)
+      }
     })
 
-    Object.defineProperty(store, 'functions', {
-      value: new Proxy({}, {
-        get: (_target, verb: string) => {
-          return (...args: any[]) => actions.custom(verb, ...args)
+    const proxiedActions = new Proxy(actions, {
+      get: (target, key: string) => {
+        if( typeof target[key] !== 'function' ) {
+          return target[key]
         }
-      })
+        return target[key].bind({
+          ...actions,
+          $functions: functions
+        })
+      }
+    })
+
+    Object.defineProperty(store, '$actions', {
+      value: proxiedActions,
+      writable: true
+    })
+
+    Object.defineProperty(store, '$functions', {
+      value: functions,
+      writable: true
     })
   }
 
-  STORES[$id] = store
-  return store as unknown as TStoreState & TStoreGetters & {
-    $id: TStoreId,
-    actions: TStoreActions
-    functions: Record<string, (...args: any[]) => any>
-  }
-
+  STORES[$id] = store as Store
+  return () => store as Return
 }

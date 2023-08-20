@@ -85,10 +85,10 @@ call.value = action[0]
 actionEventBus.value = action[1]
 
 const fetchItems = async () => {
-  return store.filter({
+  return store.$actions.filter({
     project: [
       ...(store.description.table || Object.keys(store.properties)),
-      ...store.tableMeta
+      ...store.description.tableMeta||[]
     ]
   })
 }
@@ -137,7 +137,7 @@ const toggleLayout = (store: any) => {
 onUnmounted(() => {
   const getFilters = () => store.filters
   const oldFilters = getFilters()
-  store.clearFilters()
+  store.$actions.clearFilters()
   store.filtersPreset = {}
   store.preferredTableProperties = []
 
@@ -147,7 +147,7 @@ onUnmounted(() => {
       .some(([key, value]: [string, any]) => filters[key] !== value)
 
     if( changed ) {
-      store.clearItems()
+      store.$actions.clearItems()
     }
   }
 })
@@ -160,7 +160,7 @@ watch(() => actionEventBus.value, async (event) => {
       'duplicate',
     ].includes(event.name)
   ) {
-    await store.get({
+    await store.$actions.get({
       filters: {
         _id: event.params._id
       }
@@ -168,9 +168,9 @@ watch(() => actionEventBus.value, async (event) => {
   }
 
   if( event.name === 'spawnAdd' ) {
-    store.clearItem()
+    store.$actions.clearItem()
     if( event.params?.item ) {
-      store.setItem(event.params.item)
+      store.$actions.setItem(event.params.item)
       Object.keys(event.params.item).forEach((key) => {
         delete store.referenceItem[key]
       })
@@ -211,7 +211,7 @@ watch(() => actionEventBus.value, async (event) => {
       }
     }, {})
 
-    store.setItem({
+    store.$actions.setItem({
       ...newItem,
       _id: undefined
     })
@@ -230,7 +230,7 @@ watch(() => actionEventBus.value, async (event) => {
 watch(() => isInsertVisible, (value) => {
   if( value.value === false ) {
     metaStore.view.collection = props.collection
-    store.clearItem()
+    store.$actions.clearItem()
   }
 })
 

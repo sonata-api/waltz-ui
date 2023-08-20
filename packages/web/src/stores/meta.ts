@@ -1,6 +1,6 @@
 import { deepClone, deserialize } from '@sonata-api/common'
 import { Description } from '@sonata-api/types'
-import { reactive, computed, type ComputedRef } from 'vue'
+import { reactive, computed } from 'vue'
 
 import { useStore, hasStore, registerStore } from '@waltz-ui/state-management'
 import { useHttp } from '../http'
@@ -12,19 +12,21 @@ type PromptAnswer = { name: string }
 
 const { http } = useHttp()
 
-export const useMetaStore = () => registerStore(() => {
+export const useMetaStore = registerStore(() => {
+  if( !window.INSTANCE_VARS ) {
+    Object.assign(window, {
+      INSTANCE_VARS: {}
+    })
+  }
+
   const state = reactive({
     descriptions: {} as Record<string, Description>,
     roles: [] as Array<string>,
-
     isLoading: false,
     globalIsLoading: false,
-
     theme: '',
-    $theme: {} as ComputedRef<ComputedRef<string>>,
     themeOverride: '',
     availableThemes: INSTANCE_VARS?.themes || [],
-
     view: {
       title: '',
       layout: 'tabular',
@@ -54,20 +56,23 @@ export const useMetaStore = () => registerStore(() => {
   })
 
 
-  state.$theme = computed(() => {
-    const currTheme = state.themeOverride || state.theme
-    if( !currTheme ) {
-      const defaultTheme = 'default'
-      state.theme = localStorage.getItem('meta:theme__') || defaultTheme
-      return state.theme
-    }
+  const getters = {
+    $theme: computed(() => {
+      const currTheme = state.themeOverride || state.theme
+      if( !currTheme ) {
+        const defaultTheme = 'default'
+        state.theme = localStorage.getItem('meta:theme__') || defaultTheme
+        return state.theme
+      }
 
-    return currTheme
-  })
+      return currTheme
+    })
+  }
 
   return {
     $id: 'meta',
     state,
+    getters,
     actions: {
       async describe(props?: Parameters<ReturnType<typeof import('@sonata-api/system').algorithms.meta>['functions']['describe']>[0]) {
         state.isLoading = true
@@ -95,12 +100,11 @@ export const useMetaStore = () => registerStore(() => {
 
           if( hasStore(collectionName) ) {
             const store = useStore(collectionName)
-            store.$patch({
+            Object.assign(store, {
               item,
               filters,
               freshItem: deepClone(item),
               freshFilters: deepClone(filters),
-              _description: description,
               rawDescription
             })
             continue
@@ -127,7 +131,6 @@ export const useMetaStore = () => registerStore(() => {
               filters,
               freshItem: deepClone(item),
               freshFilters: deepClone(filters),
-              _description: description,
               rawDescription
             }
           }))

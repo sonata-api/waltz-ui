@@ -7,6 +7,7 @@ export {
   useRouter,
   useClipboard,
   useAction,
+  useStoreActions,
   useCondition,
   useNavbar,
   useApp,

@@ -1,5 +1,4 @@
 import { request } from '@sonata-api/common'
-import { useStore } from '@waltz-ui/state-management'
 
 export const SV_API_URL = process.env.NODE_ENV === 'development'
   ? 'http://localhost:3000/api'
@@ -22,11 +21,11 @@ const call = (target: typeof proxiedHttp | typeof request) => <Return=any>(...ar
 
 const proxiedHttp = async <Return>(...args: Parameters<typeof request<any>>) => {
   return request<Return>(...args).catch((error: any) => {
-    const userStore = useStore('user')
-    if( error.logout || ['JsonWebTokenError', 'TokenExpiredError'].includes(error.name) ) {
-      userStore.signout()
-      ROUTER.push({ name: '/user/signin' })
-    }
+    // const userStore = useStore('user')
+    // if( error.logout || ['JsonWebTokenError', 'TokenExpiredError'].includes(error.name) ) {
+    //   userStore.signout()
+    //   ROUTER.push({ name: '/user/signin' })
+    // }
 
     console.trace(error)
     throw error

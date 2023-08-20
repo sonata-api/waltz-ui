@@ -8,10 +8,10 @@ const router = await useRouter()
 const userStore = useUserStore()
 const metaStore = useMetaStore()
 
-userStorage.clear()
+localStorage.clear()
 
 const authenticate = async () => {
-  const resultEither = await userStore.authenticate(userStore.credentials)
+  const resultEither = await userStore.$actions.authenticate(userStore.credentials)
   if( isRight(resultEither) ) {
     router.push('/dashboard')
   }

@@ -190,7 +190,7 @@ const buttonStyle = (subject: any, action: any) => {
                 </div>
                 <span v-else-if="store">
                   {{
-                    store.formatValue({
+                    store.$actions.formatValue({
                       value: row[column],
                       key: column,
                       property
@@ -216,7 +216,7 @@ const buttonStyle = (subject: any, action: any) => {
                   :key="`subvalue-${index}`"
                 >
                   {{
-                    store.formatValue({
+                    store.$actions.formatValue({
                       value: row[column],
                       key: column,
                       property,

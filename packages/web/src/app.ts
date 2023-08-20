@@ -7,23 +7,27 @@ import { formatToString, daysAgo, getRelativeTimeFromNow } from '@sonata-api/com
 import { createI18n } from 'vue-i18n'
 import { routerInstance as createRouter } from './router'
 
-import type { AppOptions } from './options'
+import type { defineOptions } from './options'
 import { useParentStore } from '@waltz-ui/state-management'
 import { useMetaStore, useUserStore } from './stores'
 import registerDirectives from './directives'
 
-export const useApp = (options: AppOptions): Promise<{
+export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promise<{
   app: App
   router: Router
   mount: () => any
 }> => new Promise(async (resolve) => {
+  const options = typeof optionsFn === 'function'
+    ? await optionsFn()
+    : optionsFn
+
   const {
     component,
     i18n: i18nConfig,
     menuSchema,
     routes
 
-  }: AppOptions = options
+  } = options
 
   const app = createApp(component)
   registerDirectives(app)
@@ -44,13 +48,12 @@ export const useApp = (options: AppOptions): Promise<{
   app.provide('menuSchema', menuSchema)
   app.provide('i18n', i18n)
 
-  // app.provide('baseVersion', require('../package.json').version)
-  app.provide('dashboardLayout', window.INSTANCE_VARS?.dashboardLayout || {})
+  app.provide('dashboardLayout', INSTANCE_VARS?.dashboardLayout || {})
 
   app.mixin({
     computed: {
-      instanceVars: () => window.INSTANCE_VARS || {},
-      currentUser: () => userStore.$currentUser.value,
+      instanceVars: () => INSTANCE_VARS || {},
+      currentUser: () => userStore.$currentUser,
       viewTitle: () => {
         const currentRoute = router.currentRoute.value
         const title = currentRoute.meta?.title as string
@@ -78,12 +81,12 @@ export const useApp = (options: AppOptions): Promise<{
           return null
         }
 
-        const role = userStore.$currentUser.value.roles?.find((role: string) => role in dashboardLayout) || 'default'
+        const role = userStore.$currentUser.roles?.find((role: string) => role in dashboardLayout) || 'default'
 
         return dashboardLayout[role]?.[optionName]
       },
       hasRoles(roles: string|Array<string>) {
-        return arraysIntersects(roles, userStore.$currentUser.value.roles)
+        return arraysIntersects(roles, userStore.$currentUser.roles)
       },
       useStore(storeName?: string) {
         return useParentStore(storeName)
@@ -102,13 +105,12 @@ export const useApp = (options: AppOptions): Promise<{
 
   Object.assign(window, {
     ROUTER: router,
-    QUERY_CACHE: {},
     I18N: i18n
   })
 
   if( userStore.signedIn ) {
     try {
-      await metaStore.actions.describe({
+      await metaStore.$actions.describe({
         roles: true
       })
 
