@@ -2,7 +2,7 @@ import { registerStore, useCollectionStore } from 'waltz-ui'
 import { reactive, computed } from 'vue'
 
 export const registerAnimalStore = () => registerStore(() => {
-  const initialState = reactive({
+  const state = reactive({
     num: 0,
     specie: '',
     deep: {
@@ -14,7 +14,7 @@ export const registerAnimalStore = () => registerStore(() => {
 
   return useCollectionStore()({
     $id: 'animal',
-    state: initialState,
+    state,
     getters: (state) => ({
       computedName: computed(() => `doguinho: ${state.deep.dog.name}`)
     }),
