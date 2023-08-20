@@ -333,7 +333,7 @@ provide('parentStore', parentStore)
             v-if="store && Object.keys(store.availableFilters).length > 0"
             reactive
             icon="trash"
-            @click="() => (store.clearFilters() && store.filter(undefined, { unproxied: true }))"
+            @click="() => (store.$actions.clearFilters() && store.$actions.filter(undefined, { unproxied: true }))"
           ></w-icon>
         </w-bare-button>
       </w-info>

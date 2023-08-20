@@ -35,7 +35,7 @@ const selected = computed(() => {
 const unselect = async (item: any, purge=true) => {
   if( property.s$purge && purge ) {
     const { _id } = item
-    await store.remove({ filters: { _id } })
+    await store.$actions.remove({ filters: { _id } })
   }
 
   const deleteFirst = () => {

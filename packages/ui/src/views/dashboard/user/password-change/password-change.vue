@@ -16,14 +16,14 @@ const password = ref({
 })
 
 const insert = async () => {
-  await userStore.insert({
+  await userStore.$actions.insert({
     what: {
       _id: userStore.item._id,
       password: password.value.password
     }
   })
 
-  await metaStore.spawnModal({
+  await metaStore.$actions.spawnModal({
     title: 'Feito!',
     body: 'A senha foi atualizada'
   })

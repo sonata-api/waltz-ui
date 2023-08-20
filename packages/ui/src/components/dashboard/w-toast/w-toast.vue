@@ -19,8 +19,8 @@ const metaStore = useStore('meta')
       'toast': true,
       'toast--animate': metaStore.toasts[0].itr === itr
     }"
-    @animationend="metaStore.popToast()"
-    @click="metaStore.popToast(itr)"
+    @animationend="metaStore.$actions.popToast()"
+    @click="metaStore.$actions.popToast(itr)"
   >
     <div>
       <w-icon

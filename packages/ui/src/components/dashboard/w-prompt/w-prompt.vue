@@ -13,7 +13,7 @@ const props = defineProps<Props>()
 const metaStore = useStore('meta')
 
 const onClick = (answer: any) => {
-  metaStore.fulfillPrompt(answer)
+  metaStore.$actions.fulfillPrompt(answer)
 }
 </script>
 

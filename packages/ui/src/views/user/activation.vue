@@ -20,7 +20,7 @@ const step: Step = router.currentRoute.value.query.step || 'success'
 const userId = router.currentRoute.value.query.u
 const token = router.currentRoute.value.query.t
 
-const userInfo: any = unsafe(await userStore.functions.getInfo({
+const userInfo: any = unsafe(await userStore.$functions.getInfo({
   userId,
   token
 }))
@@ -33,13 +33,13 @@ const password = ref({
 })
 
 const confirm = async () => {
-  await userStore.custom(`activate?u=${userId}&t=${token}`, {
+  await userStore.$actions.custom(`activate?u=${userId}&t=${token}`, {
     password: password.value.password
   })
 
   userStore.credentials.email = password.value.email
 
-  await metaStore.spawnModal({
+  await metaStore.$actions.spawnModal({
     title: 'Sucesso!',
     body: 'Sua conta foi ativada com sucesso. Experimente fazer login com o seu email e senha.'
   })

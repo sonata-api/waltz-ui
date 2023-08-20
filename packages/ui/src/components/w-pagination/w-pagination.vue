@@ -42,7 +42,7 @@ const paginate = (direction: 'previous'|'next') => {
 }
 
 const update = () => {
-  return store.filter({
+  return store.$actions.filter({
     project: [
       ...Object.keys(store.properties),
       ...store.description.tableMeta||[]

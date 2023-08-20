@@ -13,7 +13,7 @@ const userStore = useStore('user')
 const metaStore = useStore('meta')
 
 if( !metaStore.descriptions.user ) {
-  await metaStore.describe({
+  await metaStore.$actions.describe({
     collections: ['user'],
     roles: true
   })
@@ -27,21 +27,11 @@ const password = ref({
 
 const insert = async () => {
   userStore.item.password = password.value.password
-  const user = await userStore.insert().catch(async (e) => {
+  const user = await userStore.$actions.insert().catch(async (e) => {
     throw e
   })
 
-//
-//  const { _id: userId, email } = user
-
-//  if( !userStore.$currentUser._id ) {
-//    await userStore.authenticate({
-//      email,
-//      password: password.password
-//    })
-//  }
-
-  await metaStore.spawnModal({
+  await metaStore.$actions.spawnModal({
     title: 'Conta registrada',
     body: 'Blabla'
   })
@@ -66,7 +56,7 @@ const insert = async () => {
     v-model="userStore.item"
     v-bind="{
       collection: 'user',
-      form: userStore.useProperties([
+      form: userStore.$actions.useProperties([
         'full_name',
         'email',
         'phone'

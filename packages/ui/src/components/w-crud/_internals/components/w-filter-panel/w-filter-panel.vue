@@ -13,7 +13,7 @@ const store = useParentStore()
 
 const filter = () => {
   store.pagination.offset = 0
-  store.filter()
+  store.$actions.filter()
   emit('update:modelValue', false)
 }
 </script>
@@ -38,7 +38,7 @@ const filter = () => {
     <template #footer>
       <w-button
         variant="transparent"
-        @click="store.clearFilters"
+        @click="store.$actions.clearFilters"
       >
         Limpar
       </w-button>

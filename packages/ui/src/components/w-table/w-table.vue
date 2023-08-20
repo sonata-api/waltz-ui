@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, computed } from 'vue'
+import { inject, computed, type Ref } from 'vue'
 import { useCondition } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
 import type { CollectionProperty, CollectionAction } from '@sonata-api/types'
@@ -29,14 +29,14 @@ const props = withDefaults(defineProps<Props>(), {
   headers: true
 })
 
-const collectionName = props.collection || inject('storeId', null)
+const collectionName = props.collection || inject<Ref<string>|string>('storeId', '')
 const store = collectionName
-  ? useStore(collectionName.value||collectionName)
+  ? useStore(typeof collectionName === 'string' ? collectionName : collectionName.value)
   : null
 
 const selected = computed({
-  get: () => store.selected,
-  set: (items: Array<any>) => store.selectManyItems(items, true)
+  get: () => store?.selected,
+  set: (items: Array<any>) => store?.$actions.selectManyItems(items, true)
 })
 
 const buttonActions = computed(() => (
@@ -84,7 +84,7 @@ const buttonStyle = (subject: any, action: any) => {
           <input
             type="checkbox"
             :checked="store.selected.length > 0 && store.selected.length === store.itemsCount"
-            @change="store.selectAllItems($event.target.checked)"
+            @change="store.$actions.selectAllItems($event.target.checked)"
           />
         </th>
         <th

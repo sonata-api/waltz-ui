@@ -14,20 +14,20 @@ const metaStore = useStore('meta')
 
 const editPanel = ref(false)
 
-userStore.setItem(userStore.$currentUser)
+userStore.$actions.setItem(userStore.$currentUser)
 
 const insert = async () => {
-  await userStore.insert({ what: userStore.item })
+  await userStore.$actions.insert({ what: userStore.item })
   localStorage.setItem('auth:currentUser', JSON.stringify(userStore.item))
 
-  metaStore.spawnModal({
+  metaStore.$actions.spawnModal({
     title: 'Feito!',
     body: 'Suas informações foram salvas'
   })
 }
 
 const signout = async () => {
-  await userStore.signout()
+  await userStore.$actions.signout()
   const router = await useRouter()
   router.push('/user/signin')
 }
@@ -101,7 +101,7 @@ const signout = async () => {
       v-model="userStore.item"
       v-bind="{
         collection: 'user',
-        form: userStore.useProperties([
+        form: userStore.$actions.useProperties([
           'full_name',
           'email',
           'phone',
