@@ -300,7 +300,7 @@ export const useStoreActions = (store: CollectionStore) => {
       title?: string
       body?: string
     }) {
-      const answer = await useStore('meta').$actions.spawnPrompt({
+      const answer = await (await import('../stores/meta')).useMetaStore().$actions.spawnPrompt({
         body: I18N.global.tc(props.body || 'prompt.default'),
         actions: [
           {
