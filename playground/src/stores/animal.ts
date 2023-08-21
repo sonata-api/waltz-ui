@@ -1,4 +1,4 @@
-import { registerStore, useCollectionStore } from 'waltz-ui'
+import { registerStore, createCollectionStore } from 'waltz-ui'
 import { reactive, computed } from 'vue'
 
 export const registerAnimalStore = () => registerStore(() => {
@@ -12,7 +12,7 @@ export const registerAnimalStore = () => registerStore(() => {
     }
   })
 
-  return useCollectionStore()({
+  return createCollectionStore()({
     $id: 'animal',
     state,
     getters: (state) => ({

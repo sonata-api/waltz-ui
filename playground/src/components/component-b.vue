@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { useStore } from 'waltz-ui'
-const animalStore = useStore('animal')
+const animalStore = STORES.animal
 </script>
 
 <template>

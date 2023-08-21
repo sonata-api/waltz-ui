@@ -30,7 +30,7 @@ export type CollectionStoreItem = Record<string, any> & {
   _id?: any
 }
 
-const internalUseCollectionStore = <TItem extends CollectionStoreItem>() => {
+const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
   const initialState = reactive({
     rawDescription: {} as Description,
     item: {} as TItem,
@@ -291,7 +291,7 @@ export const createCollectionStore = <TItem extends CollectionStoreItem>() => <
   ) => TStoreActions
 
 }) => {
-  const initial: any = internalUseCollectionStore<TItem>()
+  const initial: any = internalCreateCollectionStore<TItem>()
   const state = initial.state
 
   const actions = useStoreActions(state)

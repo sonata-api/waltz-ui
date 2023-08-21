@@ -17,7 +17,7 @@ declare module 'vue-router/auto' {
 
 var ROUTER: import('vue-router').Router
 var I18N: any
-var STORES: Record<string, any>
+var STORES: Record<string, import('@waltz-ui/state-management').Store>
 var QUERY_CACHE: Record<string, {
   items: Array<any>
   satisfied: boolean
