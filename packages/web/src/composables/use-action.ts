@@ -73,7 +73,7 @@ export const useAction = <T extends { $id: string }, F extends { _id: string }>(
 
     const storeAction = (() => {
       if( actionName in store.$actions ) {
-        return store[actionName]
+        return store.$actions[actionName]
       }
 
       return actionEffect

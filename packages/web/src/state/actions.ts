@@ -4,7 +4,6 @@ import { formatValue, deepClone } from '@sonata-api/common'
 import { useHttp } from '../http'
 import { useStore } from '@waltz-ui/state-management'
 import { condenseItem } from './helpers'
-import { useMetaStore } from '../stores'
 
 const { http, unproxiedHttp } = useHttp()
 
@@ -301,7 +300,7 @@ export const useStoreActions = (store: CollectionStore) => {
       title?: string
       body?: string
     }) {
-      const answer = await useMetaStore().$actions.spawnPrompt({
+      const answer = await useStore('meta').$actions.spawnPrompt({
         body: I18N.global.tc(props.body || 'prompt.default'),
         actions: [
           {
