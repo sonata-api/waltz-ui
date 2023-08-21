@@ -104,7 +104,7 @@ provide('inputBordered', inject('inputBordered', true))
 
 const filterProperties = (condition: (f: any) => boolean): Array<[string, CollectionProperty]>|null => {
   if( !form.value ) {
-    return
+    return null
   }
 
   return Object.entries(form.value).reduce((a: Array<any>, [key, property]) => {
@@ -139,7 +139,7 @@ const has = (propertyName: string) => {
     return true
   }
 
-  const formProperties = store.description?.form
+  const formProperties = store?.description?.form
   return !formProperties || formProperties.includes(propertyName)
 }
 
@@ -199,6 +199,10 @@ const unfilled = (value: any) => {
 const required = computed(() => props.required || store?.description.required)
 
 const isInsertReady = computed(() => {
+  if( !props.form ) {
+    return true
+  }
+
   return insertReady(
     props.modelValue,
     props.form,
@@ -261,13 +265,13 @@ const isInsertReady = computed(() => {
         ></slot>
 
         <component
-          v-else-if="layout?.[key]?.component && propertyComponents[layout[key].component!.name]"
-          :is="propertyComponents[layout[key].component!.name]"
+          v-else-if="layout?.fields?.[key]?.component && propertyComponents[layout.fields[key].component!.name]"
+          :is="propertyComponents[layout.fields[key].component!.name]"
           v-model="modelValue[key]"
           v-bind="{
             property,
             propertyName: key,
-            ...layout[key].component!.props||{},
+            ...layout.fields[key].component!.props||{},
           }"
 
           @input="emit('input', key)"
@@ -396,10 +400,9 @@ const isInsertReady = computed(() => {
             property,
             propertyName: key,
             parentCollection: collectionName,
-            columns: layout?.[key]?.optionsColumns
-              || layout?.$default?.optionsColumns,
+            columns: layout?.fields?.[key]?.optionsColumns
+              || layout?.fields?.$default?.optionsColumns,
             ...(property.s$componentProps || {}),
-            modelValue: modelValue[key],
           }"
 
           v-focus="index === 0 && focus"

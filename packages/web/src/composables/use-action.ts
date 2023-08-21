@@ -1,6 +1,7 @@
-import { reactive } from 'vue'
 import type { Router } from 'vue-router'
 import type { CollectionAction, StoreEffect } from '@sonata-api/types'
+import type { Store } from '@waltz-ui/state-management'
+import { reactive } from 'vue'
 import { deepClone } from '@sonata-api/common'
 import { STORE_EFFECTS } from '@sonata-api/types'
 
@@ -12,11 +13,11 @@ export type ActionEvent<T={ _id: string }> = {
 
 const getEffect = (store: any, effectName: StoreEffect) => {
   const effect = STORE_EFFECTS[effectName]
-  return store[effect]
+  return store.$actions[effect]
 }
 
 export const useAction = <T extends { $id: string }, F extends { _id: string }>(
-  store: (T & Record<string, (...args: any[]) => any>),
+  store: Store,
   router: Router
 ): [(...args: any[]) => void, any] => {
   const eventBus = reactive<ActionEvent>({
@@ -33,11 +34,11 @@ export const useAction = <T extends { $id: string }, F extends { _id: string }>(
       if( scopeName === 'route' ) {
         return async (filters: F) => {
           if( actionProps.clearItem ) {
-            store.clearItem()
+            store.$actions.clearItem()
           }
 
           if( actionProps.fetchItem && filters?._id ) {
-            await store.get({
+            await store.$actions.get({
               filters: {
                 _id: filters._id 
               }
@@ -66,7 +67,7 @@ export const useAction = <T extends { $id: string }, F extends { _id: string }>(
 
     const prepareFilters = (filters: F) => {
       return actionProps.requires
-        ? store.select(actionProps.requires, filters)
+        ? store.$actions.select(actionProps.requires, filters)
         : filters
     }
 
@@ -76,12 +77,12 @@ export const useAction = <T extends { $id: string }, F extends { _id: string }>(
       }
 
       return actionEffect
-        ? (payload: any) => store.customEffect(actionName, payload, getEffect(store, actionEffect))
-        : (payload: any) => store.custom(actionName, payload)
+        ? (payload: any) => store.$actions.customEffect(actionName, payload, getEffect(store, actionEffect))
+        : (payload: any) => store.$actions.custom(actionName, payload)
     })()
 
     if( actionProps.ask ) {
-      return (filters: F) => store.ask({
+      return (filters: F) => store.$actions.ask({
         action: storeAction,
         params: prepareFilters(filters)
       })

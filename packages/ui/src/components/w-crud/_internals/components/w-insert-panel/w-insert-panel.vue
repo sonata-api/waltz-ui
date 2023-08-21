@@ -23,7 +23,7 @@ const individualActions = inject('individualActions', [])
 // unused
 const isInsertReadOnly = false
 
-const parentStore = inject<CollectionStore<any>>('parentStore')
+const parentStore = inject<CollectionStore>('parentStore')
 
 const insert = async () => {
   const result = await store.$actions.deepInsert()
@@ -34,7 +34,7 @@ const insert = async () => {
       newSet.push(result._id)
     }
 
-    await parentStore!.insert({
+    await parentStore!.$actions.insert({
       what: {
         _id: parentStore!.item._id,
         [props.parentField]: newSet
@@ -92,7 +92,7 @@ watch(() => store.item._id, (_id) => {
         collection: metaStore.view.collection,
         form: store.properties,
         isReadOnly: isInsertReadOnly,
-        layout: store.formLayout
+        layout: store.description.formLayout || {}
       }"
 
       @add="$event.preventDefault()"

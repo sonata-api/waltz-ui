@@ -15,7 +15,7 @@ export type Store = StoreState & {
   $functions: Record<string, (...args: any[]) => any>
 }
 
-export type StoreState<TContent extends object=Record<string, Exclude<any, (...args: any[]) => any>>> = TContent
+export type StoreState<TContent extends object=Record<string, Exclude<any, Function>>> = TContent
 
 export type UnRef<TObj extends Record<string, ComputedRef<any>>> = {
   [P in keyof TObj]: UnwrapRef<TObj[P]>

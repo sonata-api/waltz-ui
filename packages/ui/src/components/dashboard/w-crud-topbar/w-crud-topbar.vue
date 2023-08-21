@@ -47,9 +47,13 @@ watch(route, (currRoute, prevRoute) => {
     return
   }
 
-  const { query: { preset: currPreset } } = currRoute
+  const currPreset = currRoute.query.section as string
 
   return (({ value: store }) => {
+    if( !store ) {
+      return
+    }
+
     if( store.description.filtersPresets ) {
       if( currPreset ) {
         togglePreset(currPreset, store.description.filtersPresets[currPreset])

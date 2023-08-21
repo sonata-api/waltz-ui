@@ -169,6 +169,38 @@ const internalUseCollectionStore = <TItem extends CollectionStoreItem>() => {
       hasSelectionActions: computed(() => actions.value.some((action) => !!action.selection)),
       condensedItem: computed(() => condenseItem(state.item)),
 
+      $freshItem: computed(() => {
+        const recurse = (
+          store: any,
+          parent?: string,
+          grandParent?: string
+        ): TItem => {
+          return Object.entries(properties.value).reduce((a, [key, property]) => {
+            if(
+              property.s$isReference
+            && property.s$inline
+            && property.type !== 'array'
+            && store.$id !== grandParent
+            ) {
+              const subject = property.s$referencedCollection!
+              const helperStore = useStore(subject)
+
+              return {
+                ...a,
+                [key]: recurse(helperStore, store.$id, parent)
+              }
+            }
+
+            return {
+              ...a,
+              [key]: store.freshItem[key]
+            }
+          }, {} as TItem)
+        }
+
+        return recurse(state)
+      }),
+
       itemsCount: computed(() => state.items.length),
       diffedItem,
       hasDiff: computed(() => Object.keys(diffedItem.value).length),

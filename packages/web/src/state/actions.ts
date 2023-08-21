@@ -58,7 +58,7 @@ export const useStoreActions = (store: CollectionStore) => {
         : {}
 
       const item = Object.assign(old, _item)
-      this.setItem(item)
+      actions.setItem(item)
 
       const found = store.items.find(({ _id }) => _id === item._id)
       if( found ) {
@@ -90,7 +90,7 @@ export const useStoreActions = (store: CollectionStore) => {
         delete store.item[key]
       })
 
-      return this.setItem({})
+      return actions.setItem({})
     },
 
     clearItems() {
@@ -133,14 +133,14 @@ export const useStoreActions = (store: CollectionStore) => {
 
       const data = (await promise)?.data
       if( options?.insert ) {
-        this.insertItem(data.result)
+        actions.insertItem(data.result)
       }
 
       return data
     },
 
     async customEffect(verb: string|null, payload: any, fn: (payload: any) => any, options?: CustomOptions) {
-      const result = await this.custom(verb, payload, options)
+      const result = await actions.custom(verb, payload, options)
       const response = options?.fullResponse
         ? result
         : result.result
@@ -159,7 +159,7 @@ export const useStoreActions = (store: CollectionStore) => {
     },
 
     count(payload: Pick<CrudParameters, 'filters'>) {
-      return this.custom('count', payload)
+      return actions.custom('count', payload)
     },
 
     async get(payloadSource: ActionFilter|string, options?: CustomOptions) {
@@ -167,9 +167,9 @@ export const useStoreActions = (store: CollectionStore) => {
         ? { filters: { _id: payloadSource } }
         : payloadSource
 
-      return this.customEffect(
+      return actions.customEffect(
         'get', payload,
-        this.setItem.bind(this),
+        actions.setItem,
         options
       )
     },
@@ -185,10 +185,10 @@ export const useStoreActions = (store: CollectionStore) => {
         payload.offset = store.pagination.offset
       }
 
-      return this.customEffect(
+      return actions.customEffect(
         'getAll', payload,
         ({ result, pagination }) => {
-          this.setItems(result)
+          actions.setItems(result)
           Object.assign(store.pagination, pagination)
 
           return result
@@ -201,9 +201,9 @@ export const useStoreActions = (store: CollectionStore) => {
     },
 
     insert(payload?: { what: Partial<typeof store['item']> }, options?: CustomOptions) {
-      return this.customEffect(
+      return actions.customEffect(
         null, { ...payload, what: payload?.what||store.item },
-        this.insertItem.bind(this),
+        actions.insertItem,
         options
       )
     },
@@ -242,31 +242,31 @@ export const useStoreActions = (store: CollectionStore) => {
         }
       }
 
-      return this.insert({
+      return actions.insert({
         what: condenseItem(newItem)
       }, options)
     },
 
     async remove(payload: Pick<ActionFilter, 'filters'>, options?: CustomOptions) {
-      return this.customEffect(
+      return actions.customEffect(
         'remove', {
           filters: {
             _id: payload.filters?._id
           }
         },
-        this.removeItem.bind(this),
+        actions.removeItem,
         options
       )
     },
 
     async removeAll(payload: Pick<ActionFilter, 'filters'>, options?: CustomOptions) {
-      return this.customEffect(
+      return actions.customEffect(
         'removeAll', {
           filters: {
             _id: payload.filters?._id
           }
         },
-        this.removeItem.bind(this),
+        actions.removeItem,
         options
       )
     },
@@ -274,7 +274,7 @@ export const useStoreActions = (store: CollectionStore) => {
     filter(props?: ActionFilter, options?: CustomOptions) {
       store.activeFilters = props?.filters || store.$filters
 
-      return this.getAll({
+      return actions.getAll({
         filters: {
           ...store.activeFilters,
           ...store.filtersPreset
@@ -285,7 +285,7 @@ export const useStoreActions = (store: CollectionStore) => {
     },
 
     updateItems() {
-      return this.filter()
+      return actions.filter()
     },
 
     clearFilters() {

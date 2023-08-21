@@ -12,6 +12,14 @@ type PromptAnswer = { name: string }
 
 const { http } = useHttp()
 
+export type Toast = {
+  text: string
+  icon?: string
+  itr: number
+  idx: number
+  date: Date
+}
+
 export const useMetaStore = registerStore(() => {
   if( !window.INSTANCE_VARS ) {
     Object.assign(window, {
@@ -52,7 +60,7 @@ export const useMetaStore = registerStore(() => {
       body: '',
       actions: [],
     },
-    toasts: [],
+    toasts: [] as Array<Toast>,
   })
 
 
@@ -161,7 +169,7 @@ export const useMetaStore = registerStore(() => {
           variant?: string
         }>
       }): Promise<PromptAnswer> {
-        Object.assign(prompt, {
+        Object.assign(state.prompt, {
           ...props,
           visible: true
         })
@@ -197,21 +205,21 @@ export const useMetaStore = registerStore(() => {
           icon?: string
         }
       ) {
-        this.toasts.push({
+        state.toasts.push({
           ...props,
           itr: Math.random(),
-          idx: this.toasts.length,
+          idx: state.toasts.length,
           date: new Date()
         })
       },
 
-      popToast(this: { toasts: Array<any> }, itr?: Date) {
+      popToast(this: { toasts: Array<any> }, itr?: number) {
         if( !itr ) {
-          this.toasts.shift()
+          state.toasts.shift()
           return
         }
 
-        this.toasts = this.toasts
+        state.toasts = state.toasts
           .filter((toast) => toast.itr !== itr)
       },
 
