@@ -94,7 +94,6 @@ watch(route, (currRoute, prevRoute) => {
           </w-icon>
           <span v-else>{{ preset.name || $tc(presetName, 2) }}</span>
           <span v-if="preset.badgeFunction">
-            oi
             <!-- ({{ -->
             <!--   store.customGetter[preset.badgeFunction](presetName, { -->
             <!--     filters: preset.filters -->
