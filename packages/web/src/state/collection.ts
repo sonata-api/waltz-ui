@@ -17,8 +17,8 @@ import  {
 } from './helpers'
 
 export type CollectionStoreState =
-  ReturnType<typeof internalUseCollectionStore>['state']
-  & UnRef<ReturnType<ReturnType<typeof internalUseCollectionStore>['getters']>> 
+  ReturnType<typeof internalCreateCollectionStore>['state']
+  & UnRef<ReturnType<ReturnType<typeof internalCreateCollectionStore>['getters']>> 
 
 export type CollectionStore = CollectionStoreState & {
   $id: string
@@ -73,7 +73,7 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
         const description = Object.assign({}, state.rawDescription)
         const toMerge = {}
 
-        userStore.$currentUser.roles.forEach((role: string) => {
+        userStore.$currentCreater.roles.forEach((role: string) => {
           if( role in state.rawDescription.preferred! ) {
             Object.assign(toMerge, deepMerge(toMerge, state.rawDescription.preferred![role]))
           }
