@@ -2,7 +2,7 @@ export {
   type MenuSchema,
   type AppOptions,
   defineOptions,
-  useCollectionStore,
+  createCollectionStore,
   useHttp,
   useRouter,
   useClipboard,

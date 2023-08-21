@@ -4,7 +4,7 @@ import { reactive, computed } from 'vue'
 
 import { useStore, hasStore, registerStore } from '@waltz-ui/state-management'
 import { useHttp } from '../http'
-import { useCollectionStore } from '../state/collection'
+import { createCollectionStore } from '../state/collection'
 import { freshItem, freshFilters } from '../state/helpers'
 
 type CollectionName = string
@@ -132,7 +132,7 @@ export const useMetaStore = registerStore(() => {
           //   getters
           // })
           //
-          registerStore(() => useCollectionStore<any>()({
+          registerStore(() => createCollectionStore<any>()({
             $id: collectionName,
             state: {
               item,

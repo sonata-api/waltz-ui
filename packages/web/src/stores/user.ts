@@ -2,7 +2,7 @@ import type { Description } from '@sonata-api/types'
 import { registerStore } from '@waltz-ui/state-management'
 import { left, right, isLeft, unwrapEither } from '@sonata-api/common'
 import { reactive, computed } from 'vue'
-import { useCollectionStore, type CollectionStore } from '../state/collection'
+import { createCollectionStore, type CollectionStore } from '../state/collection'
 import { useMetaStore } from '.'
 
 type User = {
@@ -60,7 +60,7 @@ export const useUserStore = registerStore(() => {
     setCurrentUser({})
   }
 
-  return useCollectionStore<User>()({
+  return createCollectionStore<User>()({
     $id: 'user',
     state: state,
     getters: (state) => ({

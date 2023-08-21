@@ -274,7 +274,7 @@ const internalUseCollectionStore = <TItem extends CollectionStoreItem>() => {
   }
 }
 
-export const useCollectionStore = <TItem extends CollectionStoreItem>() => <
+export const createCollectionStore = <TItem extends CollectionStoreItem>() => <
   TStoreState extends StoreState<any>=any,
   TStoreGetters extends Record<string, ComputedRef<any>>={},
   TStoreActions extends Record<string, (...args: any[]) => any>={}
