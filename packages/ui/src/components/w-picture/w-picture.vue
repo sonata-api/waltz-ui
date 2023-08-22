@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { SV_API_URL } from '@waltz-ui/web'
+import { API_URL } from '@waltz-ui/web'
 
 type Props = {
   url?: string
@@ -23,7 +23,7 @@ type Props = {
 const props = defineProps<Props>()
 const url = computed(() => {
   if( props.fileId ) {
-    return `${SV_API_URL}/file/${props.fileId}/picture`
+    return `${API_URL}/file/${props.fileId}/picture`
   }
 
   return props.url || props.modelValue
