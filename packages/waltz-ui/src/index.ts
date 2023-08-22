@@ -3,7 +3,6 @@ export {
   type AppOptions,
   defineOptions,
   createCollectionStore,
-  useHttp,
   useRouter,
   useClipboard,
   useAction,

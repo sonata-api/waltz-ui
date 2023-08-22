@@ -1,16 +1,14 @@
-import { deepClone, deserialize } from '@sonata-api/common'
+import { deepClone, deserialize, request } from '@sonata-api/common'
 import { Description } from '@sonata-api/types'
 import { reactive, computed } from 'vue'
 
 import { useStore, hasStore, registerStore } from '@waltz-ui/state-management'
-import { useHttp } from '../http'
 import { createCollectionStore } from '../state/collection'
 import { freshItem, freshFilters } from '../state/helpers'
+import { API_URL } from '../constants'
 
 type CollectionName = string
 type PromptAnswer = { name: string }
-
-const { http } = useHttp()
 
 export type Toast = {
   text: string
@@ -84,7 +82,7 @@ export const useMetaStore = registerStore(() => {
     actions: {
       async describe(props?: Parameters<ReturnType<typeof import('@sonata-api/system').algorithms.meta>['functions']['describe']>[0]) {
         state.isLoading = true
-        const response = (await http('_/meta/describe', props))?.data
+        const response = (await request(`${API_URL}/_/meta/describe`, props))?.data
         const deserialized = deserialize(response)
 
         const globalDescriptions: Record<CollectionName, Description> =

@@ -1,11 +1,9 @@
 import type { CollectionProperty } from '@sonata-api/types'
 import type { CollectionStore } from './collection'
-import { formatValue, deepClone } from '@sonata-api/common'
-import { useHttp } from '../http'
+import { formatValue, deepClone, request } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
+import { API_URL } from '../constants'
 import { condenseItem } from './helpers'
-
-const { http, unproxiedHttp } = useHttp()
 
 export type CrudParameters = {
   filters: Record<string, any>
@@ -22,7 +20,6 @@ export type CustomOptions = {
     | 'POST'
     | 'PUT'
     | 'DELETE'
-  unproxied?: boolean
   skipLoading?: boolean
   skipEffect?: boolean
   fullResponse?: boolean
@@ -107,11 +104,7 @@ export const useStoreActions = (store: CollectionStore) => {
         ? `${store.$id}/${verb}`
         : store.$id
 
-      const requester = options?.unproxied
-        ? unproxiedHttp
-        : http
-
-      const promise = requester(route, payload, {
+      const promise = request(`${API_URL}/${route}`, payload, {
         method,
         headers: {
           'content-type': 'application/json'
