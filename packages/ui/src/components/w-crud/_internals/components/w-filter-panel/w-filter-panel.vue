@@ -32,7 +32,7 @@ const filter = () => {
       v-bind="{
         form: store.availableFilters,
         searchOnly: true,
-        layout: store.formLayout
+        layout: store.description.formLayout || {}
       }"
     ></w-form>
     <template #footer>

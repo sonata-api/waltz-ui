@@ -18,10 +18,10 @@
   "files": [
     "dist"
   ],
-  "dependencies": {
-    "@waltz-ui/state-management": "^0.0.2",
-    "@waltz-ui/ui": "^0.0.16",
-    "@waltz-ui/web": "^0.0.10"
+  "peerDependencies": {
+    "@waltz-ui/state-management": "*",
+    "@waltz-ui/ui": "*",
+    "@waltz-ui/web": "*"
   },
   "gitHead": "1d6ca8fc72c6d648b12621a192462ef35793dcb9"
 }

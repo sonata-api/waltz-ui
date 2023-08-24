@@ -209,7 +209,8 @@ watch(() => actionEventBus.value, async (event) => {
 
     store.$actions.setItem({
       ...newItem,
-      _id: undefined
+      _id: undefined,
+      id: undefined
     })
 
     store.referenceItem = {}

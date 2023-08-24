@@ -216,14 +216,14 @@ export const useStoreActions = (store: CollectionStore) => {
             if( type === 'array' && Array.isArray(subject) ) {
               const ids = []
               for( const item of subject ) {
-                const result = await helperStore.deepInsert({ what: item })
+                const result = await helperStore.$actions.deepInsert({ what: item })
                 ids.push(result._id)
               }
 
               return ids
             }
 
-            const result = await helperStore.deepInsert({
+            const result = await helperStore.$actions.deepInsert({
               what: subject
             })
 
