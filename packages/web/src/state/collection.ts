@@ -73,7 +73,7 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
         const description = Object.assign({}, state.rawDescription)
         const toMerge = {}
 
-        userStore.$currentCreater.roles.forEach((role: string) => {
+        userStore.$currentUser.roles.forEach((role: string) => {
           if( role in state.rawDescription.preferred! ) {
             Object.assign(toMerge, deepMerge(toMerge, state.rawDescription.preferred![role]))
           }
