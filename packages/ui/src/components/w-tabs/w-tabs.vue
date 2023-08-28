@@ -7,7 +7,6 @@ type Props = {
   param?: string
 }
 
-const slots = defineSlots()
 const props = defineProps<Props>()
 
 const source = (<any>props).query
@@ -15,7 +14,7 @@ const source = (<any>props).query
   : 'params'
 
 const currentTab = computed(() => {
-  return router.currentRoute.value[source][props.query || props.param]
+  return router.currentRoute.value[source][props.query || props.param!]
 })
 
 const router = await useRouter()
@@ -23,7 +22,7 @@ const router = await useRouter()
 const change = (tab: string) => {
   router.push({
     [source]: {
-      [props.query || props.param]: tab
+      [props.query || props.param!]: tab
     }
   })
 }

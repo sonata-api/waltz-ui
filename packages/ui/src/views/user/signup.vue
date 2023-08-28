@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
+import { isLeft, unwrapEither } from '@sonata-api/common'
 import WForm from '../../components/form/w-form/w-form.vue'
 import WIcon from '../../components/w-icon/w-icon.vue'
 import WButton from '../../components/w-button/w-button.vue'
@@ -27,16 +28,22 @@ const password = ref({
 
 const insert = async () => {
   userStore.item.password = password.value.password
-  const user = await userStore.$actions.insert().catch(async (e) => {
-    throw e
-  })
+  const userEither = await userStore.$functions.createAccount(userStore.item)
+  if( isLeft(userEither) ) {
+    const error = unwrapEither(userEither)
+    await metaStore.$actions.spawnModal({
+      title: 'Erro',
+      body: error
+    })
+    return
+  }
 
   await metaStore.$actions.spawnModal({
     title: 'Conta registrada',
-    body: 'Blabla'
+    body: 'Verifique o link de confirmação no seu email'
   })
 
-  // router.push({ name: 'user-signin' })
+ router.push({ name: 'user-signin' })
 }
 </script>
 
