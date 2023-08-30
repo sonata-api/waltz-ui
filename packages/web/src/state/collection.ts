@@ -16,11 +16,11 @@ import  {
 
 } from './helpers'
 
-export type CollectionStoreState =
-  ReturnType<typeof internalCreateCollectionStore>['state']
+export type CollectionStoreState<TItem extends CollectionStoreItem=any> =
+  ReturnType<typeof internalCreateCollectionStore<TItem>>['state']
   & UnRef<ReturnType<ReturnType<typeof internalCreateCollectionStore>['getters']>> 
 
-export type CollectionStore = CollectionStoreState & {
+export type CollectionStore<TItem extends CollectionStoreItem=any> = CollectionStoreState<TItem> & {
   $id: string
   $functions: Record<string, any>
   $actions: ReturnType<typeof useStoreActions>
@@ -41,9 +41,9 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
 
     items: [] as Array<TItem>,
     filters: {},
-    freshFilters: {} as any,
-    activeFilters: {} as any,
-    filtersPreset: {} as any,
+    freshFilters: {} as Record<string, any>,
+    activeFilters: {} as Record<string, any>,
+    filtersPreset: {} as Record<string, any>,
 
     preferredTableProperties: [],
     customGetters: [],
@@ -52,7 +52,7 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
     currentLayout: '',
 
     validationErrors: {} as any,
-    loading: {} as any,
+    loading: {} as Record<string, boolean>,
     halt: false,
 
     pagination: {
@@ -275,24 +275,25 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
 }
 
 export const createCollectionStore = <TItem extends CollectionStoreItem>() => <
+  TStoreId extends string,
   TStoreState extends StoreState<any>=any,
   TStoreGetters extends Record<string, ComputedRef<any>>={},
   TStoreActions extends Record<string, (...args: any[]) => any>={}
 >(newer: {
-  $id: string
+  $id: TStoreId
   state?: TStoreState
   getters?: (
-    state: CollectionStoreState & TStoreState & UnRef<TStoreGetters>,
+    state: CollectionStoreState & TStoreState,
     actions: ReturnType<typeof useStoreActions> & TStoreActions
   ) => TStoreGetters
   actions?: (
-    state: CollectionStoreState & TStoreState & UnRef<TStoreGetters>,
+    state: CollectionStoreState & TStoreState,
     actions: ReturnType<typeof useStoreActions>
   ) => TStoreActions
 
 }) => {
-  const initial: any = internalCreateCollectionStore<TItem>()
-  const state = initial.state
+  const initial = internalCreateCollectionStore<TItem>()
+  const state: any = initial.state
 
   const actions = useStoreActions(state)
   if( newer?.actions ) {
@@ -309,11 +310,12 @@ export const createCollectionStore = <TItem extends CollectionStoreItem>() => <
   )
 
   return {
-    $id: newer?.$id,
-    state: state as TStoreState,
-    getters: newer.getters?.(state, actions as any) as TStoreGetters,
+    $id: newer?.$id as TStoreId,
+    state: state as typeof initial.state & TStoreState,
+    getters: newer.getters?.(state, actions as any) as UnRef<TStoreGetters>,
     actions: actions as TStoreActions extends {}
       ? typeof actions
       : typeof actions & TStoreActions
   }
 }
+

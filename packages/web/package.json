@@ -32,11 +32,13 @@
     "@sonata-api/common": "*",
     "@sonata-api/system": "*",
     "@sonata-api/types": "*",
-    "@waltz-ui/state-management": "^0.0.2",
     "vue": "^3.3.4",
     "vue-demi": "^0.13.6",
     "vue-i18n": "^9.2.0-beta.16",
     "vue-router": "^4.2.1"
+  },
+  "peerDependencies": {
+    "@waltz-ui/state-management": "*"
   },
   "devDependencies": {
     "typescript": "^5.1.6",

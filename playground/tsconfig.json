@@ -1,13 +1,15 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "nodenext",
     "strict": true,
     "declaration": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "waltz-ui": [
+        "../packages/waltz-ui/dist"
+      ]
+    }
   },
   "include": [
     "*.d.ts",

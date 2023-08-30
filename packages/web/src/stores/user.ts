@@ -62,7 +62,7 @@ export const useUserStore = registerStore(() => {
 
   return createCollectionStore<User>()({
     $id: 'user',
-    state: state,
+    state,
     getters: (state) => ({
       $currentUser,
       properties: computed(() => {
