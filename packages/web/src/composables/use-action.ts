@@ -16,7 +16,7 @@ const getEffect = (store: any, effectName: StoreEffect) => {
   return store.$actions[effect]
 }
 
-export const useAction = <T extends { $id: string }, F extends { _id: string }>(
+export const useAction = <F extends { _id: string }>(
   store: Store,
   router: Router
 ): [(...args: any[]) => void, any] => {
@@ -68,7 +68,7 @@ export const useAction = <T extends { $id: string }, F extends { _id: string }>(
     const prepareFilters = (filters: F) => {
       return actionProps.requires
         ? store.$actions.select(actionProps.requires, filters)
-        : filters
+        : store.$actions.select(['_id'], filters)
     }
 
     const storeAction = (() => {

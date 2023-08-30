@@ -239,11 +239,11 @@ export const useStoreActions = (store: CollectionStore) => {
       }, options)
     },
 
-    async remove(payload: Pick<ActionFilter, 'filters'>, options?: CustomOptions) {
+    async remove(payload: ActionFilter['filters'], options?: CustomOptions) {
       return actions.customEffect(
         'remove', {
           filters: {
-            _id: payload.filters?._id
+            _id: payload?._id
           }
         },
         actions.removeItem,
@@ -251,11 +251,11 @@ export const useStoreActions = (store: CollectionStore) => {
       )
     },
 
-    async removeAll(payload: Pick<ActionFilter, 'filters'>, options?: CustomOptions) {
+    async removeAll(payload: ActionFilter['filters'], options?: CustomOptions) {
       return actions.customEffect(
         'removeAll', {
           filters: {
-            _id: payload.filters?._id
+            _id: payload?._id
           }
         },
         actions.removeItem,
@@ -310,6 +310,7 @@ export const useStoreActions = (store: CollectionStore) => {
       })
 
       if( answer.name === 'confirm' ) {
+        console.log(props)
         const { action, params } = props
         return action(params)
       }

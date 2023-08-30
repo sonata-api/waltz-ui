@@ -15,6 +15,10 @@ $picture-size: 2rem;
   :deep(thead) > tr {
     display: none;
 
+    @media print {
+      display: table-row;
+    }
+
     @media screen and (min-width: 600px) {
       height: 3rem;
       display: table-row;
