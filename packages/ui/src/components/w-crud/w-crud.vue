@@ -12,7 +12,7 @@ import {
 
 import type { Layout } from '@sonata-api/types'
 import { deepClone } from '@sonata-api/common'
-import { useRouter, useAction, useDebounce, CollectionStore } from '@waltz-ui/web'
+import { useRouter, useAction, useDebounce } from '@waltz-ui/web'
 import { useStore, useParentStore } from '@waltz-ui/state-management'
 
 import WPagination from '../w-pagination/w-pagination.vue'

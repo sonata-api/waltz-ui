@@ -6,7 +6,6 @@ import WTable from '../../../../w-table/w-table.vue'
 
 type Props = {
   individualActions: any
-  hasSelectionActions: boolean
   layoutOptions: LayoutOptions
   componentProps?: Record<string, any>
 }

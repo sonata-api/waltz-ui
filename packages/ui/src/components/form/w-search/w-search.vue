@@ -52,7 +52,7 @@ const focus = ref<'in'|'out'|null>(null)
 const inputValue = ref<Record<string, any>>({})
 
 const select = (item: any, itemIndex: number) => {
-  const filterEmpties = (array: Array<any>) => array.filter(e => typeof e !== 'object' || Object.keys(e||{}).length > 0)
+  const filterEmpties = (array: Array<any>) => array.filter(e => !!e?._id)
   const modelValue = property.type === 'array'
     ? filterEmpties(Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue])
     : props.modelValue

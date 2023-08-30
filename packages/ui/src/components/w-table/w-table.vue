@@ -13,7 +13,7 @@ import WSwitch from '../form/w-switch/w-switch.vue'
 type Props = {
   columns?: Record<string, CollectionProperty>
   rows?: any
-  collection?: string
+  collection?: string | Ref<string>
   checkbox?: boolean
   border?: boolean
   headers?: boolean
