@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { FormFieldProps } from '../types'
 import { ref, computed } from 'vue'
+import WIcon from '../../w-icon/w-icon.vue'
 
 type Props = FormFieldProps<any> & {
   booleanRef?: boolean
@@ -42,25 +43,32 @@ const modelValue = !props.booleanRef
 </script>
 
 <template>
-  <select
-    ref="select"
-    class="select"
+  <div class="select">
+    <w-icon 
+      v-if="property.s$icon"
+      :icon="property.s$icon"
+      class="select__icon"
+    ></w-icon>
 
-    :key="modelValue?._id || modelValue"
-    :value="modelValue?._id || modelValue"
-    @click.stop="void"
-    @change="update(($event.target as any).value)"
-  >
-    <option value="">{{ $t('none') }}</option>
-    <option
-      v-for="option in property.enum"
-      :key="option"
-      :value="option"
+    <select
+      :key="modelValue?._id || modelValue"
+      :value="modelValue?._id || modelValue"
+      class="select__select"
+
+      @click.stop="void"
+      @change="update(($event.target as any).value)"
     >
-      {{ property.s$translate ? $t(option) : option }}
-    </option>
-    <slot></slot>
-  </select>
+      <option value="">{{ $t('none') }}</option>
+      <option
+        v-for="option in property.enum"
+        :key="option"
+        :value="option"
+      >
+        {{ property.s$translate ? $t(option) : option }}
+      </option>
+      <slot></slot>
+    </select>
+  </div>
 </template>
 
 <script lang="ts">

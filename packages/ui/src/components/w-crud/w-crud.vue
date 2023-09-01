@@ -292,7 +292,6 @@ provide('parentStore', parentStore)
             variant: 'bold',
             property: {
               type: 'text',
-              s$icon: 'search-alt',
               s$placeholder: store.description.search.placeholder || 'Pesquise aqui',
               s$inputType: 'search'
             }

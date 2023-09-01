@@ -1,17 +1,26 @@
 .select {
-  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
   padding: var(--default-input-padding);
-  min-width: 5rem;
-
-  border-radius: 4px;
-  line-height: 1.5rem;
 
   @include themed() {
     background: #f8f8f8;
     color: t(foreground-color);
   }
 
-  &:focus {
-    outline: none;
+  &__select {
+    width: 100%;
+    min-width: 5rem;
+
+    border-radius: 4px;
+    line-height: 1.5rem;
+
+    &:focus {
+      outline: none;
+    }
+
+    background: transparent;
   }
 }
+

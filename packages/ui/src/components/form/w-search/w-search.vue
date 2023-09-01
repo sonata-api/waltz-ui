@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import type { CollectionProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
-import { onMounted, provide, inject, computed, ref, nextTick } from 'vue'
+import { onMounted, provide, computed, ref, watch } from 'vue'
 import { useDebounce } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
 
-import WIcon from '../../w-icon/w-icon.vue'
+import WBox from '../../w-box/w-box.vue'
 import WForm from '../w-form/w-form.vue'
+import WSearchContainer from './_internals/components/w-search-container/w-search-container.vue'
 import WSearchSelected from './_internals/components/w-search-selected/w-search-selected.vue'
 import WSearchItem from './_internals/components/w-search-item/w-search-item.vue'
 
-type Props = Omit<FormFieldProps<any>, 'property'> & {
+type Props = Omit<FormFieldProps<Record<string, any> | Array<Record<string, any>>>, 'property'> & {
   property: CollectionProperty & NonNullable<{
     s$isReference: CollectionProperty['s$isReference']
     s$referencedCollection: CollectionProperty['s$referencedCollection']
@@ -21,6 +22,8 @@ type Props = Omit<FormFieldProps<any>, 'property'> & {
 const props = defineProps<Props>()
 const property = props.property
 
+const DEFAULT_LIMIT = 10
+
 const emit = defineEmits<{
   (e: 'update:modelValue' | 'change', event: any): void
 }>()
@@ -29,62 +32,30 @@ provide('storeId', property.s$referencedCollection!)
 provide('innerInputLabel', true)
 provide('omitInputLabels', true)
 
-const searchOnly = !property.s$inlineEditing || inject<boolean|null>('searchOnly', null)
-const omitFormHeader = inject('omitFormHeader', false)
-
 const store = useStore(property.s$referencedCollection!)
 const indexes = props.property.s$indexes
 
-const expanded = ref(false)
-const selectClick = ref(false)
+const addPanel = ref(false)
 
-const searchResponse = ref<any>({
-  result: []
+const selected = ref<Props['modelValue']>(props.modelValue)
+
+const searchResponse = ref({
+  result: [] as Array<any>,
+  pagination: {}
 })
 
-const matchingItems = computed<Array<Record<string, any> & { _id: string }>>(() => searchResponse.value.result || [])
+const matchingItems = computed(() => searchResponse.value.result || [])
 const pagination = computed(() => searchResponse.value.pagination)
 
-const isExpanded = computed(() => expanded.value || property.s$inline)
-
 const isTyping = ref(false)
-const focus = ref<'in'|'out'|null>(null)
 const inputValue = ref<Record<string, any>>({})
 
-const select = (item: any, itemIndex: number) => {
-  const filterEmpties = (array: Array<any>) => array.filter(e => !!e?._id)
-  const modelValue = property.type === 'array'
-    ? filterEmpties(Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue])
-    : props.modelValue
-
-  if( property.uniqueItems || (property.type === 'array' && searchOnly) ) {
-    matchingItems.value.splice(itemIndex, 1)
-  }
-
-  emit('update:modelValue', property.type === 'array'
-    ? [ ...modelValue, item ]
-    : item
-  )
-
-  emit('change', item)
-  selectClick.value = false
-
-  // necessary: we want to trigger a rerender everytime
-  nextTick(() => {
-    selectClick.value = true
-  })
-}
-
-const pushBack = (item: any) => {
-  searchResponse.value.result.push(item)
-}
-
-const search = async (empty?: boolean) => {
+const search = async (options?: { empty?: true }) => {
   if( Object.values(inputValue.value).every((v) => !(String(v).length > 0)) ) {
-    if( empty && matchingItems.value.length === 0 ) {
+    if( options?.empty ) {
       searchResponse.value = await store.$actions.custom(
         'getAll',
-        { limit: 100 },
+        { limit: DEFAULT_LIMIT },
         { fullResponse: true }
       )
     }
@@ -97,10 +68,9 @@ const search = async (empty?: boolean) => {
   }
 
   searchResponse.value = await store.$actions.custom('getAll', {
-    limit: 100,
+    limit: DEFAULT_LIMIT,
     filters: {
-      $or: indexes?.filter((i: string) => inputValue.value[i]?.length > 0)
-      .map((i: string) => ({
+      $or: indexes?.filter((i) => inputValue.value[i]?.length > 0).map((i) => ({
         [i]: {
           $regex: inputValue.value[i].trim(),
           $options: 'i'
@@ -126,121 +96,105 @@ const lazySearch = () => {
   doLazySearch()
 }
 
-let cancelClearResponse: () => void
-const clearResponse = () => {
-  selectClick.value = false
-  searchResponse.value = {
-    result: []
+const openAddPanel = () => {
+  addPanel.value = true
+  search({ empty: true })
+}
+
+const isInputEmpty = computed(() => !Object.values(inputValue.value).some((value) => !!value))
+
+watch(isInputEmpty, (val, oldVal) => {
+  if( val && !oldVal ) {
+    search({ empty: true })
   }
-}
+})
 
-const handleFocusin = () => {
-  cancelClearResponse()
-  search(true)
-  focus.value = 'in'
+const save = () => {
+  emit('update:modelValue', selected.value)
+  addPanel.value = false
 }
-
-const handleFocusout = () => {
-  lazyClearResponse()
-  focus.value = 'out'
-}
-
-const [lazyClearResponse, cancel_] = useDebounce({ delay: 200 })(clearResponse)
-cancelClearResponse = cancel_
 </script>
 
 <template>
-  <div class="search">
+  <w-box
+    float
+    close-hint
+    title="Adicionar"
+    v-model="addPanel"
+    @overlay-click="addPanel = false"
+  >
     <w-form
-      v-if="isExpanded"
-      v-bind="{
-        collection: property.$ref,
-        modelValue,
-        form: property.s$form
-          ? store.$actions.useProperties(property.s$form)
-          : store.properties,
-        layout: store.formLayout
-      }"
-
-      @update:model-value="emit('update:modelValue', $event)"
-    ></w-form>
-
-    <w-form
-      v-else
+      focus
       v-model="inputValue"
       v-bind="{
         collection: property.$ref,
         form: store.$actions.useProperties(indexes),
         layout: store.formLayout,
-        searchOnly: true,
-        focus: selectClick
+        searchOnly: true
       }"
 
-      @focusin="handleFocusin"
-      @focusout="handleFocusout"
       @input="lazySearch"
     ></w-form>
 
-    <div
-      v-if="!isExpanded"
-      class="
-        search__container
-        search__container--selected
-      "
-    >
-      <w-search-selected
+    <w-search-container v-if="matchingItems.length">
+      <w-search-item
+        v-model="selected"
+        v-for="item in matchingItems"
         v-bind="{
-          searchOnly,
+          item,
+          indexes,
+          property,
+        }"
+
+        :key="`matching-${item._id}`"
+      ></w-search-item>
+    </w-search-container>
+
+    <div v-else>
+      <div v-if="isTyping">
+        Pesquisando...
+      </div>
+      <div v-else-if="
+        !store.loading.getAll
+          && Object.values(inputValue).filter((v) => !!v).length > 0
+          && !((property.type === 'array' && modelValue?.length) || modelValue?._id)
+      ">
+        Não há resultados
+      </div>
+    </div>
+
+    <template #footer>
+      <w-button @click="save">Salvar</w-button>
+    </template>
+
+  </w-box>
+
+  <div class="search">
+    <w-search-container>
+      <w-search-item
+        v-for="item in modelValue"
+        v-bind="{
+          item,
           indexes,
           property,
           modelValue
         }"
 
+        :key="`selected-${item._id}`"
         @update:model-value="emit('update:modelValue', $event)"
-        @push-back="pushBack"
-      ></w-search-selected>
-    </div>
+      ></w-search-item>
 
-    <div v-if="!isExpanded">
-      <div
-        v-if="matchingItems.length"
-        class="
-          search__container
-          search__container--results
-        "
-      >
-        <w-search-item
-          v-for="(item, index) in matchingItems"
-          v-bind="{
-            item,
-            indexes
-          }"
-
-          :key="`matching-${item._id}`"
-          @click="select(item, +index)"
+      <template #footer>
+        <div
+          v-clickable
+          @click="openAddPanel"
         >
-          <w-icon icon="plus"></w-icon>
-        </w-search-item>
+          Adicionar
+        </div>
+      </template>
 
-        <div v-if="pagination.recordsTotal > pagination.recordsCount">
-          +{{ pagination.recordsTotal - pagination.recordsCount }} resultados
-        </div>
-      </div>
+    </w-search-container>
 
-      <div v-else>
-        <div v-if="isTyping">
-          Pesquisando...
-        </div>
-        <div v-else-if="
-          !store.loading.getAll
-            && focus === 'in'
-            && Object.values(inputValue).filter((v) => !!v).length > 0
-            && !((property.type === 'array' && modelValue?.length) || modelValue?._id)
-        ">
-          Não há resultados
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 

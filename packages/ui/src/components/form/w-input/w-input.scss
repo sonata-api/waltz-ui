@@ -1,8 +1,12 @@
 @mixin focus {
   .input {
     @include themed() {
-      &__container--bordered:after {
-        width: 100%;
+      outline: 2px solid red;
+      &__container--bordered {
+        &>.input__input,
+        &>.input__textarea {
+          border-color: t(brand-color);
+        }
       }
 
       &__icon {
@@ -36,17 +40,8 @@
         &>.input__input,
         &>.input__textarea {
           background: #f8f8f8;
-        }
-
-        &:after {
-          content: '';
-          transition: width .1s ease;
-          position: absolute;
-          bottom: -1px;
-          left: 0;
-          height: 3px;
-          width: 0;
-          background: t(brand-color);
+          border: 2px solid transparent;
+          transition: border-color .35s ease;
         }
       }
     }

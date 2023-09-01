@@ -1,6 +1,6 @@
 {
   "name": "@waltz-ui/ui",
-  "version": "0.0.20",
+  "version": "0.0.18",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,7 +18,7 @@
     "access": "public"
   },
   "exports": {
-    ".": "./dist/ui.mjs",
+    ".": "./src/index.ts",
     "./*": "./dist/*"
   },
   "files": [

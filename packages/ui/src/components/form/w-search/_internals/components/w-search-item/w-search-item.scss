@@ -1,19 +1,22 @@
 .item {
   display: flex;
   align-items: center;
-  gap: .6rem;
+  padding: .8rem;
 
   // border: 1px solid #dedede;
   //
 
   @include themed() {
-    &:not(:last-child) {
-      border-bottom: 1px solid t(border-color);
-    }
+    // &:not(:last-child) {
+    //   border-bottom: 1px solid #000;
+    // }
 
     color: t(foreground-color);
   }
 
+  &--selected {
+    background: #e8f4f8;
+  }
 
   &__values {
     display: flex;
