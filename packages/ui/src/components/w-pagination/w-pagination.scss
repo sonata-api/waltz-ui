@@ -10,25 +10,6 @@
   &__control {
     display: flex;
     align-items: center;
-
-    &>:not(button) {
-      padding: 0 !important;
-    }
-
-    &>select,
-    &>button,
-    :deep(input) {
-      align-self: stretch;
-    }
-
-    &>button,
-    :deep(input){
-      padding: .4rem .6rem;
-    }
-
-    &>select {
-      padding: 0 .6rem !important;
-    }
   }
 
   &__page-input {

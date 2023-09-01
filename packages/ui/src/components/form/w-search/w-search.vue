@@ -116,58 +116,60 @@ const save = () => {
 </script>
 
 <template>
-  <w-box
-    float
-    close-hint
-    title="Adicionar"
-    v-model="addPanel"
-    @overlay-click="addPanel = false"
-  >
-    <w-form
-      focus
-      v-model="inputValue"
-      v-bind="{
-        collection: property.$ref,
-        form: store.$actions.useProperties(indexes),
-        layout: store.formLayout,
-        searchOnly: true
-      }"
-
-      @input="lazySearch"
-    ></w-form>
-
-    <w-search-container v-if="matchingItems.length">
-      <w-search-item
-        v-model="selected"
-        v-for="item in matchingItems"
+  <teleport to="#main">
+    <w-box
+      float
+      close-hint
+      title="Adicionar"
+      v-model="addPanel"
+      @overlay-click="addPanel = false"
+    >
+      <w-form
+        focus
+        v-model="inputValue"
         v-bind="{
-          item,
-          indexes,
-          property,
+          collection: property.$ref,
+          form: store.$actions.useProperties(indexes),
+          layout: store.formLayout,
+          searchOnly: true
         }"
 
-        :key="`matching-${item._id}`"
-      ></w-search-item>
-    </w-search-container>
+        @input="lazySearch"
+      ></w-form>
 
-    <div v-else>
-      <div v-if="isTyping">
-        Pesquisando...
+      <w-search-container v-if="matchingItems.length">
+        <w-search-item
+          v-model="selected"
+          v-for="item in matchingItems"
+          v-bind="{
+            item,
+            indexes,
+            property,
+          }"
+
+          :key="`matching-${item._id}`"
+        ></w-search-item>
+      </w-search-container>
+
+      <div v-else>
+        <div v-if="isTyping">
+          Pesquisando...
+        </div>
+        <div v-else-if="
+          !store.loading.getAll
+            && Object.values(inputValue).filter((v) => !!v).length > 0
+            && !((property.type === 'array' && modelValue?.length) || modelValue?._id)
+        ">
+          Não há resultados
+        </div>
       </div>
-      <div v-else-if="
-        !store.loading.getAll
-          && Object.values(inputValue).filter((v) => !!v).length > 0
-          && !((property.type === 'array' && modelValue?.length) || modelValue?._id)
-      ">
-        Não há resultados
-      </div>
-    </div>
 
-    <template #footer>
-      <w-button @click="save">Salvar</w-button>
-    </template>
+      <template #footer>
+        <w-button @click="save">Salvar</w-button>
+      </template>
 
-  </w-box>
+    </w-box>
+  </teleport>
 
   <div class="search">
     <w-search-container>

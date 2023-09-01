@@ -59,22 +59,21 @@ watch([page, limit], ([newPage]: [number, number]) => {
 
 <template>
   <div class="pagination">
-    <div class="pagination__control">
-      <w-select v-model="limit" :property="{}">
-        <option
-          v-for="limit in PAGINATION_PER_PAGE_DEFAULTS"
-          :key="`limit-${limit}`"
-          :value="limit"
-        >
-          {{ limit }}
-        </option>
-      </w-select>
-      <w-icon
-        icon="list-ul"
-        fill="gray"
-        style="margin-left: .8rem"
-      ></w-icon>
-    </div>
+    <w-select
+      v-model="limit"
+      :property="{
+        s$icon: 'list-ul'
+      }"
+      class="pagination__control"
+    >
+      <option
+        v-for="limit in PAGINATION_PER_PAGE_DEFAULTS"
+        :key="`limit-${limit}`"
+        :value="limit"
+      >
+        {{ limit }}
+      </option>
+    </w-select>
 
     <div class="pagination__control">
       <w-bare-button @click="page = 0">
