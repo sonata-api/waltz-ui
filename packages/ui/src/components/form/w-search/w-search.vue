@@ -36,7 +36,7 @@ const indexes = props.property.s$indexes
 
 const selectPanel = ref(false)
 
-const selected = ref<Props['modelValue']>(props.modelValue)
+const selected = ref(props.modelValue)
 
 const searchResponse = ref({
   result: [] as Array<any>,
@@ -85,7 +85,7 @@ onMounted(async () => {
   }
 })
 
-const [doLazySearch] = useDebounce({ delay: 800 })(() => {
+const [doLazySearch] = useDebounce({ delay: 100 })(() => {
   search()
   isTyping.value = false
 })
@@ -172,16 +172,29 @@ const save = () => {
 
   <div class="search">
     <w-search-container>
+      <div v-if="property.type === 'array'">
+        <w-search-item
+          v-for="item in modelValue"
+          v-bind="{
+            item,
+            indexes,
+            property,
+            modelValue
+          }"
+
+          :key="`selected-${item._id}`"
+          @update:model-value="emit('update:modelValue', $event)"
+        ></w-search-item>
+      </div>
+
       <w-search-item
-        v-for="item in modelValue"
+        v-else-if="modelValue?._id"
         v-bind="{
-          item,
+          item: modelValue,
           indexes,
           property,
           modelValue
         }"
-
-        :key="`selected-${item._id}`"
         @update:model-value="emit('update:modelValue', $event)"
       ></w-search-item>
 
@@ -193,7 +206,6 @@ const save = () => {
           Selecionar
         </div>
       </template>
-
     </w-search-container>
 
   </div>

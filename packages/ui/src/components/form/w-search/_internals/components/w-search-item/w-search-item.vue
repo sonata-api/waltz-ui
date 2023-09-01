@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import type { CollectionProperty } from '@sonata-api/types'
-import { computed, inject } from 'vue'
+import { computed } from 'vue'
 import { useParentStore } from '@waltz-ui/state-management'
 
 type Props = {
   item: Record<string, any>
   indexes: Array<string>
   modelValue?: any
-  searchOnly?: boolean
   property: CollectionProperty
 }
 
@@ -22,13 +21,15 @@ const emit = defineEmits<Emits>()
 const property = props.property
 const store = useParentStore()
 
-const searchOnly = !property.s$inlineEditing || inject<boolean|null>('searchOnly', null)
-
 const isAlreadySelected = computed(() => {
-  if (property.uniqueItems || (property.type === 'array' && searchOnly)) {
-    return (Array.isArray(props.modelValue) && Object.values(props.modelValue).find(({ _id }) => props.item._id === _id))
-      || (!Array.isArray(props.modelValue) && props.modelValue?._id === props.item._id)
+  if( property.type === 'array' || Array.isArray(props.modelValue) ) {
+    return Array.isArray(props.modelValue)
+      && Object.values(props.modelValue).some(({ _id }) => props.item._id === _id)
   }
+
+  return props.modelValue
+    && props.item
+    && props.modelValue._id === props.item._id
 })
 
 const select = () => {
