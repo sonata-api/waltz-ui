@@ -8,7 +8,6 @@ import { useStore } from '@waltz-ui/state-management'
 import WBox from '../../w-box/w-box.vue'
 import WForm from '../w-form/w-form.vue'
 import WSearchContainer from './_internals/components/w-search-container/w-search-container.vue'
-import WSearchSelected from './_internals/components/w-search-selected/w-search-selected.vue'
 import WSearchItem from './_internals/components/w-search-item/w-search-item.vue'
 
 type Props = Omit<FormFieldProps<Record<string, any> | Array<Record<string, any>>>, 'property'> & {
@@ -35,7 +34,7 @@ provide('omitInputLabels', true)
 const store = useStore(property.s$referencedCollection!)
 const indexes = props.property.s$indexes
 
-const addPanel = ref(false)
+const selectPanel = ref(false)
 
 const selected = ref<Props['modelValue']>(props.modelValue)
 
@@ -96,8 +95,8 @@ const lazySearch = () => {
   doLazySearch()
 }
 
-const openAddPanel = () => {
-  addPanel.value = true
+const openSelectPanel = () => {
+  selectPanel.value = true
   search({ empty: true })
 }
 
@@ -111,7 +110,7 @@ watch(isInputEmpty, (val, oldVal) => {
 
 const save = () => {
   emit('update:modelValue', selected.value)
-  addPanel.value = false
+  selectPanel.value = false
 }
 </script>
 
@@ -120,9 +119,9 @@ const save = () => {
     <w-box
       float
       close-hint
-      title="Adicionar"
-      v-model="addPanel"
-      @overlay-click="addPanel = false"
+      :title="`Selecionar ${$t(props.propertyName!)}`"
+      v-model="selectPanel"
+      @overlay-click="selectPanel = false"
     >
       <w-form
         focus
@@ -189,9 +188,9 @@ const save = () => {
       <template #footer>
         <div
           v-clickable
-          @click="openAddPanel"
+          @click="openSelectPanel"
         >
-          Adicionar
+          Selecionar
         </div>
       </template>
 
