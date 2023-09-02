@@ -6,6 +6,7 @@ import { useDebounce } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
 
 import WBox from '../../w-box/w-box.vue'
+import WButton from '../../w-button/w-button.vue'
 import WForm from '../w-form/w-form.vue'
 import WSearchContainer from './_internals/components/w-search-container/w-search-container.vue'
 import WSearchItem from './_internals/components/w-search-item/w-search-item.vue'
