@@ -85,7 +85,7 @@ onMounted(async () => {
   }
 })
 
-const [doLazySearch] = useDebounce({ delay: 100 })(() => {
+const [doLazySearch] = useDebounce({ delay: 800 })(() => {
   search()
   isTyping.value = false
 })
