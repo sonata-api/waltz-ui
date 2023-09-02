@@ -11,7 +11,7 @@ bootstrapRoutes()
 </script>
 
 <template>
-  <div
+  <main
     id="main"
     :class="`
       main
@@ -68,7 +68,7 @@ bootstrapRoutes()
         "></div>
       </w-toast>
     </div>
-  </div>
+  </main>
 </template>
 
 <style scoped src="./w-main.scss"></style>

@@ -34,7 +34,7 @@ const expand = ref(false)
 
 <template>
   <figure class="picture">
-    <teleport to="#app">
+    <teleport to="main">
       <div
         v-if="expand"
         v-overlay="{

@@ -60,7 +60,7 @@ const position = computed(() => ({
     >
       <slot></slot>
     </a>
-    <teleport to="#main">
+    <teleport to="main">
       <div
         v-if="contextmenuVisible"
         v-overlay.invisible="{

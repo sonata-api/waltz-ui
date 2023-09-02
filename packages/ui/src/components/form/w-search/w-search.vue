@@ -115,7 +115,7 @@ const save = () => {
 </script>
 
 <template>
-  <teleport to="#main">
+  <teleport to="main">
     <w-box
       float
       close-hint
