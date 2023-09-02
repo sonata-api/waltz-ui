@@ -40,7 +40,7 @@ const rerenderFixture = ref(0)
 const variant = inject('inputVariant', props.variant) || 'normal'
 
 const {
-  s$icon: icon = (searchOnly || property.s$inputType === 'search') && 'search-alt',
+  s$icon: icon = property.s$inputType === 'search' && 'search-alt',
   s$mask: mask,
   readOnly: _readOnly,
 

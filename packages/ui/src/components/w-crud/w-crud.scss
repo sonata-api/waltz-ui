@@ -15,11 +15,18 @@
     display: flex;
     align-items: flex-start;
     justify-content: flex-end;
-    gap: .8rem;
+    gap: 1.8rem;
 
     @media screen and (min-width: 600px) {
       flex-direction: row;
       align-items: center;
     }
+  }
+
+  &__controls-icons {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-end;
+    gap: .4rem;
   }
 }
