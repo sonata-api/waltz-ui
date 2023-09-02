@@ -40,6 +40,8 @@ export const getComponent = (property: CollectionProperty, customComponents: Rec
         return 'switch'
       case property.s$referencedCollection === 'file':
         return 'file'
+      case property.s$isReference && property.s$inline:
+        return 'form'
       case property.s$isReference:
         return 'search'
       case !!nestedProp.enum:

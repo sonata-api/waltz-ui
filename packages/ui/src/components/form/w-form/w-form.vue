@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { CollectionProperty, Condition } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
-import { onBeforeMount, computed, provide, inject } from 'vue'
+import { onBeforeMount, computed, provide, inject, isRef, type Ref } from 'vue'
 import { useCondition, insertReady } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
 
@@ -26,7 +26,7 @@ type LayoutConfig = {
 type Props = FormFieldProps<any> & {
   form?: Record<string, CollectionProperty>
   modelValue: Record<string, any>
-  collection?: string
+  collection?: string | Ref<string>
   isReadOnly?: boolean
   searchOnly?: boolean
   strict?: boolean
@@ -63,11 +63,13 @@ onBeforeMount(() => {
 })
 
 const collectionName = !props.property
-  ? props.collection || inject('storeId', null)
-  : null
+    ? props.collection || inject('storeId', null)
+    : props.property.s$referencedCollection
 
 const store = collectionName
-  ? useStore(collectionName.value||collectionName)
+  ? useStore(isRef(collectionName)
+    ? collectionName.value
+    : collectionName!)
   : null
 
 if( !collectionName && process.env.NODE_ENV !== 'production' ) {
@@ -77,7 +79,21 @@ if( !collectionName && process.env.NODE_ENV !== 'production' ) {
   )
 }
 
-const form = computed<Props['form']>(() => props.property?.properties || props.form)
+const form = computed(() => {
+  if( !props.form && props.property ) {
+    if( props.property.properties ) {
+      return props.property.properties
+    }
+
+    return store?.properties
+  }
+
+  return props.form
+})
+
+const computedLayout = computed(() => {
+  return props.layout || store?.description.formLayout
+})
 
 const passAhead = <T extends keyof Props, P extends Props[T]>(propName: T): P => {
   const value = inject<P>(propName, props[propName] as P)
@@ -149,7 +165,7 @@ const properties = filterProperties(([key, f]: [string, any]) => {
 
 const fieldStyle = (key:string, property: any) => {
   const style = []
-  const layout = props.layout?.fields?.[key] || props.layout?.fields?.$default
+  const layout = computedLayout.value?.fields?.[key] || computedLayout.value?.fields?.$default
 
   if( !property ) {
     return
@@ -346,7 +362,6 @@ const isInsertReady = computed(() => {
                     ...property.items
                   },
                   value: value,
-                  modelValue: modelValue[key][listIndex],
                   propertyName: key,
                   parentCollection: collectionName,
                   columns: layout?.fields?.[key]?.optionsColumns
