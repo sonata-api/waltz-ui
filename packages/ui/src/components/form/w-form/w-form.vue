@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { CollectionProperty, Condition } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
-import { onBeforeMount, computed, provide, inject, isRef, type Ref } from 'vue'
+import { onBeforeMount, ref, computed, provide, inject, isRef, type Ref } from 'vue'
 import { useCondition, insertReady } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
 
@@ -78,6 +78,8 @@ if( !collectionName && process.env.NODE_ENV !== 'production' ) {
     collection prop, some features may not work as intended`
   )
 }
+
+const alreadyFocused = ref(false)
 
 const form = computed(() => {
   if( !props.form && props.property ) {
@@ -244,8 +246,8 @@ const isInsertReady = computed(() => {
       class="form__fieldset"
     >
       <div
-        v-for="([key, property], index) in properties"
-        :key="`field-${index}`"
+        v-for="([key, property]) in properties"
+        :key="`field-${key}`"
         :style="fieldStyle(key, property)"
         class="form__field"
       >
@@ -420,8 +422,7 @@ const isInsertReady = computed(() => {
             ...(property.s$componentProps || {}),
           }"
 
-          v-focus="index === 0 && focus"
-          :key="focus"
+          v-focus="!alreadyFocused && (alreadyFocused = !!focus)"
 
           @input="emit('input', key)"
           @change="emit('change', $event)"

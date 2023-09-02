@@ -36,7 +36,6 @@ const emit = defineEmits<{
 }>()
 
 const input = ref(null)
-const rerenderFixture = ref(0)
 const variant = inject('inputVariant', props.variant) || 'normal'
 
 const {
@@ -150,16 +149,12 @@ watch(() => props.modelValue, (value, oldValue) => {
     inputValue.value = property.type === 'number'
       ? 0
       : ''
-
-    if( property.s$mask ) {
-      rerenderFixture.value += 1
-    }
   }
 })
 </script>
 
 <template>
-  <label :key="rerenderFixture" class="input">
+  <label class="input">
     <div class="input__label" v-if="!innerInputLabel">
       <slot v-if="$slots.default"></slot>
       <slot v-else name="description"></slot>
@@ -177,7 +172,7 @@ watch(() => props.modelValue, (value, oldValue) => {
       <input
         v-maska
         v-bind="inputBind"
-        v-focus="rerenderFixture > 0 || property.s$focus"
+        v-focus="property.s$focus"
         ref="input"
         :value="inputValue"
         data-component="input"
@@ -211,7 +206,7 @@ watch(() => props.modelValue, (value, oldValue) => {
           <w-icon
             v-clickable
             icon="clipboard"
-            @click="copyToClipboard(modelValue)"
+            @click="copyToClipboard(modelValue.toString())"
           ></w-icon>
         </w-info>
       </div>
@@ -225,7 +220,7 @@ watch(() => props.modelValue, (value, oldValue) => {
         ${bordered && 'input__container--bordered'}
     `">
       <textarea
-        v-focus="rerenderFixture > 0 || property.s$focus"
+        v-focus="property.s$focus"
         :placeholder="inputBind.placeholder"
         :readonly="readOnly"
 
