@@ -1,6 +1,7 @@
 export {
   type MenuSchema,
   type AppOptions,
+  type CollectionStore,
   defineOptions,
   createCollectionStore,
   useRouter,

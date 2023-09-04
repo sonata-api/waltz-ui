@@ -6,12 +6,3 @@ registerAnimalStore()
 
 const app = createApp(Main)
 app.mount('#app')
-
-type UserStores = typeof import('./stores')
-type Stores = {
-  [P in keyof UserStores]: ReturnType<ReturnType<UserStores[P]>>
-}
-
-declare const useStore: <TStoreId extends keyof Stores>(storeId: TStoreId) => Stores[TStoreId]
-
-useStore('animal')

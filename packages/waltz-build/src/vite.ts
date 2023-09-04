@@ -31,7 +31,7 @@ export default defineConfig(async () => {
         async preEmit() {
           process.env.SONATA_API_SHALLOW_IMPORT = '1'
 
-          const { collections: userCollections } = require(process.cwd() + '/../api/dist/collections')
+          const userCollections = require(process.cwd() + '/../api/dist/collections')
           const systemCollections = require(process.cwd() + '/../api/node_modules/@sonata-api/system/dist/collections')
 
           const collections = {

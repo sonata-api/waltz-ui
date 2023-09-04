@@ -8,6 +8,8 @@ import { useStore } from '@waltz-ui/state-management'
 import WBox from '../../w-box/w-box.vue'
 import WButton from '../../w-button/w-button.vue'
 import WForm from '../w-form/w-form.vue'
+import WSelect from '../w-select/w-select.vue'
+import WInput from '../w-input/w-input.vue'
 import WSearchContainer from './_internals/components/w-search-container/w-search-container.vue'
 import WSearchItem from './_internals/components/w-search-item/w-search-item.vue'
 
@@ -47,8 +49,14 @@ const searchResponse = ref({
 const matchingItems = computed(() => searchResponse.value.result || [])
 const pagination = computed(() => searchResponse.value.pagination)
 
+const searchField = ref(indexes![0])
 const isTyping = ref(false)
-const inputValue = ref<Record<string, any>>({})
+const inputValue = ref<Record<NonNullable<typeof indexes>[number], any>>({})
+
+const searchProperty = computed(() => ({
+  ...store.properties[searchField.value],
+  s$inputType: 'search-alt'
+}))
 
 const search = async (options?: { empty?: true }) => {
   if( Object.values(inputValue.value).every((v) => !(String(v).length > 0)) ) {
@@ -124,18 +132,33 @@ const save = () => {
       v-model="selectPanel"
       @overlay-click="selectPanel = false"
     >
-      <w-form
-        focus
-        v-model="inputValue"
-        v-bind="{
-          collection: property.$ref,
-          form: store.$actions.useProperties(indexes),
-          layout: store.formLayout,
-          searchOnly: true
-        }"
+      <div class="search__input">
+        <w-select
+          v-model="searchField"
+          @change="inputValue = {}"
+        >
+          <option
+            v-for="field in indexes"
+            :key="`searchfield-${field}`"
+            :value="field"
+          >
+            {{ $t(field) }}
+          </option>
+        </w-select>
 
-        @input="lazySearch"
-      ></w-form>
+        <div style="flex: 1">
+          <w-input
+            v-model="inputValue[searchField]"
+            :property="{
+              ...store.properties[searchField],
+              s$inputType: 'search'
+            }"
+
+            :key="searchField"
+            @input="lazySearch"
+          ></w-input>
+        </div>
+      </div>
 
       <w-search-container v-if="matchingItems.length">
         <w-search-item

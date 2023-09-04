@@ -1,4 +1,9 @@
 .search {
   display: flex;
   flex-direction: column;
+
+  &__input {
+    display: flex;
+    gap: .8rem;
+  }
 }

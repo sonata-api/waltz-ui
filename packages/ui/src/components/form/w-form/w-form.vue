@@ -116,7 +116,10 @@ const omitFormHeader = passAhead('omitFormHeader')
 const omitInputLabels = passAhead('omitInputLabels')
 const innerInputLabel = passAhead('innerInputLabel')
 
-provide('storeId', collectionName)
+if( collectionName ) {
+  provide('storeId', collectionName)
+}
+
 provide('searchOnly', props.searchOnly||false)
 provide('inputBordered', inject('inputBordered', true))
 
@@ -404,10 +407,6 @@ const isInsertReady = computed(() => {
             </w-button>
           </div>
         </div>
-
-        <pre v-else-if="property.type === 'object'">{{
-          modelValue[key]
-        }}</pre>
 
         <component
           v-else
