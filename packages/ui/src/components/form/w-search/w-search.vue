@@ -35,7 +35,7 @@ provide('innerInputLabel', true)
 provide('omitInputLabels', true)
 
 const store = useStore(property.s$referencedCollection!)
-const indexes = props.property.s$indexes
+const indexes = props.property.s$indexes!
 
 const selectPanel = ref(false)
 
@@ -49,14 +49,9 @@ const searchResponse = ref({
 const matchingItems = computed(() => searchResponse.value.result || [])
 const pagination = computed(() => searchResponse.value.pagination)
 
-const searchField = ref(indexes![0])
+const searchField = ref(indexes[0])
 const isTyping = ref(false)
 const inputValue = ref<Record<NonNullable<typeof indexes>[number], any>>({})
-
-const searchProperty = computed(() => ({
-  ...store.properties[searchField.value],
-  s$inputType: 'search-alt'
-}))
 
 const search = async (options?: { empty?: true }) => {
   if( Object.values(inputValue.value).every((v) => !(String(v).length > 0)) ) {
@@ -134,6 +129,7 @@ const save = () => {
     >
       <div class="search__input">
         <w-select
+          v-if="indexes.length > 1"
           v-model="searchField"
           @change="inputValue = {}"
         >
