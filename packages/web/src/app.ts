@@ -15,7 +15,7 @@ import { routerInstance as createRouter } from './router'
 
 import type { defineOptions } from './options'
 import { useParentStore } from '@waltz-ui/state-management'
-import { useMetaStore, useUserStore } from './stores'
+import { meta, user } from './stores'
 import registerDirectives from './directives'
 
 export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promise<{
@@ -23,6 +23,9 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
   router: Router
   mount: () => any
 }> => new Promise(async (resolve) => {
+  const useMetaStore = meta()
+  const useUserStore = user()
+
   const options = typeof optionsFn === 'function'
     ? await optionsFn()
     : optionsFn

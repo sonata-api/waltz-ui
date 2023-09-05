@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router/auto'
 import { isRight } from '@sonata-api/common'
-import { useMetaStore, useUserStore } from './stores'
+import { meta, user } from './stores'
 
 export type RouteMeta = {
   meta: {
@@ -33,8 +33,8 @@ export const routerInstance = (routes: Array<RouteRecordRaw>) => {
   })
 
   router.beforeEach(async (to, _from, next) => {
-    const metaStore = useMetaStore()
-    const userStore = useUserStore()
+    const metaStore = meta()()
+    const userStore = user()()
 
     metaStore.view.title = to.meta?.title as string
 

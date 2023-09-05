@@ -13,9 +13,11 @@ declare module 'waltz-ui' {
     [K in keyof (SystemCollections & UserCollections)]: Awaited<ReturnType<(SystemCollections & UserCollections)[K]>>
   }
 
+  type SystemStores = typeof import('@waltz-ui/web/stores')
   type UserStores = typeof import('./src/stores')
+
   type Stores = {
-    [P in keyof UserStores]: ReturnType<ReturnType<UserStores[P]>>
+    [P in keyof (SystemStores & UserStores)]: ReturnType<ReturnType<(SystemStores & UserStores)[P]>>
   }
 
   export const useStore: <TStoreId extends keyof Stores | keyof Collections>(storeId: TStoreId) => TStoreId extends keyof Stores

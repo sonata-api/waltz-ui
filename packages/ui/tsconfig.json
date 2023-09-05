@@ -4,10 +4,13 @@
     "outDir": "dist",
     "paths": {
       "@waltz-ui/web": [
-        "../web"
+        "../web/dist"
+      ],
+      "@waltz-ui/web/*": [
+        "../web/dist/*"
       ],
       "@waltz-ui/state-management": [
-        "../state-management"
+        "../state-management/dist"
       ]
     }
   },

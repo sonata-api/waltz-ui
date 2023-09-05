@@ -18,7 +18,7 @@ export type Toast = {
   date: Date
 }
 
-export const useMetaStore = registerStore(() => {
+export const meta = () => registerStore(() => {
   if( !window.INSTANCE_VARS ) {
     Object.assign(window, {
       INSTANCE_VARS: {}

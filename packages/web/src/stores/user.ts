@@ -3,7 +3,7 @@ import { registerStore } from '@waltz-ui/state-management'
 import { left, right, isLeft, unwrapEither } from '@sonata-api/common'
 import { reactive, computed } from 'vue'
 import { createCollectionStore, type CollectionStore } from '../state/collection'
-import { useMetaStore } from '.'
+import { meta } from '.'
 
 type User = {
   _id: string
@@ -16,7 +16,7 @@ type Credentials = {
   password: string
 }
 
-export const useUserStore = registerStore(() => {
+export const user = () => registerStore(() => {
   const state = reactive({
     token: '',
     currentUser: {} as Partial<User> & {
@@ -66,7 +66,7 @@ export const useUserStore = registerStore(() => {
     getters: (state) => ({
       $currentUser,
       properties: computed(() => {
-        const metaStore = useMetaStore()
+        const metaStore = meta()()
         const properties = state.description.properties!
         if( !properties ) {
           return {}
@@ -82,7 +82,7 @@ export const useUserStore = registerStore(() => {
       signout,
 
       async authenticate(this: CollectionStore, payload: Credentials | { revalidate: true }) {
-        const metaStore = useMetaStore()
+        const metaStore = meta()()
 
         try {
           const resultEither = await this.$functions.authenticate(payload)

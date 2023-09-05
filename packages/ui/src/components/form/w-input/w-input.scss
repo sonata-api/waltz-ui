@@ -33,7 +33,6 @@
   &__container {
     position: relative;
     display: flex;
-    height: 100%;
 
     &--bordered {
       @include themed() {
