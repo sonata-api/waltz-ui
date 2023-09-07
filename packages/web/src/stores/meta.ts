@@ -67,7 +67,7 @@ export const meta = () => registerStore(() => {
       const currTheme = state.themeOverride || state.theme
       if( !currTheme ) {
         const defaultTheme = 'default'
-        state.theme = localStorage.getItem('meta:theme__') || defaultTheme
+        state.theme = localStorage.getItem('meta:theme') || defaultTheme
         return state.theme
       }
 
@@ -221,7 +221,11 @@ export const meta = () => registerStore(() => {
           .filter((toast) => toast.itr !== itr)
       },
 
-      saveTheme() {
+      saveTheme(theme?: string) {
+        if( theme ) {
+          state.theme = theme
+        }
+
         localStorage.setItem('meta:theme', state.theme)
       },
     },

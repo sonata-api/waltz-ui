@@ -38,3 +38,10 @@
     animation-delay: -.5s;
   }
 }
+
+main.main--dark {
+  * {
+    border-color: var(--dark-border-color);
+  }
+}
+

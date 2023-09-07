@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useRouter, useUserStore, useMetaStore } from '@waltz-ui/web'
+import { useRouter, user, meta } from '@waltz-ui/web'
 import { isRight } from '@sonata-api/common'
 import WForm from '../../components/form/w-form/w-form.vue'
 import WButton from '../../components/w-button/w-button.vue'
 
 const router = await useRouter()
-const userStore = useUserStore()
-const metaStore = useMetaStore()
+const userStore = user()()
+const metaStore = meta()()
 
 localStorage.clear()
 

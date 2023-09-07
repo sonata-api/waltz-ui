@@ -13,6 +13,13 @@
   }
 }
 
+.w-surface-alt {
+  @include themed() {
+    background: t(background-color-alt);
+    color: t(foreground-color);
+  }
+}
+
 .w-branded-text {
   @include themed() {
     color: t(brand-color);
