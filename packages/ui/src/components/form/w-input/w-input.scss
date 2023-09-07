@@ -38,7 +38,7 @@
       @include themed() {
         &>.input__input,
         &>.input__textarea {
-          background: #f8f8f8;
+          background: t(background-color-alt);
           border: 2px solid transparent;
           transition: border-color .35s ease;
         }
