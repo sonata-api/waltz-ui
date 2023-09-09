@@ -10,6 +10,8 @@ type Props = {
   float?: boolean
   fixedRight?: boolean
   floating?: boolean
+  bordered?: boolean
+  animate?: boolean
   overlay?: boolean
   invisibleOverlay?: boolean
   collapsed?: boolean
@@ -95,8 +97,9 @@ const toggleCollapsed = (value: boolean) => {
       :class="`
         w-surface
         box__content
-        ${!(isFloating || fixedRight) && 'box__content--bordered'}
+        ${!(isFloating || fixedRight) && 'box__content--rounded'}
         ${isFloating && 'box__content--floating'}
+        ${animate && 'box__content--animate'}
         ${fixedRight && 'box__content--fixed-right'}
         ${transparent && 'box__content--transparent'}
         ${transparentMobile && 'box__content--transparent-mobile'}

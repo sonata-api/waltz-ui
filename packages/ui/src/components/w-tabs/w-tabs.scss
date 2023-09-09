@@ -1,5 +1,11 @@
 .tabs {
-  display: flex;
+  &__horizontal {
+    display: none;
+
+    @media screen and (min-width: 600px) {
+      display: flex;
+    }
+  }
 
   &__tab {
     display: flex;
@@ -17,19 +23,10 @@
     }
   }
 
-  @media screen and (max-width: 600px) {
-    flex-direction: column;
 
-    &__tab {
-      &:first-child {
-        @include themed() {
-          border: 1px solid t(border-color);
-        }
-      }
-
-      &:not(:first-child) {
-        display: none;
-      }
+  &__context-menu {
+    @media screen and (min-width: 600px) {
+      display: none;
     }
   }
 }

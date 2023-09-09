@@ -8,7 +8,6 @@ import WButton from '../w-button/w-button.vue'
 import WIcon from '../w-icon/w-icon.vue'
 import WPicture from '../w-picture/w-picture.vue'
 import WContextMenu from '../w-context-menu/w-context-menu.vue'
-import WSwitch from '../form/w-switch/w-switch.vue'
 
 type Props = {
   columns?: Record<string, CollectionProperty>
@@ -124,6 +123,10 @@ const buttonStyle = (subject: any, action: any) => {
           v-for="([column, property], cindex) in Object.entries(columns)"
           :key="`column-${row._id}-${cindex}`"
         >
+          <div class="table__cell-mobile-label">
+            {{ property.description || $t(column) }}
+          </div>
+
           <div
             v-if="`row-${column}` in $slots"
             class="table__cell-container"
@@ -144,10 +147,6 @@ const buttonStyle = (subject: any, action: any) => {
             v-else
             class="table__cell-container"
           >
-            <div class="table__cell-mobile-label">
-              {{ property.description || $t(column) }}
-            </div>
-
             <div class="table__cell-grid">
               <div v-if="property.type === 'boolean'">
                 <w-icon
@@ -246,6 +245,7 @@ const buttonStyle = (subject: any, action: any) => {
             >
               {{ $t(action.name) }}
             </w-button>
+
             <w-context-menu
               v-if="dropdownActions.length > 0"
               v-bind="{
@@ -258,6 +258,7 @@ const buttonStyle = (subject: any, action: any) => {
                 icon="ellipsis-h"
               ></w-icon>
             </w-context-menu>
+
           </div>
         </td>
         <div :id="`dropdown-${row._id}`"></div>

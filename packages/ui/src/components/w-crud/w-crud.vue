@@ -6,6 +6,7 @@ import {
   provide,
   inject,
   watch,
+  isRef,
   type Ref
 
 } from 'vue'
@@ -74,7 +75,9 @@ const parentStore = props.parentField
   : null
 
 const action = props.action
-  ? props.action.value || props.action
+  ? isRef(props.action)
+    ? props.action.value
+    : props.action
   : useAction(store, router)
 
 call.value = action[0]
@@ -285,7 +288,10 @@ provide('parentStore', parentStore)
       )"
       class="crud__controls"
     >
-      <div v-if="store.description.search?.active" style="flex: 1;">
+      <div
+        v-if="store.description.search?.active"
+        class="crud__search"
+      >
         <w-input
           bordered
           v-model="queryString"

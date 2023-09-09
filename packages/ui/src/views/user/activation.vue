@@ -16,7 +16,7 @@ const router = await useRouter()
 const userStore = useStore('user')
 const metaStore = useStore('meta')
 
-const step: Step = router.currentRoute.value.query.step || 'success'
+const step = router.currentRoute.value.query.step as Step || 'success'
 const userId = router.currentRoute.value.query.u
 const token = router.currentRoute.value.query.t
 

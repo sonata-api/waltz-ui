@@ -40,22 +40,26 @@ $picture-size: 2rem;
   :deep(tbody) > tr {
     height: 3rem;
 
-    @include themed() {
-      &:hover {
-        background: t(background-color-alt);
+    @media screen and (min-width: 600px) {
+      @include themed() {
+        &:hover {
+          background: t(background-color-alt);
+        }
       }
     }
 
     @media screen and (max-width: 600px) {
       display: flex;
       flex-direction: column;
-      gap: .6rem;
       height: auto;
 
       @include themed() {
-        background: t(background-color);
+        background: t(background-color-alt);
+        border-radius: 10px;
+        overflow: hidden;
+
         &:not(:last-child) {
-          border-bottom: 1px solid t(border-color);
+          margin-bottom: 1.4rem;
         }
       }
     }
@@ -64,9 +68,9 @@ $picture-size: 2rem;
       padding: $cell-padding;
       font-size: 10pt;
 
-      @media screen and (max-width: 600px) {
-        padding: 0;
-      }
+//       @media screen and (max-width: 600px) {
+//         padding: 0;
+//       }
     }
   }
 
@@ -84,11 +88,6 @@ $picture-size: 2rem;
 
     @media screen and (max-width: 600px) {
       display: inherit;
-    }
-
-    &:after {
-      content: ': ';
-      margin-right: .4rem;
     }
   }
 

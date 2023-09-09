@@ -34,8 +34,8 @@ const firstIfArray = (what: any) => {
     >
       <w-picture
         expandable
-        :url="firstIfArray(item[layoutOptions.picture])?.link"
-        :meta="firstIfArray(item[layoutOptions.picture])"
+        :url="firstIfArray(item[layoutOptions.picture!])?.link"
+        :meta="firstIfArray(item[layoutOptions.picture!])"
       ></w-picture>
 
       <template #footer>

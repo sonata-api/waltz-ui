@@ -2,31 +2,40 @@
   &__main {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2.6rem;
+
+    @media screen and (min-width: 600px) {
+      gap: 1rem;
+    }
   }
 
   &__actions {
     display: flex;
     align-items: center;
     gap: .4rem;
+    margin-left: auto;
   }
 
   &__controls {
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
-    gap: 1.8rem;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem 1.8rem;
+  }
 
-    @media screen and (min-width: 600px) {
-      flex-direction: row;
-      align-items: center;
-    }
+  &__search {
+    flex: 1;
   }
 
   &__controls-icons {
     display: flex;
     align-items: stretch;
-    justify-content: flex-end;
     gap: .4rem;
+
+    @media screen and (max-width: 600px) {
+      border: 1px solid transparent;
+      justify-content: space-between;
+      flex: 1;
+    }
   }
 }

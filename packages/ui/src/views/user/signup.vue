@@ -21,6 +21,8 @@ if( !metaStore.descriptions.user ) {
 }
 
 const tosAccepted = ref(false)
+
+const newUser = ref({})
 const password = ref({
   password: '',
   confirmation: ''
@@ -28,7 +30,11 @@ const password = ref({
 
 const insert = async () => {
   userStore.item.password = password.value.password
-  const userEither = await userStore.$functions.createAccount(userStore.item)
+  const userEither = await userStore.$functions.createAccount({
+    ...newUser.value,
+    ...password.value
+  })
+
   if( isLeft(userEither) ) {
     const error = unwrapEither(userEither)
     await metaStore.$actions.spawnModal({
@@ -43,7 +49,7 @@ const insert = async () => {
     body: 'Verifique o link de confirmação no seu email'
   })
 
- router.push({ name: 'user-signin' })
+ router.push({ name: '/user/signin' })
 }
 </script>
 
@@ -60,7 +66,7 @@ const insert = async () => {
   </div>
 
   <w-form
-    v-model="userStore.item"
+    v-model="newUser"
     v-bind="{
       collection: 'user',
       form: userStore.$actions.useProperties([

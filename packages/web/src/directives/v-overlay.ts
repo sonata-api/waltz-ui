@@ -20,6 +20,12 @@ const overlay: Directive = {
 
     __layer.last += 10
 
+    const visible = !binding.modifiers?.invisible
+      && (
+        !binding.modifiers?.invisibleOnLarge
+          || window.matchMedia('(max-width: 600px)').matches
+      )
+
     overlayElem.setAttribute('style', `
       position: fixed;
       display: block;
@@ -31,7 +37,7 @@ const overlay: Directive = {
       width: 100vw;
       height: 100vh;
 
-      ${!binding.modifiers?.invisible && `
+      ${visible && `
         background: rgba(65, 82, 105, .25);
         backdrop-filter: blur(2px);
       `}

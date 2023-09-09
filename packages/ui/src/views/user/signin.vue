@@ -38,6 +38,7 @@ const authenticate = async () => {
       </span>
     </div>
   </div>
+
   <w-form
     v-model="userStore.credentials"
     :form="{

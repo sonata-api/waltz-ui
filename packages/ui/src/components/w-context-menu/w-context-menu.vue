@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import { useStore } from '@waltz-ui/state-management'
 import WBareButton from '../w-bare-button/w-bare-button.vue'
+import WBox from '../w-box/w-box.vue'
 import WIcon from '../w-icon/w-icon.vue'
 
 type Props = {
@@ -50,7 +51,6 @@ const position = computed(() => ({
 
 <template>
   <div
-    v-if="actions.length > 0"
     ref="contextmenu"
     class="contextmenu"
   >
@@ -60,64 +60,110 @@ const position = computed(() => ({
     >
       <slot></slot>
     </a>
-    <teleport to="main">
-      <div
-        v-if="contextmenuVisible"
-        v-overlay.invisible="{
-          click: () => {
-            contextmenuVisible = false
-          }
-        }"
+  </div>
 
-        class="contextmenu__content"
+  <teleport to="main">
+    <w-box
+      animate
+      fill
+      v-model="contextmenuVisible"
+      v-overlay.invisibleOnLarge="{
+        click: () => {
+          contextmenuVisible = false
+        }
+      }"
+
+      class="content"
+    >
+      <div
+        v-if="$slots.extra"
+        class="content__section"
       >
-        <div>
-          <div
+        <div class="content__item">
+          <slot
             v-if="$slots.extra"
-            class="contextmenu__section"
-          >
-            <div class="contextmenu__item">
-              <slot
-                v-if="$slots.extra"
-                name="extra"
-              ></slot>
-            </div>
-          </div>
-          <div class="contextmenu__section">
-            <w-bare-button
-              v-for="(action, aindex) in filterActions(actions)"
-              :key="`action-${aindex}`"
-              class="
-                contextmenu__item
-                contextmenu__item--reactive
-              "
-              @click="onClick(action, subject)"
-            >
-              <w-icon
-                small
-                v-if="action.icon"
-                :icon="action.icon"
-              >
-                {{
-                  action.translate
-                    ? $t(action.name)
-                    : action.name
-                }}
-              </w-icon>
-            </w-bare-button>
-          </div>
+            name="extra"
+          ></slot>
         </div>
       </div>
-    </teleport>
-  </div>
+
+      <div
+        v-if="Object.keys($slots).filter((key) => !['default', 'extra'].includes(key)).length > 0"
+        class="content__section"
+      >
+        <w-bare-button
+          v-for="(slotName, sindex) in Object.keys($slots).filter((key) => !['default', 'extra'].includes(key))"
+          :key="`slot-${sindex}`"
+          class="
+            content__item
+            content__item--reactive
+          "
+        >
+          <slot :name="slotName"></slot>
+        </w-bare-button>
+      </div>
+
+      <div
+        v-if="actions?.length > 0"
+        class="content__section"
+      >
+        <w-bare-button
+          v-for="(action, aindex) in filterActions(actions)"
+          :key="`action-${aindex}`"
+          class="
+            content__item
+            content__item--reactive
+          "
+          @click="onClick(action, subject)"
+        >
+          <w-icon
+            small
+            v-if="action.icon"
+            :icon="action.icon"
+          >
+            {{
+              action.translate
+                ? $t(action.name)
+                : action.name
+            }}
+          </w-icon>
+        </w-bare-button>
+      </div>
+
+    </w-box>
+  </teleport>
 </template>
 
 <style scoped src="./w-context-menu.scss"></style>
 
 <style scoped lang="scss">
-.contextmenu__content {
-  transform:
-    translateX(min(v-bind('position.x'), calc(100vw - 100%)))
-    translateY(min(v-bind('position.y'), calc(100vh - 100%))) !important;
+.content {
+  :deep(.box__content) {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .content {
+    :deep(.box__content) {
+      width: 90vw;
+      border-radius: 15px;
+    }
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .content {
+    :deep(.box__content) {
+      top: 0;
+      left: 0;
+      transform:
+        translateX(min(v-bind('position.x'), calc(100vw - 100%)))
+        translateY(min(v-bind('position.y'), calc(100vh - 100%))) !important;
+    }
+  }
 }
 </style>

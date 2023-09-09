@@ -18,8 +18,8 @@
     "access": "public"
   },
   "exports": {
-    ".": "./dist/ui.mjs",
-    "./*": "./dist/*"
+    ".": "./src/index.ts",
+    "./*": "./src/*"
   },
   "files": [
     "dist"
