@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useSlots, computed } from 'vue'
-import { useRouter } from '@waltz-ui/web'
+import { useRouter, useBreakpoints } from '@waltz-ui/web'
 import WContextMenu from '../w-context-menu/w-context-menu.vue'
 import WIcon from '../w-icon/w-icon.vue'
 
@@ -12,6 +12,8 @@ type Props = {
 const props = defineProps<Props>()
 const slots = useSlots()
 const router = await useRouter()
+
+const breakpoints = useBreakpoints()
 
 const source = (<any>props).query
   ? 'query'
@@ -37,7 +39,10 @@ const change = (tab: string) => {
 
 <template>
   <div class="tabs">
-    <div class="tabs__horizontal">
+    <div
+      v-if="breakpoints.md"
+      class="tabs__horizontal"
+    >
       <div
         v-for="(slotName, index) in Object.keys($slots)"
         :key="slotName"
@@ -52,7 +57,10 @@ const change = (tab: string) => {
       </div>
     </div>
 
-    <div class="tabs__context-menu">
+    <div
+      v-else
+      class="tabs__context-menu"
+    >
       <w-context-menu>
         <w-icon
           icon-right

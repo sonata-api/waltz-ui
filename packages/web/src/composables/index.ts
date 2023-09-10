@@ -1,4 +1,5 @@
 export * from './use-action'
+export * from './use-breakpoints'
 export * from './use-clipboard'
 export * from './use-condition'
 export * from './use-debounce'

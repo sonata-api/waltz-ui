@@ -2,7 +2,7 @@
 import type { CollectionProperty, Condition } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
 import { onBeforeMount, ref, computed, provide, inject, isRef, type Ref } from 'vue'
-import { useCondition, insertReady } from '@waltz-ui/web'
+import { useCondition, useBreakpoints, insertReady } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
 
 import WIcon from '../../w-icon/w-icon.vue'
@@ -168,7 +168,9 @@ const properties = filterProperties(([key, f]: [string, any]) => {
   return !f.meta && has(key)
 })
 
-const fieldStyle = (key:string, property: any) => {
+const breakpoints = useBreakpoints()
+
+const fieldStyle = (key: string, property: any) => {
   const style = []
   const layout = computedLayout.value?.fields?.[key] || computedLayout.value?.fields?.$default
 
@@ -194,7 +196,7 @@ const fieldStyle = (key:string, property: any) => {
   }
 
   style.push(`
-    --field-span: ${layout?.span || 6};
+    --field-span: ${breakpoints.md ? layout?.span || 6 : 6};
     grid-column: span var(--field-span) / span var(--field-span);
   `)
 
