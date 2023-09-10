@@ -2,6 +2,7 @@
 import { useSlots, computed } from 'vue'
 import { useRouter } from '@waltz-ui/web'
 import WContextMenu from '../w-context-menu/w-context-menu.vue'
+import WIcon from '../w-icon/w-icon.vue'
 
 type Props = {
   query?: string
@@ -53,7 +54,13 @@ const change = (tab: string) => {
 
     <div class="tabs__context-menu">
       <w-context-menu>
-        <slot :name="currentTab"></slot>
+        <w-icon
+          icon-right
+          icon="angle-down"
+          class="tabs__context-menu-icon"
+        >
+          <slot :name="currentTab"></slot>
+        </w-icon>
 
         <template
           v-for="slotName in Object.keys($slots)"

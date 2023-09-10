@@ -1,7 +1,7 @@
 @mixin padding {
   padding: 1.4rem;
 
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 800px) {
     padding: 1.8rem 2.4rem;
   }
 }
@@ -62,15 +62,23 @@
 
     &--floating, &--fixed-right {
       .box__header {
-        padding: 1rem 2.4rem;
+        padding: 1rem 1.4rem;
         box-sizing: content-box;
 
         font-weight: bold;
         font-size: 1.2rem;
+
+        @media screen and (min-width: 800px) {
+          padding: 1rem 2.4rem;
+        }
       }
 
       .box__footer {
-        padding: 1.8rem 2.4rem;
+        padding: 1.8rem 1.4rem;
+
+        @media screen and (min-width: 800px) {
+          padding: 1.8rem 2.4rem;
+        }
       }
     }
 
@@ -87,7 +95,7 @@
       max-height: 80vh;
       border-radius: 14px;
 
-      @media screen and (min-width: 600px) {
+      @media screen and (min-width: 800px) {
         min-width: 36rem;
       }
     }
@@ -105,7 +113,7 @@
       border: 0;
       border-radius: 0;
 
-      @media screen and (min-width: 600px) {
+      @media screen and (min-width: 800px) {
         width: 44rem;
       }
     }
@@ -116,7 +124,7 @@
     }
 
     &--transparent-mobile {
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 800px) {
         border: none !important;
         background: none !important;
 

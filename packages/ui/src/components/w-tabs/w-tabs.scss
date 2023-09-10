@@ -29,4 +29,10 @@
       display: none;
     }
   }
+
+  &__context-menu-icon {
+    &:first-child {
+      gap: 0;
+    }
+  }
 }

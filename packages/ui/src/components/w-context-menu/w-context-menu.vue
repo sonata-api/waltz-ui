@@ -75,61 +75,63 @@ const position = computed(() => ({
 
       class="content"
     >
-      <div
-        v-if="Object.keys($slots).filter((key) => !['default', 'extra'].includes(key)).length > 0"
-        class="content__section"
-      >
-        <w-bare-button
-          v-for="(slotName, sindex) in Object.keys($slots).filter((key) => !['default', 'extra'].includes(key))"
-          :key="`slot-${sindex}`"
-          class="
-            content__item
-            content__item--reactive
-          "
+      <div @click="contextmenuVisible = false">
+        <div
+          v-if="Object.keys($slots).filter((key) => !['default', 'extra'].includes(key)).length > 0"
+          class="content__section"
         >
-          <slot :name="slotName"></slot>
-        </w-bare-button>
-      </div>
-
-      <div
-        v-if="actions?.length > 0"
-        class="content__section"
-      >
-        <w-bare-button
-          v-for="(action, aindex) in filterActions(actions)"
-          :key="`action-${aindex}`"
-          class="
-            content__item
-            content__item--reactive
-          "
-          @click="onClick(action, subject)"
-        >
-          <w-icon
-            small
-            v-if="action.icon"
-            :icon="action.icon"
+          <w-bare-button
+            v-for="(slotName, sindex) in Object.keys($slots).filter((key) => !['default', 'extra'].includes(key))"
+            :key="`slot-${sindex}`"
+            class="
+              content__item
+              content__item--reactive
+            "
           >
-            {{
-              action.translate
-                ? $t(action.name)
-                : action.name
-            }}
-          </w-icon>
-        </w-bare-button>
-      </div>
-
-      <div
-        v-if="$slots.extra"
-        class="content__section"
-      >
-        <div class="content__item">
-          <slot
-            v-if="$slots.extra"
-            name="extra"
-          ></slot>
+            <slot :name="slotName"></slot>
+          </w-bare-button>
         </div>
-      </div>
 
+        <div
+          v-if="actions?.length > 0"
+          class="content__section"
+        >
+          <w-bare-button
+            v-for="(action, aindex) in filterActions(actions)"
+            :key="`action-${aindex}`"
+            class="
+              content__item
+              content__item--reactive
+            "
+            @click="onClick(action, subject)"
+          >
+            <w-icon
+              small
+              v-if="action.icon"
+              :icon="action.icon"
+            >
+              {{
+                action.translate
+                  ? $t(action.name)
+                  : action.name
+              }}
+            </w-icon>
+          </w-bare-button>
+        </div>
+
+        <div
+          v-if="$slots.extra"
+          class="content__section"
+        >
+          <div class="content__item">
+            <slot
+              v-if="$slots.extra"
+              name="extra"
+            ></slot>
+          </div>
+        </div>
+
+      </div>
 
     </w-box>
   </teleport>
@@ -146,10 +148,6 @@ const position = computed(() => ({
     transform: translate(-50%, -50%);
     border-radius: 15px;
     width: 90vw;
-  }
-
-  :deep(.box__body) {
-    gap: 0;
   }
 }
 

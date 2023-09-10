@@ -10,9 +10,6 @@ const emit = defineEmits<{
 }>()
 
 const onClick = (event: any) => {
-  event.stopPropagation()
-  event.preventDefault()
-
   if( !props.disabled ) {
     emit('click', event)
   }
