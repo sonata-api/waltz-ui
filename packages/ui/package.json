@@ -18,7 +18,7 @@
     "access": "public"
   },
   "exports": {
-    ".": "./dist/ui.mjs",
+    ".": "./src/index.ts",
     "./*": "./src/*"
   },
   "files": [

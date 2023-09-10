@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useBreakpoints } from '@waltz-ui/web'
 
 type Props = {
   where?:
@@ -11,6 +12,7 @@ type Props = {
 }
 
 const props = defineProps<Props>()
+const breakpoints = useBreakpoints()
 
 const visible = ref(false)
 const where = props.where || 'top'
@@ -18,6 +20,7 @@ const where = props.where || 'top'
 
 <template>
   <div
+    v-if="breakpoints.md"
     class="info"
     @mouseleave="visible = false
   ">
@@ -32,10 +35,11 @@ const where = props.where || 'top'
       </div>
     </div>
     <div @mouseover="visible = true">
-      <slot v-if="$slots.default" name="default"></slot>
-      <slot v-else></slot>
+      <slot></slot>
     </div>
   </div>
+
+  <slot v-else></slot>
 </template>
 
 <style scoped src="./w-info.scss"></style>
