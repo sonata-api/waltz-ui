@@ -2,40 +2,47 @@
   &__main {
     display: flex;
     flex-direction: column;
-    gap: 2.6rem;
-
-    @media screen and (min-width: 600px) {
-      gap: 1rem;
-    }
-  }
-
-  &__actions {
-    display: flex;
-    align-items: center;
-    gap: .4rem;
-    margin-left: auto;
+    gap: 1rem;
   }
 
   &__controls {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    gap: 1rem 1.8rem;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+
+  &__actions {
+    display: none;
+    align-items: center;
+    gap: .4rem;
+
+    @media screen and (min-width: 600px)  {
+      display: flex;
+    }
+  }
+
+  &__actions-dropdown {
+    display: block;
+
+    @media screen and (min-width: 600px)  {
+      display: none;
+    }
+  }
+
+  &__actions-dropdown-extra {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 
   &__search {
     flex: 1;
   }
 
-  &__controls-icons {
+  &__pagination {
     display: flex;
-    align-items: stretch;
-    gap: .4rem;
-
-    @media screen and (max-width: 600px) {
-      border: 1px solid transparent;
-      justify-content: space-between;
-      flex: 1;
-    }
+    align-items: center;
+    justify-content: flex-end;
   }
 }

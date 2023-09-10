@@ -22,6 +22,7 @@ import WButton from '../w-button/w-button.vue'
 import WInfo from '../w-info/w-info.vue'
 import WIcon from '../w-icon/w-icon.vue'
 import WInput from '../form/w-input/w-input.vue'
+import WContextMenu from '../w-context-menu/w-context-menu.vue'
 
 import { getLayout } from './_internals/layouts'
 import WFilterPanel from './_internals/components/w-filter-panel/w-filter-panel.vue'
@@ -306,7 +307,7 @@ provide('parentStore', parentStore)
         ></w-input>
       </div>
 
-      <div class="crud__controls-icons">
+      <div class="crud__actions">
         <w-info v-if="!noRefresh" where="bottom">
           <template #text>
             Atualizar
@@ -364,30 +365,106 @@ provide('parentStore', parentStore)
           ></w-icon>
         </w-info>
 
-        <div
-          v-if="store?.actions.length > 0 || $slots.actions"
-          :key="collection"
-          class="crud__actions"
-        >
-          <w-button
-            v-for="(actionProps, index) in store.actions"
-            :key="`action-${index}`"
+        <w-button
+          v-for="(actionProps, index) in store.actions"
+          :key="`action-${index}`"
 
+          :icon="actionProps.icon"
+          :disabled="store.selected.length === 0 && actionProps.selection"
+
+          @click="call(actionProps)({ _id: store.selected.map((_) => _._id) })"
+        >
+          {{ $t(actionProps.name) }}
+        </w-button>
+
+        <slot
+          v-if="$slots.actions"
+          name="actions"
+        ></slot>
+      </div>
+
+      <w-context-menu>
+        <w-icon
+          v-clickable
+          reactive
+          icon="sliders-v"
+          class="crud__actions-dropdown"
+        ></w-icon>
+
+        <template
+          #filter
+          v-if="store && Object.keys(store.availableFilters).length > 0"
+        >
+          <w-icon
+            v-clickable
+            icon="filter"
+            @click="isFilterVisible = true"
+          >
+            Filtros
+          </w-icon>
+        </template>
+
+        <template
+          #clear-filters
+          v-if="
+            store
+            && Object.keys(store.availableFilters).length > 0
+            && store.filtersCount > 0
+          "
+        >
+          <w-icon
+            icon="trash"
+            @click="() => (store.$actions.clearFilters() && store.$actions.filter(undefined))"
+          >
+            Limpar filtros
+          </w-icon>
+        </template>
+
+        <template
+          #layout-toggle
+          v-if="
+            !noLayoutToggle && store
+              && store.description.layout
+              && store.description.layout?.name !== 'tabular'
+          "
+        >
+          <w-icon
+            v-clickable
+            icon="table"
+            @click="toggleLayout(store)"
+          >
+            Alternar layout
+          </w-icon>
+        </template>
+
+        <template
+          v-for="(actionProps, index) in store.actions"
+          v-slot:[`action-${index}`]
+        >
+          <w-icon
             :icon="actionProps.icon"
             :disabled="store.selected.length === 0 && actionProps.selection"
 
             @click="call(actionProps)({ _id: store.selected.map((_) => _._id) })"
-          >
+            >
             {{ $t(actionProps.name) }}
-          </w-button>
+          </w-icon>
+        </template>
 
-          <slot
-            v-if="$slots.actions"
-            name="actions"
-          ></slot>
-        </div>
+        <template
+          #extra
+          v-if="$slots.actions"
+        >
+          <div class="crud__actions-dropdown-extra">
+            <slot
+              v-if="$slots.actions"
+              name="actions"
+            ></slot>
+          </div>
+        </template>
 
-      </div>
+      </w-context-menu>
+
     </div>
 
     <div v-loading="store.loading.getAll">
@@ -448,8 +525,8 @@ provide('parentStore', parentStore)
     </div>
 
     <div
-      v-if="!noControls && !store.loading.getAll && store.itemsCount > 0"
-      class="crud__controls"
+      v-if="!store.loading.getAll && store.itemsCount > 0"
+      class="crud__pagination"
     >
       <w-pagination :collection="collection"></w-pagination>
     </div>

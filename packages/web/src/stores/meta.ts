@@ -38,10 +38,6 @@ export const meta = () => registerStore(() => {
       layout: 'tabular',
       collection: ''
     },
-    menu: {
-      visible: true,
-      isMobileVisible: false
-    },
     sidepanel: {
       visible: false
     },
@@ -148,10 +144,6 @@ export const meta = () => registerStore(() => {
         state.isLoading = false
       },
 
-      swapMenu() {
-        state.menu.visible = !state.menu.visible
-        localStorage.setItem('meta:menu:visible', String(state.menu.visible))
-      },
       swapSidepanel() {
         state.sidepanel.visible = !state.sidepanel.visible
         localStorage.setItem('meta:sidepanel:visible', String(state.sidepanel.visible))

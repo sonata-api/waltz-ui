@@ -1,4 +1,10 @@
-$section-padding: 1.8rem 2.4rem;
+@mixin padding {
+  padding: 1.4rem;
+
+  @media screen and (min-width: 600px) {
+    padding: 1.8rem 2.4rem;
+  }
+}
 
 @keyframes fixed-fadein {
   from {
@@ -73,7 +79,7 @@ $section-padding: 1.8rem 2.4rem;
     }
 
     &--floating {
-      position: absolute;
+      position: fixed;
       top: 50%;
       left: 50%;
 
@@ -158,7 +164,7 @@ $section-padding: 1.8rem 2.4rem;
     overscroll-behavior: contain;
 
     &--padded {
-      padding: $section-padding;
+      @include padding;
     }
   }
 
@@ -167,10 +173,11 @@ $section-padding: 1.8rem 2.4rem;
     align-items: center;
     justify-content: flex-end;
     column-gap: .8rem;
-    padding: $section-padding;
     margin-top: auto;
 
     transition: box-shadow .3s;
+
+    @include padding;
 
     @include themed() {
       border-top: 1px solid t(border-color);

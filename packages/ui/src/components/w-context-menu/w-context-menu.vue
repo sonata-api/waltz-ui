@@ -76,18 +76,6 @@ const position = computed(() => ({
       class="content"
     >
       <div
-        v-if="$slots.extra"
-        class="content__section"
-      >
-        <div class="content__item">
-          <slot
-            v-if="$slots.extra"
-            name="extra"
-          ></slot>
-        </div>
-      </div>
-
-      <div
         v-if="Object.keys($slots).filter((key) => !['default', 'extra'].includes(key)).length > 0"
         class="content__section"
       >
@@ -130,6 +118,19 @@ const position = computed(() => ({
         </w-bare-button>
       </div>
 
+      <div
+        v-if="$slots.extra"
+        class="content__section"
+      >
+        <div class="content__item">
+          <slot
+            v-if="$slots.extra"
+            name="extra"
+          ></slot>
+        </div>
+      </div>
+
+
     </w-box>
   </teleport>
 </template>
@@ -143,26 +144,25 @@ const position = computed(() => ({
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    border-radius: 15px;
+    width: 90vw;
   }
-}
 
-@media screen and (max-width: 600px) {
-  .content {
-    :deep(.box__content) {
-      width: 90vw;
-      border-radius: 15px;
-    }
+  :deep(.box__body) {
+    gap: 0;
   }
 }
 
 @media screen and (min-width: 600px) {
   .content {
     :deep(.box__content) {
+      position: absolute;
       top: 0;
       left: 0;
       transform:
         translateX(min(v-bind('position.x'), calc(100vw - 100%)))
         translateY(min(v-bind('position.y'), calc(100vh - 100%))) !important;
+      width: auto;
     }
   }
 }
