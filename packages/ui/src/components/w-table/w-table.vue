@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { inject, computed, type Ref } from 'vue'
-import { useCondition } from '@waltz-ui/web'
+import { useCondition, useBreakpoints } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
 import type { CollectionProperty, CollectionAction } from '@sonata-api/types'
 
+import WBareButton from '../w-bare-button/w-bare-button.vue'
 import WButton from '../w-button/w-button.vue'
 import WIcon from '../w-icon/w-icon.vue'
 import WPicture from '../w-picture/w-picture.vue'
@@ -27,6 +28,8 @@ const props = withDefaults(defineProps<Props>(), {
   border: true,
   headers: true
 })
+
+const breakpoints = useBreakpoints()
 
 const collectionName = props.collection || inject<Ref<string>|string>('storeId', '')
 const store = collectionName
@@ -79,7 +82,7 @@ const buttonStyle = (subject: any, action: any) => {
 
     <thead v-else-if="headers && (!store || store.loading.getAll || store.itemsCount > 0)">
       <tr v-if="headers">
-        <th v-if="checkbox && store">
+        <th v-if="checkbox && store && breakpoints.md">
           <input
             type="checkbox"
             :checked="store.selected.length > 0 && store.selected.length === store.itemsCount"
@@ -112,7 +115,7 @@ const buttonStyle = (subject: any, action: any) => {
         :key="row._id"
         @click="$emit('itemClick', row)"
       >
-        <td v-if="store && checkbox">
+        <td v-if="store && checkbox && breakpoints.md">
           <input
             type="checkbox"
             v-model="selected"
@@ -207,15 +210,15 @@ const buttonStyle = (subject: any, action: any) => {
                 </span>
               </div>
               <div v-if="
-                property.s$indexes?.length > 1
+                property.s$indexes?.length! > 1
                   && property.s$referencedCollection !== 'file'
               ">
                 <div
-                  v-for="(subvalue, index) in property.s$indexes.slice(1, 2)"
+                  v-for="(subvalue, index) in property.s$indexes!.slice(1, 2)"
                   :key="`subvalue-${index}`"
                 >
                   {{
-                    store.$actions.formatValue({
+                    store!.$actions.formatValue({
                       value: row[column],
                       key: column,
                       property,
@@ -229,8 +232,8 @@ const buttonStyle = (subject: any, action: any) => {
 
         </td>
         <td
-          v-if="actions?.length"
-          class="no-print table__cell"
+          v-if="actions?.length && breakpoints.md"
+          class="no-print"
         >
           <div class="table__cell-actions">
             <w-button
@@ -261,6 +264,50 @@ const buttonStyle = (subject: any, action: any) => {
 
           </div>
         </td>
+
+        <td
+          v-else="actions?.length"
+          class="
+            no-print
+            table__mobile-actions
+          "
+        >
+          <div
+            class="table__mobile-actions-grid"
+            :style="`grid-template-columns: repeat(${buttonActions.length + (dropdownActions.length ? 1 : 0)}, 1fr);`"
+          >
+            <w-bare-button
+              v-for="action in buttonActions"
+              :key="`action-${action.action}`"
+
+              class="table__mobile-actions-button"
+              @click="action.click(row)"
+            >
+              <w-icon
+                small
+                :icon="action.icon || 'setting'"
+              >
+                {{ $t(action.name) }}
+              </w-icon>
+            </w-bare-button>
+
+            <w-context-menu
+              v-if="dropdownActions.length > 0"
+              v-bind="{
+                subject: row,
+                actions: dropdownActions
+            }"
+            >
+              <w-icon
+                icon="ellipsis-h"
+                class="table__mobile-actions-button"
+              ></w-icon>
+            </w-context-menu>
+
+          </div>
+        </td>
+
+
         <div :id="`dropdown-${row._id}`"></div>
       </tr>
     </tbody>

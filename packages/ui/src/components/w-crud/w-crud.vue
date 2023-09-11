@@ -442,7 +442,7 @@ provide('parentStore', parentStore)
           v-slot:[`action-${index}`]
         >
           <w-icon
-            :icon="actionProps.icon"
+            :icon="actionProps.icon || 'setting'"
             :disabled="store.selected.length === 0 && actionProps.selection"
 
             @click="call(actionProps)({ _id: store.selected.map((_) => _._id) })"

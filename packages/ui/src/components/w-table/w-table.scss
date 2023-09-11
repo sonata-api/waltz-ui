@@ -1,5 +1,12 @@
-$cell-padding: .55rem .8rem;
 $picture-size: 2rem;
+
+@mixin cell-padding {
+  padding: .8rem 1rem;
+
+  @media screen and (min-width: 600px) {
+    padding: .55rem .8rem;
+  }
+}
 
 .table {
   width: 100%;
@@ -32,7 +39,7 @@ $picture-size: 2rem;
     }
 
     &>th {
-      padding: $cell-padding;
+      @include cell-padding;
       font-weight: 500;
     }
   }
@@ -65,7 +72,7 @@ $picture-size: 2rem;
     }
 
     &>td {
-      padding: $cell-padding;
+      @include cell-padding;
       font-size: 10pt;
 
 //       @media screen and (max-width: 600px) {
@@ -97,7 +104,32 @@ $picture-size: 2rem;
     align-items: center;
     column-gap: .8rem;
     margin-left: auto;
+  }
 
+  &__mobile-actions {
+    position: relative;
+    padding: 0 !important;
+    @include themed() {
+      background: #eee;
+      border-top: 1px solid t(border-color);
+    }
+  }
+
+  &__mobile-actions-grid {
+    display: grid;
+  }
+
+  &__mobile-actions-button {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 3.6rem;
+
+    &:not(:last-child) {
+      @include themed() {
+        border-right: 1px solid t(border-color);
+      }
+    }
   }
 
   &__picture {
