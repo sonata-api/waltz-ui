@@ -98,7 +98,7 @@ const buttonStyle = (subject: any, action: any) => {
           {{ property.description || $t(propertyName) }}
         </th>
         <th
-          v-if="actions"
+          v-if="actions?.length"
           style="text-align: right;"
          ></th>
       </tr>

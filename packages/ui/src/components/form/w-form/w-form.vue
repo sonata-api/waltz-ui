@@ -403,7 +403,10 @@ const isInsertReady = computed(() => {
                       && !modelValue[key]?.[modelValue[key]?.length-1]?._id
                   )
               "
-              @click="if(!modelValue[key]) modelValue[key] = []; pushToArray(modelValue[key], property)"
+              @click.prevent="
+                if(!modelValue[key]) modelValue[key] = [];
+                pushToArray(modelValue[key], property)
+              "
             >
               Adicionar
             </w-button>
