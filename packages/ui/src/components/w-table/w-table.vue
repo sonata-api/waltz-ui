@@ -72,7 +72,6 @@ const buttonStyle = (subject: any, action: any) => {
   <table
     v-if="(columns && Object.keys(columns).length > 0) || $slots.thead"
     class="
-      w-surface
       table
     "
   >

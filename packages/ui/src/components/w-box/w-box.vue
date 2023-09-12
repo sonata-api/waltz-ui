@@ -18,6 +18,7 @@ type Props = {
   collapsible?: boolean
   fullWidth?: boolean
   fill?: boolean
+  fillFooter?: boolean
   transparent?: boolean
   transparentMobile?: boolean
   outerHeader?: boolean
@@ -161,6 +162,7 @@ const toggleCollapsed = (value: boolean) => {
         v-if="$slots.footer"
         :class="`
           box__footer
+          ${fillFooter || 'box__footer--padded'}
           ${reachedEnd || 'box__footer--shadowed'}
         `"
       >

@@ -1,4 +1,5 @@
 export * from './app'
+export * from './behavior'
 export * from './bootstrap'
 export * from './composables'
 export * from './constants'

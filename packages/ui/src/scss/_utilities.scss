@@ -20,6 +20,12 @@
   }
 }
 
+.w-body {
+  @include themed() {
+    background: t(body-background);
+  }
+}
+
 .w-branded-text {
   @include themed() {
     color: t(brand-color);

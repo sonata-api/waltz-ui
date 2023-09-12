@@ -154,7 +154,6 @@ const position = computed(() => ({
 @media screen and (min-width: 600px) {
   .content {
     :deep(.box__content) {
-      position: absolute;
       top: 0;
       left: 0;
       transform:

@@ -5,6 +5,7 @@ export {
   defineOptions,
   createCollectionStore,
   useRouter,
+  useBreakpoints,
   useClipboard,
   useAction,
   useStoreActions,

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { bootstrapRoutes } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
-import WModal from '../dashboard/w-modal/w-modal.vue'
+import WBox from '../w-box/w-box.vue'
 import WPrompt from '../dashboard/w-prompt/w-prompt.vue'
 import WToast from '../dashboard/w-toast/w-toast.vue'
 import '../../scss/main.scss'
@@ -32,7 +32,7 @@ bootstrapRoutes()
     </Suspense>
     <slot></slot>
 
-    <w-modal
+    <w-box
       v-model="metaStore.modal.visible"
       v-bind="metaStore.modal"
     >
@@ -46,7 +46,7 @@ bootstrapRoutes()
         v-if="metaStore.modal.component"
         :is="metaStore.modal.component"
       ></component>
-    </w-modal>
+    </w-box>
 
     <w-prompt
       v-if="metaStore.prompt.visible"

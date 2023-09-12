@@ -13,7 +13,7 @@ import {
 
 import type { Layout } from '@sonata-api/types'
 import { deepClone } from '@sonata-api/common'
-import { useRouter, useAction, useDebounce } from '@waltz-ui/web'
+import { useRouter, useAction, useDebounce, useBreakpoints } from '@waltz-ui/web'
 import { useStore, useParentStore } from '@waltz-ui/state-management'
 
 import WPagination from '../w-pagination/w-pagination.vue'
@@ -61,6 +61,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<Emits>()
 const router = await useRouter()
+const breakpoints = useBreakpoints()
 
 const debounce = useDebounce({
   delay: 600
@@ -383,12 +384,11 @@ provide('parentStore', parentStore)
         ></slot>
       </div>
 
-      <w-context-menu>
+      <w-context-menu v-if="!breakpoints.md">
         <w-icon
           v-clickable
           reactive
           icon="sliders-v"
-          class="crud__actions-dropdown"
         ></w-icon>
 
         <template

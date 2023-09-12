@@ -22,14 +22,6 @@
     }
   }
 
-  &__actions-dropdown {
-    display: block;
-
-    @media screen and (min-width: 600px)  {
-      display: none;
-    }
-  }
-
   &__actions-dropdown-extra {
     display: flex;
     flex-direction: column;

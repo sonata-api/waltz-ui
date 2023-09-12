@@ -1,41 +1,60 @@
 <script setup lang="ts">
+import type { PromptAction } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
-import WModal from '../w-modal/w-modal.vue'
-import WButton from '../../w-button/w-button.vue'
+import WBox from '../../w-box/w-box.vue'
+import WBareButton from '../../w-bare-button/w-bare-button.vue'
 
 
 type Props = {
   title?: string
-  actions: Array<any>
+  actions: Array<PromptAction>
 }
 
 const props = defineProps<Props>()
 const metaStore = useStore('meta')
 
-const onClick = (answer: any) => {
+const onClick = (answer: PromptAction) => {
   metaStore.$actions.fulfillPrompt(answer)
 }
 </script>
 
 <template>
-  <w-modal :close-hint="false">
-    <slot v-if="$slots.body" name="body"></slot>
-    <slot v-else></slot>
+  <w-box
+    float
+    fill-footer
+    :close-hint="false"
+  >
+    <div class="prompt">
+      <slot></slot>
+    </div>
 
     <template #title v-if="title">
       {{ title }}
     </template>
 
     <template #footer>
-      <w-button
-        v-for="(action, index) in actions"
-        v-bind="action"
-        :key="`action-${index}`"
-
-        @click="onClick(action)"
+      <div
+        class="prompt__actions"
+        :style="`grid-template-columns: repeat(${actions.length}, 1fr)`"
       >
-        {{ action.title }}
-      </w-button>
+        <w-bare-button
+          v-for="(action, index) in actions"
+          :key="`action-${index}`"
+
+          :class="`
+            prompt__action
+            prompt__action--${action.variant || 'normal'}
+          `"
+          @click="action.click
+            ? action.click(action)
+            : onClick(action)
+          "
+        >
+          {{ action.title || action.name }}
+        </w-bare-button>
+      </div>
     </template>
-  </w-modal>
+  </w-box>
 </template>
+
+<style scoped src="./w-prompt.scss"></style>

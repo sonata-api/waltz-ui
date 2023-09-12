@@ -1,3 +1,4 @@
+import type { PromptAction } from '../behavior'
 import { deepClone, deserialize, request } from '@sonata-api/common'
 import { Description } from '@sonata-api/types'
 import { reactive, computed } from 'vue'
@@ -38,6 +39,9 @@ export const meta = () => registerStore(() => {
       layout: 'tabular',
       collection: ''
     },
+    menu: {
+      visible: false
+    },
     sidepanel: {
       visible: false
     },
@@ -52,7 +56,7 @@ export const meta = () => registerStore(() => {
       visible: false,
       title: '',
       body: '',
-      actions: [],
+      actions: [] as Array<PromptAction>,
     },
     toasts: [] as Array<Toast>,
   })
@@ -152,12 +156,7 @@ export const meta = () => registerStore(() => {
       spawnPrompt(props: {
         title?: string
         body?: string
-        actions: Array<{
-          name: string
-          title: string
-          size?: string
-          variant?: string
-        }>
+        actions: Array<PromptAction>
       }): Promise<PromptAnswer> {
         Object.assign(state.prompt, {
           ...props,

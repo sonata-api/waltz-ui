@@ -17,6 +17,7 @@ $themed-properties: brand-color
   ,background-color-hover
   ,background-color-opaque
   ,body-background
+  ,clickable-color
   ,shadow-color;
 
 @mixin themed() {

@@ -13,13 +13,18 @@
 
     &--current {
       @include themed() {
-        color: #5090fa;
+        color: t(clickable-color);
         font-weight: 500;
       }
     }
   }
 
   &__context-menu-icon {
+    @include themed() {
+      color: t(clickable-color);
+      fill: t(clickable-color);
+    }
+
     &:first-child {
       gap: 0;
     }

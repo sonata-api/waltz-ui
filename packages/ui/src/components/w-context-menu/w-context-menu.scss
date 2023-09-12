@@ -10,23 +10,20 @@
   &__item {
     display: flex;
     width: 100%;
-    font-size: 1.1rem;
     font-weight: 400;
 
     :deep(>*) {
       width: 100%;
       height: 100%;
       padding: 1.6rem !important;
+      font-size: 11pt;
 
       @media screen and (min-width: 600px) {
         padding: 1rem !important;
-        font-size: 11pt;
       }
     }
 
     @include themed() {
-      color: t(foreground-color);
-
       &--reactive {
         &:hover {
           background: t(background-color-hover);

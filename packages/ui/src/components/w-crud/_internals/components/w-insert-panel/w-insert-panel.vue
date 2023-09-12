@@ -126,13 +126,13 @@ watch(() => store.item._id, (_id) => {
     </template>
     <template #footer>
       <w-button
-        small
         variant="transparent"
         @click="cancel"
       >
         {{ $t('action.cancel') }}
       </w-button>
       <w-button
+        large
         :disabled="!store.isInsertReady || isInsertReadOnly"
         :loading="store.loading.insert"
         @click="insert"

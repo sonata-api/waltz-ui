@@ -1,16 +1,17 @@
 $picture-size: 2rem;
 
 @mixin cell-padding {
-  padding: .8rem 1rem;
+  padding: .6rem 1rem;
 
   @media screen and (min-width: 600px) {
-    padding: .55rem .8rem;
+    padding: .6rem .8rem;
   }
 }
 
 .table {
   width: 100%;
   border-spacing: 0;
+  border-radius: 12px;
 
   @media screen and (min-width: 600px) {
     @include themed () {
@@ -44,11 +45,18 @@ $picture-size: 2rem;
     }
   }
 
+  :deep(tfoot) > tr {
+    @include themed() {
+      background: t(background-color);
+    }
+  }
+
   :deep(tbody) > tr {
     height: 3rem;
 
-    @media screen and (min-width: 600px) {
-      @include themed() {
+    @include themed() {
+      background: t(background-color);
+      @media screen and (min-width: 600px) {
         &:hover {
           background: t(background-color-alt);
         }
@@ -61,12 +69,12 @@ $picture-size: 2rem;
       height: auto;
 
       @include themed() {
-        background: t(background-color-alt);
+        background: t(background-color);
         border-radius: 10px;
         overflow: hidden;
 
         &:not(:last-child) {
-          margin-bottom: 1.4rem;
+          margin-bottom: 1rem;
         }
       }
     }
@@ -75,9 +83,13 @@ $picture-size: 2rem;
       @include cell-padding;
       font-size: 10pt;
 
-//       @media screen and (max-width: 600px) {
-//         padding: 0;
-//       }
+      @media screen and (min-width: 600px) {
+        @include themed() {
+          &:not(:last-child) {
+            border-bottom: 1px solid t(border-color);
+          }
+        }
+      }
     }
   }
 
@@ -111,7 +123,6 @@ $picture-size: 2rem;
     padding: 0 !important;
     @include themed() {
       background: #eee;
-      border-top: 1px solid t(border-color);
     }
   }
 
@@ -123,7 +134,7 @@ $picture-size: 2rem;
     display: grid;
     place-items: center;
     width: 100%;
-    height: 3.6rem;
+    height: 3.2rem;
 
     &:not(:last-child) {
       @include themed() {

@@ -1,0 +1,29 @@
+.prompt {
+  max-width: 30rem;
+
+  &__actions {
+    display: grid;
+    height: 4rem;
+    width: 100%;
+  }
+
+  &__action {
+    display: grid;
+    place-items: center;
+
+    &:not(:last-child) {
+      @include themed() {
+        border-right: 1px solid t(border-color);
+      }
+    }
+
+    &--normal {
+      color: #5090fa;
+    }
+
+    &--danger {
+      color: red;
+    }
+
+  }
+}

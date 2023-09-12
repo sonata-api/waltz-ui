@@ -299,12 +299,12 @@ export const useStoreActions = (store: CollectionStore) => {
           {
             name: 'cancel',
             title: I18N.global.tc('action.cancel'),
-            variant: 'transparent',
-            size: 'small'
+            variant: 'danger',
           },
           {
             name: 'confirm',
             title: I18N.global.tc('action.confirm'),
+            variant: 'normal',
           },
         ]
       })

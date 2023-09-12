@@ -36,6 +36,7 @@ export const routerInstance = (routes: Array<RouteRecordRaw>) => {
     const metaStore = meta()()
     const userStore = user()()
 
+    metaStore.menu.visible = false
     metaStore.view.title = to.meta?.title as string
 
     if( to.fullPath.startsWith('/dashboard') && !userStore.currentUser.pinged ) {

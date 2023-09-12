@@ -43,6 +43,7 @@ const filter = () => {
         Limpar
       </w-button>
       <w-button
+        large
         icon="filter"
         :disabled="!store.hasActiveFilters"
         @click="filter"
