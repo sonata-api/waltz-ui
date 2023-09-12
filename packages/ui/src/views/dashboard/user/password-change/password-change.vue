@@ -4,6 +4,7 @@ import { useRouter } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
 
 import WButton from '../../../../components/w-button/w-button.vue'
+import WBox from '../../../../components/w-box/w-box.vue'
 import WPasswordForm from '../../../../components/dashboard/w-password-form/w-password-form.vue'
 
 const router = await useRouter()
@@ -33,12 +34,7 @@ const insert = async () => {
 </script>
 
 <template>
-  <div style="
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-    max-width: 30rem;
-  ">
+  <w-box style="max-width: 40rem;">
     <w-password-form v-model="password" v-slot="{ passwordError }">
       <w-button
         class="passchange__save-button"
@@ -48,5 +44,5 @@ const insert = async () => {
         Salvar
       </w-button>
     </w-password-form>
-  </div>
+  </w-box>
 </template>

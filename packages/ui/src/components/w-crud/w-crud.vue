@@ -308,7 +308,10 @@ provide('parentStore', parentStore)
         ></w-input>
       </div>
 
-      <div class="crud__actions">
+      <div
+        v-if="breakpoints.md"
+        class="crud__actions"
+      >
         <w-info v-if="!noRefresh" where="bottom">
           <template #text>
             Atualizar
@@ -384,7 +387,7 @@ provide('parentStore', parentStore)
         ></slot>
       </div>
 
-      <w-context-menu v-if="!breakpoints.md">
+      <w-context-menu v-else>
         <w-icon
           v-clickable
           reactive

@@ -13,13 +13,9 @@
   }
 
   &__actions {
-    display: none;
+    display: flex;
     align-items: center;
     gap: .4rem;
-
-    @media screen and (min-width: 600px)  {
-      display: flex;
-    }
   }
 
   &__actions-dropdown-extra {
