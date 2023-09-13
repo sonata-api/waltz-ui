@@ -71,7 +71,7 @@ const insert = async () => {
 }
 
 const remove = async () => {
-  await store.functions.$removeFile({
+  await store.$functions.removeFile({
     parentId: store.item._id,
     propertyName: props.propertyName,
     filters: {
