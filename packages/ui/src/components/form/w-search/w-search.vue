@@ -177,14 +177,19 @@ const save = () => {
         <div v-else-if="
           !store.loading.getAll
             && Object.values(inputValue).filter((v) => !!v).length > 0
-            && !((property.type === 'array' && modelValue?.length) || modelValue?._id)
+            && !((property.type === 'array' && modelValue?.length) || (!Array.isArray(modelValue) && modelValue?._id))
         ">
           Não há resultados
         </div>
       </div>
 
       <template #footer>
-        <w-button @click="save">Salvar</w-button>
+        <w-button
+          large
+          @click="save"
+        >
+          Salvar
+        </w-button>
       </template>
 
     </w-box>

@@ -33,8 +33,11 @@ bootstrapRoutes()
     <slot></slot>
 
     <w-box
+      float
+      close-hint
       v-model="metaStore.modal.visible"
       v-bind="metaStore.modal"
+      @overlay-click="metaStore.modal.visible = false"
     >
       <div
         v-if="metaStore.modal.body"

@@ -109,10 +109,10 @@ const remove = async () => {
         v-if="preview"
         class="file__buttons"
       >
-        <w-button @click="insert">
+        <w-button @click.prevent="insert">
           Enviar
         </w-button>
-        <w-button @click="clearPreview">
+        <w-button @click.prevent="clearPreview">
           Limpar
         </w-button>
       </div>
@@ -120,7 +120,7 @@ const remove = async () => {
         v-else-if="modelValue?._id"
         class="file__buttons"
       >
-        <w-button @click="remove">
+        <w-button @click.prevent="remove">
           Remover
         </w-button>
       </div>

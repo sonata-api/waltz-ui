@@ -11,7 +11,7 @@ $picture-size: 2rem;
 .table {
   width: 100%;
   border-spacing: 0;
-  border-radius: 12px;
+  border-radius: 8px;
 
   @media screen and (min-width: 600px) {
     @include themed () {
@@ -55,7 +55,9 @@ $picture-size: 2rem;
     height: 3rem;
 
     @include themed() {
-      background: t(background-color);
+      background: t(background-color-alt);
+      border: 1px solid t(border-color);
+
       @media screen and (min-width: 600px) {
         &:hover {
           background: t(background-color-alt);
@@ -69,7 +71,6 @@ $picture-size: 2rem;
       height: auto;
 
       @include themed() {
-        background: t(background-color);
         border-radius: 10px;
         overflow: hidden;
 
@@ -82,14 +83,13 @@ $picture-size: 2rem;
     &>td {
       @include cell-padding;
       font-size: 10pt;
-
-      @media screen and (min-width: 600px) {
-        @include themed() {
-          &:not(:last-child) {
-            border-bottom: 1px solid t(border-color);
-          }
-        }
-      }
+      // @media screen and (min-width: 600px) {
+      //   @include themed() {
+      //     &:not(:last-child) {
+      //       border-bottom: 1px solid t(border-color);
+      //     }
+      //   }
+      // }
     }
   }
 
@@ -102,8 +102,7 @@ $picture-size: 2rem;
 
   &__cell-mobile-label {
     display: none;
-    font-weight: bold;
-    text-transform: lowercase;
+    font-weight: 500;
 
     @media screen and (max-width: 600px) {
       display: inherit;
@@ -122,7 +121,8 @@ $picture-size: 2rem;
     position: relative;
     padding: 0 !important;
     @include themed() {
-      background: #eee;
+      border-top: 1px solid t(border-color);
+      background: t(background-color-alt);
     }
   }
 
