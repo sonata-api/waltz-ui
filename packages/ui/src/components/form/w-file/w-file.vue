@@ -102,7 +102,7 @@ const remove = async () => {
       <input
         type="file"
         ref="file"
-        :accept="property.s$accept?.join(',')"
+        :accept="property?.s$accept?.join(',')"
         @change="changePreview"
       />
       <div

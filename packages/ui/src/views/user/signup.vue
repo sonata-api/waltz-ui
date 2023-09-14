@@ -77,7 +77,10 @@ const insert = async () => {
     }"
   >
     <template #after>
-      <w-password-form v-model="password" v-slot="{ passwordError }">
+      <w-password-form
+        v-model="password"
+        v-slot="{ passwordError }"
+      >
         <div style="
           display: flex;
           flex-direction: column;
@@ -98,7 +101,7 @@ const insert = async () => {
 
         <w-button
           :disabled="!!passwordError || !tosAccepted"
-          @click="insert"
+          @click.prevent="insert"
         >
           Criar conta
         </w-button>
