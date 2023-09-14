@@ -88,6 +88,7 @@ export default defineConfig(async () => {
               'useParentStore',
               'useRouter',
               'useClipboard',
+              'useBreakpoints',
               'useAction',
               'useCondition',
               'useNavbar',
