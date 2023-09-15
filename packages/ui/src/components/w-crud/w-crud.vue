@@ -359,6 +359,7 @@ provide('parentStore', parentStore)
             </w-icon>
           </template>
 
+          <!-- <w-icon icon="setting"></w-icon> -->
           <template
             v-for="(actionProps, index) in store.actions.filter((action: any) => !action.button)"
             v-slot:[`action-${index}`]
