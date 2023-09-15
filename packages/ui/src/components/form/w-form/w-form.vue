@@ -81,7 +81,7 @@ if( !collectionName && process.env.NODE_ENV !== 'production' ) {
 
 const alreadyFocused = ref(false)
 
-const form = computed(() => {
+const form = computed((): Record<string, CollectionProperty> | undefined => {
   if( !props.form && props.property ) {
     if( props.property.properties ) {
       return props.property.properties
@@ -123,31 +123,16 @@ if( collectionName ) {
 provide('searchOnly', props.searchOnly||false)
 provide('inputBordered', inject('inputBordered', true))
 
-const filterProperties = (condition: (f: any) => boolean): Array<[string, CollectionProperty]>|null => {
+const filterProperties = (condition: (f: [string, CollectionProperty]) => boolean) => {
   if( !form.value ) {
     return null
   }
 
-  return Object.entries(form.value).reduce((a: Array<any>, [key, property]) => {
-    if(
-      !(property
-        && (!property.s$meta || props.searchOnly)
-        && (!condition || condition([key, property]))
-      )) {
-      return a
-    }
-
-    return [
-      ...a,
-      [
-        key,
-        {
-          ...property,
-          hidden: undefined
-        }
-      ]
-    ]
-  }, [])
+  return Object.entries(form.value).filter(([key, property]) => {
+    return property
+      && !property.s$noForm
+      && (!condition || condition([key, property]))
+  })
 }
 
 
@@ -164,8 +149,8 @@ const has = (propertyName: string) => {
   return !formProperties || formProperties.includes(propertyName)
 }
 
-const properties = filterProperties(([key, f]: [string, any]) => {
-  return !f.meta && has(key)
+const properties = filterProperties(([key]) => {
+  return has(key)
 })
 
 const breakpoints = useBreakpoints()

@@ -61,6 +61,7 @@
     }
 
     &--floating, &--fixed-right {
+      z-index: 50;
       .box__header {
         padding: 1rem 1.4rem;
         box-sizing: content-box;
@@ -97,7 +98,6 @@
       position: fixed;
       right: 0;
       top: 0;
-      z-index: 50;
       width: 100vw;
       height: 100vh;
 

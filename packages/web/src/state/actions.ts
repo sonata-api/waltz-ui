@@ -310,7 +310,6 @@ export const useStoreActions = (store: CollectionStore) => {
       })
 
       if( answer.name === 'confirm' ) {
-        console.log(props)
         const { action, params } = props
         return action(params)
       }

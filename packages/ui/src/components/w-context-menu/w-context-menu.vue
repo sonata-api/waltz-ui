@@ -51,6 +51,7 @@ const position = computed(() => ({
 
 <template>
   <div
+    v-if="Object.keys($slots).some((key) => key !== 'default') || actions?.length > 0"
     ref="contextmenu"
     class="contextmenu"
   >

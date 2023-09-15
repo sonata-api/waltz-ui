@@ -17,9 +17,7 @@ import { useRouter, useAction, useDebounce, useBreakpoints } from '@waltz-ui/web
 import { useStore, useParentStore } from '@waltz-ui/state-management'
 
 import WPagination from '../w-pagination/w-pagination.vue'
-import WBareButton from '../w-bare-button/w-bare-button.vue'
 import WButton from '../w-button/w-button.vue'
-import WInfo from '../w-info/w-info.vue'
 import WIcon from '../w-icon/w-icon.vue'
 import WInput from '../form/w-input/w-input.vue'
 import WContextMenu from '../w-context-menu/w-context-menu.vue'
@@ -308,69 +306,95 @@ provide('parentStore', parentStore)
         ></w-input>
       </div>
 
-      <div
-        v-if="breakpoints.md"
-        class="crud__actions"
-      >
-        <w-info v-if="!noRefresh" where="bottom">
-          <template #text>
-            Atualizar
-          </template>
-          <w-icon
-            v-clickable
-            reactive
-            icon="refresh"
-            @click="fetchItems"
-          ></w-icon>
-        </w-info>
-
-        <w-icon
-          v-if="store && Object.keys(store.availableFilters).length > 0"
+      <div class="crud__actions">
+        <w-button
           v-clickable
-          reactive
+          v-if="
+            store
+            && Object.keys(store.availableFilters).length > 0
+            && breakpoints.md
+          "
           icon="filter"
+          variant="alt"
           @click="isFilterVisible = true"
         >
           Filtros
-        </w-icon>
+        </w-button>
 
-        <w-info
-          v-if="store && Object.keys(store.availableFilters).length > 0"
-          where="bottom"
-        >
-          <template #text>
-            Limpar filtros
-          </template>
-          <w-bare-button :disabled="store.filtersCount === 0">
+        <w-context-menu>
+          <w-button
+            variant="alt"
+            icon="sliders-v"
+          ></w-button>
+
+          <template
+            #filter
+            v-if="
+              store
+              && Object.keys(store.availableFilters).length > 0
+              && !breakpoints.md
+            "
+          >
             <w-icon
-              v-if="store && Object.keys(store.availableFilters).length > 0"
-              reactive
+              v-clickable
+              icon="filter"
+              @click="isFilterVisible = true"
+            >
+              Filtros
+            </w-icon>
+          </template>
+
+          <template
+            #clear-filters
+            v-if="
+              store
+              && Object.keys(store.availableFilters).length > 0
+              && store.filtersCount > 0
+            "
+          >
+            <w-icon
               icon="trash"
               @click="() => (store.$actions.clearFilters() && store.$actions.filter(undefined))"
-            ></w-icon>
-          </w-bare-button>
-        </w-info>
-        <w-info
-          v-if="
-            !noLayoutToggle && store
-              && store.description.layout
-              && store.description.layout?.name !== 'tabular'
-          "
-          where="bottom"
-        >
-          <template #text>
-            Alternar layout
+            >
+              Limpar filtros
+            </w-icon>
           </template>
-          <w-icon
-            v-clickable
-            reactive
-            icon="table"
-            @click="toggleLayout(store)"
-          ></w-icon>
-        </w-info>
+
+          <template
+            #layout-toggle
+            v-if="
+              !noLayoutToggle && store
+                && store.description.layout
+                && store.description.layout?.name !== 'tabular'
+            "
+          >
+            <w-icon
+              v-clickable
+              icon="table"
+              @click="toggleLayout(store)"
+            >
+              Alternar layout
+            </w-icon>
+          </template>
+
+          <template
+            v-for="(actionProps, index) in store.actions.filter((action: any) => !action.button)"
+            v-slot:[`action-${index}`]
+          >
+            <w-icon
+              :icon="actionProps.icon || 'setting'"
+              :disabled="store.selected.length === 0 && actionProps.selection"
+
+              @click="call(actionProps)({ _id: store.selected.map((_) => _._id) })"
+              >
+              {{ $t(actionProps.name) }}
+            </w-icon>
+          </template>
+
+        </w-context-menu>
 
         <w-button
-          v-for="(actionProps, index) in store.actions"
+          v-for="(actionProps, index) in store.actions.filter((action: any) => action.button)"
           :key="`action-${index}`"
 
           :icon="actionProps.icon"
@@ -386,87 +410,6 @@ provide('parentStore', parentStore)
           name="actions"
         ></slot>
       </div>
-
-      <w-context-menu v-else>
-        <w-icon
-          v-clickable
-          reactive
-          icon="sliders-v"
-        ></w-icon>
-
-        <template
-          #filter
-          v-if="store && Object.keys(store.availableFilters).length > 0"
-        >
-          <w-icon
-            v-clickable
-            icon="filter"
-            @click="isFilterVisible = true"
-          >
-            Filtros
-          </w-icon>
-        </template>
-
-        <template
-          #clear-filters
-          v-if="
-            store
-            && Object.keys(store.availableFilters).length > 0
-            && store.filtersCount > 0
-          "
-        >
-          <w-icon
-            icon="trash"
-            @click="() => (store.$actions.clearFilters() && store.$actions.filter(undefined))"
-          >
-            Limpar filtros
-          </w-icon>
-        </template>
-
-        <template
-          #layout-toggle
-          v-if="
-            !noLayoutToggle && store
-              && store.description.layout
-              && store.description.layout?.name !== 'tabular'
-          "
-        >
-          <w-icon
-            v-clickable
-            icon="table"
-            @click="toggleLayout(store)"
-          >
-            Alternar layout
-          </w-icon>
-        </template>
-
-        <template
-          v-for="(actionProps, index) in store.actions"
-          v-slot:[`action-${index}`]
-        >
-          <w-icon
-            :icon="actionProps.icon || 'setting'"
-            :disabled="store.selected.length === 0 && actionProps.selection"
-
-            @click="call(actionProps)({ _id: store.selected.map((_) => _._id) })"
-            >
-            {{ $t(actionProps.name) }}
-          </w-icon>
-        </template>
-
-        <template
-          #extra
-          v-if="$slots.actions"
-        >
-          <div class="crud__actions-dropdown-extra">
-            <slot
-              v-if="$slots.actions"
-              name="actions"
-            ></slot>
-          </div>
-        </template>
-
-      </w-context-menu>
 
     </div>
 

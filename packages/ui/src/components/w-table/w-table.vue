@@ -295,8 +295,7 @@ const buttonStyle = (subject: any, action: any) => {
               v-bind="{
                 subject: row,
                 actions: dropdownActions
-            }"
-            >
+            }">
               <w-icon
                 icon="ellipsis-h"
                 class="table__mobile-actions-button"

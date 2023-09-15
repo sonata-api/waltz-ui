@@ -11,7 +11,7 @@ export const useCondition = <TDescription extends Description=any>(subject: any,
     else: null
   }
 
-  const term1 = subject[condition.term1]
+  const term1 = subject[condition.term1] || null
 
   const satisfied = result.satisfied = (() => {
     switch( operator ) {

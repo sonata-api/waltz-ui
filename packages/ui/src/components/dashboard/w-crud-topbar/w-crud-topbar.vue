@@ -26,7 +26,7 @@ const store = computed(() => {
   }
 })
 
-const togglePreset = (presetName: string, preset?: FiltersPreset<any>) => {
+const togglePreset = (preset: FiltersPreset<any> | null) => {
   if( !store.value ) {
     return
   }
@@ -56,11 +56,11 @@ watch(route, (currRoute, prevRoute) => {
 
     if( store.description.filtersPresets ) {
       if( currPreset ) {
-        togglePreset(currPreset, store.description.filtersPresets[currPreset])
+        togglePreset(store.description.filtersPresets[currPreset])
         return
       }
 
-      togglePreset('')
+      togglePreset(null)
     }
   })(store)
 }, { immediate: true })
@@ -76,7 +76,7 @@ watch(route, (currRoute, prevRoute) => {
       query="section"
     >
       <template #all>
-        <div @click="togglePreset('')">
+        <div @click="togglePreset(null)">
           {{ $t('all') }}
         </div>
       </template>
@@ -84,7 +84,7 @@ watch(route, (currRoute, prevRoute) => {
         v-for="([presetName, preset]) in Object.entries(store.description.filtersPresets)"
         v-slot:[presetName]
       >
-        <div @click="togglePreset(presetName, preset)">
+        <div @click="togglePreset(preset)">
           <w-icon
             small
             v-if="preset.icon"
