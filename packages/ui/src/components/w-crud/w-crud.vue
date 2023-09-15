@@ -307,20 +307,6 @@ provide('parentStore', parentStore)
       </div>
 
       <div class="crud__actions">
-        <w-button
-          v-clickable
-          v-if="
-            store
-            && Object.keys(store.availableFilters).length > 0
-            && breakpoints.md
-          "
-          icon="filter"
-          variant="alt"
-          @click="isFilterVisible = true"
-        >
-          Filtros
-        </w-button>
-
         <w-context-menu>
           <w-button
             variant="alt"
@@ -329,11 +315,7 @@ provide('parentStore', parentStore)
 
           <template
             #filter
-            v-if="
-              store
-              && Object.keys(store.availableFilters).length > 0
-              && !breakpoints.md
-            "
+            v-if="store && Object.keys(store.availableFilters).length > 0"
           >
             <w-icon
               v-clickable

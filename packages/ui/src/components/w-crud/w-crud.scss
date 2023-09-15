@@ -15,8 +15,13 @@
 
   &__search {
     flex: 1;
-    width: 100%;
-    order: 2;
+    order: 1;
+    min-width: 90vw;
+
+    @media screen and (min-width: 600px) {
+      order: 0;
+      min-width: auto;
+    }
   }
 
   &__actions {
