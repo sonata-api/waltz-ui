@@ -137,7 +137,7 @@ watch(() => store.item._id, (_id) => {
         :loading="store.loading.insert"
         @click="insert"
       >
-      {{ $t('action.insert') }}
+        {{ $t('action.insert') }}
       </w-button>
     </template>
   </w-box>

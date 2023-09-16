@@ -27,6 +27,7 @@ export const deepDiff = <T extends Record<string, any>>(origin: T, target: T, op
           && (
             (typeof value !== 'number' && (value || origin[key]))
               || typeof value === 'number'
+              || typeof value === 'boolean'
           )
       })()
 

@@ -62,7 +62,7 @@ export const useStoreActions = (store: CollectionStore) => {
         return item
       }
 
-      store.items.push(item)
+      store.items.unshift(item)
       return item
     },
 

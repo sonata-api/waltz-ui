@@ -63,11 +63,11 @@
     &--floating, &--fixed-right {
       z-index: 50;
       .box__header {
-        padding: 1rem 1.4rem;
+        padding: .8rem 1.4rem;
         box-sizing: content-box;
 
         font-weight: 600;
-        font-size: 16pt;
+        font-size: 14pt;
 
         @media screen and (min-width: 800px) {
           padding: 1rem 2.4rem;

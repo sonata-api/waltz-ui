@@ -154,11 +154,18 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
 
     const properties = computed(() => description.value.properties || {})
     const actions = computed(() => normalizeActions(description.value.actions))
-    const diffedItem = computed(() => deepDiff(
-      state.referenceItem,
-      state.item,
-      { preserveIds: true }
-    ))
+    const diffedItem = computed(() => {
+      const freshItem = state.rawDescription.freshItem
+      const referenceItem = freshItem
+        ? Object.fromEntries(Object.entries(state.referenceItem).map(([key, value]) => [key, key in freshItem ? null : value]))
+        : state.referenceItem
+
+      return deepDiff(
+        referenceItem,
+        state.item,
+        { preserveIds: true }
+      )
+    })
 
     return {
       description,
