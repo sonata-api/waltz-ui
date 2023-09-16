@@ -15,8 +15,6 @@ type Props = {
   rows?: any
   collection?: string | Ref<string>
   checkbox?: boolean
-  border?: boolean
-  headers?: boolean
   actions?: Array<CollectionAction<any> & {
     action: string
     click: (...args: any[]) => void
@@ -24,11 +22,7 @@ type Props = {
   layout?: any
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  border: true,
-  headers: true
-})
-
+const props = defineProps<Props>()
 const breakpoints = useBreakpoints()
 
 const collectionName = props.collection || inject<Ref<string>|string>('storeId', '')
@@ -79,8 +73,8 @@ const buttonStyle = (subject: any, action: any) => {
       <slot name="thead"></slot>
     </thead>
 
-    <thead v-else-if="headers && (!store || store.loading.getAll || store.itemsCount > 0)">
-      <tr v-if="headers">
+    <thead v-else-if="!store || store.loading.getAll || store.itemsCount > 0">
+      <tr>
         <th v-if="checkbox && store && breakpoints.md">
           <input
             type="checkbox"
@@ -91,10 +85,8 @@ const buttonStyle = (subject: any, action: any) => {
         <th
           v-for="([propertyName, property], index) in Object.entries(columns)"
           :key="`header-${index}`"
-          :class="`
-            table__header
-            ${border && 'table__header--border'}
-        `">
+          class="table__header"
+        >
           {{ property.description || $t(propertyName) }}
         </th>
         <th
