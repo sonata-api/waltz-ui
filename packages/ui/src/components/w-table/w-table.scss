@@ -83,16 +83,11 @@ $picture-size: 2rem;
       @include cell-padding;
       font-size: 10pt;
 
-      @include themed() {
-        border-top: 1px solid t(border-color);
+      @media screen and (min-width: 600px) {
+        @include themed() {
+          border-top: 1px solid t(border-color);
+        }
       }
-      // @media screen and (min-width: 600px) {
-      //   @include themed() {
-      //     &:not(:last-child) {
-      //       border-bottom: 1px solid t(border-color);
-      //     }
-      //   }
-      // }
     }
   }
 
