@@ -45,13 +45,8 @@ $picture-size: 2rem;
     }
   }
 
+  :deep(tbody) > tr,
   :deep(tfoot) > tr {
-    @include themed() {
-      background: t(background-color);
-    }
-  }
-
-  :deep(tbody) > tr {
     height: 3rem;
 
     @include themed() {
