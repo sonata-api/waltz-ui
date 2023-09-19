@@ -89,11 +89,15 @@ const toggleCollapsed = (value: boolean) => {
 
     :class="`
       box
-      ${isFloating && 'box--floating'}
       ${fixedRight && 'box--fixed'}
   `">
-    <!-- box content -->
-    <div
+    <component
+      :is="
+        isFloating
+          ? 'dialog'
+          : 'div'
+      "
+
       data-component="box"
       :class="`
         w-surface
@@ -108,7 +112,6 @@ const toggleCollapsed = (value: boolean) => {
       `"
       @click="$event.stopPropagation()"
     >
-      <!-- box head -->
       <div
         v-if="$slots.header || title"
         :class="`
@@ -143,7 +146,6 @@ const toggleCollapsed = (value: boolean) => {
         />
       </div>
 
-      <!-- box body -->
       <div
         v-if="!isCollapsed"
         :class="`
@@ -157,7 +159,6 @@ const toggleCollapsed = (value: boolean) => {
         <slot v-else name="body"></slot>
       </div>
 
-      <!-- box footer -->
       <div
         v-if="$slots.footer"
         :class="`
@@ -168,7 +169,7 @@ const toggleCollapsed = (value: boolean) => {
       >
         <slot name="footer"></slot>
       </div>
-    </div>
+    </component>
   </div>
 </template>
 
