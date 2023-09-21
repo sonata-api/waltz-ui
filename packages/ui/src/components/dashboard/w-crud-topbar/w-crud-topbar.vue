@@ -68,20 +68,17 @@ watch(route, (currRoute, prevRoute) => {
 
 <template>
   <div
-    v-if="store && Object.keys(store.description.filtersPresets||{}).length > 0"
+    v-if="store && store.description.filtersPresets"
     class="topbar"
   >
-    <w-tabs
-      v-if="store?.description.filtersPresets"
-      query="section"
-    >
+    <w-tabs query="section">
       <template #all>
         <div @click="togglePreset(null)">
           {{ $t('all') }}
         </div>
       </template>
       <template
-        v-for="([presetName, preset]) in Object.entries(store.description.filtersPresets)"
+        v-for="([presetName, preset]) in Object.entries(store.description.filtersPresets as Record<string, FiltersPreset<any>>)"
         v-slot:[presetName]
       >
         <div @click="togglePreset(preset)">
