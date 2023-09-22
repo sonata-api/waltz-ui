@@ -61,6 +61,14 @@
       }
     }
 
+    &--bordered-body {
+      @include themed() {
+        .box__body {
+          border: 1px solid t(border-color);
+        }
+      }
+    }
+
     &--floating, &--fixed-right {
       .box__header {
         padding: .8rem 1.4rem;

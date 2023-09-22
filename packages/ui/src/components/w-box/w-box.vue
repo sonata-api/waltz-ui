@@ -110,6 +110,7 @@ const toggleCollapsed = (value: boolean) => {
         ${!(isFloating || fixedRight) && 'box__content--rounded'}
         ${isFloating && 'box__content--floating'}
         ${animate && 'box__content--animate'}
+        ${bordered && 'box__content--bordered-body'}
         ${fixedRight && 'box__content--fixed-right'}
         ${transparent && 'box__content--transparent'}
         ${transparentMobile && 'box__content--transparent-mobile'}
