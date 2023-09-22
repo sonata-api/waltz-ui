@@ -8,6 +8,7 @@ import WForm from '../../../../components/form/w-form/w-form.vue'
 import WButton from '../../../../components/w-button/w-button.vue'
 import WPicture from '../../../../components/w-picture/w-picture.vue'
 import WIcon from '../../../../components/w-icon/w-icon.vue'
+import WMenu from '../../../../components/w-menu/w-menu.vue'
 
 const userStore = useStore('user')
 const metaStore = useStore('meta')
@@ -34,61 +35,62 @@ const signout = async () => {
 </script>
 
 <template>
-  <div>
-    <w-picture
-      v-bind="{
-        width: '14rem',
-        height: '14rem'
-      }"
+  <w-picture
+    v-bind="{
+      width: '14rem',
+      height: '14rem'
+    }"
 
-      bordered
-      :file-id="userStore.item.picture?._id || userStore.item.picture"
-      style="
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      "
-    >
-      <template #caption>
-        <w-icon
-          v-clickable
-          small
-          icon-right
-          icon="edit"
-          @click="editPanel = true"
-        >
-          <h2>{{ userStore.item.full_name }}</h2>
-        </w-icon>
-
-        <menu class="profile__menu">
-          <slot
-            v-if="$slots['user-profile-menu']"
-            name="user-profile-menu"
-          ></slot>
-
-          <w-icon
-            v-clickable
-            icon="key-skeleton"
-            @click="$router.push('/dashboard/user/changepass')"
-          >
-            Mudar senha
-          </w-icon>
-          <w-icon
-            v-clickable
-            icon="signout"
-            @click="signout"
-          >
-            Sair
-          </w-icon>
-        </menu>
-      </template>
-    </w-picture>
-  </div>
+    bordered
+    :file-id="userStore.item.picture && typeof userStore.item.picture === 'object'
+      ? userStore.item.picture._id
+      : userStore.item.picture"
+    style="
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    "
+  >
+    <template #caption>
+      <w-icon
+        v-clickable
+        small
+        icon-right
+        icon="edit"
+        @click="editPanel = true"
+      >
+        <h2>{{ userStore.item.full_name }}</h2>
+      </w-icon>
+    </template>
+  </w-picture>
 
   <slot
     v-if="$slots['user-profile']"
     name="user-profile"
   ></slot>
+
+  <w-menu>
+    <template #change-password>
+      <w-icon
+        v-clickable
+        icon="key-skeleton"
+        @click="$router.push('/dashboard/user/changepass')"
+      >
+        Mudar senha
+      </w-icon>
+    </template>
+
+    <template #signout>
+      <w-icon
+        v-clickable
+        icon="signout"
+        @click="signout"
+      >
+        Sair
+      </w-icon>
+    </template>
+
+  </w-menu>
 
   <w-box
     float

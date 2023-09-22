@@ -146,7 +146,7 @@ const position = computed(() => ({
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) !important;
     border-radius: 15px;
     width: 90vw;
   }

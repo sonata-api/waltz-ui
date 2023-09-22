@@ -1,10 +1,5 @@
 import type { Directive } from 'vue'
 
-const __layer = {
-  last: 50,
-  lastIndex: ''
-}
-
 const overlay: Directive = {
   mounted: (el, binding) => {
     if( binding.value?.condition === false ) {
@@ -16,9 +11,6 @@ const overlay: Directive = {
     }
 
     const overlayElem = document.createElement('div')
-    const zIndex = __layer.last
-
-    __layer.last += 10
 
     const visible = !binding.modifiers?.invisible
       && (
@@ -26,13 +18,15 @@ const overlay: Directive = {
           || window.matchMedia('(max-width: 600px)').matches
       )
 
+    const layer = binding.value?.layer || 50
+
     overlayElem.setAttribute('style', `
       position: fixed;
       display: block;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      z-index: ${zIndex};
+      z-index: ${layer};
 
       width: 100vw;
       height: 100vh;
@@ -47,8 +41,7 @@ const overlay: Directive = {
       overlayElem.onclick = binding.value.click
     }
 
-    __layer.lastIndex = el.style.zIndex
-    el.style.zIndex = `${zIndex+10}`
+    el.style.zIndex = `${layer+10}`
     el.parentNode.insertBefore(overlayElem, el)
   },
 
@@ -57,9 +50,7 @@ const overlay: Directive = {
       return
     }
 
-    el.style.zIndex = __layer.lastIndex
     el.previousElementSibling?.remove()
-    __layer.last -= 10
   }
 }
 

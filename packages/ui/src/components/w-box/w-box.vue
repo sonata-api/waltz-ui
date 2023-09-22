@@ -84,7 +84,12 @@ const toggleCollapsed = (value: boolean) => {
     v-overlay="{
       condition: overlay || fixedRight || isFloating,
       invisible: invisibleOverlay,
-      click: overlayClick
+      click: overlayClick,
+      layer: isFloating
+        ? 60
+        : fixedRight
+          ? 50
+          : 0
     }"
 
     :class="`

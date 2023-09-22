@@ -53,5 +53,3 @@ const filter = () => {
     </template>
   </w-box>
 </template>
-
-<style scoped src="./w-filter-panel.scss"></style>

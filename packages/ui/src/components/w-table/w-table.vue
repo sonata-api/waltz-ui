@@ -65,15 +65,13 @@ const buttonStyle = (subject: any, action: any) => {
 <template>
   <table
     v-if="(columns && Object.keys(columns).length > 0) || $slots.thead"
-    class="
-      table
-    "
+    class="table"
   >
     <thead v-if=$slots.thead>
       <slot name="thead"></slot>
     </thead>
 
-    <thead v-else-if="!store || store.loading.getAll || store.itemsCount > 0">
+    <thead v-else>
       <tr>
         <th v-if="checkbox && store && breakpoints.md">
           <input
