@@ -22,6 +22,7 @@ type Props = {
   transparent?: boolean
   transparentMobile?: boolean
   outerHeader?: boolean
+  overlayLayer?: number
 }
 // #endregion props
 
@@ -85,11 +86,12 @@ const toggleCollapsed = (value: boolean) => {
       condition: overlay || fixedRight || isFloating,
       invisible: invisibleOverlay,
       click: overlayClick,
-      layer: isFloating
+      layer: overlayLayer || (isFloating
         ? 60
         : fixedRight
           ? 50
           : 0
+      )
     }"
 
     :class="`

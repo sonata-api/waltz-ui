@@ -44,7 +44,17 @@ const change = (tab: string) => {
       class="tabs__horizontal"
     >
       <div
-        v-for="(slotName, index) in Object.keys($slots)"
+        v-if="$slots.default"
+        class="
+          tabs__tab
+          tabs__tab--info
+        "
+      >
+        <slot></slot>
+      </div>
+
+      <div
+        v-for="(slotName, index) in Object.keys($slots).filter((slotName) => slotName !== 'default')"
         :key="slotName"
         :class="{
           'tabs__tab': true,
@@ -71,7 +81,7 @@ const change = (tab: string) => {
         </w-icon>
 
         <template
-          v-for="slotName in Object.keys($slots)"
+          v-for="slotName in Object.keys($slots).filter((slotName) => slotName !== 'default')"
           v-slot:[slotName]
         >
           <div @click="change(slotName)">

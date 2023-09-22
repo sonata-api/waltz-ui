@@ -45,10 +45,6 @@
       }
     }
 
-    &--normal, &--bold {
-      border-radius: 3px;
-    }
-
     &--light {
       border-bottom: 1px solid #dedede;
     }
@@ -60,7 +56,6 @@
     border: 0;
 
     &--normal, &--bold {
-      border-radius: 3px;
       @include themed() {
         color: t(foreground-color);
         background: t(background-color);
@@ -69,11 +64,13 @@
 
     &--normal {
       padding: var(--default-input-padding);
+      border-radius: 4px;
     }
 
     &--bold {
       padding: 1rem .8rem;
       font-size: 12pt;
+      border-radius: 10px;
 
       &::placeholder {
         font-weight: 600;

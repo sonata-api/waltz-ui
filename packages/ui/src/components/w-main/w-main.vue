@@ -37,6 +37,7 @@ bootstrapRoutes()
       close-hint
       v-model="metaStore.modal.visible"
       v-bind="metaStore.modal"
+      :overlay-layer="70"
       @overlay-click="metaStore.modal.visible = false"
     >
       <div

@@ -1,6 +1,13 @@
 .tabs {
+  width: 100%;
+
   &__horizontal {
     display: flex;
+    padding-bottom: 1rem;
+
+    @include themed() {
+      border-bottom: 1px solid t(border-color);
+    }
   }
 
   &__tab {
@@ -15,6 +22,14 @@
       @include themed() {
         color: t(clickable-color);
         font-weight: 500;
+      }
+    }
+
+    &--info {
+      @media screen and (min-width: 600px) {
+        font-size: 12pt;
+        font-weight: 500;
+        margin-right: .6rem;
       }
     }
   }
