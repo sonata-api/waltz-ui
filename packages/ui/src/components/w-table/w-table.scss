@@ -15,7 +15,6 @@ $picture-size: 2rem;
 
   @media screen and (min-width: 600px) {
     @include themed () {
-      border: 1px solid t(border-color);
       overflow: hidden;
     }
   }
@@ -30,12 +29,10 @@ $picture-size: 2rem;
     @media screen and (min-width: 600px) {
       height: 3rem;
       display: table-row;
-      font-size: 8.5pt;
-      text-transform: uppercase;
       text-align: left;
 
       @include themed() {
-        background: t(background-color-alt);
+        background: #f5f5f5;
       }
     }
 
@@ -74,15 +71,19 @@ $picture-size: 2rem;
       }
     }
 
+    &:not(:last-child) {
+      &>td {
+        @media screen and (min-width: 600px) {
+          @include themed() {
+            border-bottom: 1px solid t(border-color);
+          }
+        }
+      }
+    }
+
     &>td {
       @include cell-padding;
       font-size: 10pt;
-
-      @media screen and (min-width: 600px) {
-        @include themed() {
-          border-top: 1px solid t(border-color);
-        }
-      }
     }
   }
 
@@ -115,7 +116,7 @@ $picture-size: 2rem;
     padding: 0 !important;
     @include themed() {
       border-top: 1px solid t(border-color);
-      background: t(background-color-alt);
+      background: #f5f5f5;
     }
   }
 
