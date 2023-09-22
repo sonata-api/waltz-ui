@@ -306,7 +306,7 @@ const buttonStyle = (subject: any, action: any) => {
       ></slot>
 
       <tr v-else-if="columns && !rows?.length && !store?.loading.getAll">
-        <td :colspan="Object.keys(columns).length">
+        <td :colspan="Object.keys(columns).length + (actions?.length ? 1 : 0)">
           <div class="table__empty">
             Não foram encontrados resultados.
           </div>
