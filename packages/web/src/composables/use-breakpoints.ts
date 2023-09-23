@@ -4,7 +4,8 @@ const widthMatches = (px: string) => window.matchMedia(`(min-width: ${px}px)`).m
 
 export const useBreakpoints = () => {
   const breakpoints = reactive({
-    md: computed(() => widthMatches('600'))
+    md: computed(() => widthMatches('600')),
+    xl: computed(() => widthMatches('1400')),
   })
 
   return breakpoints
