@@ -1,9 +1,10 @@
 {
   "name": "waltz-ui-monorepo",
   "private": true,
+  "packageManager": "pnpm@8.7.6",
   "scripts": {
-    "build:all": "npx lerna exec -- \"npm run build\"",
-    "postinstall": "for d in $(find node_modules/@waltz-ui -mindepth 1); do r=$(realpath $d); unlink $d; cp -r $r $d; done"
+    "build:all": "pnpm -r build",
+    "postinstall": "cp -r packages/ node_modules/@waltz-ui; rm -rf packages/*/node_modules/@waltz-ui"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.2",

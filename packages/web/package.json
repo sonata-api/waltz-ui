@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "watch": "tsc --watch",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "pnpm build",
     "postinstall": "node dist/__scripts__/postinstall.js || true"
   },
   "keywords": [],
