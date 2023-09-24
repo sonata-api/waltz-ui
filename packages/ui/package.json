@@ -18,7 +18,7 @@
     "access": "public"
   },
   "exports": {
-    ".": "./dist/ui.mjs",
+    ".": "./src/index.ts",
     "./*": "./dist/*"
   },
   "files": [
@@ -41,6 +41,5 @@
     "@sonata-api/common": "*",
     "@waltz-ui/state-management": "*",
     "@waltz-ui/web": "*"
-  },
-  "gitHead": "12d7d861731240d2cfc40104def04406dae1d0b1"
+  }
 }

@@ -22,6 +22,5 @@
     "@waltz-ui/state-management": "*",
     "@waltz-ui/ui": "*",
     "@waltz-ui/web": "*"
-  },
-  "gitHead": "1d6ca8fc72c6d648b12621a192462ef35793dcb9"
+  }
 }

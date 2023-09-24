@@ -51,6 +51,5 @@
   "devDependencies": {
     "typescript": "^5.1.6",
     "vite": "^4.4.8"
-  },
-  "gitHead": "1d6ca8fc72c6d648b12621a192462ef35793dcb9"
+  }
 }

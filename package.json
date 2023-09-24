@@ -5,11 +5,8 @@
     "build:all": "npx lerna exec -- \"npm run build\"",
     "postinstall": "for d in $(find node_modules/@waltz-ui -mindepth 1); do r=$(realpath $d); unlink $d; cp -r $r $d; done"
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "devDependencies": {
-    "lerna": "^7.1.5",
+    "@changesets/cli": "^2.26.2",
     "typescript": "^5.1.6"
   }
 }
