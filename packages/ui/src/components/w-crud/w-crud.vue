@@ -86,7 +86,11 @@ actionEventBus.value = action[1]
 const fetchItems = async () => {
   return store.$actions.filter({
     project: [
-      ...(store.description.table || Object.keys(store.properties)),
+      ...(
+        store.preferredTableProperties?.length > 0
+          ? store.preferredTableProperties
+          : store.description.table || Object.keys(store.properties)
+      ),
       ...store.description.tableMeta||[]
     ]
   })

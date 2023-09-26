@@ -1,4 +1,4 @@
-import { ref, computed, watch, } from 'vue'
+import { type Ref, type ComputedRef, ref, computed, watch } from 'vue'
 import { arraysIntersects } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
 import { useRouter, Route, MenuSchema } from '..'
@@ -99,9 +99,12 @@ export const useNavbar = async (props: Props) => {
     routes.value = await getRoutes()
   })
 
+  // NOTE:
+  // the explicit annotation below was needed to solve a typescript
+  // error
   return {
-    routes,
-    routesWithChildren,
+    routes: routes as Ref<Array<Route>>,
+    routesWithChildren: routesWithChildren as ComputedRef<Array<Route>>,
     isCurrent
   }
 }
