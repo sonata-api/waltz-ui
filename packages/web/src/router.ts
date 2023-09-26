@@ -1,4 +1,5 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router/auto'
+import type { RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router/auto'
 import { isRight } from '@sonata-api/common'
 import { meta, user } from './stores'
 

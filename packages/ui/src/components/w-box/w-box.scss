@@ -146,13 +146,8 @@
       width: 1.2rem;
     }
 
-    &--collapsed {
-      border-bottom: 0 !important;
-    }
-
     &:not(&--outer) {
       @include themed() {
-        border-bottom: 1px solid t(border-color);
         background: t(background-color-alt);
       }
     }

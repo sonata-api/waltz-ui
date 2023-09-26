@@ -93,23 +93,17 @@ export const useStoreActions = (store: CollectionStore) => {
       store.items = []
     },
 
-    async custom(verb: string|null,  payload?: any, options?: CustomOptions) {
+    async custom(verb: string|null, payload?: any, options?: CustomOptions) {
       store.validationErrors = {}
       if( !options?.skipLoading ) {
         store.loading[verb || ''] = true
       }
 
-      const method = options?.method || 'POST'
       const route = verb
         ? `${store.$id}/${verb}`
         : store.$id
 
-      const promise = request(`${API_URL}/${route}`, payload, {
-        method,
-        headers: {
-          'content-type': 'application/json'
-        }
-      })
+      const promise = request(`${API_URL}/${route}`, payload)
         .catch((err: any) => {
           if( err.validation ) {
             store.validationErrors = err.validation
