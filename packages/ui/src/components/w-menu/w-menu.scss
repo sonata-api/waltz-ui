@@ -1,6 +1,8 @@
 .menu {
   padding: 0;
   border-radius: 10px;
+  align-self: center;
+  min-width: 90vw;
 
   @include themed() {
     background: t(background-color-alt);
@@ -8,7 +10,7 @@
   }
 
   @media screen and (min-width: 600px) {
-    max-width: 50%;
+    min-width: 22rem;
   }
 
   &__entry {

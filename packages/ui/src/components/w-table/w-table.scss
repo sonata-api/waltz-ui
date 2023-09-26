@@ -112,7 +112,6 @@ $picture-size: 2rem;
     padding: 0 !important;
     @include themed() {
       background: t(background-color-contrast);
-      border-top: 1px solid t(border-color);
     }
   }
 

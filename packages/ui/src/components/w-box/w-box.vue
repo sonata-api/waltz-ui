@@ -138,6 +138,8 @@ const toggleCollapsed = (value: boolean) => {
           </div>
         </div>
 
+        <!-- <w-icon icon="minus"></w-icon> -->
+        <!-- <w-icon icon="plus"></w-icon> -->
         <w-icon
           v-clickable
           v-if="collapsible"

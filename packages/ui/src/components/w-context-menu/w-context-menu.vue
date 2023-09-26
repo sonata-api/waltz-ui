@@ -8,6 +8,7 @@ import WIcon from '../w-icon/w-icon.vue'
 type Props = {
   actions?: any
   subject?: any
+  overlayLayer?: number
 }
 
 type Action = {
@@ -69,6 +70,7 @@ const position = computed(() => ({
       fill
       v-model="contextmenuVisible"
       v-overlay.invisibleOnLarge="{
+        layer: overlayLayer,
         click: () => {
           contextmenuVisible = false
         }
