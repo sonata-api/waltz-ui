@@ -43,11 +43,23 @@ const onClick = (action: Action, subject: any) => {
   contextmenuVisible.value = false
 }
 
-const position = computed(() => ({
-  _: contextmenuVisible.value,
-  x: Math.floor(contextmenu.value?.getBoundingClientRect().left||0 - window.scrollX) + 'px',
-  y: Math.floor(contextmenu.value?.getBoundingClientRect().top||0 - window.scrollY) + 'px',
-}))
+const position = computed(() => {
+  if( !contextmenu.value ) {
+    return {
+      x: 0,
+      y: 0
+    }
+  }
+  const rectTop = contextmenu.value.getBoundingClientRect().top
+  const rectLeft = contextmenu.value.getBoundingClientRect().left
+  const offsetY = contextmenu.value.offsetHeight
+
+  return {
+    _: contextmenuVisible.value,
+    x: Math.floor(rectLeft) + 'px',
+    y: Math.floor(rectTop + offsetY) + 'px',
+  }
+})
 </script>
 
 <template>

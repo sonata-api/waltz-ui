@@ -71,14 +71,14 @@
 
     &--floating, &--fixed-right {
       .box__header {
-        padding: .8rem 1.4rem;
+        padding: .6rem 1.4rem;
         box-sizing: content-box;
 
         font-weight: 600;
         font-size: 14pt;
 
         @media screen and (min-width: 800px) {
-          padding: 1rem 2.4rem;
+          padding: .6rem 2.4rem;
         }
       }
     } 

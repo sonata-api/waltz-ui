@@ -5,6 +5,10 @@
         border-bottom: 1px solid t(border-color);
       }
     }
+
+    @media screen and (min-width: 600px) {
+      min-width: 12rem;
+    }
   }
 
   &__item {
