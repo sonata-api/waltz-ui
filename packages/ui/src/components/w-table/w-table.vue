@@ -36,15 +36,15 @@ const selected = computed({
 })
 
 const buttonActions = computed(() => (
-  breakpoints.xl
+  breakpoints.value.xl && breakpoints
     ? props.actions?.filter((action) => props.layout?.actions?.[action.action]?.button) || []
     : []
 ))
 
 const dropdownActions = computed(() => (
-  breakpoints.xl
+  breakpoints.value.xl
     ? props.actions?.filter((action) => !props.layout?.actions?.[action.action]?.button) || []
-    : props.actions
+    : props.actions || []
 ))
 
 const buttonStyle = (subject: any, action: any) => {

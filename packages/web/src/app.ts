@@ -118,19 +118,10 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
   })
 
   if( userStore.signedIn ) {
-    try {
-      await metaStore.$actions.describe({
-        roles: true
-      })
-
-    } catch( e ) {
-      console.trace(e)
-
-      // localStorage.clear()
-      // setTimeout(() => {
-      //   location.reload()
-      // }, 10000)
-    }
+    await metaStore.$actions.describe({
+      roles: true,
+      revalidate: true
+    })
   }
 
   resolve({

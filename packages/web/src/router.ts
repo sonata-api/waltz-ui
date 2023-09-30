@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router/auto'
-import { isRight } from '@sonata-api/common'
-import { meta, user } from './stores'
+import { meta } from './stores'
 
 export type RouteMeta = {
   meta: {
@@ -21,6 +20,13 @@ export type Route = RouteMeta & Omit<RouteRecordRaw, 'children'> & {
 export type RouterExtensionNode = Array<Omit<Route, 'name'>>
 export type RouterExtension = Record<string, RouterExtensionNode>
 
+let __popstateListenerAttached = false
+let __popstate = false
+
+export {
+  __popstate
+}
+
 export const routerInstance = (routes: Array<RouteRecordRaw>) => {
   const router = createRouter({
     history: createWebHistory(),
@@ -32,24 +38,24 @@ export const routerInstance = (routes: Array<RouteRecordRaw>) => {
     }
   })
 
-  router.beforeEach(async (to, _from, next) => {
+  if( !__popstateListenerAttached ) {
+    window.addEventListener('popstate', () => {
+      __popstate = true
+    })
+
+    __popstateListenerAttached = true
+  }
+
+  router.beforeEach(async (to, _from) => {
     const metaStore = meta()()
-    const userStore = user()()
 
     metaStore.menu.visible = false
     metaStore.view.title = to.meta?.title as string
 
-    if( to.fullPath.startsWith('/dashboard') && !userStore.currentUser.pinged ) {
-      const resultEither = await userStore.$functions.ping()
-      if( isRight(resultEither) ) {
-        userStore.currentUser.pinged = true
-        return next()
-      }
-
-      next('/user/signin')
+    if( __popstate ) {
+      to.query._popstate = 'true'
+      __popstate = false
     }
-
-    else next()
   })
 
   return router

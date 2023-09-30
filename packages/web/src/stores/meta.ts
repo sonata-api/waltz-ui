@@ -37,7 +37,7 @@ export const meta = () => registerStore(() => {
     view: {
       title: '',
       layout: 'tabular',
-      collection: ''
+      collection: '',
     },
     menu: {
       visible: false
@@ -90,6 +90,10 @@ export const meta = () => registerStore(() => {
 
         if( deserialized.roles ) {
           state.roles = deserialized.roles
+        }
+
+        if( deserialized.user ) {
+          localStorage.setItem('auth:token', deserialized.user.token)
         }
 
         for ( const [collectionName, description] of Object.entries(globalDescriptions) ) {

@@ -22,7 +22,6 @@ export type CustomOptions = {
     | 'DELETE'
   skipLoading?: boolean
   skipEffect?: boolean
-  fullResponse?: boolean
   insert?: boolean
 }
 
@@ -127,20 +126,12 @@ export const useStoreActions = (store: CollectionStore) => {
 
     async customEffect(verb: string|null, payload: any, fn: (payload: any) => any, options?: CustomOptions) {
       const result = await actions.custom(verb, payload, options)
-      const response = options?.fullResponse
-        ? result
-        : result.result
-
       if( options?.skipEffect ) {
-        return response
+        return result
       }
 
-      if( !response ) {
-        return {}
-      }
-
-      return response
-        ? fn(response)
+      return result
+        ? fn(result)
         : {}
     },
 
@@ -148,14 +139,20 @@ export const useStoreActions = (store: CollectionStore) => {
       return actions.custom('count', payload)
     },
 
-    async get(payloadSource: ActionFilter|string, options?: CustomOptions) {
+    get(payloadSource: ActionFilter|string, options?: CustomOptions) {
       const payload = typeof payloadSource === 'string'
         ? { filters: { _id: payloadSource } }
         : payloadSource
 
       return actions.customEffect(
         'get', payload,
-        actions.setItem,
+        (result) => {
+          if( result ) {
+            actions.setItem(result)
+          }
+
+          return result
+        },
         options
       )
     },
@@ -173,17 +170,12 @@ export const useStoreActions = (store: CollectionStore) => {
 
       return actions.customEffect(
         'getAll', payload,
-        ({ result, pagination }) => {
-          actions.setItems(result)
+        ({ data, pagination }) => {
+          actions.setItems(data)
           Object.assign(store.pagination, pagination)
 
-          return result
-        },
-        {
-          ...options,
-          fullResponse: true
-        }
-      )
+          return data
+        }, options)
     },
 
     insert(payload?: { what: Partial<typeof store['item']> }, options?: CustomOptions) {

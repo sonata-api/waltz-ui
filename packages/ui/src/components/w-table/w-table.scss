@@ -83,6 +83,16 @@ $picture-size: 2rem;
     }
   }
 
+  :deep(tfoot) > tr {
+    &>td {
+      @media screen and (min-width: 600px) {
+        @include themed() {
+          border-bottom: 1px solid t(border-color);
+        }
+      }
+    }
+  }
+
   &__cell-grid {
     @media screen and (max-width: 600px) {
       display: flex;

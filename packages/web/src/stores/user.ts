@@ -19,9 +19,7 @@ type Credentials = {
 export const user = () => registerStore(() => {
   const state = reactive({
     token: '',
-    currentUser: {} as Partial<User> & {
-      pinged?: boolean
-    },
+    currentUser: {} as Partial<User>,
     credentials: {
       email: '',
       password: ''

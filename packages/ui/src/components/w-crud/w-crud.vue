@@ -98,12 +98,12 @@ const fetchItems = async () => {
 
 const emptyComponent = inject('emptyComponent')
 
-watch(router.currentRoute, async () => {
+watch(router.currentRoute, async (route) => {
   metaStore.view.title = props.collection
   metaStore.view.collection = props.collection
   isInsertReadonly.value = false
 
-  if( !props.noFetch /*&& (props.parentField || store.itemsCount === 0)*/ ) {
+  if( !props.noFetch && !route.query._popstate /*&& (props.parentField || store.itemsCount === 0)*/ ) {
     await fetchItems()
   }
 }, {
@@ -138,21 +138,9 @@ const toggleLayout = (store: any) => {
 }
 
 onUnmounted(() => {
-  const getFilters = () => store.filters
-  const oldFilters = getFilters()
   store.$actions.clearFilters()
   store.filtersPreset = {}
   store.preferredTableProperties = []
-
-  if( Object.keys(oldFilters).length > 0 ) {
-    const filters = getFilters()
-    const changed = Object.entries(oldFilters)
-      .some(([key, value]: [string, any]) => filters[key] !== value)
-
-    if( changed ) {
-      store.$actions.clearItems()
-    }
-  }
 })
 
 watch(() => actionEventBus.value, async (event) => {
@@ -163,11 +151,19 @@ watch(() => actionEventBus.value, async (event) => {
       'duplicate',
     ].includes(event.name)
   ) {
-    await store.$actions.get({
+    const result = await store.$actions.get({
       filters: {
         _id: event.params._id
       }
     })
+
+    if( !result ) {
+      metaStore.$actions.spawnModal({
+        title: I18N.global.t('error'),
+        body: I18N.global.t('error.not_found')
+      })
+      return
+    }
   }
 
   if( event.name === 'spawnAdd' ) {

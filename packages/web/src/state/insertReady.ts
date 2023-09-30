@@ -22,7 +22,7 @@ export const insertReady = <
 
     return keys.every((k) => {
       const property = description?.properties?.[k]! || {}
-      if( property.s$meta ) {
+      if( property.s$getter ) {
         return true
       }
 
