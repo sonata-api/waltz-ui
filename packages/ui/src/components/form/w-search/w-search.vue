@@ -7,7 +7,6 @@ import { useStore } from '@waltz-ui/state-management'
 
 import WBox from '../../w-box/w-box.vue'
 import WButton from '../../w-button/w-button.vue'
-import WForm from '../w-form/w-form.vue'
 import WSelect from '../w-select/w-select.vue'
 import WInput from '../w-input/w-input.vue'
 import WSearchContainer from './_internals/components/w-search-container/w-search-container.vue'
@@ -42,11 +41,11 @@ const selectPanel = ref(false)
 const selected = ref(props.modelValue)
 
 const searchResponse = ref({
-  result: [] as Array<any>,
+  data: [] as Array<any>,
   pagination: {}
 })
 
-const matchingItems = computed(() => searchResponse.value.result || [])
+const matchingItems = computed(() => searchResponse.value.data || [])
 const pagination = computed(() => searchResponse.value.pagination)
 
 const searchField = ref(indexes[0])

@@ -21,10 +21,12 @@ const insert = async () => {
   await userStore.$actions.insert({ what: userStore.item })
   localStorage.setItem('auth:currentUser', JSON.stringify(userStore.item))
 
-  metaStore.$actions.spawnModal({
+  await metaStore.$actions.spawnModal({
     title: 'Feito!',
     body: 'Suas informações foram salvas'
   })
+
+  editPanel.value = false
 }
 
 const signout = async () => {
@@ -52,15 +54,7 @@ const signout = async () => {
     "
   >
     <template #caption>
-      <w-icon
-        v-clickable
-        small
-        icon-right
-        icon="edit"
-        @click="editPanel = true"
-      >
-        <h2>{{ userStore.item.full_name }}</h2>
-      </w-icon>
+      <h2>{{ userStore.item.full_name }}</h2>
     </template>
   </w-picture>
 
@@ -70,6 +64,16 @@ const signout = async () => {
   ></slot>
 
   <w-menu>
+    <template #edit-profile>
+      <w-icon
+        v-clickable
+        icon="edit"
+        @click="editPanel = true"
+      >
+        Editar perfil
+      </w-icon>
+    </template>
+
     <template #change-password>
       <w-icon
         v-clickable
@@ -115,6 +119,7 @@ const signout = async () => {
 
     <template #footer>
       <w-button
+        large
         :loading="userStore.loading.insert"
         @click="insert"
       >

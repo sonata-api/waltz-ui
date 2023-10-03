@@ -21,6 +21,7 @@ import WButton from '../w-button/w-button.vue'
 import WIcon from '../w-icon/w-icon.vue'
 import WInput from '../form/w-input/w-input.vue'
 import WContextMenu from '../w-context-menu/w-context-menu.vue'
+import { WAsync } from '../utils'
 
 import { getLayout } from './_internals/layouts'
 import WFilterPanel from './_internals/components/w-filter-panel/w-filter-panel.vue'

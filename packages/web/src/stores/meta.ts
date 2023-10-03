@@ -7,6 +7,7 @@ import { useStore, hasStore, registerStore } from '@waltz-ui/state-management'
 import { createCollectionStore } from '../state/collection'
 import { freshItem, freshFilters } from '../state/helpers'
 import { API_URL } from '../constants'
+import { user } from './user'
 
 type CollectionName = string
 type PromptAnswer = { name: string }
@@ -93,7 +94,8 @@ export const meta = () => registerStore(() => {
         }
 
         if( deserialized.user ) {
-          localStorage.setItem('auth:token', deserialized.user.token)
+          localStorage.setItem('auth:token', deserialized.auth.token.token)
+          user()().$actions.setCurrentUser(deserialized.auth.user)
         }
 
         for ( const [collectionName, description] of Object.entries(globalDescriptions) ) {

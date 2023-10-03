@@ -3,9 +3,10 @@
   flex: 1;
   gap: 1rem;
 
-  &__controls {
+  &__preset {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: .4rem;
   }
 }

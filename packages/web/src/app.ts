@@ -118,10 +118,15 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
   })
 
   if( userStore.signedIn ) {
-    await metaStore.$actions.describe({
-      roles: true,
-      revalidate: true
-    })
+    try {
+      await metaStore.$actions.describe({
+        roles: true,
+        revalidate: true
+      })
+    } catch( err ) {
+      localStorage.removeItem('auth:token')
+      router.push('/user/signin')
+    }
   }
 
   resolve({

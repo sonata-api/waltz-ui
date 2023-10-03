@@ -3,8 +3,10 @@ import type { FiltersPreset } from '@sonata-api/types'
 import { computed, watch, type ComputedRef } from 'vue'
 import { useRouter } from '@waltz-ui/web'
 import { useParentStore } from '@waltz-ui/state-management'
+import { WAsync } from '../../utils'
 import WTabs from '../../w-tabs/w-tabs.vue'
 import WIcon from '../../w-icon/w-icon.vue'
+import WBadge from '../../w-badge/w-badge.vue'
 
 type Props = {
   collection?: string
@@ -81,7 +83,10 @@ watch(route, (currRoute, prevRoute) => {
         v-for="([presetName, preset]) in Object.entries(store.description.filtersPresets as Record<string, FiltersPreset<any>>)"
         v-slot:[presetName]
       >
-        <div @click="togglePreset(preset)">
+        <div
+          class="topbar__preset"
+          @click="togglePreset(preset)"
+        >
           <w-icon
             small
             v-if="preset.icon"
@@ -90,13 +95,10 @@ watch(route, (currRoute, prevRoute) => {
             {{ preset.name || $tc(presetName, 2) }}
           </w-icon>
           <span v-else>{{ preset.name || $tc(presetName, 2) }}</span>
-          <span v-if="preset.badgeFunction">
-            <!-- ({{ -->
-            <!--   store.customGetter[preset.badgeFunction](presetName, { -->
-            <!--     filters: preset.filters -->
-            <!--   }) -->
-            <!-- }}) -->
-          </span>
+
+          <w-badge v-if="preset.badgeFunction">
+            <w-async :promise="store.$functions[preset.badgeFunction]({ filters: preset.filters })"></w-async>
+          </w-badge>
         </div>
       </template>
     </w-tabs>

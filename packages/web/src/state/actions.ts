@@ -180,7 +180,7 @@ export const useStoreActions = (store: CollectionStore) => {
 
     insert(payload?: { what: Partial<typeof store['item']> }, options?: CustomOptions) {
       return actions.customEffect(
-        null, { ...payload, what: payload?.what||store.item },
+        'insert', { ...payload, what: payload?.what||store.item },
         actions.insertItem,
         options
       )

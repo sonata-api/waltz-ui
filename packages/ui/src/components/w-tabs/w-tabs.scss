@@ -3,8 +3,9 @@
 
   &__horizontal {
     display: flex;
-    padding-bottom: 1rem;
+    gap: 1.2rem;
 
+    padding-bottom: 1rem;
     @include themed() {
       border-bottom: 1px solid t(border-color);
     }
@@ -16,7 +17,12 @@
     cursor: pointer;
 
     margin-top: 4px;
-    padding: 0 .4rem;
+
+    // @include themed() {
+    //   &:not(:last-child) {
+    //     border-right: 1px solid t(border-color);
+    //   }
+    // }
 
     &--current {
       @include themed() {

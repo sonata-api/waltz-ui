@@ -1,0 +1,18 @@
+.badge {
+  display: grid;
+  place-items: center;
+  padding: 0 .4rem;
+  box-sizing: content-box;
+
+  font-size: 8pt;
+  font-weight: 600;
+
+  border-radius: 30px;
+  height: 1.4rem;
+  min-width: 1rem;
+
+  @include themed() {
+    background: t(brand-color);
+    color: white;
+  }
+}

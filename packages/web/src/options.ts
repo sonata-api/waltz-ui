@@ -3,8 +3,9 @@ import type { RouteMeta } from './router'
 
 export type MenuAdvancedChildren = {
   name: string
-  badgeFunction?: string
-  badgePayload?: any
+  badge?: () => string | number extends infer ReturnType
+    ? ReturnType | Promise<ReturnType>
+    : never
 }
 
 export type MenuSchema = Record<string, Partial<RouteMeta> & {
