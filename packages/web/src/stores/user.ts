@@ -96,7 +96,7 @@ export const user = () => registerStore(() => {
 
           const {
             user,
-            token: _token
+            token
 
           } = unwrapEither(resultEither) as any
 
@@ -107,11 +107,11 @@ export const user = () => registerStore(() => {
 
           const {
             type: _tokenType,
-            token
-          } = _token
+            content: tokenContent
+          } = token
 
           setCurrentUser(user)
-          localStorage.setItem('auth:token', token)
+          localStorage.setItem('auth:token', tokenContent)
 
           await metaStore.$actions.describe({
             roles: true

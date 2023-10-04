@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router/auto'
-import { meta } from './stores'
+import { meta, user } from './stores'
 
 export type RouteMeta = {
   meta: {
@@ -20,13 +20,6 @@ export type Route = RouteMeta & Omit<RouteRecordRaw, 'children'> & {
 export type RouterExtensionNode = Array<Omit<Route, 'name'>>
 export type RouterExtension = Record<string, RouterExtensionNode>
 
-let __popstateListenerAttached = false
-let __popstate = false
-
-export {
-  __popstate
-}
-
 export const routerInstance = (routes: Array<RouteRecordRaw>) => {
   const router = createRouter({
     history: createWebHistory(),
@@ -38,23 +31,21 @@ export const routerInstance = (routes: Array<RouteRecordRaw>) => {
     }
   })
 
-  if( !__popstateListenerAttached ) {
-    window.addEventListener('popstate', () => {
-      __popstate = true
-    })
-
-    __popstateListenerAttached = true
-  }
-
-  router.beforeEach(async (to, _from) => {
+  router.beforeEach(async (to, from) => {
     const metaStore = meta()()
+    const userStore = user()()
 
     metaStore.menu.visible = false
     metaStore.view.title = to.meta?.title as string
 
-    if( __popstate ) {
+    if( /^\/dashboard/.test(to.path) && !userStore.signedIn ) {
+      return {
+        name: '/user/signin'
+      }
+    }
+
+    if( router.options.history.state.forward === from.fullPath ) {
       to.query._popstate = 'true'
-      __popstate = false
     }
   })
 

@@ -1,9 +1,16 @@
 import type { Router } from 'vue-router'
-import type { CollectionAction, StoreEffect } from '@sonata-api/types'
+import type { CollectionAction } from '@sonata-api/types'
 import type { Store } from '@waltz-ui/state-management'
 import { reactive } from 'vue'
 import { deepClone } from '@sonata-api/common'
-import { STORE_EFFECTS } from '@sonata-api/types'
+
+export const STORE_EFFECTS = <const>{
+  'ITEM_SET': 'setItem',
+  'ITEM_INSERT': 'insertItem',
+  'ITEMS_SET': 'setItems',
+  'ITEMS_UPDATE': 'updateItems',
+  'ITEM_REMOVE': 'removeItem',
+}
 
 export type ActionEvent<T={ _id: string }> = {
   id: number
@@ -11,7 +18,7 @@ export type ActionEvent<T={ _id: string }> = {
   params?: T|object
 }
 
-const getEffect = (store: any, effectName: StoreEffect) => {
+const getEffect = (store: any, effectName: keyof typeof STORE_EFFECTS) => {
   const effect = STORE_EFFECTS[effectName]
   return store.$actions[effect]
 }
@@ -77,7 +84,7 @@ export const useAction = <F extends { _id: string }>(
       }
 
       return actionEffect
-        ? (payload: any) => store.$actions.customEffect(actionName, payload, getEffect(store, actionEffect))
+        ? (payload: any) => store.$actions.customEffect(actionName, payload, getEffect(store, actionEffect as keyof typeof STORE_EFFECTS))
         : (payload: any) => store.$actions.custom(actionName, payload)
     })()
 

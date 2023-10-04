@@ -44,10 +44,7 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
     freshFilters: {} as Record<string, any>,
     activeFilters: {} as Record<string, any>,
     filtersPreset: {} as Record<string, any>,
-
     preferredTableProperties: [],
-    customGetters: [],
-
     selected: [] as Array<TItem> | Array<string>,
     currentLayout: '',
 

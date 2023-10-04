@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 
-const widthMatches = (px: string) => window.matchMedia(`(min-width: ${px}px)`).matches
+const widthMatches = (size: string) => window.matchMedia(`(min-width: ${size})`).matches
 
 const viewport = ref({
   width: window.innerWidth,
@@ -10,8 +10,9 @@ const viewport = ref({
 const breakpoints = computed(() => ({
   width: viewport.value.width,
   height: viewport.value.height,
-  md: widthMatches('600'),
-  xl: widthMatches('1400'),
+  md: widthMatches('768px'),
+  lg: widthMatches('1024px'),
+  xl: widthMatches('1280px'),
 }))
 
 let __listenerAttached = false
