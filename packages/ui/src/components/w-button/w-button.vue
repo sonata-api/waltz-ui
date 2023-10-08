@@ -49,17 +49,21 @@ const size = (() => {
     `"
     :disabled="disabled"
   >
-    <div style="width: 100%">
-      <w-icon
-        v-if="icon"
-        :icon="icon"
-        :small="size === 'small'"
-        class="button__icon"
-      >
+    <w-icon
+      v-if="icon"
+      :icon="icon"
+      :small="size === 'small'"
+    >
+      <div class="button__content">
         <slot></slot>
-      </w-icon>
+      </div>
+    </w-icon>
 
-      <slot v-else></slot>
+    <div
+      v-else
+      class="button__content"
+    >
+      <slot></slot>
     </div>
   </w-bare-button>
 </template>

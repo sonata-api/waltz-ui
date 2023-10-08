@@ -13,6 +13,6 @@
 
   @include themed() {
     background: t(brand-color);
-    color: white;
+    color: white !important;
   }
 }

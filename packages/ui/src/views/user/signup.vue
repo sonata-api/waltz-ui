@@ -32,7 +32,7 @@ const insert = async () => {
   userStore.item.password = password.value.password
   const userEither = await userStore.$functions.createAccount({
     ...newUser.value,
-    ...password.value
+    password: password.value.password
   })
 
   if( isLeft(userEither) ) {

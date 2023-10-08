@@ -84,4 +84,11 @@
     padding: .9rem 2.4rem;
     font-size: 11pt;
   }
+
+  &__content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+  }
 }

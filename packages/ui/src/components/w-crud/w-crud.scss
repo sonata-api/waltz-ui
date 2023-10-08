@@ -35,4 +35,9 @@
     align-items: center;
     justify-content: flex-end;
   }
+
+  &__context-badge {
+    display: flex;
+    justify-content: flex-end;
+  }
 }

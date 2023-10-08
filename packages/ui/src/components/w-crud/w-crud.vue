@@ -10,6 +10,7 @@ import WButton from '../w-button/w-button.vue'
 import WIcon from '../w-icon/w-icon.vue'
 import WInput from '../form/w-input/w-input.vue'
 import WContextMenu from '../w-context-menu/w-context-menu.vue'
+import WBadge from '../w-badge/w-badge.vue'
 
 import { getLayout } from './_internals/layouts'
 import WFilterPanel from './_internals/components/w-filter-panel/w-filter-panel.vue'
@@ -226,6 +227,9 @@ const individualActions = computed(() => {
   }))
 })
 
+const actionButtons = computed(() => {
+  return store.actions.filter((action: any) => !action.button)
+})
 
 provide('storeId', computed(() => props.collection))
 provide('individualActions', individualActions)
@@ -292,11 +296,15 @@ provide('parentStore', parentStore)
       </div>
 
       <div class="crud__actions">
-        <w-context-menu>
+        <w-context-menu v-if="actionButtons.length > 0">
           <w-button
             variant="alt"
             icon="sliders-v"
-          ></w-button>
+          >
+            <w-badge v-if="store.filtersCount">
+              {{ store.filtersCount }}
+            </w-badge>
+          </w-button>
 
           <template
             #filter
@@ -309,23 +317,29 @@ provide('parentStore', parentStore)
             >
               Filtros
             </w-icon>
+
+            <div class="crud__context-badge">
+              <w-badge v-if="store.filtersCount">
+                {{ store.filtersCount }}
+              </w-badge>
+            </div>
           </template>
 
-          <template
-            #clear-filters
-            v-if="
-              store
-              && Object.keys(store.availableFilters).length > 0
-              && store.filtersCount > 0
-            "
-          >
-            <w-icon
-              icon="trash"
-              @click="() => (store.$actions.clearFilters() && store.$actions.filter(undefined))"
-            >
-              Limpar filtros
-            </w-icon>
-          </template>
+          <!-- <template -->
+          <!--   #clear-filters -->
+          <!--   v-if=" -->
+          <!--     store -->
+          <!--     && Object.keys(store.availableFilters).length > 0 -->
+          <!--     && store.filtersCount > 0 -->
+          <!--   " -->
+          <!-- > -->
+          <!--   <w-icon -->
+          <!--     icon="trash" -->
+          <!--     @click="() => (store.$actions.clearFilters() && store.$actions.filter(undefined))" -->
+          <!--   > -->
+          <!--     Limpar filtros -->
+          <!--   </w-icon> -->
+          <!-- </template> -->
 
           <template
             #layout-toggle
@@ -346,7 +360,7 @@ provide('parentStore', parentStore)
 
           <!-- <w-icon icon="setting"></w-icon> -->
           <template
-            v-for="(actionProps, index) in store.actions.filter((action: any) => !action.button)"
+            v-for="(actionProps, index) in actionButtons"
             v-slot:[`action-${index}`]
           >
             <w-icon
@@ -360,6 +374,18 @@ provide('parentStore', parentStore)
           </template>
 
         </w-context-menu>
+
+        <w-button
+          v-else
+          variant="alt"
+          icon="filter"
+          @click="isFilterVisible = true"
+        >
+          <div>Filtros</div>
+          <w-badge v-if="store.filtersCount">
+            {{ store.filtersCount }}
+          </w-badge>
+        </w-button>
 
         <w-button
           v-for="(actionProps, index) in store.actions.filter((action: any) => action.button)"
