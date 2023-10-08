@@ -7,6 +7,7 @@ import WButton from '../../w-button/w-button.vue'
 
 type Props = FormFieldProps<any> & {
   meta?: Record<string, any>
+  modelValue?: any
 }
 
 const props = defineProps<Props>()
@@ -55,7 +56,7 @@ const clearPreview = () => {
 
 const insert = async () => {
   const file = await readFile(preview.value)
-  const { result } = await store.$functions.upload({
+  const result = await store.$functions.upload({
     parentId: store.item._id,
     propertyName: props.propertyName,
     what: {

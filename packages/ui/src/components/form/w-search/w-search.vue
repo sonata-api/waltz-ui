@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { CollectionProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
-import { onMounted, provide, computed, ref, watch } from 'vue'
+import { provide, computed, ref, watch } from 'vue'
 import { useDebounce } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
 
@@ -81,12 +81,6 @@ const search = async (options?: { empty?: true }) => {
     }
   }, { fullResponse: true })
 }
-
-onMounted(async () => {
-  if( property.s$prefetch ) {
-    searchResponse.value = await store.$actions.custom('getAll', {}, { fullResponse: true })
-  }
-})
 
 const [doLazySearch] = useDebounce({ delay: 800 })(() => {
   search()

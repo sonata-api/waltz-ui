@@ -6,7 +6,7 @@ export const WAsync = defineComponent({
   },
   setup(props) {
     const result = ref<any>()
-    if( props.promise?.then ) {
+    if( props.promise instanceof Promise ) {
       props.promise.then((value) => {
         result.value = value
       })

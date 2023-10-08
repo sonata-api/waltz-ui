@@ -87,7 +87,7 @@ $picture-size: 2rem;
     &>td {
       @media screen and (min-width: 600px) {
         @include themed() {
-          border-bottom: 1px solid t(border-color);
+          border-top: 1px solid t(border-color);
         }
       }
     }

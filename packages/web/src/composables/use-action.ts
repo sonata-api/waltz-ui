@@ -40,6 +40,10 @@ export const useAction = <F extends { _id: string }>(
     if( scopedAction ) {
       if( scopeName === 'route' ) {
         return async (filters: F) => {
+          if( actionProps.setItem ) {
+            store.$actions.setItem(filters)
+          }
+
           if( actionProps.clearItem ) {
             store.$actions.clearItem()
           }

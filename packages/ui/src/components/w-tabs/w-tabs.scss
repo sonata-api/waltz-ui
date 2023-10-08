@@ -27,7 +27,6 @@
     &--current {
       @include themed() {
         color: t(clickable-color);
-        font-weight: 500;
       }
     }
 

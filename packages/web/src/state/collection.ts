@@ -27,7 +27,7 @@ export type CollectionStore<TItem extends CollectionStoreItem=any> = CollectionS
 }
 
 export type CollectionStoreItem = Record<string, any> & {
-  _id?: any
+  _id?: string
 }
 
 const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
@@ -51,6 +51,7 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
     validationErrors: {} as any,
     loading: {} as Record<string, boolean>,
     halt: false,
+    textQuery: '',
 
     pagination: {
       offset: 0,
@@ -151,6 +152,7 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
 
     const properties = computed(() => description.value.properties || {})
     const actions = computed(() => normalizeActions(description.value.actions))
+
     const diffedItem = computed(() => {
       const freshItem = state.rawDescription.freshItem
       const referenceItem = freshItem

@@ -269,7 +269,6 @@ export const useStoreActions = (store: CollectionStore) => {
     clearFilters() {
       const filters = store.filters = deepClone(store.freshFilters)
       store.pagination.offset = 0
-
       return filters
     },
 

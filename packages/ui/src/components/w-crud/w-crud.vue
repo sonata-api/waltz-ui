@@ -1,19 +1,8 @@
 <script setup lang="ts">
-import {
-  onUnmounted,
-  ref,
-  computed,
-  provide,
-  inject,
-  watch,
-  isRef,
-  type Ref
-
-} from 'vue'
-
 import type { Layout } from '@sonata-api/types'
+import { onUnmounted, computed, provide, inject, watch, isRef, type Ref } from 'vue'
 import { deepClone } from '@sonata-api/common'
-import { useRouter, useAction, useDebounce, useBreakpoints } from '@waltz-ui/web'
+import { useRouter, useAction, useDebounce } from '@waltz-ui/web'
 import { useStore, useParentStore } from '@waltz-ui/state-management'
 
 import WPagination from '../w-pagination/w-pagination.vue'
@@ -21,7 +10,6 @@ import WButton from '../w-button/w-button.vue'
 import WIcon from '../w-icon/w-icon.vue'
 import WInput from '../form/w-input/w-input.vue'
 import WContextMenu from '../w-context-menu/w-context-menu.vue'
-import { WAsync } from '../utils'
 
 import { getLayout } from './_internals/layouts'
 import WFilterPanel from './_internals/components/w-filter-panel/w-filter-panel.vue'
@@ -60,13 +48,10 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<Emits>()
 const router = await useRouter()
-const breakpoints = useBreakpoints()
 
 const debounce = useDebounce({
   delay: 600
 })
-
-const queryString = ref('')
 
 const metaStore = useStore('meta')
 
@@ -104,7 +89,8 @@ watch(router.currentRoute, async (route) => {
   metaStore.view.collection = props.collection
   isInsertReadonly.value = false
 
-  if( !props.noFetch && !route.query._popstate /*&& (props.parentField || store.itemsCount === 0)*/ ) {
+  if( !props.noFetch && !route.query._popstate/*&& (props.parentField || store.itemsCount === 0)*/ ) {
+    store.textQuery = ''
     await fetchItems()
   }
 }, {
@@ -128,7 +114,7 @@ const [performLazySearch] = debounce((value: string) => {
   return fetchItems()
 })
 
-watch(queryString, (value) => {
+watch(() => store.textQuery, (value) => {
   performLazySearch(value)
 })
 
@@ -140,8 +126,6 @@ const toggleLayout = (store: any) => {
 
 onUnmounted(() => {
   store.$actions.clearFilters()
-  store.filtersPreset = {}
-  store.preferredTableProperties = []
 })
 
 watch(() => actionEventBus.value, async (event) => {
@@ -295,7 +279,7 @@ provide('parentStore', parentStore)
       >
         <w-input
           bordered
-          v-model="queryString"
+          v-model="store.textQuery"
           v-bind="{
             variant: 'bold',
             property: {
