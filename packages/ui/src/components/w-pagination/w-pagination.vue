@@ -39,6 +39,8 @@ const paginate = (direction: 'previous'|'next') => {
   page.value = direction === 'previous'
     ? page.value - 1
     : page.value + 1
+
+  update()
 }
 
 const update = () => {
@@ -52,8 +54,6 @@ const update = () => {
 
 watch([page, limit], ([newPage]: [number, number]) => {
   pageInput.value = newPage + 1
-  update()
-  
 })
 </script>
 
@@ -65,6 +65,7 @@ watch([page, limit], ([newPage]: [number, number]) => {
         s$icon: 'list-ul'
       }"
       class="pagination__control"
+      @change="update"
     >
       <option
         v-for="limit in PAGINATION_PER_PAGE_DEFAULTS"
@@ -76,7 +77,7 @@ watch([page, limit], ([newPage]: [number, number]) => {
     </w-select>
 
     <div class="pagination__control">
-      <w-bare-button @click="page = 0">
+      <w-bare-button @click="page = 0; update()">
         <w-icon
           reactive
           icon="angle-double-left"
@@ -101,7 +102,7 @@ watch([page, limit], ([newPage]: [number, number]) => {
             minimum: 1
           }"
 
-          @change="page = pageInput === 0 ? 0 : pageInput - 1"
+          @change="page = pageInput === 0 ? 0 : pageInput - 1; update()"
         ></w-input>
         <span>{{ $t('of') }} {{ pageCount }}</span>
       </div>
@@ -114,7 +115,7 @@ watch([page, limit], ([newPage]: [number, number]) => {
           icon="angle-right"
         ></w-icon>
       </w-bare-button>
-      <w-bare-button @click="page = pageCount - 1">
+      <w-bare-button @click="page = pageCount - 1; update()">
         <w-icon
           reactive
           icon="angle-double-right"

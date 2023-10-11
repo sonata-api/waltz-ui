@@ -7,16 +7,16 @@ const isObject = (property: any) =>
     || property.items?.$ref
     || property.items?.type === 'object'
 
-export const condenseItem = (item?: Record<string, any>): Record<string, Exclude<any, '_id'>> => {
-  if( !item ) {
-    return {}
+export const condenseItem = (item?: Record<string, any>): any => {
+  if( !item || typeof item !== 'object' ) {
+    return item
   }
 
   return Object.entries(item).reduce((a, [key, value]) => {
     if( Array.isArray(value) ) {
       return {
         ...a,
-        [key]: value.map(v => v?._id || v)
+        [key]: value.map(v => v?._id || condenseItem(v))
       }
     }
 
@@ -30,7 +30,7 @@ export const condenseItem = (item?: Record<string, any>): Record<string, Exclude
 
     return {
       ...a,
-      [key]: value?._id || value
+      [key]: value?._id || condenseItem(value)
     }
   }, {})
 }

@@ -40,8 +40,11 @@ const filter = () => {
       <w-button
         v-if="store.filtersCount > 0"
         variant="transparent"
-        @click="store.$actions.clearFilters(); emit('update:modelValue', false)"
-      >
+        @click="
+          store.$actions.clearFilters();
+          filter();
+          emit('update:modelValue', false)
+      ">
         Limpar
         <w-badge>
           {{ store.filtersCount }}

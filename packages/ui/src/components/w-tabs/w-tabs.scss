@@ -14,15 +14,10 @@
   &__tab {
     display: flex;
     align-items: center;
+    gap: .2rem;
     cursor: pointer;
 
     margin-top: 4px;
-
-    // @include themed() {
-    //   &:not(:last-child) {
-    //     border-right: 1px solid t(border-color);
-    //   }
-    // }
 
     &--current {
       @include themed() {

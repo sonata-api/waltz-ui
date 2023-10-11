@@ -2,7 +2,7 @@
 import type { Layout } from '@sonata-api/types'
 import { onUnmounted, computed, provide, inject, watch, isRef, type Ref } from 'vue'
 import { deepClone } from '@sonata-api/common'
-import { useRouter, useAction, useDebounce } from '@waltz-ui/web'
+import { useRouter, useAction, useDebounce, type ActionFilter } from '@waltz-ui/web'
 import { useStore, useParentStore } from '@waltz-ui/state-management'
 
 import WPagination from '../w-pagination/w-pagination.vue'
@@ -70,8 +70,8 @@ const action = props.action
 call.value = action[0]
 actionEventBus.value = action[1]
 
-const fetchItems = async () => {
-  return store.$actions.filter({
+const fetchItems = async (optPayload?: ActionFilter) => {
+  const payload: ActionFilter = {
     project: [
       ...(
         store.preferredTableProperties?.length > 0
@@ -79,8 +79,14 @@ const fetchItems = async () => {
           : store.description.table || Object.keys(store.properties)
       ),
       ...store.description.tableMeta||[]
-    ]
-  })
+    ],
+  }
+
+  if( optPayload ) {
+    Object.assign(payload, optPayload)
+  }
+
+  return store.$actions.filter(payload)
 }
 
 const emptyComponent = inject('emptyComponent')
@@ -112,7 +118,9 @@ const [performLazySearch] = debounce((value: string) => {
     }
   })
 
-  return fetchItems()
+  return fetchItems({
+    offset: 0
+  })
 })
 
 watch(() => store.textQuery, (value) => {
@@ -267,10 +275,10 @@ provide('parentStore', parentStore)
       v-if="!noActions && (
         store.description.search?.active
         || !noRefresh
-        || (store && Object.keys(store.availableFilters).length > 0)
+        || Object.keys(store.availableFilters).length > 0
         || (store?.actions.length > 0 || $slots.actions)
         || (
-          !noLayoutToggle && store
+          !noLayoutToggle
           && store.description.layout
           && store.description.layout?.name !== 'tabular'
       )
@@ -296,7 +304,13 @@ provide('parentStore', parentStore)
       </div>
 
       <div class="crud__actions">
-        <w-context-menu v-if="actionButtons.length > 0">
+        <w-context-menu v-if="
+          actionButtons.length > 0
+            || (!noLayoutToggle
+              && store.description.layout
+              && store.description.layout?.name !== 'tabular'
+            )
+        ">
           <w-button
             variant="alt"
             icon="sliders-v"
@@ -308,7 +322,7 @@ provide('parentStore', parentStore)
 
           <template
             #filter
-            v-if="store && Object.keys(store.availableFilters).length > 0"
+            v-if="Object.keys(store.availableFilters).length > 0"
           >
             <w-icon
               v-clickable
@@ -325,26 +339,10 @@ provide('parentStore', parentStore)
             </div>
           </template>
 
-          <!-- <template -->
-          <!--   #clear-filters -->
-          <!--   v-if=" -->
-          <!--     store -->
-          <!--     && Object.keys(store.availableFilters).length > 0 -->
-          <!--     && store.filtersCount > 0 -->
-          <!--   " -->
-          <!-- > -->
-          <!--   <w-icon -->
-          <!--     icon="trash" -->
-          <!--     @click="() => (store.$actions.clearFilters() && store.$actions.filter(undefined))" -->
-          <!--   > -->
-          <!--     Limpar filtros -->
-          <!--   </w-icon> -->
-          <!-- </template> -->
-
           <template
             #layout-toggle
             v-if="
-              !noLayoutToggle && store
+              !noLayoutToggle
                 && store.description.layout
                 && store.description.layout?.name !== 'tabular'
             "
@@ -376,7 +374,7 @@ provide('parentStore', parentStore)
         </w-context-menu>
 
         <w-button
-          v-else
+          v-else-if="Object.keys(store.availableFilters).length > 0"
           variant="alt"
           icon="filter"
           @click="isFilterVisible = true"

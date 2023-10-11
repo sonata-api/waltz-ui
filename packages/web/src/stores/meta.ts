@@ -93,8 +93,8 @@ export const meta = () => registerStore(() => {
           state.roles = deserialized.roles
         }
 
-        if( deserialized.user ) {
-          localStorage.setItem('auth:token', deserialized.auth.token.token)
+        if( deserialized.auth ) {
+          localStorage.setItem('auth:token', deserialized.auth.token.content)
           user()().$actions.setCurrentUser(deserialized.auth.user)
         }
 

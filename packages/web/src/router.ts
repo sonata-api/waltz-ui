@@ -38,6 +38,8 @@ export const routerInstance = (routes: Array<RouteRecordRaw>) => {
     metaStore.menu.visible = false
     metaStore.view.title = to.meta?.title as string
 
+    window.scrollTo(0, 0)
+
     if( /^\/dashboard/.test(to.path) && !userStore.signedIn ) {
       return {
         name: '/user/signin'

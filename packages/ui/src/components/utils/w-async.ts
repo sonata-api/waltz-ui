@@ -2,10 +2,11 @@ import { defineComponent, h, ref } from 'vue'
 
 export const WAsync = defineComponent({
   props: {
+    initialValue: '' as any,
     promise: Promise
   },
   setup(props) {
-    const result = ref<any>()
+    const result = ref(props.initialValue)
     if( props.promise instanceof Promise ) {
       props.promise.then((value) => {
         result.value = value

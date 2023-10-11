@@ -97,7 +97,10 @@ watch(route, (currRoute, prevRoute) => {
           <span v-else>{{ preset.name || $tc(presetName, 2) }}</span>
 
           <w-badge v-if="preset.badgeFunction">
-            <w-async :promise="store.$functions[preset.badgeFunction]({ filters: preset.filters })"></w-async>
+            <w-async
+              :initial-value="0"
+              :promise="store.$functions[preset.badgeFunction]({ filters: preset.filters })"
+            ></w-async>
           </w-badge>
         </div>
       </template>
