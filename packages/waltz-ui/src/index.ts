@@ -3,6 +3,7 @@ export {
   type AppOptions,
   type CollectionStore,
   defineOptions,
+  condenseItem,
   createCollectionStore,
   useRouter,
   useBreakpoints,

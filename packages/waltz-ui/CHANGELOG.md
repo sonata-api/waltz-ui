@@ -1,5 +1,11 @@
 # waltz-ui
 
+## 0.0.28
+
+### Patch Changes
+
+- Re-export condenseItem from @waltz-ui/web
+
 ## 0.0.27
 
 ### Patch Changes
