@@ -81,9 +81,9 @@ export const meta = () => registerStore(() => {
     state,
     getters,
     actions: {
-      async describe(props?: Parameters<ReturnType<typeof import('@sonata-api/system').algorithms.meta>['functions']['describe']>[0]) {
+      async describe(props?: Parameters<typeof import('@sonata-api/system').functions.describe>[0]) {
         state.isLoading = true
-        const response = (await request(`${API_URL}/_/meta/describe`, props))?.data
+        const response = (await request(`${API_URL}/describe`, props))?.data
         const deserialized = deserialize(response)
 
         const globalDescriptions: Record<CollectionName, Description> =
@@ -122,20 +122,6 @@ export const meta = () => registerStore(() => {
             continue
           }
 
-          // const store = defineStore(collectionName, {
-          //   state: () => Object.assign(state(), {
-          //     item,
-          //     filters,
-          //     freshItem: deepClone(item),
-          //     freshFilters: deepClone(filters),
-          //     _description: description,
-          //     rawDescription
-          //   }),
-
-          //   actions,
-          //   getters
-          // })
-          //
           registerStore(() => createCollectionStore<any>()({
             $id: collectionName,
             state: {
@@ -147,8 +133,6 @@ export const meta = () => registerStore(() => {
             }
           }))
 
-          // registerStore(store)
-          // store()
         }
 
         state.isLoading = false
