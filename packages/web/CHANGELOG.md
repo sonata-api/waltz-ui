@@ -1,5 +1,23 @@
 # @waltz-ui/web
 
+## 0.0.33
+
+### Patch Changes
+
+- Fix bugs
+
+## 0.0.32
+
+### Patch Changes
+
+- Fix available roles
+
+## 0.0.31
+
+### Patch Changes
+
+- Change describe route
+
 ## 0.0.30
 
 ### Patch Changes

@@ -70,7 +70,7 @@ export const user = () => registerStore(() => {
           return {}
         }
 
-        properties.roles.items.enum = Object.keys(metaStore.roles)
+        properties.roles.items.enum = metaStore.roles
         return properties
       }),
       signedIn: computed(() => !!$currentUser.value.roles?.length)

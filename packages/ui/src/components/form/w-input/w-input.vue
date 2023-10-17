@@ -26,7 +26,7 @@ const bordered = props.bordered || inject('inputBordered', false)
 
 const searchOnly = inject('searchOnly', false)
 const innerInputLabel = inject('innerInputLabel', false)
-const readOnly = !searchOnly && property.readOnly
+const readOnly = !searchOnly && (property.readOnly || property.s$isGetter)
 
 const copyToClipboard = useClipboard()
 
@@ -40,8 +40,7 @@ const variant = inject('inputVariant', props.variant) || 'normal'
 
 const {
   s$icon: icon = property.s$inputType === 'search' && 'search-alt',
-  s$mask: mask,
-  readOnly: _readOnly,
+  s$mask: mask
 
 } = property
 
@@ -90,7 +89,10 @@ if( inputBind.type === 'text' && searchOnly ) {
 
 const getDatetimeString = () => {
   try {
-     return new Date(props.modelValue).toISOString().split('T').shift()
+    const date = props.modelValue
+      ? new Date(props.modelValue)
+      : new Date()
+    return date.toISOString().split('T').shift()
   } catch( e ) {
     return ''
   }
@@ -222,7 +224,7 @@ watch(() => props.modelValue, (value, oldValue) => {
       <textarea
         v-focus="property.s$focus"
         :placeholder="inputBind.placeholder"
-        :readonly="readOnly"
+        :readonly="inputBind.readonly"
 
         :class="`
           input__textarea

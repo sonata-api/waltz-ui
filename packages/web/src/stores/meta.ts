@@ -81,7 +81,7 @@ export const meta = () => registerStore(() => {
     state,
     getters,
     actions: {
-      async describe(props?: Parameters<typeof import('@sonata-api/system').functions.describe>[0]) {
+      async describe(props?: { revalidate?: boolean, roles?: boolean }) {
         state.isLoading = true
         const response = (await request(`${API_URL}/describe`, props))?.data
         const deserialized = deserialize(response)
