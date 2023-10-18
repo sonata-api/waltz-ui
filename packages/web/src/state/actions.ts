@@ -1,6 +1,6 @@
 import type { CollectionProperty } from '@sonata-api/types'
 import type { CollectionStore } from './collection'
-import { formatValue, deepClone, request } from '@sonata-api/common'
+import { formatValue, deepClone, request, isLeft, unwrapEither } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
 import { API_URL } from '../constants'
 import { condenseItem } from './helpers'
@@ -181,7 +181,14 @@ export const useStoreActions = (store: CollectionStore) => {
     insert(payload?: { what: Partial<typeof store['item']> }, options?: CustomOptions) {
       return actions.customEffect(
         'insert', { ...payload, what: payload?.what||store.item },
-        actions.insertItem,
+        (resultEither) => {
+          if( isLeft(resultEither) ) {
+            return resultEither
+          }
+
+          const result = unwrapEither(resultEither)
+          return actions.insertItem(result)
+        },
         options
       )
     },

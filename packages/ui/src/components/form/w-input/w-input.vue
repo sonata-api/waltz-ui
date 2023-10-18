@@ -90,9 +90,9 @@ if( inputBind.type === 'text' && searchOnly ) {
 const getDatetimeString = () => {
   try {
     const date = props.modelValue
-      ? new Date(props.modelValue)
-      : new Date()
-    return date.toISOString().split('T').shift()
+      ? new Date(props.modelValue).toISOString().split('T').shift()
+      : ''
+    return date
   } catch( e ) {
     return ''
   }

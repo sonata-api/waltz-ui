@@ -15,7 +15,7 @@ const router = await useRouter()
 
 const breakpoints = useBreakpoints()
 
-const source = 'query' in props
+const source = 'query' in props && props.query
   ? 'query'
   : 'params'
 

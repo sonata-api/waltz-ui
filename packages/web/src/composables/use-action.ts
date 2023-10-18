@@ -34,7 +34,8 @@ export const useAction = <F extends { _id: string }>(
   })
 
   const fn = (actionProps: CollectionAction<any> & { action: string }): (filters: F) => void => {
-    const { action: actionName, effect: actionEffect } = actionProps
+    const { action: actionName } = actionProps
+    const actionEffect = actionProps.effect as keyof typeof STORE_EFFECTS | undefined
     const [scopeName, scopedAction] = actionName.split(':')
 
     if( scopedAction ) {
@@ -88,7 +89,18 @@ export const useAction = <F extends { _id: string }>(
       }
 
       return actionEffect
-        ? (payload: any) => store.$actions.customEffect(actionName, payload, getEffect(store, actionEffect as keyof typeof STORE_EFFECTS))
+        ? (payload: any) => store.$actions.customEffect(actionName, payload, (value: any) => {
+          const effect = getEffect(store, actionEffect)
+          if( !value || value._tag === 'Left' ) {
+            return
+          }
+
+          const subject = value._tag === 'Right'
+            ? value.value
+            : value
+
+          return effect(subject)
+        })
         : (payload: any) => store.$actions.custom(actionName, payload)
     })()
 

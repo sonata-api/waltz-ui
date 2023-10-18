@@ -1,5 +1,17 @@
 # @waltz-ui/web
 
+## 0.0.35
+
+### Patch Changes
+
+- Fix bugs introduced in insert() update
+
+## 0.0.34
+
+### Patch Changes
+
+- Fix insert bug
+
 ## 0.0.33
 
 ### Patch Changes
