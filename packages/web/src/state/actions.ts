@@ -197,11 +197,20 @@ export const useStoreActions = (store: CollectionStore) => {
       const inlineReferences = store.inlineReferences
       const newItem = Object.assign({}, payload?.what || store.diffedItem)
 
-      for( const [k, { s$referencedCollection: collection, type }] of inlineReferences ) {
+      for( const [propertyName, property] of inlineReferences ) {
+        const type = 'type' in property
+          ? property.type
+          : null
+
+        const {
+          s$referencedCollection: collection
+
+        } = property
+
         if(
-          newItem[k]
-          && typeof newItem[k] === 'object'
-          && Object.keys(newItem[k]).length > 0
+          newItem[propertyName]
+          && typeof newItem[propertyName] === 'object'
+          && Object.keys(newItem[propertyName]).length > 0
         ) {
           const helperStore = useStore(collection!)
 
@@ -223,7 +232,7 @@ export const useStoreActions = (store: CollectionStore) => {
             return result?._id
           }
 
-          newItem[k] = await getInsertedId(newItem[k])
+          newItem[propertyName] = await getInsertedId(newItem[propertyName])
         }
       }
 

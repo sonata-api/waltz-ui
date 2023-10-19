@@ -94,16 +94,18 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
             return value
           }
 
-          if( property.type === 'boolean' && value === false ) {
-            return {
-              $ne: true
+          if( 'type' in property ) {
+            if( property.type === 'boolean' && value === false ) {
+              return {
+                $ne: true
+              }
             }
-          }
 
-          if( property.type === 'string' && !property.format ) {
-            return {
-              $regex: value,
-              $options: 'i'
+            if( property.type === 'string' && !property.format ) {
+              return {
+                $regex: value,
+                $options: 'i'
+              }
             }
           }
 
@@ -185,7 +187,7 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
             if(
               property.s$isReference
             && property.s$inline
-            && property.type !== 'array'
+            && 'items' in property
             && store.$id !== grandParent
             ) {
               const subject = property.s$referencedCollection!

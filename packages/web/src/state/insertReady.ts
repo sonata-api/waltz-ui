@@ -22,18 +22,18 @@ export const insertReady = <
 
     return keys.every((k) => {
       const property = description?.properties?.[k]! || {}
-      if( property.s$getter ) {
+      if( property.s$getter || property.readOnly ) {
         return true
       }
 
       return !(k in properties)
         || (description?.form && !formIncludes(k))
-        || property.type === 'boolean'
+        || ('type' in property && property.type === 'boolean')
         || (
           !!item[k]
             && (
               !property.s$isReference
-              || property.type === 'array'
+              || ('type' in property && property.type === 'array')
               || item[k]._id
             )
         )

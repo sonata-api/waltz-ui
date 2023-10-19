@@ -86,16 +86,18 @@ export const freshFilters = (description: Description) => {
       if( isObject(property) ) {
         return {
           ...a,
-          [key]: property.type === 'array' ? [] : {}
+          [key]: 'items' in property ? [] : {}
         }
       }
 
-      if( ['date', 'date-time'].includes(property.format!) ) {
-        return {
-          ...a,
-          [key]: {
-            $gte: '',
-            $lte: ''
+      if( 'format' in property ) {
+        if( ['date', 'date-time'].includes(property.format!) ) {
+          return {
+            ...a,
+            [key]: {
+              $gte: '',
+              $lte: ''
+            }
           }
         }
       }
