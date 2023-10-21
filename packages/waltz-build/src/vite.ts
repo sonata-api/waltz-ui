@@ -29,15 +29,10 @@ export default defineConfig(async () => {
           '@waltz-ui/ui'
         ],
         async preEmit() {
-          process.env.SONATA_API_SHALLOW_IMPORT = '1'
+          const collections = require(process.cwd() + '/../api/dist/collections')
+          const systemIcons = require(process.cwd() + '/../api/node_modules/@sonata-api/system/dist/icons')
 
-          const userCollections = require(process.cwd() + '/../api/dist/collections')
-          const systemCollections = require(process.cwd() + '/../api/node_modules/@sonata-api/system/dist/collections')
-
-          const collections = {
-            ...systemCollections,
-            ...userCollections
-          }
+          systemIcons.forEach(icons.add)
 
           for( const collectionName in collections ) {
             const { description } = await collections[collectionName]()
