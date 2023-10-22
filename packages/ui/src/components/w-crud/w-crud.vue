@@ -145,19 +145,11 @@ watch(() => actionEventBus.value, async (event) => {
       'duplicate',
     ].includes(event.name)
   ) {
-    const result = await store.$actions.get({
+    store.$actions.get({
       filters: {
         _id: event.params._id
       }
     })
-
-    if( !result ) {
-      metaStore.$actions.spawnModal({
-        title: I18N.global.t('error'),
-        body: I18N.global.t('error.not_found')
-      })
-      return
-    }
   }
 
   if( event.name === 'spawnAdd' ) {
@@ -172,6 +164,7 @@ watch(() => actionEventBus.value, async (event) => {
   }
 
   else if( event.name === 'spawnEdit' ) {
+    store.$actions.setItem(event.params)
     isInsertVisible.value = 'edit'
   }
 

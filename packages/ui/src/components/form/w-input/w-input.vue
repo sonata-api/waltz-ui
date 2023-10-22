@@ -152,6 +152,10 @@ watch(() => props.modelValue, (value, oldValue) => {
       ? 0
       : ''
   }
+
+  if( value && oldValue === undefined ) {
+    inputValue.value = value
+  }
 })
 </script>
 
