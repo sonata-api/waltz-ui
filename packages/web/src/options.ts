@@ -1,3 +1,4 @@
+import type { Component } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import type { RouteMeta } from './router'
 
@@ -15,7 +16,8 @@ export type MenuSchema = Record<string, Partial<RouteMeta> & {
 
 
 export type AppOptions = {
-  component: any
+  component: Component
+  dashboardComponent?: Component
   i18n?: any
   menuSchema?: MenuSchema
   routes?: Array<RouteRecordRaw>

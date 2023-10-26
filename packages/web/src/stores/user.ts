@@ -79,7 +79,7 @@ export const user = () => registerStore(() => {
       setCurrentUser,
       signout,
 
-      async authenticate(this: CollectionStore, payload: Credentials | { revalidate: true }) {
+      async authenticate(this: any, payload: Credentials | { revalidate: true }) {
         const metaStore = meta()()
 
         try {

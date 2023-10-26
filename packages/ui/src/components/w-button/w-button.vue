@@ -5,21 +5,21 @@ import WIcon from '../w-icon/w-icon.vue'
 
 // #region props
 type Size = 
-  'small'
+  | 'small'
   | 'medium'
   | 'large'
 
 type Variant =
-  'normal'
+  | 'normal'
   | 'alt'
   | 'transparent'
   | 'brand'
 
 type Props = {
   size?: Size
+  variant?: Variant
   small?: boolean
   large?: boolean
-  variant?: Variant
   icon?: string
   disabled?: boolean
   loading?: boolean

@@ -88,16 +88,6 @@ export default defineConfig(async () => {
               'useCondition',
               'useNavbar',
             ]
-          },
-          {
-            '@sonata-api/common': [
-              'error',
-              'ok',
-              'isError',
-              'isOk',
-              'unpack',
-              'unsafe'
-            ]
           }
         ]
       }),
@@ -108,8 +98,7 @@ export default defineConfig(async () => {
         ],
         exclude: [
           '**/_*'
-        ],
-        dts: false
+        ]
       }),
       vueComponents({
         dirs: [

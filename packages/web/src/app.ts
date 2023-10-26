@@ -41,7 +41,7 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
   const app = createApp(component)
   registerDirectives(app)
 
-  const router = createRouter(routes || [])
+  const router = createRouter(routes || [], options.dashboardComponent)
   const i18n = createI18n(i18nConfig)
 
   if( options.setup ) {

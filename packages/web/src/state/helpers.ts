@@ -8,7 +8,7 @@ const isObject = (property: any) =>
     || property.items?.type === 'object'
 
 export const condenseItem = (item?: Record<string, any>): any => {
-  if( !item || typeof item !== 'object' ) {
+  if( !item || item.constructor !== Object ) {
     return item
   }
 

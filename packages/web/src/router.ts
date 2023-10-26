@@ -1,3 +1,4 @@
+import type { Component } from 'vue'
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router/auto'
 import { meta, user } from './stores'
 
@@ -20,10 +21,16 @@ export type Route = RouteMeta & Omit<RouteRecordRaw, 'children'> & {
 export type RouterExtensionNode = Array<Omit<Route, 'name'>>
 export type RouterExtension = Record<string, RouterExtensionNode>
 
-export const routerInstance = (routes: Array<RouteRecordRaw>) => {
+export const routerInstance = (routes: Array<RouteRecordRaw>, dashboardComponent?: Component) => {
   const router = createRouter({
     history: createWebHistory(),
     extendRoutes: (fsRoutes) => {
+      const dashboardRoute = fsRoutes.find((route) => route.path === '/dashboard')!
+
+      if( dashboardComponent ) {
+        dashboardRoute.component = dashboardComponent
+      }
+
       return [
         ...routes,
         ...fsRoutes
