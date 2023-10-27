@@ -357,7 +357,7 @@ export const useStoreActions = (store: CollectionStore) => {
         const property = helperStore.description.properties![index!]
 
         if( property?.s$isReference ) {
-          return helperStore.formatValue({
+          return helperStore.$actions.formatValue({
             property,
             key: args.key,
             index,
