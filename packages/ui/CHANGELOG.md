@@ -1,5 +1,27 @@
 # @waltz-ui/ui
 
+## 0.0.61
+
+### Patch Changes
+
+- Fixes in web and ui
+- Updated dependencies
+  - @waltz-ui/web@0.0.37
+
+## 0.0.60
+
+### Patch Changes
+
+- Fix ui entrypoint
+
+## 0.0.59
+
+### Patch Changes
+
+- Fix bugs that would send dates to server as an empty object
+- Updated dependencies
+  - @waltz-ui/web@0.0.36
+
 ## 0.0.58
 
 ### Patch Changes

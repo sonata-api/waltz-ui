@@ -376,9 +376,9 @@ export const useStoreActions = (store: CollectionStore) => {
       )
     },
 
-    select(properties: keyof typeof store['properties'], item: typeof store['items']) {
+    select(properties: Array<keyof typeof store['properties']>, item: typeof store['items']) {
       return Object.entries(item || store.item).reduce((a, [key, value]) => {
-        if( !properties.includes(key) ) {
+        if( !properties.includes(key as Lowercase<string>) ) {
           return a
         }
 
