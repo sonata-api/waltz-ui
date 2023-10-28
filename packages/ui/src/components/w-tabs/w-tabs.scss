@@ -1,9 +1,7 @@
 .tabs {
-  width: 100%;
-
   &__horizontal {
     display: flex;
-    gap: 1.2rem;
+    gap: 1rem;
   }
 
   &__tab {
@@ -11,8 +9,6 @@
     align-items: center;
     gap: .2rem;
     cursor: pointer;
-
-    margin-top: 4px;
 
     &--current {
       @include themed() {

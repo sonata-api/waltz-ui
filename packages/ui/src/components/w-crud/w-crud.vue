@@ -262,205 +262,202 @@ provide('parentStore', parentStore)
     </template>
   </w-insert-panel>
 
-
-  <div class="crud__main">
+  <div
+    v-if="!noActions && (
+      store.description.search?.active
+      || !noRefresh
+      || Object.keys(store.availableFilters).length > 0
+      || (store?.actions.length > 0 || $slots.actions)
+      || (
+        !noLayoutToggle
+        && store.description.layout
+        && store.description.layout?.name !== 'tabular'
+    )
+    )"
+    class="crud__controls"
+  >
     <div
-      v-if="!noActions && (
-        store.description.search?.active
-        || !noRefresh
-        || Object.keys(store.availableFilters).length > 0
-        || (store?.actions.length > 0 || $slots.actions)
-        || (
-          !noLayoutToggle
-          && store.description.layout
-          && store.description.layout?.name !== 'tabular'
-      )
-      )"
-      class="crud__controls"
+      v-if="store.description.search?.active"
+      class="crud__search"
     >
-      <div
-        v-if="store.description.search?.active"
-        class="crud__search"
-      >
-        <w-input
-          bordered
-          v-model="store.textQuery"
-          v-bind="{
-            variant: 'bold',
-            property: {
-              type: 'text',
-              s$placeholder: store.description.search.placeholder || 'Pesquise aqui',
-              s$inputType: 'search'
-            }
-          }"
-        ></w-input>
-      </div>
+      <w-input
+        bordered
+        v-model="store.textQuery"
+        v-bind="{
+          variant: 'bold',
+          property: {
+            type: 'text',
+            s$placeholder: store.description.search.placeholder || 'Pesquise aqui',
+            s$inputType: 'search'
+          }
+        }"
+      ></w-input>
+    </div>
 
-      <div class="crud__actions">
-        <w-context-menu v-if="
-          actionButtons.length > 0
-            || (!noLayoutToggle
-              && store.description.layout
-              && store.description.layout?.name !== 'tabular'
-            )
-        ">
-          <w-button
-            variant="alt"
-            icon="sliders-v"
-          >
-            <w-badge v-if="store.filtersCount">
-              {{ store.filtersCount }}
-            </w-badge>
-          </w-button>
-
-          <template
-            #filter
-            v-if="Object.keys(store.availableFilters).length > 0"
-          >
-            <w-icon
-              v-clickable
-              icon="filter"
-              @click="isFilterVisible = true"
-            >
-              Filtros
-            </w-icon>
-
-            <div class="crud__context-badge">
-              <w-badge v-if="store.filtersCount">
-                {{ store.filtersCount }}
-              </w-badge>
-            </div>
-          </template>
-
-          <template
-            #layout-toggle
-            v-if="
-              !noLayoutToggle
-                && store.description.layout
-                && store.description.layout?.name !== 'tabular'
-            "
-          >
-            <w-icon
-              v-clickable
-              icon="table"
-              @click="toggleLayout(store)"
-            >
-              Alternar layout
-            </w-icon>
-          </template>
-
-          <!-- <w-icon icon="setting"></w-icon> -->
-          <template
-            v-for="(actionProps, index) in actionButtons"
-            v-slot:[`action-${index}`]
-          >
-            <w-icon
-              :icon="actionProps.icon || 'setting'"
-              :disabled="store.selected.length === 0 && actionProps.selection"
-
-              @click="call(actionProps)({ _id: store.selected.map((_) => _._id) })"
-              >
-              {{ $t(actionProps.name) }}
-            </w-icon>
-          </template>
-
-        </w-context-menu>
-
+    <div class="crud__actions">
+      <w-context-menu v-if="
+        actionButtons.length > 0
+          || (!noLayoutToggle
+            && store.description.layout
+            && store.description.layout?.name !== 'tabular'
+          )
+      ">
         <w-button
-          v-else-if="Object.keys(store.availableFilters).length > 0"
           variant="alt"
-          icon="filter"
-          @click="isFilterVisible = true"
+          icon="sliders-v"
         >
-          <div>Filtros</div>
           <w-badge v-if="store.filtersCount">
             {{ store.filtersCount }}
           </w-badge>
         </w-button>
 
-        <w-button
-          v-for="(actionProps, index) in store.actions.filter((action: any) => action.button)"
-          :key="`action-${index}`"
-
-          :icon="actionProps.icon"
-          :disabled="store.selected.length === 0 && actionProps.selection"
-
-          @click="call(actionProps)({ _id: store.selected.map((_) => _._id) })"
+        <template
+          #filter
+          v-if="Object.keys(store.availableFilters).length > 0"
         >
-          {{ $t(actionProps.name) }}
-        </w-button>
+          <w-icon
+            v-clickable
+            icon="filter"
+            @click="isFilterVisible = true"
+          >
+            Filtros
+          </w-icon>
 
-        <slot
-          v-if="$slots.actions"
-          name="actions"
-        ></slot>
-      </div>
+          <div class="crud__context-badge">
+            <w-badge v-if="store.filtersCount">
+              {{ store.filtersCount }}
+            </w-badge>
+          </div>
+        </template>
 
-    </div>
-
-    <div v-loading="store.loading.getAll">
-      <div v-if="
-        store.itemsCount === 0
-        && !store.loading.getAll
-        && (emptyComponent || $slots.empty)
-      ">
-        <component
-          v-if="emptyComponent"
-          :is="emptyComponent"
-          v-bind="{
-            collection: store.$id
-          }"
+        <template
+          #layout-toggle
+          v-if="
+            !noLayoutToggle
+              && store.description.layout
+              && store.description.layout?.name !== 'tabular'
+          "
         >
-        </component>
+          <w-icon
+            v-clickable
+            icon="table"
+            @click="toggleLayout(store)"
+          >
+            Alternar layout
+          </w-icon>
+        </template>
 
-        <slot
-          v-else
-          v-bind="{
-            collection: store.$id
-          }"
-          name="empty"
-        ></slot>
-      </div>
+        <!-- <w-icon icon="setting"></w-icon> -->
+        <template
+          v-for="(actionProps, index) in actionButtons"
+          v-slot:[`action-${index}`]
+        >
+          <w-icon
+            :icon="actionProps.icon || 'setting'"
+            :disabled="store.selected.length === 0 && actionProps.selection"
+
+            @click="call(actionProps)({ _id: store.selected.map((_) => _._id) })"
+            >
+            {{ $t(actionProps.name) }}
+          </w-icon>
+        </template>
+
+      </w-context-menu>
+
+      <w-button
+        v-else-if="Object.keys(store.availableFilters).length > 0"
+        variant="alt"
+        icon="filter"
+        @click="isFilterVisible = true"
+      >
+        <div>Filtros</div>
+        <w-badge v-if="store.filtersCount">
+          {{ store.filtersCount }}
+        </w-badge>
+      </w-button>
+
+      <w-button
+        v-for="(actionProps, index) in store.actions.filter((action: any) => action.button)"
+        :key="`action-${index}`"
+
+        :icon="actionProps.icon"
+        :disabled="store.selected.length === 0 && actionProps.selection"
+
+        @click="call(actionProps)({ _id: store.selected.map((_) => _._id) })"
+      >
+        {{ $t(actionProps.name) }}
+      </w-button>
 
       <slot
-        v-else-if="$slots.component"
-        v-bind="{
-          store
-        }"
-        name="component"
+        v-if="$slots.actions"
+        name="actions"
       ></slot>
+    </div>
 
+  </div>
+
+  <div v-loading="store.loading.getAll">
+    <div v-if="
+      store.itemsCount === 0
+      && !store.loading.getAll
+      && (emptyComponent || $slots.empty)
+    ">
       <component
+        v-if="emptyComponent"
+        :is="emptyComponent"
+        v-bind="{
+          collection: store.$id
+        }"
+      >
+      </component>
+
+      <slot
         v-else
         v-bind="{
-          individualActions,
-          layoutOptions: layout?.options || store?.layout.options,
-          componentProps
+          collection: store.$id
         }"
-        :is="getLayout(layout?.name || store.$currentLayout)"
-      >
-        <template
-          v-for="slotName in Object.keys($slots).filter(key => key.startsWith('row-'))"
-          v-slot:[slotName]="slotProps"
-        >
-          <slot
-            v-bind="slotProps"
-            :name="slotName"
-          ></slot>
-        </template>
-
-        <template #tfoot v-if="$slots.tfoot">
-          <slot name="tfoot"></slot>
-        </template>
-      </component>
+        name="empty"
+      ></slot>
     </div>
 
-    <div
-      v-if="!store.loading.getAll && store.itemsCount > 0"
-      class="crud__pagination"
+    <slot
+      v-else-if="$slots.component"
+      v-bind="{
+        store
+      }"
+      name="component"
+    ></slot>
+
+    <component
+      v-else
+      v-bind="{
+        individualActions,
+        layoutOptions: layout?.options || store?.layout.options,
+        componentProps
+      }"
+      :is="getLayout(layout?.name || store.$currentLayout)"
     >
-      <w-pagination :collection="collection"></w-pagination>
-    </div>
+      <template
+        v-for="slotName in Object.keys($slots).filter(key => key.startsWith('row-'))"
+        v-slot:[slotName]="slotProps"
+      >
+        <slot
+          v-bind="slotProps"
+          :name="slotName"
+        ></slot>
+      </template>
+
+      <template #tfoot v-if="$slots.tfoot">
+        <slot name="tfoot"></slot>
+      </template>
+    </component>
+  </div>
+
+  <div
+    v-if="!store.loading.getAll && store.itemsCount > 0"
+    class="crud__pagination"
+  >
+    <w-pagination :collection="collection"></w-pagination>
   </div>
 
 </template>

@@ -7,6 +7,7 @@ import WIcon from '../w-icon/w-icon.vue'
 type Props = {
   query?: string
   param?: string
+  dropdown?: boolean
 }
 
 const props = defineProps<Props>()
@@ -40,7 +41,7 @@ const change = (tab: string) => {
 <template>
   <div class="tabs">
     <div
-      v-if="breakpoints.md"
+      v-if="breakpoints.md && !dropdown"
       class="tabs__horizontal"
     >
       <div
@@ -73,6 +74,7 @@ const change = (tab: string) => {
     >
       <w-context-menu>
         <w-icon
+          v-clickable
           icon-right
           icon="angle-down"
           class="tabs__context-menu-icon"

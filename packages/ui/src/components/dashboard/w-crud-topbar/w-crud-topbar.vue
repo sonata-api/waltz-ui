@@ -44,8 +44,8 @@ const togglePreset = (preset: FiltersPreset<any> | null) => {
   })(store)
 }
 
-watch(route, (currRoute, prevRoute) => {
-  if( !store.value || prevRoute ) {
+watch(route, (currRoute) => {
+  if( !store.value ) {
     return
   }
 
@@ -73,7 +73,7 @@ watch(route, (currRoute, prevRoute) => {
     v-if="store && store.description.filtersPresets"
     class="topbar"
   >
-    <w-tabs query="section">
+    <w-tabs dropdown query="section">
       <template #all>
         <div @click="togglePreset(null)">
           {{ $t('all') }}

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { CollectionProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
-import { provide, computed, ref, watch } from 'vue'
+import { provide, computed, ref, watch, onMounted } from 'vue'
 import { useDebounce } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
 
@@ -17,7 +17,7 @@ type Props = Omit<FormFieldProps<Record<string, any> | Array<Record<string, any>
     | 's$isReference'
     | 's$referencedCollection'
   >>
-  searchOnly?: boolean
+  selectOnly?: boolean
 }
 
 const props = defineProps<Props>()
@@ -27,6 +27,7 @@ const DEFAULT_LIMIT = 10
 
 const emit = defineEmits<{
   (e: 'update:modelValue' | 'change', event: any): void
+  (e: 'panelClose'): void
 }>()
 
 provide('storeId', property.s$referencedCollection!)
@@ -36,7 +37,7 @@ provide('omitInputLabels', true)
 const store = useStore(property.s$referencedCollection!)
 const indexes = props.property.s$indexes!
 
-const selectPanel = ref(false)
+const selectPanel = ref(!!props.selectOnly)
 
 const selected = ref(props.modelValue)
 
@@ -105,6 +106,12 @@ watch(isInputEmpty, (val, oldVal) => {
   }
 })
 
+onMounted(() => {
+  if( props.selectOnly ) {
+    search({ empty: true })
+  }
+})
+
 const save = () => {
   emit('update:modelValue', selected.value)
   selectPanel.value = false
@@ -118,7 +125,8 @@ const save = () => {
       close-hint
       :title="`Selecionar ${$t(props.propertyName!)}`"
       v-model="selectPanel"
-      @overlay-click="selectPanel = false"
+      @close="emit('panelClose')"
+      @overlay-click="selectPanel = false; emit('panelClose')"
     >
       <div class="search__input">
         <w-select
@@ -188,7 +196,10 @@ const save = () => {
     </w-box>
   </teleport>
 
-  <div class="search">
+  <div
+    v-if="!selectOnly"
+    class="search"
+  >
     <w-search-container>
       <div v-if="property.type === 'array'">
         <w-search-item
