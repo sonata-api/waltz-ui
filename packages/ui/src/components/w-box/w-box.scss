@@ -6,30 +6,6 @@
   }
 }
 
-@keyframes fixed-fadein {
-  from {
-    opacity: 0;
-    transform: scale(.95);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes floating-fadein {
-  from {
-    opacity: 0;
-    transform: translateY(-50%) scale(.95);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(-50%) scale(1);
-  }
-}
-
 .box {
   &--fixed {
     position: absolute;
@@ -83,13 +59,10 @@
       }
     } 
 
-    &--animate, &--floating {
-      animation: floating-fadein .2s forwards;
-    }
-
     &--floating {
       position: fixed;
       top: 50%;
+      transform: translateY(-50%);
 
       max-width: 90vw;
       min-width: 90vw;
@@ -108,7 +81,6 @@
       width: 100vw;
       height: 100vh;
 
-      animation: fixed-fadein .35s forwards;
       overscroll-behavior: contain;
       border: 0;
       border-radius: 0;
