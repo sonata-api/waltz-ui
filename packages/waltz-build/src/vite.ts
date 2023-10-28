@@ -32,7 +32,9 @@ export default defineConfig(async () => {
           const collections = require(process.cwd() + '/../api/dist/collections')
           const systemIcons = require(process.cwd() + '/../api/node_modules/@sonata-api/system/dist/icons')
 
-          systemIcons.forEach(icons.add)
+          systemIcons.icons.forEach((icon: string) => {
+            icons.add(icon)
+          })
 
           for( const collectionName in collections ) {
             const { description } = await collections[collectionName]()

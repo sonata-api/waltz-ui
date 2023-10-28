@@ -4,11 +4,6 @@
   &__horizontal {
     display: flex;
     gap: 1.2rem;
-
-    padding-bottom: 1rem;
-    @include themed() {
-      border-bottom: 1px solid t(border-color);
-    }
   }
 
   &__tab {

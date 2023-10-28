@@ -13,10 +13,10 @@ import WSearchContainer from './_internals/components/w-search-container/w-searc
 import WSearchItem from './_internals/components/w-search-item/w-search-item.vue'
 
 type Props = Omit<FormFieldProps<Record<string, any> | Array<Record<string, any>>>, 'property'> & {
-  property: CollectionProperty & NonNullable<{
-    s$isReference: CollectionProperty['s$isReference']
-    s$referencedCollection: CollectionProperty['s$referencedCollection']
-  }>
+  property: CollectionProperty & NonNullable<Pick<CollectionProperty,
+    | 's$isReference'
+    | 's$referencedCollection'
+  >>
   searchOnly?: boolean
 }
 

@@ -1,5 +1,17 @@
 # @waltz-ui/web
 
+## 0.0.39
+
+### Patch Changes
+
+- Fix build bug
+
+## 0.0.38
+
+### Patch Changes
+
+- Fix call on undefined on web
+
 ## 0.0.37
 
 ### Patch Changes
