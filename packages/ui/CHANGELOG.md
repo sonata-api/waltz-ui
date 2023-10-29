@@ -1,5 +1,17 @@
 # @waltz-ui/ui
 
+## 0.0.63
+
+### Patch Changes
+
+- Fix select padding
+
+## 0.0.62
+
+### Patch Changes
+
+- Migrate from sass to less
+
 ## 0.0.61
 
 ### Patch Changes

@@ -6,7 +6,6 @@ import autoImport from 'unplugin-auto-import/vite'
 import waltzIcons from 'waltz-icons/vite'
 import { icons } from 'waltz-icons/common'
 
-import { sassData } from './sassData.js'
 import { getInstanceConfig } from './instance'
 
 import transformIndexHtml from './plugins/transform-index-html'
@@ -134,13 +133,6 @@ export default defineConfig(async () => {
     },
     build: {
       target: 'esnext'
-    },
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: sassData({})
-        }
-      }
     },
   }
 

@@ -38,8 +38,15 @@ const togglePreset = (preset: FiltersPreset<any> | null) => {
       return
     }
 
-    store.filtersPreset = preset?.filters || {}
-    store.preferredTableProperties = preset?.table || []
+    if( !preset ) {
+      store.filtersPreset = {}
+      store.preferredTableProperties = []
+      store.pagination.offset = 0
+      return
+    }
+
+    store.filtersPreset = preset.filters || {}
+    store.preferredTableProperties = preset.table || []
     store.pagination.offset = 0
   })(store)
 }
@@ -49,22 +56,19 @@ watch(route, (currRoute) => {
     return
   }
 
-  const currPreset = currRoute.query.section as string
-
-  return (({ value: store }) => {
+  return ((store) => {
     if( !store ) {
       return
     }
 
     if( store.description.filtersPresets ) {
-      if( currPreset ) {
-        togglePreset(store.description.filtersPresets[currPreset])
-        return
-      }
+      const currPreset = currRoute.query.section as string
+        || Object.keys(store.description.filtersPresets)[0]
 
-      togglePreset(null)
+      togglePreset(store.description.filtersPresets[currPreset])
     }
-  })(store)
+
+  })(store.value!)
 }, { immediate: true })
 </script>
 
@@ -74,11 +78,6 @@ watch(route, (currRoute) => {
     class="topbar"
   >
     <w-tabs dropdown query="section">
-      <template #all>
-        <div @click="togglePreset(null)">
-          {{ $t('all') }}
-        </div>
-      </template>
       <template
         v-for="([presetName, preset]) in Object.entries(store.description.filtersPresets as Record<string, FiltersPreset<any>>)"
         v-slot:[presetName]

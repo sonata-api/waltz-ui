@@ -154,28 +154,24 @@ const position = computed(() => {
 
 <style scoped src="./w-context-menu.less"></style>
 
-<style scoped lang="less">
-.content {
-  :deep(.box__content) {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) !important;
-    border-radius: 15px;
-    width: 90vw;
-  }
+<style scoped>
+.content :deep(.box__content) {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+  border-radius: 15px;
+  width: 90vw;
 }
 
 @media screen and (min-width: 600px) {
-  .content {
-    :deep(.box__content) {
-      top: 0;
-      left: 0;
-      transform:
-        translateX(min(v-bind('position.x'), calc(100vw - 100%)))
-        translateY(min(v-bind('position.y'), calc(100vh - 100%))) !important;
-      width: auto;
-    }
+  .content :deep(.box__content) {
+    top: 0;
+    left: 0;
+    transform:
+      translateX(min(v-bind('position.x'), calc(100vw - 100%)))
+      translateY(min(v-bind('position.y'), calc(100vh - 100%))) !important;
+    width: auto;
   }
 }
 </style>
