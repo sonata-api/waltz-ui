@@ -1,2 +1,8 @@
+# ignore husky hooks
 .husky/* linguist-detectable=false
+
+# ignore playground/index.html
 *.html linguist-generated
+
+# ignore bin/index.js
+*.js linguist-generated
