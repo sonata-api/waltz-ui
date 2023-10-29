@@ -1,6 +1,6 @@
-$picture-size: 2rem;
+@picture-size: 2rem;
 
-@mixin cell-padding {
+.cell-padding {
   padding: .6rem 1rem;
 }
 
@@ -10,9 +10,7 @@ $picture-size: 2rem;
   border-radius: 8px;
 
   @media screen and (min-width: 600px) {
-    @include themed () {
-      overflow: hidden;
-    }
+    overflow: hidden;
   }
 
   :deep(thead) > tr {
@@ -27,13 +25,11 @@ $picture-size: 2rem;
       display: table-row;
       text-align: left;
 
-      @include themed() {
-        background: t(background-color-contrast);
-      }
+      background: var(--theme-background-color-contrast);
     }
 
     &>th {
-      @include cell-padding;
+      .cell-padding();
       font-weight: 400;
     }
   }
@@ -41,14 +37,11 @@ $picture-size: 2rem;
   :deep(tbody) > tr,
   :deep(tfoot) > tr {
     height: 3rem;
+    background: var(--theme-background-color-alt);
 
-    @include themed() {
-      background: t(background-color-alt);
-
-      @media screen and (min-width: 600px) {
-        &:hover {
-          background: t(background-color-alt);
-        }
+    @media screen and (min-width: 600px) {
+      &:hover {
+        background: var(--theme-background-color-alt);
       }
     }
 
@@ -57,28 +50,24 @@ $picture-size: 2rem;
       flex-direction: column;
       height: auto;
 
-      @include themed() {
-        border-radius: 10px;
-        overflow: hidden;
+      border-radius: 10px;
+      overflow: hidden;
 
-        &:not(:last-child) {
-          margin-bottom: 1rem;
-        }
+      &:not(:last-child) {
+        margin-bottom: 1rem;
       }
     }
 
     &:not(:last-child) {
       &>td {
         @media screen and (min-width: 600px) {
-          @include themed() {
-            border-bottom: 1px solid t(border-color);
-          }
+          border-bottom: 1px solid var(--theme-border-color);
         }
       }
     }
 
     &>td {
-      @include cell-padding;
+      .cell-padding();
       font-size: 10pt;
     }
   }
@@ -86,9 +75,7 @@ $picture-size: 2rem;
   :deep(tfoot) > tr {
     &>td {
       @media screen and (min-width: 600px) {
-        @include themed() {
-          border-top: 1px solid t(border-color);
-        }
+        border-top: 1px solid var(--theme-border-color);
       }
     }
   }
@@ -120,9 +107,7 @@ $picture-size: 2rem;
   &__mobile-actions {
     position: relative;
     padding: 0 !important;
-    @include themed() {
-      background: t(background-color-contrast);
-    }
+    background: var(--theme-background-color-contrast);
   }
 
   &__mobile-actions-grid {
@@ -135,22 +120,18 @@ $picture-size: 2rem;
     width: 100%;
     height: 3.2rem;
 
-    &:not(:last-child) {
-      @include themed() {
-        border-right: 1px solid t(border-color);
-      }
+    &:not(last-child) {
+      border-right: 1px solid var(--theme-border-color);
     }
   }
 
   &__picture {
-    height: $picture-size;
-    width: $picture-size;
+    height: @picture-size;
+    width: @picture-size;
     border-radius: 10px;
     overflow: hidden;
 
-    @include themed() {
-      border: 1px solid t(border-color);
-    }
+    border: 1px solid var(--theme-border-color);
   }
 
   &__empty {

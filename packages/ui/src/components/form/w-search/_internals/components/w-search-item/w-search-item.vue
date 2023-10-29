@@ -99,4 +99,4 @@ const deselect = async (options?: { purge?: true }) => {
   </div>
 </template>
 
-<style scoped src="./w-search-item.scss"></style>
+<style scoped src="./w-search-item.less"></style>

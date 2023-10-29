@@ -77,4 +77,4 @@ export default {
 }
 </script>
 
-<style scoped src="./w-select.scss"></style>
+<style scoped src="./w-select.less"></style>

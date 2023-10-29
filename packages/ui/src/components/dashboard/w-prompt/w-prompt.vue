@@ -57,4 +57,4 @@ const onClick = (answer: PromptAction) => {
   </w-box>
 </template>
 
-<style scoped src="./w-prompt.scss"></style>
+<style scoped src="./w-prompt.less"></style>

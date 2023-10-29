@@ -3,9 +3,7 @@ import path from 'path'
 import vue from '@vitejs/plugin-vue'
 import typescript2 from 'rollup-plugin-typescript2'
 import dts from 'vite-plugin-dts'
-
 import { viteStaticCopy } from 'vite-plugin-static-copy'
-import { sassData } from 'waltz-build'
 
 export default defineConfig({
   plugins: [
@@ -22,7 +20,7 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: './src/scss',
+          src: './src/less',
           dest: '.'
         }
       ]
@@ -49,15 +47,6 @@ export default defineConfig({
         /@waltz-ui\/web/,
         /@sonata-api\//,
       ]
-    }
-  },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: sassData({
-          scssRoot: './src/scss'
-        })
-      }
     }
   },
 })

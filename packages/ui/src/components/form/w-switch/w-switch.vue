@@ -56,4 +56,4 @@ const toggle = () => {
   </div>
 </template>
 
-<style scoped src="./w-switch.scss"></style>
+<style scoped src="./w-switch.less"></style>

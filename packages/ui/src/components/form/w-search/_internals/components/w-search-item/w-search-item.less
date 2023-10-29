@@ -6,13 +6,11 @@
   // border: 1px solid #dedede;
   //
 
-  @include themed() {
     // &:not(:last-child) {
     //   border-bottom: 1px solid #000;
     // }
 
-    color: t(foreground-color);
-  }
+  color: var(--theme-foreground-color);
 
   &--selected {
     background: #e8f4f8;
@@ -27,9 +25,5 @@
   &__value {
     display: flex;
     font-size: 10pt;
-
-    // &:first-child {
-    //   font-weight: bold;
-    // }
   }
 }

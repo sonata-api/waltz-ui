@@ -240,4 +240,4 @@ const save = () => {
   </div>
 </template>
 
-<style scoped src="./w-search.scss"></style>
+<style scoped src="./w-search.less"></style>

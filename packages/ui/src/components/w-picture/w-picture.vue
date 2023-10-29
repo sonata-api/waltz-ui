@@ -113,4 +113,4 @@ const expand = ref(false)
   </figure>
 </template>
 
-<style scoped src="./w-picture.scss"></style>
+<style scoped src="./w-picture.less"></style>

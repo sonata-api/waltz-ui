@@ -6,15 +6,13 @@
 
   border: 2px solid transparent;
 
-  @include themed() {
-    background: t(background-color-alt);
-    color: t(foreground-color);
-    border: 2px solid transparent;
-    transition: border-color .35s ease;
+  background: var(--theme-background-color-alt);
+  color: var(--theme-foreground-color);
+  border: 2px solid transparent;
+  transition: border-color .35s ease;
 
-    &:focus-within {
-      border-color: t(brand-color);
-    }
+  &:focus-within {
+    border-color: var(--theme-brand-color);
   }
 
   &__select {

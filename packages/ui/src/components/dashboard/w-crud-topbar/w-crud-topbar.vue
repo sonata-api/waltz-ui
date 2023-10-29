@@ -108,4 +108,4 @@ watch(route, (currRoute) => {
   </div>
 </template>
 
-<style scoped src="./w-crud-topbar.scss"></style>
+<style scoped src="./w-crud-topbar.less"></style>

@@ -1,0 +1,21 @@
+.profile {
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    padding: 0;
+
+    background: var(--theme-background-color-alt);
+    border: 1px solid var(--theme-border-color);
+    border-radius: 10px;
+    overflow: hidden;
+
+    &>* {
+      &:novar(--theme-:last-child) {
+        border-bottom: 1px solid var(--theme-border-color);
+      }
+
+      padding: 1.4rem;
+    }
+  }
+}

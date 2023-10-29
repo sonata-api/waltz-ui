@@ -129,4 +129,4 @@ const remove = async () => {
   </div>
 </template>
 
-<style scoped src="./w-file.scss"></style>
+<style scoped src="./w-file.less"></style>

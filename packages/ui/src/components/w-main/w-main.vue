@@ -4,7 +4,6 @@ import { useStore } from '@waltz-ui/state-management'
 import WBox from '../w-box/w-box.vue'
 import WPrompt from '../dashboard/w-prompt/w-prompt.vue'
 import WToast from '../dashboard/w-toast/w-toast.vue'
-import '../../scss/main.scss'
 
 const metaStore = useStore('meta')
 bootstrapRoutes()
@@ -75,4 +74,5 @@ bootstrapRoutes()
   </main>
 </template>
 
-<style scoped src="./w-main.scss"></style>
+<style scoped src="./w-main.less"></style>
+<style src="../../less/main.less"></style>

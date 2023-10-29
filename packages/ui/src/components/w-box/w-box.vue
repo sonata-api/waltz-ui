@@ -183,4 +183,4 @@ const toggleCollapsed = (value: boolean) => {
   </div>
 </template>
 
-<style scoped src="./w-box.scss"></style>
+<style scoped src="./w-box.less"></style>

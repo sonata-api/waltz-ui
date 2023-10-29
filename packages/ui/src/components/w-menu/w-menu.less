@@ -4,10 +4,8 @@
   align-self: center;
   min-width: 90vw;
 
-  @include themed() {
-    background: t(background-color-alt);
-    border: 1px solid t(border-color);
-  }
+  background: var(--theme-background-color-alt);
+  border: 1px solid var(--theme-border-color);
 
   @media screen and (min-width: 600px) {
     min-width: 22rem;
@@ -16,9 +14,7 @@
   &__entry {
     padding: 1.2rem;
     &:not(:last-child) {
-      @include themed() {
-        border-bottom: 1px solid t(border-color);
-      }
+      border-bottom: 1px solid var(--theme-border-color);
     }
   }
 }

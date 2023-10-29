@@ -8,24 +8,22 @@
     height: 100%;
   }
 
-  @include themed() {
-    fill: t(foreground-color);
+  fill: var(--theme-foreground-color);
 
-    &--alt {
-      fill: t(foreground-color-alt);
+  &--alt {
+    fill: var(--theme-foreground-color-alt);
+  }
+
+  &--reactive {
+    padding: 8px;
+    border-radius: 5px;
+
+    &:hover {
+      background: var(--theme-background-color);
     }
 
-    &--reactive {
-      padding: 8px;
-      border-radius: 5px;
-
-      &:hover {
-        background: t(background-color);
-      }
-
-      &:active {
-        background: #ccc;
-      }
+    &:active {
+      background: #ccc;
     }
   }
 

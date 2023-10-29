@@ -125,4 +125,4 @@ watch([page, limit], ([newPage]: [number, number]) => {
   </div>
 </template>
 
-<style scoped src="./w-pagination.scss"></style>
+<style scoped src="./w-pagination.less"></style>

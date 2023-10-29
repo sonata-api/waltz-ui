@@ -71,4 +71,4 @@ const reactive = typeof props.reactive === 'boolean'
   </a>
 </template>
 
-<style scoped src="./w-icon.scss"></style>
+<style scoped src="./w-icon.less"></style>

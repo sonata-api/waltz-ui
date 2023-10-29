@@ -40,4 +40,4 @@ const metaStore = useStore('meta')
   </div>
 </template>
 
-<style scoped src="./w-toast.scss"></style>
+<style scoped src="./w-toast.less"></style>

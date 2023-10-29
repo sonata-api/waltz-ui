@@ -320,4 +320,4 @@ const buttonStyle = (subject: any, action: any) => {
   </table>
 </template>
 
-<style scoped src="./w-table.scss"></style>
+<style scoped src="./w-table.less"></style>

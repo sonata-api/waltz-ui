@@ -4,4 +4,4 @@
   </div>
 </template>
 
-<style scoped src="./w-grid.scss"></style>
+<style scoped src="./w-grid.less"></style>

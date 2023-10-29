@@ -4,4 +4,4 @@
   </div>
 </template>
 
-<style scoped src="./w-badge.scss"></style>
+<style scoped src="./w-badge.less"></style>

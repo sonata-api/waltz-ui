@@ -12,4 +12,4 @@
   </menu>
 </template>
 
-<style scoped src="./w-menu.scss"></style>
+<style scoped src="./w-menu.less"></style>

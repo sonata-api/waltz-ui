@@ -10,4 +10,4 @@
   </div>
 </template>
 
-<style scoped src="./w-card.scss"></style>
+<style scoped src="./w-card.less"></style>

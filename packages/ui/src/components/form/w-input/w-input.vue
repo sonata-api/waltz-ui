@@ -247,4 +247,4 @@ export default {
 }
 </script>
 
-<style scoped src="./w-input.scss"></style>
+<style scoped src="./w-input.less"></style>

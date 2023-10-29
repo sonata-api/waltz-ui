@@ -102,4 +102,4 @@ const bindVal = computed({
   </label>
 </template>
 
-<style scoped src="./w-checkbox.scss"></style>
+<style scoped src="./w-checkbox.less"></style>

@@ -1,9 +1,7 @@
 .content {
   &__section {
     &:not(:last-child) {
-      @include themed() {
-        border-bottom: 1px solid t(border-color);
-      }
+      border-bottom: 1px solid var(--theme-border-color);
     }
 
     @media screen and (min-width: 600px) {
@@ -27,16 +25,14 @@
       }
     }
 
-    @include themed() {
-      &--reactive {
-        &:hover {
-          background: t(background-color-hover);
-        }
+    &--reactive {
+      &:hover {
+        background: var(--theme-background-color-hover);
       }
+    }
 
-      &:not(:last-child) {
-        border-bottom: 1px solid t(border-color);
-      }
+    &:novar(--theme-:last-child) {
+      border-bottom: 1px solid var(--theme-border-color);
     }
   }
 }

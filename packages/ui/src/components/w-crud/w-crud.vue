@@ -462,4 +462,4 @@ provide('parentStore', parentStore)
 
 </template>
 
-<style scoped src="./w-crud.scss"></style>
+<style scoped src="./w-crud.less"></style>

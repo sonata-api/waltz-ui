@@ -1,4 +1,4 @@
-$slider-radius: 1rem;
+@slider-radius: 1rem;
 
 .switch-wrapper {
   display: flex;
@@ -19,10 +19,8 @@ $slider-radius: 1rem;
 
   width: 3rem;
 
-  @include themed() {
-    &--active {
-      background: t(brand-color);
-    }
+  &--active {
+    background: var(--theme-brand-color);
   }
 
   &--readOnly {
@@ -30,8 +28,8 @@ $slider-radius: 1rem;
   }
 
   &__slider {
-    width: $slider-radius;
-    height: $slider-radius;
+    width: @slider-radius;
+    height: @slider-radius;
 
     background: #fff;
     border-radius: 50%;

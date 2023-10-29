@@ -1,9 +1,7 @@
 .card {
   overflow: hidden;
-  @include themed() {
-    background: t(background-color-alt);
-    border-radius: 20px;
-  }
+  background: var(--theme-background-color-alt);
+  border-radius: 20px;
 
   &__picture {
     width: 100%;
@@ -23,8 +21,6 @@
     justify-content: space-between;
     align-items: center;
 
-    @include themed() {
-      background: #f4f4f4;
-    }
+    background: #f4f4f4;
   }
 }

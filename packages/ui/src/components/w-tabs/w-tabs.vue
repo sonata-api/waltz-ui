@@ -97,4 +97,4 @@ const change = (tab: string) => {
 
 </template>
 
-<style scoped src="./w-tabs.scss"></style>
+<style scoped src="./w-tabs.less"></style>

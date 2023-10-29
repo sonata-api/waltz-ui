@@ -129,4 +129,4 @@ const signout = async () => {
   </w-box>
 </template>
 
-<style scoped src="./profile.scss"></style>
+<style scoped src="./profile.less"></style>

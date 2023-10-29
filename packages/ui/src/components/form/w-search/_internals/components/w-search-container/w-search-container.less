@@ -1,0 +1,20 @@
+.container {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--theme-border-color);
+
+  &__content {
+    max-height: 20rem;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    transition: height 1s ease;
+  }
+
+  &__footer {
+    padding: .8rem;
+    font-size: .75rem;
+    color: #555;
+    
+    background: var(--theme-background-color-alt);
+  }
+}

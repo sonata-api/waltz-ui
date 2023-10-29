@@ -28,4 +28,4 @@ const onClick = (event: any) => {
   </button>
 </template>
 
-<style scoped src="./w-bare-button.scss"></style>
+<style scoped src="./w-bare-button.less"></style>

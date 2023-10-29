@@ -42,4 +42,4 @@ const where = props.where || 'top'
   <slot v-else></slot>
 </template>
 
-<style scoped src="./w-info.scss"></style>
+<style scoped src="./w-info.less"></style>

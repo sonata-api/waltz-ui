@@ -12,9 +12,7 @@
     place-items: center;
 
     &:not(:last-child) {
-      @include themed() {
-        border-right: 1px solid t(border-color);
-      }
+      border-right: 1px solid var(--theme-border-color);
     }
 
     &--normal {

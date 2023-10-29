@@ -16,11 +16,9 @@
   animation-delay: 3s;
   animation-play-state: paused;
 
-  @include themed() {
-    color: t(foreground-color);
-    background: t(background-color);
-    border: 1px solid t(border-color);
-  }
+  color: var(--theme-foreground-color);
+  background: var(--theme-background-color);
+  border: 1px solid var(--theme-border-color);
 
   &--animate {
     animation-play-state: running;

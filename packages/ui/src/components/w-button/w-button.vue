@@ -68,4 +68,4 @@ const size = (() => {
   </w-bare-button>
 </template>
 
-<style scoped src="./w-button.scss"></style>
+<style scoped src="./w-button.less"></style>

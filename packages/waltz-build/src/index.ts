@@ -1,1 +1,1 @@
-export * from './sassData'
+export {}

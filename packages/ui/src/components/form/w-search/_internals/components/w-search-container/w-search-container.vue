@@ -10,4 +10,4 @@
   </div>
 </template>
 
-<style scoped src="./w-search-container.scss"></style>
+<style scoped src="./w-search-container.less"></style>

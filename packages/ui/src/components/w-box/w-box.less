@@ -18,30 +18,24 @@
     padding: 0;
 
     &--rounded {
-      @include themed() {
-        border: 1px solid t(border-color);
-      }
+      border: 1px solid var(--theme-border-color);
     }
 
     &--outer-header {
       background: transparent !important;
       border: none !important;
 
-      @include themed() {
-        .box__body,
-        .box__footer
-        {
-          background: t(background-color);
-          border-radius: 5px;
-        }
+      .box__body,
+      .box__footer
+      {
+        background: var(--theme-background-color);
+        border-radius: 5px;
       }
     }
 
     &--bordered-body {
-      @include themed() {
-        .box__body {
-          border: 1px solid t(border-color);
-        }
+      .box__body {
+        border: 1px solid var(--theme-border-color);
       }
     }
 
@@ -119,9 +113,7 @@
     }
 
     &:not(&--outer) {
-      @include themed() {
-        background: t(background-color-alt);
-      }
+      background: var(--theme-background-color-alt);
     }
   }
 
@@ -159,12 +151,10 @@
       }
     }
 
-    @include themed() {
-      border-top: 1px solid t(border-color);
-      &--shadowed {
-        box-shadow: 0 4px 20px t(shadow-color);
-        z-index: 10;
-      }
+    border-top: 1px solid var(--theme-border-color);
+    &--shadowed {
+      box-shadow: 0 4px 20px var(--theme-shadow-color);
+      z-index: 10;
     }
   }
 }

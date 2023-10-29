@@ -58,4 +58,4 @@ export default {
 }
 </script>
 
-<style scoped src="./w-options.scss"></style>
+<style scoped src="./w-options.less"></style>

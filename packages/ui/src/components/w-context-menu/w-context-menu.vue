@@ -152,9 +152,9 @@ const position = computed(() => {
   </teleport>
 </template>
 
-<style scoped src="./w-context-menu.scss"></style>
+<style scoped src="./w-context-menu.less"></style>
 
-<style scoped lang="scss">
+<style scoped lang="less">
 .content {
   :deep(.box__content) {
     position: fixed;

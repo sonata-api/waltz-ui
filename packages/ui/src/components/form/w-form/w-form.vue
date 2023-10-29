@@ -441,4 +441,4 @@ const isInsertReady = computed(() => {
   </form>
 </template>
 
-<style scoped src="./w-form.scss"></style>
+<style scoped src="./w-form.less"></style>

@@ -11,9 +11,7 @@
     cursor: pointer;
 
     &--current {
-      @include themed() {
-        color: t(clickable-color);
-      }
+      color: var(--theme-clickable-color);
     }
 
     &--info {
@@ -26,10 +24,8 @@
   }
 
   &__context-menu-icon {
-    @include themed() {
-      color: t(clickable-color);
-      fill: t(clickable-color);
-    }
+    color: var(--theme-clickable-color);
+    fill: var(--theme-clickable-color);
 
     &:first-child {
       gap: 0;
