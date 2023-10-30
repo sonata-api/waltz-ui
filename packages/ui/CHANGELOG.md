@@ -1,5 +1,21 @@
 # @waltz-ui/ui
 
+## 0.0.65
+
+### Patch Changes
+
+- Version bump
+- Updated dependencies
+  - @waltz-ui/web@0.0.41
+
+## 0.0.64
+
+### Patch Changes
+
+- Version bump
+- Updated dependencies
+  - @waltz-ui/web@0.0.40
+
 ## 0.0.63
 
 ### Patch Changes
