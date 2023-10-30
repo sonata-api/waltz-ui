@@ -3,7 +3,7 @@
   "private": true,
   "packageManager": "pnpm@8.7.6",
   "scripts": {
-    "build:all": "pnpm -r build",
+    "build": "pnpm -r build",
     "postinstall": "cp -r packages/ node_modules/@waltz-ui; rm -rf packages/*/node_modules/@waltz-ui"
   },
   "devDependencies": {
