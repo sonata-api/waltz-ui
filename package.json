@@ -4,7 +4,7 @@
   "packageManager": "pnpm@8.7.6",
   "scripts": {
     "build": "pnpm -r build",
-    "postinstall": "cp -r packages/ node_modules/@waltz-ui; rm -rf packages/*/node_modules/@waltz-ui"
+    "postinstall": "ln -s packages/ node_modules/@waltz-ui; rm -rf packages/*/node_modules/@waltz-ui"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.2",
