@@ -11,19 +11,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 19
-          cache: npm
+          node-version: 20
+          cache: pnpm
       - name: Install dependencies
-        run: npm i
+        run: pnpm install
       - name: Build packages
         run: |
-          npm run build \
-            --workspace=packages/waltz-build \
-            --workspace=packages/state-management \
-            --workspace=packages/web \
-            --workspace=packages/ui \
-            --workspace=packages/create-waltz-app \
-            --workspace=packages/waltz-ui
+          pnpm --filter='./packages/waltz-build' build
+          pnpm --filter='./packages/state-management' build
+          pnpm --filter='./packages/web' build
+          pnpm --filter='./packages/ui' build
+          pnpm --filter='./packages/create-waltz-app' build
+          pnpm --filter='./packages/waltz-ui' build
