@@ -1,5 +1,11 @@
 # @waltz-ui/web
 
+## 0.0.42
+
+### Patch Changes
+
+- Escape parenthesis in filter regex
+
 ## 0.0.41
 
 ### Patch Changes

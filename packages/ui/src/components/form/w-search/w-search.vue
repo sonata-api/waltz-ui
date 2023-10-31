@@ -75,7 +75,9 @@ const search = async (options?: { empty?: true }) => {
     filters: {
       $or: indexes?.filter((i) => inputValue.value[i]?.length > 0).map((i) => ({
         [i]: {
-          $regex: inputValue.value[i].trim(),
+          $regex: inputValue.value[i].trim()
+            .replace('(', '\\(')
+            .replace(')', '\\)'),
           $options: 'i'
         }
       }))

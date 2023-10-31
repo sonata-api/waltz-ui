@@ -1,5 +1,13 @@
 # @waltz-ui/ui
 
+## 0.0.66
+
+### Patch Changes
+
+- Escape parenthesis in filter regex
+- Updated dependencies
+  - @waltz-ui/web@0.0.42
+
 ## 0.0.65
 
 ### Patch Changes

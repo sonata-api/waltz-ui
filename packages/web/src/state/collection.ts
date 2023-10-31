@@ -103,7 +103,9 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
 
             if( property.type === 'string' && !property.format ) {
               return {
-                $regex: value,
+                $regex: String(value)
+                  .replace('(', '\\(')
+                  .replace(')', '\\)'),
                 $options: 'i'
               }
             }
