@@ -90,13 +90,21 @@ const position = computed(() => {
 
       class="content"
     >
-      <div @click="contextmenuVisible = false">
+      <div>
         <div
-          v-if="Object.keys($slots).filter((key) => !['default', 'extra'].includes(key)).length > 0"
+          v-if="$slots.header"
           class="content__section"
         >
+          <slot name="header"></slot>
+        </div>
+
+        <div
+          v-if="Object.keys($slots).filter((key) => !['default', 'extra', 'header'].includes(key)).length > 0"
+          class="content__section"
+          @click="contextmenuVisible = false"
+        >
           <w-bare-button
-            v-for="(slotName, sindex) in Object.keys($slots).filter((key) => !['default', 'extra'].includes(key))"
+            v-for="(slotName, sindex) in Object.keys($slots).filter((key) => !['default', 'extra', 'header'].includes(key))"
             :key="`slot-${sindex}`"
             class="
               content__item
@@ -110,6 +118,7 @@ const position = computed(() => {
         <div
           v-if="actions?.length > 0"
           class="content__section"
+          @click="contextmenuVisible = false"
         >
           <w-bare-button
             v-for="(action, aindex) in filterActions(actions)"
@@ -137,6 +146,7 @@ const position = computed(() => {
         <div
           v-if="$slots.extra"
           class="content__section"
+          @click="contextmenuVisible = false"
         >
           <div class="content__item">
             <slot

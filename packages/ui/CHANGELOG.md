@@ -1,5 +1,11 @@
 # @waltz-ui/ui
 
+## 0.0.67
+
+### Patch Changes
+
+- Visual update in w-context-menu
+
 ## 0.0.66
 
 ### Patch Changes
