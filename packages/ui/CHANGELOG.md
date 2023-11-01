@@ -1,5 +1,11 @@
 # @waltz-ui/ui
 
+## 0.0.68
+
+### Patch Changes
+
+- Fix route functions typing
+
 ## 0.0.67
 
 ### Patch Changes

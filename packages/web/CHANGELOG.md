@@ -1,5 +1,23 @@
 # @waltz-ui/web
 
+## 0.0.45
+
+### Patch Changes
+
+- Optimize insertReady
+
+## 0.0.44
+
+### Patch Changes
+
+- Fix insertReady
+
+## 0.0.43
+
+### Patch Changes
+
+- Improve postinstall script
+
 ## 0.0.42
 
 ### Patch Changes
