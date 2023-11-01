@@ -138,6 +138,8 @@ onUnmounted(() => {
 })
 
 watch(() => actionEventBus.value, async (event) => {
+  let getPromise: ReturnType<typeof store.$actions.get>
+
   if (
     [
       'spawnEdit',
@@ -145,7 +147,7 @@ watch(() => actionEventBus.value, async (event) => {
       'duplicate',
     ].includes(event.name)
   ) {
-    store.$actions.get({
+    getPromise = store.$actions.get({
       filters: {
         _id: event.params._id
       }
@@ -174,6 +176,8 @@ watch(() => actionEventBus.value, async (event) => {
   }
 
   else if( event.name === 'duplicate' ) {
+    await getPromise
+
     const newItem = Object.entries(store.item).reduce((a, [key, value]: [string, any]) => {
       const property = store.properties[key]||{}
       const unbound = (value: any) => {
@@ -195,13 +199,10 @@ watch(() => actionEventBus.value, async (event) => {
         ...a,
         [key]: value
       }
-    }, {})
+    }, {} as Record<string, any>)
 
-    store.$actions.setItem({
-      ...newItem,
-      _id: undefined,
-      id: undefined
-    })
+    store.$actions.setItem(newItem)
+    delete store.item._id
 
     store.referenceItem = {}
     isInsertVisible.value = 'duplicate'
