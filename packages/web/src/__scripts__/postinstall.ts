@@ -24,6 +24,17 @@ declare module 'waltz-ui' {
     ? Stores[TStoreId]
     : import('waltz-ui').CollectionStore<Collections[TStoreId]['item']>
 }
+
+declare module '*.yaml' {
+  const obj: any
+  export default obj
+}
+
+declare module '*.vue' {
+  import type { DefineComponent } from 'vue'
+  const component: DefineComponent<{}, {}, any>
+  export default component
+}
 //`
 
 const install = async () => {
