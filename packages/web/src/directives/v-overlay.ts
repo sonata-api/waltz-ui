@@ -1,8 +1,15 @@
 import type { Directive } from 'vue'
 
+type OverlayOptions = {
+  condition: boolean
+  layer?: number
+  click?: (...args: any[]) => any
+}
+
 const overlay: Directive = {
   mounted: (el, binding) => {
-    if( binding.value?.condition === false ) {
+    const value: OverlayOptions = binding.value || {}
+    if( value.condition === false ) {
       return
     }
 
@@ -18,7 +25,7 @@ const overlay: Directive = {
           || window.matchMedia('(max-width: 600px)').matches
       )
 
-    const layer = binding.value?.layer || 50
+    const layer = value.layer || 50
 
     overlayElem.setAttribute('style', `
       position: fixed;
@@ -37,8 +44,8 @@ const overlay: Directive = {
       `}
     `)
 
-    if( binding.value?.click ) {
-      overlayElem.onclick = binding.value.click
+    if( value.click ) {
+      overlayElem.onclick = value.click
     }
 
     el.style.zIndex = `${layer+10}`
@@ -46,7 +53,8 @@ const overlay: Directive = {
   },
 
   beforeUnmount: (el, binding) => {
-    if( binding.value?.condition === false ) {
+    const value: OverlayOptions = binding.value || {}
+    if( value.condition === false ) {
       return
     }
 

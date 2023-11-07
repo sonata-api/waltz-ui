@@ -22,7 +22,7 @@ export const insertReady = <
 
     return keys.every((k) => {
       const property = description?.properties?.[k]! || {}
-      if( property.readOnly ) {
+      if( property.readOnly || property.s$noForm ) {
         return true
       }
 
