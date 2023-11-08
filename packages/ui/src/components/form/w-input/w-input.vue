@@ -53,8 +53,10 @@ const inputBind: {
   readonly?: boolean
 } = {
   type: (() => {
-    if( ['number', 'integer'].includes(property.type!) ) {
-      return 'number'
+    if( 'type' in property ) {
+      if( ['number', 'integer'].includes(property.type!) ) {
+        return 'number'
+      }
     }
 
     if( property.s$inputType ) {
@@ -69,18 +71,23 @@ const inputBind: {
   })(),
   placeholder: innerInputLabel
     ? property.description || props.propertyName
-    : property.s$placeholder,
-  min: property.minimum || property.exclusiveMinimum,
-  max: property.maximum || property.exclusiveMaximum,
+    : property.s$placeholder
 }
 
-inputBind.name = props.propertyName
-inputBind.readonly = readOnly
+if( 'type' in property ) {
+  if( property.type === 'number' ) {
+    inputBind.min = property.minimum || property.exclusiveMinimum
+    inputBind.max = property.maximum || property.exclusiveMaximum
+  }
 
-if( ['date', 'date-time'].includes(property.format!) ) {
-  inputBind.type = !searchOnly && property.format === 'date-time'
-    ? 'datetime-local'
-    : 'date'
+  inputBind.name = props.propertyName
+  inputBind.readonly = readOnly
+
+  if( property.type === 'string' && ['date', 'date-time'].includes(property.format!) ) {
+    inputBind.type = !searchOnly && property.format === 'date-time'
+      ? 'datetime-local'
+      : 'date'
+  }
 }
 
 if( inputBind.type === 'text' && searchOnly ) {
@@ -110,10 +117,16 @@ const updateValue = (value: InputType) => {
       return Number(value)
     }
 
+    if( !('type' in property && property.type === 'string') ) {
+      return value
+    }
+
     switch( property.format ) {
       case 'date':
-      case 'date-time':
+      case 'date-time': {
         return new Date(value)
+      }
+        
       default: return value
     }
   })()
@@ -138,17 +151,23 @@ const onInput = (
     ? (<CustomEvent<MaskaDetail>>event).detail?.unmasked
     : value
     
-  if( property.type === 'number' && !newValue ) {
-    updateValue(0)
-    return
+  if( 'type' in property ) {
+    if( property.type === 'number' && !newValue ) {
+      updateValue(0)
+      return
+    }
   }
 
   updateValue(newValue!)
 }
 
 watch(() => props.modelValue, (value, oldValue) => {
+  if( value instanceof Date ) {
+    return
+  }
+
   if( oldValue && !value ) {
-    inputValue.value = property.type === 'number'
+    inputValue.value = 'type' in property && property.type === 'number'
       ? 0
       : ''
   }

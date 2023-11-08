@@ -1,5 +1,17 @@
 # @waltz-ui/ui
 
+## 0.0.70
+
+### Patch Changes
+
+- Fix package exports
+
+## 0.0.69
+
+### Patch Changes
+
+- Fix date input bug
+
 ## 0.0.68
 
 ### Patch Changes
