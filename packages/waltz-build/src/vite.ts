@@ -28,46 +28,16 @@ export default defineConfig(async () => {
           '@waltz-ui/ui'
         ],
         async preEmit() {
-          const collections = require(process.cwd() + '/../api/dist/collections')
+          const userIcons = require(process.cwd() + '/../api/node_modules/.sonata/icons')
           const systemIcons = require(process.cwd() + '/../api/node_modules/@sonata-api/system/dist/icons')
+
+          userIcons.icons.forEach((icon: string) => {
+            icons.add(icon)
+          })
 
           systemIcons.icons.forEach((icon: string) => {
             icons.add(icon)
           })
-
-          for( const collectionName in collections ) {
-            const { description } = await collections[collectionName]()
-            if( !description ) {
-              return
-            }
-
-            const {
-              icon,
-              actions,
-              individualActions
-
-            } = description
-
-            if( icon ) {
-              icons.add(icon)
-            }
-
-            if( actions ) {
-              Object.values(actions).forEach((action: any) => {
-                if( action?.icon ) {
-                  icons.add(action.icon)
-                }
-              })
-            }
-
-            if( individualActions ) {
-              Object.values(individualActions).forEach((action: any) => {
-                if( action?.icon ) {
-                  icons.add(action.icon)
-                }
-              })
-            }
-          }
         }
       }),
       autoImport({
