@@ -59,7 +59,10 @@ const expand = ref(false)
           @click="expand = true"
         />
 
-        <div v-if="meta" class="picture__meta">
+        <div
+          v-if="meta?.owner"
+          class="picture__meta"
+        >
           Criado por {{ meta.owner.full_name }} em {{ formatDateTime(meta.created_at, true) }}
         </div>
       </div>

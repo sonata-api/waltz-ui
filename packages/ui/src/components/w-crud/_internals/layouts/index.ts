@@ -5,7 +5,8 @@ import WGrid from './w-grid/w-grid.vue'
 export const getLayout = (layoutName: LayoutName) => {
   const defaultLayouts = {
     tabular: WTabular,
-    grid: WGrid
+    grid: WGrid,
+    list: WGrid,
   }
 
   return defaultLayouts[layoutName] || defaultLayouts.tabular

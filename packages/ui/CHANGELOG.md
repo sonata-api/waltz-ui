@@ -1,5 +1,17 @@
 # @waltz-ui/ui
 
+## 0.0.72
+
+### Patch Changes
+
+- Optimize bundle size
+
+## 0.0.71
+
+### Patch Changes
+
+- Implement new layout
+
 ## 0.0.70
 
 ### Patch Changes

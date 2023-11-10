@@ -164,7 +164,7 @@ const buttonStyle = (subject: any, action: any) => {
               </div>
 
               <div v-else>
-                <div v-if="property.$ref === 'file' && row[column]">
+                <div v-if="property.s$isFile && row[column]">
                   <w-picture
                     expandable
                     v-if="/^image/.test(row[column].mime)" 
