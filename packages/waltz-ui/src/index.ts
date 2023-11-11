@@ -5,7 +5,6 @@ export {
   defineOptions,
   condenseItem,
   createCollectionStore,
-  useRouter,
   useBreakpoints,
   useClipboard,
   useAction,

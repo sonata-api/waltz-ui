@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import type { Layout } from '@sonata-api/types'
 import { onUnmounted, computed, provide, inject, watch, isRef, type Ref } from 'vue'
-import { useRouter } from 'vue-router'
 import { deepClone } from '@sonata-api/common'
 import { useAction, useDebounce, type ActionFilter, type ActionEvent } from '@waltz-ui/web'
-import { useStore, useParentStore } from '@waltz-ui/state-management'
+import { useStore } from '@waltz-ui/state-management'
 
 import WPagination from '../w-pagination/w-pagination.vue'
 import WButton from '../w-button/w-button.vue'
@@ -44,7 +43,7 @@ type Emits = {
 const props = defineProps<Props>()
 
 const emit = defineEmits<Emits>()
-const router = useRouter()
+const router = ROUTER
 
 const debounce = useDebounce({
   delay: 600
