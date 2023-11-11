@@ -11,6 +11,7 @@ type Props = {
   reactive?: boolean|null
   iconRight?: boolean
   fill?: string
+  iconClasses?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -58,6 +59,8 @@ const reactive = typeof props.reactive === 'boolean'
         v-bind="{
           ...(fill ? { fill } : {})
         }"
+
+        :class="iconClasses || ''"
       >
         <use :href="`/assets/icons.svg#${variant}:${icon}`"></use>
       </svg>
