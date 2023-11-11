@@ -1,5 +1,11 @@
 # @waltz-ui/ui
 
+## 0.0.73
+
+### Patch Changes
+
+- Feat: create Accordion component
+
 ## 0.0.72
 
 ### Patch Changes

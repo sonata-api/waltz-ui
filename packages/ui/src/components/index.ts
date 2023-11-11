@@ -1,4 +1,5 @@
 import type {} from 'vue-router'
+export { default as WAccordion } from './w-accordion/w-accordion.vue'
 export { default as WBadge } from './w-badge/w-badge.vue'
 export { default as WBareButton } from './w-bare-button/w-bare-button.vue'
 export { default as WBox } from './w-box/w-box.vue'
