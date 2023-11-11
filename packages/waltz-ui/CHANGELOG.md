@@ -1,5 +1,14 @@
 # waltz-ui
 
+## 0.0.31
+
+### Patch Changes
+
+- Remove useRouter
+- Updated dependencies
+  - @waltz-ui/ui@0.0.74
+  - @waltz-ui/web@0.0.47
+
 ## 0.0.30
 
 ### Patch Changes

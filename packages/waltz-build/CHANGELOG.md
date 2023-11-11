@@ -1,5 +1,11 @@
 # waltz-build
 
+## 0.0.12
+
+### Patch Changes
+
+- Remove useRouter
+
 ## 0.0.11
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @waltz-ui/web
 
+## 0.0.47
+
+### Patch Changes
+
+- Remove useRouter
+
 ## 0.0.46
 
 ### Patch Changes
