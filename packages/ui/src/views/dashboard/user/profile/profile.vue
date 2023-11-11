@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from '@waltz-ui/web'
+import { useRouter } from 'vue-router'
 import { useStore } from '@waltz-ui/state-management'
 
 import WBox from '../../../../components/w-box/w-box.vue'
@@ -31,7 +31,7 @@ const insert = async () => {
 
 const signout = async () => {
   await userStore.$actions.signout()
-  const router = await useRouter()
+  const router = useRouter()
   router.push('/user/signin')
 }
 </script>

@@ -11,11 +11,6 @@ import WIcon from '../../../../w-icon/w-icon.vue'
 
 import { isInsertVisible } from '../../store'
 
-const props = defineProps<{
-  parentCollection?: string
-  parentField?: string
-}>()
-
 const metaStore = useStore('meta')
 const store = useStore(metaStore.view.collection)
 const individualActions = inject('individualActions', [])
@@ -23,25 +18,8 @@ const individualActions = inject('individualActions', [])
 // unused
 const isInsertReadOnly = false
 
-const parentStore = inject<CollectionStore>('parentStore')
-
 const insert = async () => {
-  const result = await store.$actions.deepInsert()
-
-  if( props.parentField ) {
-    const newSet = parentStore!.item[props.parentField] ||= []
-    if( newSet.findIndex(({ _id }:{ _id: string }) => _id === result._id) === -1 ) {
-      newSet.push(result._id)
-    }
-
-    await parentStore!.$actions.insert({
-      what: {
-        _id: parentStore!.item._id,
-        [props.parentField]: newSet
-      }
-    })
-  }
-
+  await store.$actions.deepInsert()
   isInsertVisible.value = false
 }
 

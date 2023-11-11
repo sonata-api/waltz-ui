@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { FiltersPreset } from '@sonata-api/types'
 import { computed, watch, type ComputedRef } from 'vue'
-import { useRouter } from '@waltz-ui/web'
+import { useRouter } from 'vue-router'
 import { useParentStore } from '@waltz-ui/state-management'
 import { WAsync } from '../../utils'
 import WTabs from '../../w-tabs/w-tabs.vue'
@@ -13,7 +13,7 @@ type Props = {
 }
 
 const props = defineProps<Props>()
-const router = await useRouter()
+const router = useRouter()
 const route = router.currentRoute
 
 const store = computed(() => {

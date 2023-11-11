@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useSlots, computed } from 'vue'
-import { useRouter, useBreakpoints } from '@waltz-ui/web'
+import { useRouter } from 'vue-router'
+import { useBreakpoints } from '@waltz-ui/web'
 import WContextMenu from '../w-context-menu/w-context-menu.vue'
 import WIcon from '../w-icon/w-icon.vue'
 
@@ -12,7 +13,7 @@ type Props = {
 
 const props = defineProps<Props>()
 const slots = useSlots()
-const router = await useRouter()
+const router = useRouter()
 
 const breakpoints = useBreakpoints()
 

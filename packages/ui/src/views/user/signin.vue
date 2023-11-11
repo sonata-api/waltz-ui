@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { useRouter, user, meta } from '@waltz-ui/web'
+import { useRouter } from 'vue-router'
+import { user, meta } from '@waltz-ui/web'
 import { isRight } from '@sonata-api/common'
 import WForm from '../../components/form/w-form/w-form.vue'
 import WButton from '../../components/w-button/w-button.vue'
 
-const router = await useRouter()
+const router = useRouter()
 const userStore = user()()
 const metaStore = meta()()
 

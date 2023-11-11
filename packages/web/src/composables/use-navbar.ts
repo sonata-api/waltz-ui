@@ -1,7 +1,8 @@
 import { type Ref, type ComputedRef, ref, computed, watch } from 'vue'
 import { arraysIntersects } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
-import { useRouter, Route, MenuSchema } from '..'
+import { useRouter } from 'vue-router'
+import { Route, MenuSchema } from '..'
 
 type Props = {
   entrypoint?: string
@@ -16,7 +17,7 @@ export const useNavbar = async (props: Props) => {
 
   const metaStore = useStore('meta')
   const userStore = useStore('user')
-  const router = await useRouter()
+  const router = useRouter()
 
   const getSchema = (schema: MenuSchema | MenuSchema[string], routes: Array<Route>) => {
     if( !Array.isArray(schema) ) {

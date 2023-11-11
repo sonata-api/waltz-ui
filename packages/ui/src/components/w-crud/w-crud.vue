@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { Layout } from '@sonata-api/types'
 import { onUnmounted, computed, provide, inject, watch, isRef, type Ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { deepClone } from '@sonata-api/common'
-import { useRouter, useAction, useDebounce, type ActionFilter } from '@waltz-ui/web'
+import { useAction, useDebounce, type ActionFilter, type ActionEvent } from '@waltz-ui/web'
 import { useStore, useParentStore } from '@waltz-ui/state-management'
 
 import WPagination from '../w-pagination/w-pagination.vue'
@@ -30,25 +31,20 @@ type Props = {
   noControls?: boolean
   noActions?: boolean
   noFetch?: boolean
-  noRefresh?: boolean
   noLayoutToggle?: boolean
-  parentCollection?: string
-  parentField?: string
   layout?: Layout
   action?: Ref<ReturnType<typeof useAction>> | ReturnType<typeof useAction>
   componentProps?: Record<string, any>
 }
 
 type Emits = {
-  (e: 'uiEvent', event: any): void
+  (e: 'uiEvent', event: ActionEvent): void
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  noRefresh: true
-})
+const props = defineProps<Props>()
 
 const emit = defineEmits<Emits>()
-const router = await useRouter()
+const router = useRouter()
 
 const debounce = useDebounce({
   delay: 600
@@ -57,10 +53,6 @@ const debounce = useDebounce({
 const metaStore = useStore('meta')
 
 const store = useStore(props.collection)
-const parentStore = props.parentField
-  ? useParentStore(props.parentCollection)
-  : null
-
 const action = props.action
   ? isRef(props.action)
     ? props.action.value
@@ -96,7 +88,7 @@ watch(router.currentRoute, async (route) => {
   metaStore.view.collection = props.collection
   isInsertReadonly.value = false
 
-  if( !props.noFetch && !route.query._popstate/*&& (props.parentField || store.itemsCount === 0)*/ ) {
+  if( !props.noFetch && !route.query._popstate ) {
     store.textQuery = ''
     await fetchItems()
   }
@@ -235,7 +227,6 @@ const actionButtons = computed(() => {
 
 provide('storeId', computed(() => props.collection))
 provide('individualActions', individualActions)
-provide('parentStore', parentStore)
 </script>
 
 <template>
@@ -245,13 +236,7 @@ provide('parentStore', parentStore)
     :key="store.$id"
   ></w-filter-panel>
 
-  <w-insert-panel
-    v-if="isInsertVisible"
-    v-bind="{
-      parentCollection,
-      parentField
-    }"
-  >
+  <w-insert-panel v-if="isInsertVisible">
     <template
       v-for="slotName in Object.keys($slots).filter(key => key.startsWith('field-'))"
       v-slot:[slotName]="slotProps"
@@ -266,7 +251,6 @@ provide('parentStore', parentStore)
   <div
     v-if="!noActions && (
       store.description.search?.active
-      || !noRefresh
       || Object.keys(store.availableFilters).length > 0
       || (store?.actions.length > 0 || $slots.actions)
       || (

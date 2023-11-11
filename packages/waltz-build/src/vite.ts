@@ -5,6 +5,7 @@ import vueComponents from 'unplugin-vue-components/vite'
 import autoImport from 'unplugin-auto-import/vite'
 import waltzIcons from 'waltz-icons/vite'
 import { icons } from 'waltz-icons/common'
+import { VueRouterAutoImports } from 'unplugin-vue-router'
 
 import { getInstanceConfig } from './instance'
 
@@ -48,11 +49,11 @@ export default defineConfig(async () => {
         ],
         imports: [
           'vue',
+          VueRouterAutoImports,
           {
             'waltz-ui': [
               'useStore',
               'useParentStore',
-              'useRouter',
               'useClipboard',
               'useBreakpoints',
               'useAction',
