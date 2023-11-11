@@ -7,6 +7,7 @@ import { useStore } from '@waltz-ui/state-management'
 
 import WBox from '../../w-box/w-box.vue'
 import WButton from '../../w-button/w-button.vue'
+import WIcon from '../../w-icon/w-icon.vue'
 import WSelect from '../w-select/w-select.vue'
 import WInput from '../w-input/w-input.vue'
 import WSearchContainer from './_internals/components/w-search-container/w-search-container.vue'
@@ -125,64 +126,66 @@ const save = () => {
     <w-box
       float
       close-hint
-      :title="`Selecionar ${$t(props.propertyName!)}`"
+      :title="`Selecionar ${$t(props.propertyName)}`"
       v-model="selectPanel"
       @close="emit('panelClose')"
       @overlay-click="selectPanel = false; emit('panelClose')"
     >
-      <div class="search__input">
-        <w-select
-          v-if="indexes.length > 1"
-          v-model="searchField"
-          @change="inputValue = {}"
-        >
-          <option
-            v-for="field in indexes"
-            :key="`searchfield-${field}`"
-            :value="field"
+      <div class="search">
+        <div class="search__input">
+          <w-select
+            v-if="indexes.length > 1"
+            v-model="searchField"
+            @change="inputValue = {}"
           >
-            {{ $t(field) }}
-          </option>
-        </w-select>
+            <option
+              v-for="field in indexes"
+              :key="`searchfield-${field}`"
+              :value="field"
+            >
+              {{ $t(field) }}
+            </option>
+          </w-select>
 
-        <div style="flex: 1">
-          <w-input
-            v-model="inputValue[searchField]"
-            :property="{
-              ...store.properties[searchField],
-              s$inputType: 'search'
+          <div style="flex: 1">
+            <w-input
+              v-model="inputValue[searchField]"
+              :property="{
+                ...store.properties[searchField],
+                s$inputType: 'search'
+              }"
+
+              :key="searchField"
+              @input="lazySearch"
+            ></w-input>
+          </div>
+        </div>
+
+        <w-search-container v-if="matchingItems.length">
+          <w-search-item
+            v-model="selected"
+            v-for="item in matchingItems"
+            v-bind="{
+              item,
+              indexes,
+              property,
             }"
 
-            :key="searchField"
-            @input="lazySearch"
-          ></w-input>
-        </div>
-      </div>
+            :key="`matching-${item._id}`"
+          ></w-search-item>
+        </w-search-container>
 
-      <w-search-container v-if="matchingItems.length">
-        <w-search-item
-          v-model="selected"
-          v-for="item in matchingItems"
-          v-bind="{
-            item,
-            indexes,
-            property,
-          }"
-
-          :key="`matching-${item._id}`"
-        ></w-search-item>
-      </w-search-container>
-
-      <div v-else>
-        <div v-if="isTyping">
-          Pesquisando...
-        </div>
-        <div v-else-if="
-          !store.loading.getAll
-            && Object.values(inputValue).filter((v) => !!v).length > 0
-            && !((property.type === 'array' && modelValue?.length) || (!Array.isArray(modelValue) && modelValue?._id))
-        ">
-          Não há resultados
+        <div v-else>
+          <div v-if="isTyping">
+            Pesquisando...
+          </div>
+          <div v-else-if="
+            !store.loading.getAll
+              && Object.values(inputValue).filter((v) => !!v).length > 0
+              && !((property.type === 'array' && modelValue?.length) || (!Array.isArray(modelValue) && modelValue?._id))
+          ">
+            Não há resultados
+          </div>
         </div>
       </div>
 
