@@ -3,17 +3,14 @@
   align-items: center;
   padding: .8rem;
 
-  // border: 1px solid #dedede;
-  //
-
-    // &:not(:last-child) {
-    //   border-bottom: 1px solid #000;
-    // }
-
   color: var(--theme-foreground-color);
 
   &--selected {
     background: #e8f4f8;
+  }
+
+  &:not(&--selected) {
+    opacity: .8;
   }
 
   &__values {
@@ -25,5 +22,9 @@
   &__value {
     display: flex;
     font-size: 10pt;
+  }
+
+  &__value:not(:first-child) {
+    font-size: 8pt;
   }
 }

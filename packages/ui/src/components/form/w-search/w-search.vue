@@ -230,12 +230,14 @@ const save = () => {
       ></w-search-item>
 
       <template #footer>
-        <div
+        <w-icon
           v-clickable
+          small
+          icon="plus"
           @click="openSelectPanel"
         >
           Selecionar
-        </div>
+        </w-icon>
       </template>
     </w-search-container>
 
