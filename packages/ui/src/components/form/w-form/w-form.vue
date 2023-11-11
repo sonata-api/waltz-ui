@@ -83,7 +83,7 @@ const alreadyFocused = ref(false)
 
 const form = computed((): Record<string, CollectionProperty> | undefined => {
   if( !props.form && props.property ) {
-    if( props.property.properties ) {
+    if( 'properties' in props.property ) {
       return props.property.properties
     }
 
@@ -181,7 +181,7 @@ const fieldStyle = (key: string, property: any) => {
   }
 
   style.push(`
-    --field-span: ${breakpoints.md ? layout?.span || 6 : 6};
+    --field-span: ${breakpoints.value.md ? layout?.span || 6 : 6};
     grid-column: span var(--field-span) / span var(--field-span);
   `)
 
@@ -242,7 +242,7 @@ const isInsertReady = computed(() => {
         class="form__field"
       >
         <label v-if="
-          (property.type !== 'boolean' || searchOnly)
+          (!('type' in property) || property.type !== 'boolean' || searchOnly)
             && !property.s$noLabel
             && !omitInputLabels
             && !innerInputLabel
@@ -287,7 +287,7 @@ const isInsertReady = computed(() => {
         />
 
         <div
-          v-else-if="['date', 'date-time'].includes(property.format!) && searchOnly"
+          v-else-if="'format' in property && ['date', 'date-time'].includes(property.format!) && searchOnly"
           style="
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -312,7 +312,7 @@ const isInsertReady = computed(() => {
           ></w-input>
         </div>
 
-        <div v-else-if="property.type === 'boolean' && searchOnly">
+        <div v-else-if="'type' in property && property.type === 'boolean' && searchOnly">
           <w-select
             v-bind="{
               property,
@@ -334,7 +334,7 @@ const isInsertReady = computed(() => {
 
         <div
           v-else-if="
-            property.type === 'array'
+            'type' in property && property.type === 'array'
               && (!(property.s$isReference && !property.s$inline) || property.s$isFile)
           "
           style="display: grid; row-gap: .4rem"
