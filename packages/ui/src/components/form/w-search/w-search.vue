@@ -131,7 +131,7 @@ const save = () => {
       @close="emit('panelClose')"
       @overlay-click="selectPanel = false; emit('panelClose')"
     >
-      <div class="search">
+      <div class="search__panel">
         <div class="search__input">
           <w-select
             v-if="indexes.length > 1"

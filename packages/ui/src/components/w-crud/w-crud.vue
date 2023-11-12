@@ -287,7 +287,7 @@ provide('individualActions', individualActions)
           )
       ">
         <w-button
-          variant="alt"
+          variant="transparent"
           icon="sliders-v"
         >
           <w-badge v-if="store.filtersCount">
@@ -350,7 +350,7 @@ provide('individualActions', individualActions)
 
       <w-button
         v-else-if="Object.keys(store.availableFilters).length > 0"
-        variant="alt"
+        variant="transparent"
         icon="filter"
         @click="isFilterVisible = true"
       >

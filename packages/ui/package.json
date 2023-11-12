@@ -18,11 +18,13 @@
     "access": "public"
   },
   "exports": {
-    ".": "./dist/ui.mjs",
+    ".": "./src/index.ts",
+    "./themes/*": "./themes/*",
     "./*": "./dist/*"
   },
   "files": [
-    "dist"
+    "dist",
+    "less"
   ],
   "dependencies": {
     "maska": "^2.1.10"

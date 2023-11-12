@@ -11,19 +11,23 @@
     height: @image-size;
     border-radius: 5px;
     overflow: hidden;
+
+    &--unsent {
+      opacity: .6;
+    }
   }
 
   &__actions {
     display: flex;
     align-items: center;
     column-gap: 1rem;
+    overflow: hidden;
 
-    border: 1px solid #555;
-    border-radius: 5px;
-    padding: .6rem;
+    border-radius: var(--theme-radius-medium);
+    background: var(--theme-background-color-alt);
+    padding: 1rem;
 
     color: #000;
-    background: lightyellow;
   }
 
   &__buttons {

@@ -22,7 +22,7 @@ const property = props.property
 const store = useParentStore()
 
 const isAlreadySelected = computed(() => {
-  if( property.type === 'array' || Array.isArray(props.modelValue) ) {
+  if( Array.isArray(props.modelValue) ) {
     return Array.isArray(props.modelValue)
       && Object.values(props.modelValue).some(({ _id }) => props.item._id === _id)
   }
@@ -38,11 +38,11 @@ const select = () => {
   }
 
   const filterEmpties = (array: Array<any>) => array.filter(e => !!e?._id)
-  const modelValue = property.type === 'array'
+  const modelValue = 'type' in property && property.type === 'array'
     ? filterEmpties(Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue])
     : props.modelValue
 
-  emit('update:modelValue', property.type === 'array' && Array.isArray(modelValue)
+  emit('update:modelValue', Array.isArray(modelValue)
     ? [ ...modelValue, props.item ]
     : props.item
   )

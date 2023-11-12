@@ -7,7 +7,7 @@
 .table {
   width: 100%;
   border-spacing: 0;
-  border-radius: var(--theme-large-radius);
+  border-radius: var(--theme-radius-large);
 
   @media screen and (min-width: 600px) {
     overflow: hidden;
@@ -50,7 +50,7 @@
       flex-direction: column;
       height: auto;
 
-      border-radius: var(--theme-large-radius);
+      border-radius: var(--theme-radius-large);
       overflow: hidden;
 
       &:not(:last-child) {
@@ -68,7 +68,7 @@
 
     &>td {
       .cell-padding();
-      font-size: 10pt;
+      font-size: 9.5pt;
     }
   }
 
@@ -128,7 +128,7 @@
   &__picture {
     height: @picture-size;
     width: @picture-size;
-    border-radius: var(--theme-large-radius);
+    border-radius: var(--theme-radius-large);
     overflow: hidden;
 
     border: 1px solid var(--theme-border-color);

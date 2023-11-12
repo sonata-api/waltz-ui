@@ -1,6 +1,5 @@
 .focus {
   .input {
-    outline: 2px solid red;
     &__container--bordered {
       &>.input__input,
       &>.input__textarea {
@@ -23,11 +22,6 @@
 }
 
 .input {
-  &__label {
-    font-size: 10pt;
-    font-weight: 500;
-  }
-
   &__container {
     position: relative;
     display: flex;
@@ -36,7 +30,7 @@
       &>.input__input,
       &>.input__textarea {
         background: var(--theme-background-color-alt);
-        border: 2px solid transparent;
+        border: 1px solid transparent;
         transition: border-color .35s ease;
       }
     }
@@ -44,6 +38,11 @@
     &--light {
       border-bottom: 1px solid #dedede;
     }
+  }
+
+  &__input,
+  &__textarea {
+    font-family: unset;
   }
 
   &__input {
@@ -58,17 +57,14 @@
 
     &--normal {
       padding: var(--theme-input-padding);
-      border-radius: var(--theme-medium-radius);
+      border-radius: var(--theme-radius-medium);
+      font-size: 11pt;
     }
 
     &--bold {
       padding: 1rem .8rem;
-      font-size: 12pt;
-      border-radius: var(--theme-large-radius);
-
-      &::placeholder {
-        font-weight: 600;
-      }
+      font-size: 12.5pt;
+      border-radius: var(--theme-radius-large);
     }
 
     &--light {

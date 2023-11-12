@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 import { useStore } from '@waltz-ui/state-management'
 
 import WButton from '../../../../components/w-button/w-button.vue'
 import WBox from '../../../../components/w-box/w-box.vue'
 import WPasswordForm from '../../../../components/dashboard/w-password-form/w-password-form.vue'
 
-const router = useRouter()
+const router = ROUTER
 const userStore = useStore('user')
 const metaStore = useStore('meta')
 

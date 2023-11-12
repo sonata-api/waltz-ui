@@ -103,7 +103,8 @@ export default defineConfig(async () => {
       ]
     },
     build: {
-      target: 'esnext'
+      target: 'esnext',
+      sourcemap: true
     },
   }
 

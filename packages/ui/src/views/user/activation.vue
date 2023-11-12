@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
 import { useStore } from '@waltz-ui/state-management'
 import { unsafe } from '@sonata-api/common'
 import { ref } from 'vue'
@@ -12,7 +11,7 @@ type Step =
   | 'success'
   | 'password'
 
-const router = useRouter()
+const router = ROUTER
 const userStore = useStore('user')
 const metaStore = useStore('meta')
 

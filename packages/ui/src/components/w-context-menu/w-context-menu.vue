@@ -170,7 +170,7 @@ const position = computed(() => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%) !important;
-  border-radius: 15px;
+  border-radius: var(--theme-radius-large);
   width: 90vw;
 }
 

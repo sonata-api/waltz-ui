@@ -1,7 +1,7 @@
 .tabs {
   &__horizontal {
     display: flex;
-    gap: 1rem;
+    gap: 1.2rem;
   }
 
   &__tab {
@@ -11,7 +11,7 @@
     cursor: pointer;
 
     &--current {
-      color: var(--theme-clickable-color);
+      font-weight: 600;
     }
 
     &--info {
@@ -24,8 +24,7 @@
   }
 
   &__context-menu-icon {
-    color: var(--theme-clickable-color);
-    fill: var(--theme-clickable-color);
+    font-weight: 600;
 
     &:first-child {
       gap: 0;

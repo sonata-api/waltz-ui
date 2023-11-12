@@ -377,7 +377,7 @@ const isInsertReady = computed(() => {
           <div>
             <w-button
               small
-              variant="alt"
+              variant="transparent"
               icon="plus"
               :disabled="
                 modelValue[key]?.length >= property.maxItems!

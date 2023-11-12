@@ -10,12 +10,11 @@
 
 .button {
   position: relative;
-  transition: all .2s;
   padding: .35em 1em;
 
   box-sizing: content-box;
   text-align: center;
-  border-radius: var(--theme-large-radius);
+  border-radius: var(--theme-radius-large);
   outline: none;
 
   color: var(--theme-foreground-color);
@@ -37,25 +36,17 @@
     animation: progress 1s forwards;
   }
 
-  &--alt,
   &--transparent {
+    border: 1px solid var(--theme-border-color);
+    font-weight: 300;
+
     &:hover {
       background: var(--theme-button-background-color-hover);
     }
   }
 
-  &--alt {
-    background: var(--theme-button-background-color-alt);
-    border: 1px solid var(--theme-button-border-color);
-
-    :deep(*) {
-      color: var(--theme-foreground-color-alt);
-      fill: var(--theme-foreground-color-alt);
-    }
-  }
-
-  &--normal, &--brand {
-    background: var(--theme-button-background-color);
+  &--primary {
+    background: var(--theme-brand-color-shade-2);
     border: 1px solid var(--theme-button-border-color);
 
     :deep(*) {

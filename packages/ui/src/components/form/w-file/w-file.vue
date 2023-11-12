@@ -90,7 +90,10 @@ const remove = async () => {
       <w-picture
         v-if="isImage"
         v-model="previewFile"
-        class="file__image"
+        :class="`
+          file__image
+          ${modelValue?._id || 'file__image--unsent'}
+        `"
       ></w-picture>
       <a
         v-if="modelValue?._id"

@@ -10,8 +10,7 @@ type Size =
   | 'large'
 
 type Variant =
-  | 'normal'
-  | 'alt'
+  | 'primary'
   | 'transparent'
   | 'brand'
 
@@ -28,7 +27,7 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const variant = inject('buttonVariant', props.variant) || 'normal'
+const variant = inject('buttonVariant', props.variant) || 'primary'
 const size = (() => {
   switch( true ) {
     case props.small: return 'small'
