@@ -165,8 +165,7 @@ const toggleCollapsed = (value: boolean) => {
         ref="body"
         @scroll="updateScroll"
       >
-        <slot v-if="$slots.default"></slot>
-        <slot v-else name="body"></slot>
+        <slot></slot>
       </div>
 
       <div

@@ -1,5 +1,23 @@
 # @waltz-ui/ui
 
+## 0.0.77
+
+### Patch Changes
+
+- Fix package.json exports
+
+## 0.0.76
+
+### Patch Changes
+
+- Fix package.json
+
+## 0.0.75
+
+### Patch Changes
+
+- Enhance styling
+
 ## 0.0.74
 
 ### Patch Changes
