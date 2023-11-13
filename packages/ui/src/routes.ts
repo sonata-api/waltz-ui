@@ -76,6 +76,7 @@ export const dashboardRoutes = (component: Component | (() => Component|Promise<
       children: [
         {
           path: 'profile',
+          name: '/dashboard/user/profile',
           component: () => import('./views/dashboard/user/profile/profile.vue'),
           meta: {
             title: 'Meu perfil',
@@ -84,6 +85,7 @@ export const dashboardRoutes = (component: Component | (() => Component|Promise<
         },
         {
           path: 'changepass',
+          name: '/dashboard/user/changepass',
           component: () => import('./views/dashboard/user/password-change/password-change.vue'),
           meta: {
             title: 'Mudar senha',

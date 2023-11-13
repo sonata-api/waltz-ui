@@ -1,5 +1,11 @@
 # @waltz-ui/web
 
+## 0.0.49
+
+### Patch Changes
+
+- Implement conditional branching
+
 ## 0.0.48
 
 ### Patch Changes
