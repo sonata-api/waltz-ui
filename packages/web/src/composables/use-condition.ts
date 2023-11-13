@@ -6,10 +6,9 @@ const evaluatesToTrue = (subject: any, condition: Condition<any>): boolean => {
     term2,
   } = condition
 
-  const term1 = subject[condition.term1]
-
   let satisfied = false
-  if( operator ) {
+  if( condition.term1 ) {
+    const term1 = subject[condition.term1]
     satisfied = (() => {
       switch( operator ) {
         case 'equal': return term1 === term2

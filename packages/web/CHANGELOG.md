@@ -1,5 +1,11 @@
 # @waltz-ui/web
 
+## 0.0.50
+
+### Patch Changes
+
+- Fix conditions
+
 ## 0.0.49
 
 ### Patch Changes
