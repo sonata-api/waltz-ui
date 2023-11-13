@@ -52,22 +52,22 @@ importers:
     devDependencies:
       '@sonata-api/system':
         specifier: '*'
-        version: 0.0.43(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/types@0.0.19)(@sonata-api/validation@0.0.19)
+        version: 0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/types@0.0.21)(@sonata-api/validation@0.0.19)
       '@sonata-api/types':
         specifier: '*'
-        version: 0.0.19
+        version: 0.0.21
       '@vitejs/plugin-vue':
         specifier: ^4.2.3
         version: 4.4.1(vite@4.5.0)(vue@3.3.8)
       rollup-plugin-typescript2:
         specifier: ^0.35.0
-        version: 0.35.0(rollup@4.3.0)(typescript@5.2.2)
+        version: 0.35.0(rollup@4.4.0)(typescript@5.2.2)
       vite:
         specifier: ^4.4.8
         version: 4.5.0(@types/node@20.5.1)
       vite-plugin-dts:
         specifier: ^3.3.0
-        version: 3.6.3(@types/node@20.5.1)(rollup@4.3.0)(typescript@5.2.2)(vite@4.5.0)
+        version: 3.6.3(@types/node@20.5.1)(rollup@4.4.0)(typescript@5.2.2)(vite@4.5.0)
       vite-plugin-static-copy:
         specifier: ^0.17.0
         version: 0.17.0(vite@4.5.0)
@@ -85,7 +85,7 @@ importers:
         version: 0.0.16(bson@6.2.0)
       '@sonata-api/types':
         specifier: '*'
-        version: 0.0.19
+        version: 0.0.21
       '@vitejs/plugin-vue':
         specifier: ^4.1.0
         version: 4.4.1(vite@4.5.0)(vue@3.3.8)
@@ -155,10 +155,10 @@ importers:
         version: 0.0.16(bson@5.5.1)
       '@sonata-api/system':
         specifier: '*'
-        version: 0.0.43(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/types@0.0.19)(@sonata-api/validation@0.0.19)
+        version: 0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/types@0.0.21)(@sonata-api/validation@0.0.19)
       '@sonata-api/types':
         specifier: '*'
-        version: 0.0.19
+        version: 0.0.21
       '@waltz-ui/state-management':
         specifier: '*'
         version: link:../state-management
@@ -243,16 +243,16 @@ packages:
       tslib: 1.14.1
     optional: true
 
-  /@aws-sdk/client-cognito-identity@3.449.0:
-    resolution: {integrity: sha512-tpBNOZMIV4v4zdbKBz561XPWoamlM+05fgrSNnV4Q004dl2bydvFCE50QkfUcpJsF3d4oMq6OtpNustF+irxTA==}
+  /@aws-sdk/client-cognito-identity@3.450.0:
+    resolution: {integrity: sha512-CO04SicNOQApzmoRbR3y9xACeh8j2xichrotlRYdYj8Yf/9XUyyTDEBoMpaXe3jmAlD+Q6+fOW86MckTVMFKww==}
     engines: {node: '>=14.0.0'}
     requiresBuild: true
     dependencies:
       '@aws-crypto/sha256-browser': 3.0.0
       '@aws-crypto/sha256-js': 3.0.0
-      '@aws-sdk/client-sts': 3.449.0
+      '@aws-sdk/client-sts': 3.450.0
       '@aws-sdk/core': 3.445.0
-      '@aws-sdk/credential-provider-node': 3.449.0
+      '@aws-sdk/credential-provider-node': 3.450.0
       '@aws-sdk/middleware-host-header': 3.449.0
       '@aws-sdk/middleware-logger': 3.449.0
       '@aws-sdk/middleware-recursion-detection': 3.449.0
@@ -265,7 +265,7 @@ packages:
       '@aws-sdk/util-user-agent-node': 3.449.0
       '@smithy/config-resolver': 2.0.17
       '@smithy/fetch-http-handler': 2.2.5
-      '@smithy/hash-node': 2.0.13
+      '@smithy/hash-node': 2.0.14
       '@smithy/invalid-dependency': 2.0.12
       '@smithy/middleware-content-length': 2.0.14
       '@smithy/middleware-endpoint': 2.1.5
@@ -275,24 +275,24 @@ packages:
       '@smithy/node-config-provider': 2.1.4
       '@smithy/node-http-handler': 2.1.8
       '@smithy/protocol-http': 3.0.8
-      '@smithy/smithy-client': 2.1.13
+      '@smithy/smithy-client': 2.1.14
       '@smithy/types': 2.4.0
       '@smithy/url-parser': 2.0.12
       '@smithy/util-base64': 2.0.1
       '@smithy/util-body-length-browser': 2.0.0
       '@smithy/util-body-length-node': 2.1.0
-      '@smithy/util-defaults-mode-browser': 2.0.17
-      '@smithy/util-defaults-mode-node': 2.0.23
+      '@smithy/util-defaults-mode-browser': 2.0.18
+      '@smithy/util-defaults-mode-node': 2.0.24
       '@smithy/util-endpoints': 1.0.3
       '@smithy/util-retry': 2.0.5
-      '@smithy/util-utf8': 2.0.1
+      '@smithy/util-utf8': 2.0.2
       tslib: 2.6.2
     transitivePeerDependencies:
       - aws-crt
     optional: true
 
-  /@aws-sdk/client-sso@3.449.0:
-    resolution: {integrity: sha512-HFTlFbf9jwp5BJkXbMKlEwk6oGC7AVYaPEkaNk77kzZ8RGoqVSAqe0HL74DACcJUpMD/VWYX7pfWq/Wm+2B79g==}
+  /@aws-sdk/client-sso@3.450.0:
+    resolution: {integrity: sha512-xutima6DhrTLMyBc1nmLhWXarvrqbH1zizrQpG7cLdwfqHEOi3thR3SWu+pUC4XN9kiXQUb2HUMcv/vdqmknkQ==}
     engines: {node: '>=14.0.0'}
     requiresBuild: true
     dependencies:
@@ -310,7 +310,7 @@ packages:
       '@aws-sdk/util-user-agent-node': 3.449.0
       '@smithy/config-resolver': 2.0.17
       '@smithy/fetch-http-handler': 2.2.5
-      '@smithy/hash-node': 2.0.13
+      '@smithy/hash-node': 2.0.14
       '@smithy/invalid-dependency': 2.0.12
       '@smithy/middleware-content-length': 2.0.14
       '@smithy/middleware-endpoint': 2.1.5
@@ -320,31 +320,31 @@ packages:
       '@smithy/node-config-provider': 2.1.4
       '@smithy/node-http-handler': 2.1.8
       '@smithy/protocol-http': 3.0.8
-      '@smithy/smithy-client': 2.1.13
+      '@smithy/smithy-client': 2.1.14
       '@smithy/types': 2.4.0
       '@smithy/url-parser': 2.0.12
       '@smithy/util-base64': 2.0.1
       '@smithy/util-body-length-browser': 2.0.0
       '@smithy/util-body-length-node': 2.1.0
-      '@smithy/util-defaults-mode-browser': 2.0.17
-      '@smithy/util-defaults-mode-node': 2.0.23
+      '@smithy/util-defaults-mode-browser': 2.0.18
+      '@smithy/util-defaults-mode-node': 2.0.24
       '@smithy/util-endpoints': 1.0.3
       '@smithy/util-retry': 2.0.5
-      '@smithy/util-utf8': 2.0.1
+      '@smithy/util-utf8': 2.0.2
       tslib: 2.6.2
     transitivePeerDependencies:
       - aws-crt
     optional: true
 
-  /@aws-sdk/client-sts@3.449.0:
-    resolution: {integrity: sha512-iKh5Es9tyY+Ch17bvMubW67ydW4X3Buy9vwTIqpmXlnXEfbvjZRwycjWK2MO/P1Su3wjA14zNBq2ifNWFxkwFA==}
+  /@aws-sdk/client-sts@3.450.0:
+    resolution: {integrity: sha512-pHZ/3NHHtK5YbjYrh2jT8eePSYSunyvcIhdASMqYVg3Enw/BxA0IKL8bZ/slolhqR1sAQx4sKRAO7dZK418Q6w==}
     engines: {node: '>=14.0.0'}
     requiresBuild: true
     dependencies:
       '@aws-crypto/sha256-browser': 3.0.0
       '@aws-crypto/sha256-js': 3.0.0
       '@aws-sdk/core': 3.445.0
-      '@aws-sdk/credential-provider-node': 3.449.0
+      '@aws-sdk/credential-provider-node': 3.450.0
       '@aws-sdk/middleware-host-header': 3.449.0
       '@aws-sdk/middleware-logger': 3.449.0
       '@aws-sdk/middleware-recursion-detection': 3.449.0
@@ -358,7 +358,7 @@ packages:
       '@aws-sdk/util-user-agent-node': 3.449.0
       '@smithy/config-resolver': 2.0.17
       '@smithy/fetch-http-handler': 2.2.5
-      '@smithy/hash-node': 2.0.13
+      '@smithy/hash-node': 2.0.14
       '@smithy/invalid-dependency': 2.0.12
       '@smithy/middleware-content-length': 2.0.14
       '@smithy/middleware-endpoint': 2.1.5
@@ -368,17 +368,17 @@ packages:
       '@smithy/node-config-provider': 2.1.4
       '@smithy/node-http-handler': 2.1.8
       '@smithy/protocol-http': 3.0.8
-      '@smithy/smithy-client': 2.1.13
+      '@smithy/smithy-client': 2.1.14
       '@smithy/types': 2.4.0
       '@smithy/url-parser': 2.0.12
       '@smithy/util-base64': 2.0.1
       '@smithy/util-body-length-browser': 2.0.0
       '@smithy/util-body-length-node': 2.1.0
-      '@smithy/util-defaults-mode-browser': 2.0.17
-      '@smithy/util-defaults-mode-node': 2.0.23
+      '@smithy/util-defaults-mode-browser': 2.0.18
+      '@smithy/util-defaults-mode-node': 2.0.24
       '@smithy/util-endpoints': 1.0.3
       '@smithy/util-retry': 2.0.5
-      '@smithy/util-utf8': 2.0.1
+      '@smithy/util-utf8': 2.0.2
       fast-xml-parser: 4.2.5
       tslib: 2.6.2
     transitivePeerDependencies:
@@ -390,16 +390,16 @@ packages:
     engines: {node: '>=14.0.0'}
     requiresBuild: true
     dependencies:
-      '@smithy/smithy-client': 2.1.13
+      '@smithy/smithy-client': 2.1.14
       tslib: 2.6.2
     optional: true
 
-  /@aws-sdk/credential-provider-cognito-identity@3.449.0:
-    resolution: {integrity: sha512-S8+QHo7EWXswwibE6OfF1o90x7toeJF3/eDpCBqTnQwyaEPggs7BNZAml5zxRMHXJUbE8nZ2gImwrKgmCiNjOw==}
+  /@aws-sdk/credential-provider-cognito-identity@3.450.0:
+    resolution: {integrity: sha512-XBcifT9L1WLu6/WluOcmH04jHYtZGNnygrD1WMd6Y5JlW+JctUHfmevFHQ5IO48rJA8qV/Sl87yvL37EcVSZjA==}
     engines: {node: '>=14.0.0'}
     requiresBuild: true
     dependencies:
-      '@aws-sdk/client-cognito-identity': 3.449.0
+      '@aws-sdk/client-cognito-identity': 3.450.0
       '@aws-sdk/types': 3.449.0
       '@smithy/property-provider': 2.0.13
       '@smithy/types': 2.4.0
@@ -429,20 +429,20 @@ packages:
       '@smithy/node-http-handler': 2.1.8
       '@smithy/property-provider': 2.0.13
       '@smithy/protocol-http': 3.0.8
-      '@smithy/smithy-client': 2.1.13
+      '@smithy/smithy-client': 2.1.14
       '@smithy/types': 2.4.0
-      '@smithy/util-stream': 2.0.18
+      '@smithy/util-stream': 2.0.19
       tslib: 2.6.2
     optional: true
 
-  /@aws-sdk/credential-provider-ini@3.449.0:
-    resolution: {integrity: sha512-C2pMYysIfbRBR4Q+Aj7J0cRsKY/X2cOnrggrWzsEUJK3EJ1aHwrzm3HI0VM5DttJyya5hE4tZ/H1VX3zNGUtKA==}
+  /@aws-sdk/credential-provider-ini@3.450.0:
+    resolution: {integrity: sha512-quil0bUH43irhEtHBBpnleVQd1ZBX9kDVf8HziK/LIhujTmHDAoDODnjhUczdJU6srMJgAJi1oVTaVek5emh9Q==}
     engines: {node: '>=14.0.0'}
     requiresBuild: true
     dependencies:
       '@aws-sdk/credential-provider-env': 3.449.0
       '@aws-sdk/credential-provider-process': 3.449.0
-      '@aws-sdk/credential-provider-sso': 3.449.0
+      '@aws-sdk/credential-provider-sso': 3.450.0
       '@aws-sdk/credential-provider-web-identity': 3.449.0
       '@aws-sdk/types': 3.449.0
       '@smithy/credential-provider-imds': 2.1.0
@@ -454,15 +454,15 @@ packages:
       - aws-crt
     optional: true
 
-  /@aws-sdk/credential-provider-node@3.449.0:
-    resolution: {integrity: sha512-cCsqMqL8vmHADwIHCmTWDB4vr5fCXb4PZn3njbA/PIA92xL4S7hRmYi/1ll0CMd+fks+t/h+s+PIhFGo54C7cA==}
+  /@aws-sdk/credential-provider-node@3.450.0:
+    resolution: {integrity: sha512-d4tQklhvsydNCer5Axd2sNptqqdalE78esDk0zA/cYaj56GniKqk3HLJLgb/wdv2/Ho6/4DhWeM5W4LaJNRivA==}
     engines: {node: '>=14.0.0'}
     requiresBuild: true
     dependencies:
       '@aws-sdk/credential-provider-env': 3.449.0
-      '@aws-sdk/credential-provider-ini': 3.449.0
+      '@aws-sdk/credential-provider-ini': 3.450.0
       '@aws-sdk/credential-provider-process': 3.449.0
-      '@aws-sdk/credential-provider-sso': 3.449.0
+      '@aws-sdk/credential-provider-sso': 3.450.0
       '@aws-sdk/credential-provider-web-identity': 3.449.0
       '@aws-sdk/types': 3.449.0
       '@smithy/credential-provider-imds': 2.1.0
@@ -486,12 +486,12 @@ packages:
       tslib: 2.6.2
     optional: true
 
-  /@aws-sdk/credential-provider-sso@3.449.0:
-    resolution: {integrity: sha512-Lfhh38rOjFAZBjZZJ2ehve+X048xxr+hTr+ntGOKady1GAH6W1U5UGNYuD9fr5vFaQQtAcNLKkUui+TnmJ4z/w==}
+  /@aws-sdk/credential-provider-sso@3.450.0:
+    resolution: {integrity: sha512-zzr9s5bG38TRn82eJXzG1/AglDihrcINn9TBfwOL8OBl0J6MF7EPAS92VpOuYs09H70MOWSZkmzEftq1urwC0g==}
     engines: {node: '>=14.0.0'}
     requiresBuild: true
     dependencies:
-      '@aws-sdk/client-sso': 3.449.0
+      '@aws-sdk/client-sso': 3.450.0
       '@aws-sdk/token-providers': 3.449.0
       '@aws-sdk/types': 3.449.0
       '@smithy/property-provider': 2.0.13
@@ -513,21 +513,21 @@ packages:
       tslib: 2.6.2
     optional: true
 
-  /@aws-sdk/credential-providers@3.449.0:
-    resolution: {integrity: sha512-vC9jQsQy4QAy8dJntCg1i6JdRdteKa8EzPJJ5THVA/QaxuMXiLZPYEJs8udN+cwG4ZoLUDs73BBNgGBc4K8yRw==}
+  /@aws-sdk/credential-providers@3.450.0:
+    resolution: {integrity: sha512-AWLYcwxNEsTX4hZBqq4cQsVuhVkYIwZP4DDaTAUoK6tR/WqmOFImuNB8DSPRGTEljdg+Q0qIWhMUGDWSKeJffw==}
     engines: {node: '>=14.0.0'}
     requiresBuild: true
     dependencies:
-      '@aws-sdk/client-cognito-identity': 3.449.0
-      '@aws-sdk/client-sso': 3.449.0
-      '@aws-sdk/client-sts': 3.449.0
-      '@aws-sdk/credential-provider-cognito-identity': 3.449.0
+      '@aws-sdk/client-cognito-identity': 3.450.0
+      '@aws-sdk/client-sso': 3.450.0
+      '@aws-sdk/client-sts': 3.450.0
+      '@aws-sdk/credential-provider-cognito-identity': 3.450.0
       '@aws-sdk/credential-provider-env': 3.449.0
       '@aws-sdk/credential-provider-http': 3.449.0
-      '@aws-sdk/credential-provider-ini': 3.449.0
-      '@aws-sdk/credential-provider-node': 3.449.0
+      '@aws-sdk/credential-provider-ini': 3.450.0
+      '@aws-sdk/credential-provider-node': 3.450.0
       '@aws-sdk/credential-provider-process': 3.449.0
-      '@aws-sdk/credential-provider-sso': 3.449.0
+      '@aws-sdk/credential-provider-sso': 3.450.0
       '@aws-sdk/credential-provider-web-identity': 3.449.0
       '@aws-sdk/types': 3.449.0
       '@smithy/credential-provider-imds': 2.1.0
@@ -589,7 +589,7 @@ packages:
       '@aws-sdk/types': 3.449.0
       '@smithy/property-provider': 2.0.13
       '@smithy/protocol-http': 3.0.8
-      '@smithy/signature-v4': 2.0.13
+      '@smithy/signature-v4': 2.0.14
       '@smithy/types': 2.4.0
       '@smithy/util-middleware': 2.0.5
       tslib: 2.6.2
@@ -637,7 +637,7 @@ packages:
       '@aws-sdk/util-user-agent-node': 3.449.0
       '@smithy/config-resolver': 2.0.17
       '@smithy/fetch-http-handler': 2.2.5
-      '@smithy/hash-node': 2.0.13
+      '@smithy/hash-node': 2.0.14
       '@smithy/invalid-dependency': 2.0.12
       '@smithy/middleware-content-length': 2.0.14
       '@smithy/middleware-endpoint': 2.1.5
@@ -649,17 +649,17 @@ packages:
       '@smithy/property-provider': 2.0.13
       '@smithy/protocol-http': 3.0.8
       '@smithy/shared-ini-file-loader': 2.2.3
-      '@smithy/smithy-client': 2.1.13
+      '@smithy/smithy-client': 2.1.14
       '@smithy/types': 2.4.0
       '@smithy/url-parser': 2.0.12
       '@smithy/util-base64': 2.0.1
       '@smithy/util-body-length-browser': 2.0.0
       '@smithy/util-body-length-node': 2.1.0
-      '@smithy/util-defaults-mode-browser': 2.0.17
-      '@smithy/util-defaults-mode-node': 2.0.23
+      '@smithy/util-defaults-mode-browser': 2.0.18
+      '@smithy/util-defaults-mode-node': 2.0.24
       '@smithy/util-endpoints': 1.0.3
       '@smithy/util-retry': 2.0.5
-      '@smithy/util-utf8': 2.0.1
+      '@smithy/util-utf8': 2.0.2
       tslib: 2.6.2
     transitivePeerDependencies:
       - aws-crt
@@ -1482,7 +1482,7 @@ packages:
       rollup:
         optional: true
     dependencies:
-      '@rollup/pluginutils': 5.0.5(rollup@4.3.0)
+      '@rollup/pluginutils': 5.0.5(rollup@4.4.0)
       '@types/resolve': 1.20.2
       deepmerge: 4.3.1
       is-builtin-module: 3.2.1
@@ -1498,7 +1498,7 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /@rollup/pluginutils@5.0.5(rollup@4.3.0):
+  /@rollup/pluginutils@5.0.5(rollup@4.4.0):
     resolution: {integrity: sha512-6aEYR910NyP73oHiJglti74iRyOwgFU4x3meH/H8OJx6Ry0j6cOVZ5X/wTvub7G7Ao6qaHBEaNsV3GLJkSsF+Q==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -1510,87 +1510,87 @@ packages:
       '@types/estree': 1.0.5
       estree-walker: 2.0.2
       picomatch: 2.3.1
-      rollup: 4.3.0
+      rollup: 4.4.0
 
-  /@rollup/rollup-android-arm-eabi@4.3.0:
-    resolution: {integrity: sha512-/4pns6BYi8MXdwnXM44yoGAcFYVHL/BYlB2q1HXZ6AzH++LaiEVWFpBWQ/glXhbMbv3E3o09igrHFbP/snhAvA==}
+  /@rollup/rollup-android-arm-eabi@4.4.0:
+    resolution: {integrity: sha512-AD30wtT58hZZsXIeiksytR6Gm2gofUxn5KqrDBdyzekgxXB9bXN9dqWIEcPfYo9lA9MVRm0lC42LuYGsscRxiA==}
     cpu: [arm]
     os: [android]
     requiresBuild: true
     optional: true
 
-  /@rollup/rollup-android-arm64@4.3.0:
-    resolution: {integrity: sha512-nLO/JsL9idr416vzi3lHm3Xm+QZh4qHij8k3Er13kZr5YhL7/+kBAx84kDmPc7HMexLmwisjDCeDIKNFp8mDlQ==}
+  /@rollup/rollup-android-arm64@4.4.0:
+    resolution: {integrity: sha512-PlqvhzFxy5FRTB3wLSsGgPhiakv9jrgfu8tjSojLJFP0CdhfZSRDOFvQ2emWLUEBOSCnjpL63XSuFVMwg59ZtA==}
     cpu: [arm64]
     os: [android]
     requiresBuild: true
     optional: true
 
-  /@rollup/rollup-darwin-arm64@4.3.0:
-    resolution: {integrity: sha512-dGhVBlllt4iHwTGy21IEoMOTN5wZoid19zEIxsdY29xcEiOEHqzDa7Sqrkh5OE7LKCowL61eFJXxYe/+pYa7ZQ==}
+  /@rollup/rollup-darwin-arm64@4.4.0:
+    resolution: {integrity: sha512-BYmhn1Hebmkmdyn5mBFy7HptowyjtMALyTpywNSNZYigWwyv4L8WQVr0XvOQE7eE6WoKrupSVxtIcGZW8MgZUA==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     optional: true
 
-  /@rollup/rollup-darwin-x64@4.3.0:
-    resolution: {integrity: sha512-h8wRfHeLEbU3NzaP1Oku7BYXCJQiTRr+8U0lklyOQXxXiEpHLL8tk1hFl+tezoRKLcPJD7joKaK74ASsqt3Ekg==}
+  /@rollup/rollup-darwin-x64@4.4.0:
+    resolution: {integrity: sha512-7GXsMiX/giTDBMs/gL3rePLBRC6gV7DT7JQ0lNqoNDe5hm+Gm4NEWky9fwEmer64fIUbOsTiLUsyQ5fDXUbXPA==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     optional: true
 
-  /@rollup/rollup-linux-arm-gnueabihf@4.3.0:
-    resolution: {integrity: sha512-wP4VgR/gfV18sylTuym3sxRTkAgUR2vh6YLeX/GEznk5jCYcYSlx585XlcUcl0c8UffIZlRJ09raWSX3JDb4GA==}
+  /@rollup/rollup-linux-arm-gnueabihf@4.4.0:
+    resolution: {integrity: sha512-kavnkaV50Gu6vESlOAwUad92wYY9mUrcaPmhzOQZKlNFnzWAUYyD/uhHmWvY7Z2chtwhWlng0LvCRBF5QiPO7w==}
     cpu: [arm]
     os: [linux]
     requiresBuild: true
     optional: true
 
-  /@rollup/rollup-linux-arm64-gnu@4.3.0:
-    resolution: {integrity: sha512-v/14JCYVkqRSJeQbxFx4oUkwVQQw6lFMN7bd4vuARBc3X2lmomkxBsc+BFiIDL/BK+CTx5AOh/k9XmqDnKWRVg==}
+  /@rollup/rollup-linux-arm64-gnu@4.4.0:
+    resolution: {integrity: sha512-2hBHEtCjnBTeuLvDAlHRCqsuFQSyAhTQs9vbZEVBTV8ap35pDI1ukPbIVFFCWNvL/KE7xRor5YZFvfyGCfvLnA==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     optional: true
 
-  /@rollup/rollup-linux-arm64-musl@4.3.0:
-    resolution: {integrity: sha512-tNhfYqFH5OxtRzfkTOKdgFYlPSZnlDLNW4+leNEvQZhwTJxoTwsZAAhR97l3qVry/kkLyJPBK+Q8EAJLPinDIg==}
+  /@rollup/rollup-linux-arm64-musl@4.4.0:
+    resolution: {integrity: sha512-u7zy0Ygzl7O5Gvr9TSNSQj+DBzvMJC7rXfyQNgZ13KwkhgJ8z0z+gt2AO4RPd01rZioMQ2/TA24XGGg4xqhd0Q==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     optional: true
 
-  /@rollup/rollup-linux-x64-gnu@4.3.0:
-    resolution: {integrity: sha512-pw77m8QywdsoFdFOgmc8roF1inBI0rciqzO8ffRUgLoq7+ee9o5eFqtEcS6hHOOplgifAUUisP8cAnwl9nUYPw==}
+  /@rollup/rollup-linux-x64-gnu@4.4.0:
+    resolution: {integrity: sha512-VvpAdh5SgewmWo8sa5QPYG8aSKH9hU2Kr5+3of0GzBI/8n8PBqhLyvF0DbO+zDW8j5IM8NDebv82MpHrZaD0Cw==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     optional: true
 
-  /@rollup/rollup-linux-x64-musl@4.3.0:
-    resolution: {integrity: sha512-tJs7v2MnV2F8w6X1UpPHl/43OfxjUy9SuJ2ZPoxn79v9vYteChVYO/ueLHCpRMmyTUIVML3N9z4azl9ENH8Xxg==}
+  /@rollup/rollup-linux-x64-musl@4.4.0:
+    resolution: {integrity: sha512-3g6jaXxXVFaDnFoMn2+E3ludGcXFfEr6lDn+S1lh9Qe0JcL9sPt1wGh0g2cKIlb6OakNOFopZqJ5Yub9F7gQlA==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     optional: true
 
-  /@rollup/rollup-win32-arm64-msvc@4.3.0:
-    resolution: {integrity: sha512-OKGxp6kATQdTyI2DF+e9s+hB3/QZB45b6e+dzcfW1SUqiF6CviWyevhmT4USsMEdP3mlpC9zxLz3Oh+WaTMOSw==}
+  /@rollup/rollup-win32-arm64-msvc@4.4.0:
+    resolution: {integrity: sha512-jnoDRkg5Ve6Y1qx2m1+ehouOLQ4ddc15/iQSfFjcDUL6bqLdJJ5c4CKfUy/C6W1oCU4la+hMkveE9GG7ECN7dg==}
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
     optional: true
 
-  /@rollup/rollup-win32-ia32-msvc@4.3.0:
-    resolution: {integrity: sha512-DDZ5AH68JJ2ClQFEA1aNnfA7Ybqyeh0644rGbrLOdNehTmzfICHiWSn0OprzYi9HAshTPQvlwrM+bi2kuaIOjQ==}
+  /@rollup/rollup-win32-ia32-msvc@4.4.0:
+    resolution: {integrity: sha512-SoLQmJanozFow8o50ul2a3R+J7nk4pEhrp83PzTSXs5OzOmIZbPSp5kihtQ3f6ypo4MCbmh0V8Ev0bJIEp4Azw==}
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
     optional: true
 
-  /@rollup/rollup-win32-x64-msvc@4.3.0:
-    resolution: {integrity: sha512-dMvGV8p92GQ8jhNlGIKpyhVZPzJlT258pPrM5q2F8lKcc9Iv9BbfdnhX1OfinYWnb9ms5zLw6MlaMnqLfUkKnQ==}
+  /@rollup/rollup-win32-x64-msvc@4.4.0:
+    resolution: {integrity: sha512-Zaz6itfQ5sQF5Cia49YDW1ZTr+YfIKzTSb9npLyvQn346n7ulRDOv2J7GnL0zcOJ3cqW7HzG/ZisyO6fH43J9g==}
     cpu: [x64]
     os: [win32]
     requiresBuild: true
@@ -1684,14 +1684,14 @@ packages:
       tslib: 2.6.2
     optional: true
 
-  /@smithy/hash-node@2.0.13:
-    resolution: {integrity: sha512-0L2BJ/uVLB+XMeuUfz2qhkcsgVL6IdO3ekROYTW7Wg+sWWqXm8fPN7RtqCrHjpAkPu4X23fsl2NpOjXsH/vNgA==}
+  /@smithy/hash-node@2.0.14:
+    resolution: {integrity: sha512-eS2Q4IE2AZDfrfpXma49M2H1NVcs7VFg2KZ5hndQZibCmFJehS9CjjwIu0aWC61p4sEB7jWXw70bzOllyQU6GQ==}
     engines: {node: '>=14.0.0'}
     requiresBuild: true
     dependencies:
       '@smithy/types': 2.4.0
       '@smithy/util-buffer-from': 2.0.0
-      '@smithy/util-utf8': 2.0.1
+      '@smithy/util-utf8': 2.0.2
       tslib: 2.6.2
     optional: true
 
@@ -1845,8 +1845,8 @@ packages:
       tslib: 2.6.2
     optional: true
 
-  /@smithy/signature-v4@2.0.13:
-    resolution: {integrity: sha512-odJl+t0YdI2wT61Nr6qvlN+I8APNFWTtPr90CqVyHidb4Kyzq3lFSiY5T6I+IdvCV6BbNZ2btUYm2R6ae7zWYw==}
+  /@smithy/signature-v4@2.0.14:
+    resolution: {integrity: sha512-ZUU8gGlDVFyU3tM9tCEbq2FxHtyfX2qYBUKoIGH23GSxbC4+Ld/HeFL2EZYIFrYwoOuPBO30+g3fAohOP9Ax3Q==}
     engines: {node: '>=14.0.0'}
     requiresBuild: true
     dependencies:
@@ -1856,18 +1856,18 @@ packages:
       '@smithy/util-hex-encoding': 2.0.0
       '@smithy/util-middleware': 2.0.5
       '@smithy/util-uri-escape': 2.0.0
-      '@smithy/util-utf8': 2.0.1
+      '@smithy/util-utf8': 2.0.2
       tslib: 2.6.2
     optional: true
 
-  /@smithy/smithy-client@2.1.13:
-    resolution: {integrity: sha512-iFqrjps6K/eLNbDKppyp5gCCZyEtv/BYMlDSBXwwHIrwV7sZ8l8r6OGAcg1a69j4Id1uJccYppaTpW5G1BLhsA==}
+  /@smithy/smithy-client@2.1.14:
+    resolution: {integrity: sha512-SMiflchpKadmyvjWPTVwBKjDcEigRHkiUjtzLBlTp9dEp2FmbCjpyc95BNvUdOGOMcPCIkoQQGeabo6avIZNiw==}
     engines: {node: '>=14.0.0'}
     requiresBuild: true
     dependencies:
       '@smithy/middleware-stack': 2.0.6
       '@smithy/types': 2.4.0
-      '@smithy/util-stream': 2.0.18
+      '@smithy/util-stream': 2.0.19
       tslib: 2.6.2
     optional: true
 
@@ -1929,20 +1929,20 @@ packages:
       tslib: 2.6.2
     optional: true
 
-  /@smithy/util-defaults-mode-browser@2.0.17:
-    resolution: {integrity: sha512-kAJNbe3n4PYOpudOUjcyZ3MZ8G3xWt/oV+lZp/y87Rmd5/evLEc5VVuEW6u030aY8L3Uw2PX6cVA5UuJBIN14Q==}
+  /@smithy/util-defaults-mode-browser@2.0.18:
+    resolution: {integrity: sha512-Dok3alNbkKI3MGTiW9zYGY/1gmU0MgrUMk0aRuNOeypY1TuKJ4NuNAbq5dv1GnWvYeFzWk4j0FMIwpJLF8DVmg==}
     engines: {node: '>= 10.0.0'}
     requiresBuild: true
     dependencies:
       '@smithy/property-provider': 2.0.13
-      '@smithy/smithy-client': 2.1.13
+      '@smithy/smithy-client': 2.1.14
       '@smithy/types': 2.4.0
       bowser: 2.11.0
       tslib: 2.6.2
     optional: true
 
-  /@smithy/util-defaults-mode-node@2.0.23:
-    resolution: {integrity: sha512-S319Pjqmo4Quq6D9Ytt/XLMpS0PgbZZ7WAjjs3+6h0b/fRkUe5qppE115plpZZvN1EixDbh9R/k30tDOJayYdA==}
+  /@smithy/util-defaults-mode-node@2.0.24:
+    resolution: {integrity: sha512-f5wM/SbjvDTCXxk//od43hhnEPItdZB3ByAqbpz5dkum/vLQe2hFRvMNbpt7UA4htQTrbUmLWJatUmvGQEFypg==}
     engines: {node: '>= 10.0.0'}
     requiresBuild: true
     dependencies:
@@ -1950,7 +1950,7 @@ packages:
       '@smithy/credential-provider-imds': 2.1.0
       '@smithy/node-config-provider': 2.1.4
       '@smithy/property-provider': 2.0.13
-      '@smithy/smithy-client': 2.1.13
+      '@smithy/smithy-client': 2.1.14
       '@smithy/types': 2.4.0
       tslib: 2.6.2
     optional: true
@@ -1992,8 +1992,8 @@ packages:
       tslib: 2.6.2
     optional: true
 
-  /@smithy/util-stream@2.0.18:
-    resolution: {integrity: sha512-e/a7JrmHTy+gxHjdJKHQFyK8X2SCoJEaBXTrs5Q/HS69a3P4P0Mbu1znKFKFM/fDtppCxPCO0IcIbNvbVSEJ8w==}
+  /@smithy/util-stream@2.0.19:
+    resolution: {integrity: sha512-2kwTRyOKJcRFeO1LX4Qn1vniEyU1urMG1DfomTpiOLTFS0iV3dsqNvYNltvTbmzZd9u0f15H96l38QP8dsKF1w==}
     engines: {node: '>=14.0.0'}
     requiresBuild: true
     dependencies:
@@ -2003,7 +2003,7 @@ packages:
       '@smithy/util-base64': 2.0.1
       '@smithy/util-buffer-from': 2.0.0
       '@smithy/util-hex-encoding': 2.0.0
-      '@smithy/util-utf8': 2.0.1
+      '@smithy/util-utf8': 2.0.2
       tslib: 2.6.2
     optional: true
 
@@ -2015,8 +2015,8 @@ packages:
       tslib: 2.6.2
     optional: true
 
-  /@smithy/util-utf8@2.0.1:
-    resolution: {integrity: sha512-JvpZMUTMIil6rstH3tyBjCE7tuTmCprcmCXHW4o8a5mSthhQ8fEj5lDWOonTigtB2CqiBQ/SWlpoctuzVO7J0Q==}
+  /@smithy/util-utf8@2.0.2:
+    resolution: {integrity: sha512-qOiVORSPm6Ce4/Yu6hbSgNHABLP2VMv8QOC3tTDNHHlWY19pPyc++fBTbZPtx6egPXi4HQxKDnMxVxpbtX2GoA==}
     engines: {node: '>=14.0.0'}
     requiresBuild: true
     dependencies:
@@ -2024,7 +2024,7 @@ packages:
       tslib: 2.6.2
     optional: true
 
-  /@sonata-api/access-control@0.0.22(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.43)(@sonata-api/types@0.0.19)(mongodb@6.2.0):
+  /@sonata-api/access-control@0.0.22(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.21)(mongodb@6.2.0):
     resolution: {integrity: sha512-wBrWHmWPeJncnIR3t7JQlGSIaBA/6RlleG0GwdLimmxCSuNy6yWcTdp9z0RA7AuQAwKBcve5/S4xtLuk50lKPg==}
     peerDependencies:
       '@sonata-api/api': '*'
@@ -2034,14 +2034,14 @@ packages:
       '@sonata-api/types': '*'
       mongodb: ^6.1.0
     dependencies:
-      '@sonata-api/api': 0.0.73(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.16)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.43)(@sonata-api/types@0.0.19)(@sonata-api/validation@0.0.19)(jsonwebtoken@8.5.1)(mongodb@6.2.0)
+      '@sonata-api/api': 0.0.73(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.16)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.21)(@sonata-api/validation@0.0.19)(jsonwebtoken@8.5.1)(mongodb@6.2.0)
       '@sonata-api/common': 0.0.16(bson@5.5.1)
-      '@sonata-api/server': 0.0.29(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/http@0.0.17)(@sonata-api/system@0.0.43)(@sonata-api/types@0.0.19)(mongodb@6.2.0)
-      '@sonata-api/system': 0.0.43(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/types@0.0.19)(@sonata-api/validation@0.0.19)
-      '@sonata-api/types': 0.0.19
+      '@sonata-api/server': 0.0.29(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/http@0.0.17)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.21)(mongodb@6.2.0)
+      '@sonata-api/system': 0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/types@0.0.21)(@sonata-api/validation@0.0.19)
+      '@sonata-api/types': 0.0.21
       mongodb: 6.2.0
 
-  /@sonata-api/api@0.0.73(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.16)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.43)(@sonata-api/types@0.0.19)(@sonata-api/validation@0.0.19)(jsonwebtoken@8.5.1)(mongodb@6.2.0):
+  /@sonata-api/api@0.0.73(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.16)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.21)(@sonata-api/validation@0.0.19)(jsonwebtoken@8.5.1)(mongodb@6.2.0):
     resolution: {integrity: sha512-Z/ZZ1nJgVe52e5/y9BzBJ33CPilYVaKZ12PPE0KIIk2PZ8NThlAEjRmfO7PPdhgccv7LWz4EVIpFnYAICmSzcA==}
     requiresBuild: true
     peerDependencies:
@@ -2056,14 +2056,14 @@ packages:
       jsonwebtoken: ^8.5.1
       mongodb: ^6.1.0
     dependencies:
-      '@sonata-api/access-control': 0.0.22(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.43)(@sonata-api/types@0.0.19)(mongodb@6.2.0)
+      '@sonata-api/access-control': 0.0.22(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.21)(mongodb@6.2.0)
       '@sonata-api/common': 0.0.16(bson@5.5.1)
       '@sonata-api/http': 0.0.17(@sonata-api/common@0.0.16)
       '@sonata-api/mailing': 0.0.9(@sonata-api/common@0.0.16)
       '@sonata-api/security': 0.0.6(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)
-      '@sonata-api/system': 0.0.43(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/types@0.0.19)(@sonata-api/validation@0.0.19)
-      '@sonata-api/types': 0.0.19
-      '@sonata-api/validation': 0.0.19(@sonata-api/common@0.0.16)(@sonata-api/types@0.0.19)(mongodb@6.2.0)
+      '@sonata-api/system': 0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/types@0.0.21)(@sonata-api/validation@0.0.19)
+      '@sonata-api/types': 0.0.21
+      '@sonata-api/validation': 0.0.19(@sonata-api/common@0.0.16)(@sonata-api/types@0.0.21)(mongodb@6.2.0)
       jsonwebtoken: 8.5.1
       mongodb: 6.2.0
     optionalDependencies:
@@ -2119,11 +2119,11 @@ packages:
       '@sonata-api/api': '*'
       '@sonata-api/common': '*'
     dependencies:
-      '@sonata-api/access-control': 0.0.22(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.43)(@sonata-api/types@0.0.19)(mongodb@6.2.0)
-      '@sonata-api/api': 0.0.73(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.16)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.43)(@sonata-api/types@0.0.19)(@sonata-api/validation@0.0.19)(jsonwebtoken@8.5.1)(mongodb@6.2.0)
+      '@sonata-api/access-control': 0.0.22(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.21)(mongodb@6.2.0)
+      '@sonata-api/api': 0.0.73(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.16)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.21)(@sonata-api/validation@0.0.19)(jsonwebtoken@8.5.1)(mongodb@6.2.0)
       '@sonata-api/common': 0.0.16(bson@5.5.1)
 
-  /@sonata-api/server@0.0.29(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/http@0.0.17)(@sonata-api/system@0.0.43)(@sonata-api/types@0.0.19)(mongodb@6.2.0):
+  /@sonata-api/server@0.0.29(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/http@0.0.17)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.21)(mongodb@6.2.0):
     resolution: {integrity: sha512-+FG8IZcc3IjMUpFY0C4Ykqpq0/2dyqTlQ5E7vqn4NfJCM4AZZWFWHenYQxz/CkUiZATPyws4qrpIsaN81NaCHA==}
     peerDependencies:
       '@sonata-api/access-control': '*'
@@ -2135,20 +2135,20 @@ packages:
       '@sonata-api/types': '*'
       mongodb: ^6.1.0
     dependencies:
-      '@sonata-api/access-control': 0.0.22(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.43)(@sonata-api/types@0.0.19)(mongodb@6.2.0)
-      '@sonata-api/api': 0.0.73(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.16)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.43)(@sonata-api/types@0.0.19)(@sonata-api/validation@0.0.19)(jsonwebtoken@8.5.1)(mongodb@6.2.0)
+      '@sonata-api/access-control': 0.0.22(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.21)(mongodb@6.2.0)
+      '@sonata-api/api': 0.0.73(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.16)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.21)(@sonata-api/validation@0.0.19)(jsonwebtoken@8.5.1)(mongodb@6.2.0)
       '@sonata-api/common': 0.0.16(bson@5.5.1)
       '@sonata-api/http': 0.0.17(@sonata-api/common@0.0.16)
-      '@sonata-api/server': 0.0.29(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/http@0.0.17)(@sonata-api/system@0.0.43)(@sonata-api/types@0.0.19)(mongodb@6.2.0)
-      '@sonata-api/system': 0.0.43(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/types@0.0.19)(@sonata-api/validation@0.0.19)
-      '@sonata-api/types': 0.0.19
+      '@sonata-api/server': 0.0.29(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/http@0.0.17)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.21)(mongodb@6.2.0)
+      '@sonata-api/system': 0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/types@0.0.21)(@sonata-api/validation@0.0.19)
+      '@sonata-api/types': 0.0.21
       dotenv: 10.0.0
       mongodb: 6.2.0
     optionalDependencies:
       '@sonata-api/node-http': 0.0.11(@sonata-api/http@0.0.17)
 
-  /@sonata-api/system@0.0.43(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/types@0.0.19)(@sonata-api/validation@0.0.19):
-    resolution: {integrity: sha512-XL+mTU6lJ14WiKlNtvbqwjJ+vS49EgfBalWsDkqydmiSxQDsM2J8JkhBqU876MsXcIToURSI4kFx8S3f3EyGOg==}
+  /@sonata-api/system@0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/types@0.0.21)(@sonata-api/validation@0.0.19):
+    resolution: {integrity: sha512-GVV/xXuo44tm5B0OJUhCIR+XNtxJ9+2bTkY0zd3IlL/8U//j2ZAKhl82MWrVpM62KNO2Ngxc7ihYVvTVFd+PVg==}
     peerDependencies:
       '@sonata-api/access-control': '*'
       '@sonata-api/api': '*'
@@ -2156,20 +2156,20 @@ packages:
       '@sonata-api/types': '*'
       '@sonata-api/validation': '*'
     dependencies:
-      '@sonata-api/access-control': 0.0.22(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.43)(@sonata-api/types@0.0.19)(mongodb@6.2.0)
-      '@sonata-api/api': 0.0.73(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.16)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.43)(@sonata-api/types@0.0.19)(@sonata-api/validation@0.0.19)(jsonwebtoken@8.5.1)(mongodb@6.2.0)
+      '@sonata-api/access-control': 0.0.22(@sonata-api/api@0.0.73)(@sonata-api/common@0.0.16)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.21)(mongodb@6.2.0)
+      '@sonata-api/api': 0.0.73(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.16)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.21)(@sonata-api/validation@0.0.19)(jsonwebtoken@8.5.1)(mongodb@6.2.0)
       '@sonata-api/common': 0.0.16(bson@5.5.1)
-      '@sonata-api/types': 0.0.19
-      '@sonata-api/validation': 0.0.19(@sonata-api/common@0.0.16)(@sonata-api/types@0.0.19)(mongodb@6.2.0)
+      '@sonata-api/types': 0.0.21
+      '@sonata-api/validation': 0.0.19(@sonata-api/common@0.0.16)(@sonata-api/types@0.0.21)(mongodb@6.2.0)
       bcrypt: 5.1.1
     transitivePeerDependencies:
       - encoding
       - supports-color
 
-  /@sonata-api/types@0.0.19:
-    resolution: {integrity: sha512-gtlAdXXVLczXNhad7i83Lwa2wKdQXR65TGX/flC1luz+lDcsdPzN7jbqmLV61/VTIck02B33Y1oaJDBc85eWmg==}
+  /@sonata-api/types@0.0.21:
+    resolution: {integrity: sha512-/p3AVHGDXDtfHRe1h9scfW0PU83GJi4KvSw+JEjrDwmy+XCIIH3u1IXZ/dkRB8qqGBTcQpVLzXWcl5BLBdAFAw==}
 
-  /@sonata-api/validation@0.0.19(@sonata-api/common@0.0.16)(@sonata-api/types@0.0.19)(mongodb@6.2.0):
+  /@sonata-api/validation@0.0.19(@sonata-api/common@0.0.16)(@sonata-api/types@0.0.21)(mongodb@6.2.0):
     resolution: {integrity: sha512-955Qu7dw59+4YqRpJcPLy8BfLcU40D450tQ/ojbRiuA2o3yaGuKZ13QIZ5vRWgKEV88omWXaXkFfE3m263/skg==}
     peerDependencies:
       '@sonata-api/common': '*'
@@ -2177,7 +2177,7 @@ packages:
       mongodb: '*'
     dependencies:
       '@sonata-api/common': 0.0.16(bson@5.5.1)
-      '@sonata-api/types': 0.0.19
+      '@sonata-api/types': 0.0.21
       mongodb: 6.2.0
 
   /@tsconfig/node10@1.0.9:
@@ -2313,7 +2313,7 @@ packages:
         optional: true
     dependencies:
       '@babel/types': 7.23.3
-      '@rollup/pluginutils': 5.0.5(rollup@4.3.0)
+      '@rollup/pluginutils': 5.0.5(rollup@4.4.0)
       '@vue/compiler-sfc': 3.3.8
       ast-kit: 0.11.2
       local-pkg: 0.4.3
@@ -2715,7 +2715,7 @@ packages:
     engines: {node: '>=16.14.0'}
     dependencies:
       '@babel/parser': 7.23.3
-      '@rollup/pluginutils': 5.0.5(rollup@4.3.0)
+      '@rollup/pluginutils': 5.0.5(rollup@4.4.0)
       pathe: 1.1.1
     transitivePeerDependencies:
       - rollup
@@ -2818,7 +2818,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001561
-      electron-to-chromium: 1.4.581
+      electron-to-chromium: 1.4.582
       node-releases: 2.0.13
       update-browserslist-db: 1.0.13(browserslist@4.22.1)
     dev: false
@@ -3259,8 +3259,8 @@ packages:
       jake: 10.8.7
     dev: false
 
-  /electron-to-chromium@1.4.581:
-    resolution: {integrity: sha512-6uhqWBIapTJUxgPTCHH9sqdbxIMPt7oXl0VcAL1kOtlU6aECdcMncCrX5Z7sHQ/invtrC9jUQUef7+HhO8vVFw==}
+  /electron-to-chromium@1.4.582:
+    resolution: {integrity: sha512-89o0MGoocwYbzqUUjc+VNpeOFSOK9nIdC5wY4N+PVUarUK0MtjyTjks75AZS2bW4Kl8MdewdFsWaH0jLy+JNoA==}
     dev: false
 
   /emoji-regex@8.0.0:
@@ -3348,8 +3348,8 @@ packages:
       which-typed-array: 1.1.13
     dev: true
 
-  /es-module-lexer@1.4.0:
-    resolution: {integrity: sha512-lcCr3v3OLezdfFyx9r5NRYHOUTQNnFEQ9E87Mx8Kc+iqyJNkO7MJoB4GQRTlIMw9kLLTwGw0OAkm4BQQud/d9g==}
+  /es-module-lexer@1.4.1:
+    resolution: {integrity: sha512-cXLGjP0c4T3flZJKQSuziYoq7MlT+rnvfZjfp7h+I7K9BNX54kP9nyWvdbwjQ4u1iWbOL4u96fgeZLToQlZC7w==}
     dev: false
 
   /es-set-tostringtag@2.0.2:
@@ -4666,7 +4666,7 @@ packages:
       mongodb-connection-string-url: 2.6.0
       socks: 2.7.1
     optionalDependencies:
-      '@aws-sdk/credential-providers': 3.449.0
+      '@aws-sdk/credential-providers': 3.450.0
       '@mongodb-js/saslprep': 1.1.1
     transitivePeerDependencies:
       - aws-crt
@@ -5150,7 +5150,7 @@ packages:
     dependencies:
       glob: 7.2.3
 
-  /rollup-plugin-typescript2@0.35.0(rollup@4.3.0)(typescript@5.2.2):
+  /rollup-plugin-typescript2@0.35.0(rollup@4.4.0)(typescript@5.2.2):
     resolution: {integrity: sha512-szcIO9hPUx3PhQl91u4pfNAH2EKbtrXaES+m163xQVE5O1CC0ea6YZV/5woiDDW3CR9jF2CszPrKN+AFiND0bg==}
     peerDependencies:
       rollup: '>=1.26.3'
@@ -5159,7 +5159,7 @@ packages:
       '@rollup/pluginutils': 4.2.1
       find-cache-dir: 3.3.2
       fs-extra: 10.1.0
-      rollup: 4.3.0
+      rollup: 4.4.0
       semver: 7.5.4
       tslib: 2.6.2
       typescript: 5.2.2
@@ -5172,23 +5172,23 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
 
-  /rollup@4.3.0:
-    resolution: {integrity: sha512-scIi1NrKLDIYSPK66jjECtII7vIgdAMFmFo8h6qm++I6nN9qDSV35Ku6erzGVqYjx+lj+j5wkusRMr++8SyDZg==}
+  /rollup@4.4.0:
+    resolution: {integrity: sha512-3L67ubCc1Qm49wUodsQ72FM6JmJ9M37d63rGPjxbcKrzNJrwFipl+lDNHeWd6BId09S6Tb9KiBgYKbWhIuqVyg==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
-      '@rollup/rollup-android-arm-eabi': 4.3.0
-      '@rollup/rollup-android-arm64': 4.3.0
-      '@rollup/rollup-darwin-arm64': 4.3.0
-      '@rollup/rollup-darwin-x64': 4.3.0
-      '@rollup/rollup-linux-arm-gnueabihf': 4.3.0
-      '@rollup/rollup-linux-arm64-gnu': 4.3.0
-      '@rollup/rollup-linux-arm64-musl': 4.3.0
-      '@rollup/rollup-linux-x64-gnu': 4.3.0
-      '@rollup/rollup-linux-x64-musl': 4.3.0
-      '@rollup/rollup-win32-arm64-msvc': 4.3.0
-      '@rollup/rollup-win32-ia32-msvc': 4.3.0
-      '@rollup/rollup-win32-x64-msvc': 4.3.0
+      '@rollup/rollup-android-arm-eabi': 4.4.0
+      '@rollup/rollup-android-arm64': 4.4.0
+      '@rollup/rollup-darwin-arm64': 4.4.0
+      '@rollup/rollup-darwin-x64': 4.4.0
+      '@rollup/rollup-linux-arm-gnueabihf': 4.4.0
+      '@rollup/rollup-linux-arm64-gnu': 4.4.0
+      '@rollup/rollup-linux-arm64-musl': 4.4.0
+      '@rollup/rollup-linux-x64-gnu': 4.4.0
+      '@rollup/rollup-linux-x64-musl': 4.4.0
+      '@rollup/rollup-win32-arm64-msvc': 4.4.0
+      '@rollup/rollup-win32-ia32-msvc': 4.4.0
+      '@rollup/rollup-win32-x64-msvc': 4.4.0
       fsevents: 2.3.3
 
   /run-parallel@1.2.0:
@@ -5796,7 +5796,7 @@ packages:
   /unimport@3.5.0:
     resolution: {integrity: sha512-0Ei1iTeSYxs7oxxUf79/KaBc2dPjZxe7qdVpw7yIz5YcdTZjmBYO6ToLDW+fX9QOHiueZ3xtwb5Z/wqaSfXx6A==}
     dependencies:
-      '@rollup/pluginutils': 5.0.5(rollup@4.3.0)
+      '@rollup/pluginutils': 5.0.5(rollup@4.4.0)
       escape-string-regexp: 5.0.0
       fast-glob: 3.3.2
       local-pkg: 0.5.0
@@ -5834,7 +5834,7 @@ packages:
         optional: true
     dependencies:
       '@antfu/utils': 0.7.6
-      '@rollup/pluginutils': 5.0.5(rollup@4.3.0)
+      '@rollup/pluginutils': 5.0.5(rollup@4.4.0)
       local-pkg: 0.4.3
       magic-string: 0.30.5
       minimatch: 9.0.3
@@ -5858,7 +5858,7 @@ packages:
         optional: true
     dependencies:
       '@antfu/utils': 0.7.6
-      '@rollup/pluginutils': 5.0.5(rollup@4.3.0)
+      '@rollup/pluginutils': 5.0.5(rollup@4.4.0)
       chokidar: 3.5.3
       debug: 4.3.4
       fast-glob: 3.3.2
@@ -5882,7 +5882,7 @@ packages:
         optional: true
     dependencies:
       '@babel/types': 7.23.3
-      '@rollup/pluginutils': 5.0.5(rollup@4.3.0)
+      '@rollup/pluginutils': 5.0.5(rollup@4.4.0)
       '@vue-macros/common': 1.8.0(vue@3.3.8)
       ast-walker-scope: 0.4.2
       chokidar: 3.5.3
@@ -5955,7 +5955,7 @@ packages:
     engines: {node: '>= 0.10'}
     dev: true
 
-  /vite-plugin-dts@3.6.3(@types/node@20.5.1)(rollup@4.3.0)(typescript@5.2.2)(vite@4.5.0):
+  /vite-plugin-dts@3.6.3(@types/node@20.5.1)(rollup@4.4.0)(typescript@5.2.2)(vite@4.5.0):
     resolution: {integrity: sha512-NyRvgobl15rYj65coi/gH7UAEH+CpSjh539DbGb40DfOTZSvDLNYTzc8CK4460W+LqXuMK7+U3JAxRB3ksrNPw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -5966,7 +5966,7 @@ packages:
         optional: true
     dependencies:
       '@microsoft/api-extractor': 7.38.3(@types/node@20.5.1)
-      '@rollup/pluginutils': 5.0.5(rollup@4.3.0)
+      '@rollup/pluginutils': 5.0.5(rollup@4.4.0)
       '@vue/language-core': 1.8.22(typescript@5.2.2)
       debug: 4.3.4
       kolorist: 1.8.0
@@ -6189,7 +6189,7 @@ packages:
       browserslist: 4.22.1
       chrome-trace-event: 1.0.3
       enhanced-resolve: 5.15.0
-      es-module-lexer: 1.4.0
+      es-module-lexer: 1.4.1
       eslint-scope: 5.1.1
       events: 3.3.0
       glob-to-regexp: 0.4.1
