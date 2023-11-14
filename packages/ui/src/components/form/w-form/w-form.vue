@@ -2,7 +2,8 @@
 import type { CollectionProperty, Condition } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
 import { onBeforeMount, ref, computed, provide, inject, isRef, type Ref } from 'vue'
-import { useCondition, useBreakpoints, insertReady } from '@waltz-ui/web'
+import { evaluateCondition } from '@sonata-api/common'
+import { useBreakpoints, insertReady } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
 
 import WIcon from '../../w-icon/w-icon.vue'
@@ -164,7 +165,7 @@ const fieldStyle = (key: string, property: any) => {
   }
 
   if( layout?.if && !props.searchOnly ) {
-    const result = useCondition(
+    const result = evaluateCondition(
       props.modelValue,
       layout.if
     )

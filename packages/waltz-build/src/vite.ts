@@ -57,7 +57,6 @@ export default defineConfig(async () => {
               'useClipboard',
               'useBreakpoints',
               'useAction',
-              'useCondition',
               'useNavbar',
             ]
           }

@@ -1,5 +1,14 @@
 # waltz-ui
 
+## 0.0.32
+
+### Patch Changes
+
+- Refactor conditions
+- Updated dependencies
+  - @waltz-ui/web@0.0.51
+  - @waltz-ui/ui@0.0.80
+
 ## 0.0.31
 
 ### Patch Changes

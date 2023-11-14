@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { inject, computed, type Ref } from 'vue'
-import { useCondition, useBreakpoints } from '@waltz-ui/web'
-import { useStore } from '@waltz-ui/state-management'
 import type { CollectionProperty, CollectionAction } from '@sonata-api/types'
+import { inject, computed, type Ref } from 'vue'
+import { evaluateCondition } from '@sonata-api/common'
+import { useBreakpoints } from '@waltz-ui/web'
+import { useStore } from '@waltz-ui/state-management'
 
 import WBareButton from '../w-bare-button/w-bare-button.vue'
 import WButton from '../w-button/w-button.vue'
@@ -52,7 +53,7 @@ const buttonStyle = (subject: any, action: any) => {
   const layout = props.layout?.actions?.[action.action]
 
   if( layout?.if ) {
-    const result = useCondition(
+    const result = evaluateCondition(
       subject,
       layout.if
     )

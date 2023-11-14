@@ -1,5 +1,11 @@
 # @waltz-ui/web
 
+## 0.0.51
+
+### Patch Changes
+
+- Refactor conditions
+
 ## 0.0.50
 
 ### Patch Changes
