@@ -1,5 +1,11 @@
 # @waltz-ui/web
 
+## 0.0.52
+
+### Patch Changes
+
+- Fix redirect on authenticated routes
+
 ## 0.0.51
 
 ### Patch Changes

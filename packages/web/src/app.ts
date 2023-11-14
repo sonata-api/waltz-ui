@@ -117,7 +117,7 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
     I18N: i18n
   })
 
-  if( userStore.signedIn ) {
+  if( userStore.signedIn || /^\/dashboard(\/|$)/.test(location.pathname) ) {
     try {
       await metaStore.$actions.describe({
         roles: true,
