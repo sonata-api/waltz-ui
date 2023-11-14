@@ -1,5 +1,11 @@
 # @waltz-ui/ui
 
+## 0.0.83
+
+### Patch Changes
+
+- Fix theme coloring
+
 ## 0.0.82
 
 ### Patch Changes
