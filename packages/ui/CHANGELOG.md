@@ -1,5 +1,11 @@
 # @waltz-ui/ui
 
+## 0.0.81
+
+### Patch Changes
+
+- Style accordion
+
 ## 0.0.80
 
 ### Patch Changes

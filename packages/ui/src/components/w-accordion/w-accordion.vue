@@ -24,11 +24,7 @@ const getTitle = (header: Props['headers'][keyof Props['headers']]) => {
     <div
       v-for="(slotName, index) in Object.keys($slots).filter((slotName) => slotName !== 'default')"
       :key="slotName"
-      :class="{
-        'tabs__tab': true,
-        'tabs__tab--current': slotName === currentSlot
-          || !currentSlot && index === 0
-      }"
+      class="accordion__slot"
     >
       <div
         v-clickable
