@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import path from 'path'
 import vue from '@vitejs/plugin-vue'
-import typescript2 from 'rollup-plugin-typescript2'
 import dts from 'vite-plugin-dts'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 
@@ -11,12 +10,12 @@ export default defineConfig({
     dts({
       insertTypesEntry: true
     }),
-    typescript2({
-      check: false,
-      exclude: [
-        'vite.config.ts'
-      ]
-    }),
+    // typescript2({
+    //   check: true,
+    //   exclude: [
+    //     'vite.config.ts'
+    //   ]
+    // }),
     viteStaticCopy({
       targets: [
         {
