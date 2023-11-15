@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject, watch } from 'vue'
-import { CollectionStore } from '@waltz-ui/web'
+import { isLeft } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
 
 import WBox from '../../../../w-box/w-box.vue'
@@ -19,8 +19,10 @@ const individualActions = inject('individualActions', [])
 const isInsertReadOnly = false
 
 const insert = async () => {
-  await store.$actions.deepInsert()
-  isInsertVisible.value = false
+  const resultEither = await store.$actions.deepInsert()
+  if( !isLeft(resultEither) ) {
+    isInsertVisible.value = false
+  }
 }
 
 const cancel = () => {

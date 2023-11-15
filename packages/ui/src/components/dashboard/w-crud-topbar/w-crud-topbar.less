@@ -1,12 +1,13 @@
 .topbar {
-  display: flex;
-  flex: 1;
-  gap: 1rem;
-
   &__preset {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: .4rem;
+    width: 100%;
+
+    @media screen and (min-width: 600px) {
+      justify-content: flex-start;
+    }
   }
 }

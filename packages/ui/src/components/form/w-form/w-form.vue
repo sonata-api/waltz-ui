@@ -219,6 +219,16 @@ const isInsertReady = computed(() => {
     store?.description
   )
 })
+
+const getNestedValidationError = (key: string, listIndex?: number) => {
+  if( !validationErrors.value?.[key] ) {
+    return null
+  }
+
+  return typeof validationErrors.value[key].index !== 'number' || validationErrors.value[key].index === listIndex
+    ? validationErrors.value[key].errors
+    : null
+}
 </script>
 
 <template>
@@ -354,11 +364,13 @@ const isInsertReady = computed(() => {
                     ...property,
                     ...property.items
                   },
-                  value: value,
+                  value,
                   propertyName: key,
                   parentCollection: collectionName,
+                  parentPropertyName: key,
                   columns: layout?.fields?.[key]?.optionsColumns
                     || layout?.fields?.$default?.optionsColumns,
+                  validationErrors: getNestedValidationError(key, listIndex),
                   ...(property.s$componentProps || {})
                 }"
 
@@ -406,10 +418,12 @@ const isInsertReady = computed(() => {
           v-bind="{
             property,
             propertyName: key,
+            parentPropertyName: key,
             parentCollection: collectionName,
             columns: layout?.fields?.[key]?.optionsColumns
               || layout?.fields?.$default?.optionsColumns,
             ...(property.s$componentProps || {}),
+            validationErrors: getNestedValidationError(key)
           }"
 
           v-focus="!alreadyFocused && (alreadyFocused = !!focus)"
@@ -418,7 +432,10 @@ const isInsertReady = computed(() => {
           @change="emit('change', $event)"
         ></component>
 
-        <div v-if="validationErrors?.[key]" class="form__validation-error">
+        <div
+          v-if="validationErrors?.[key]"
+          class="form__validation-error"
+        >
           <span v-if="validationErrors[key].type">
             {{ $t(`validation_error.${validationErrors[key].type}`) }}
           </span>

@@ -1,5 +1,19 @@
 # @waltz-ui/ui
 
+## 0.0.85
+
+### Patch Changes
+
+- Validation visual feedback
+- Updated dependencies
+  - @waltz-ui/web@0.0.53
+
+## 0.0.84
+
+### Patch Changes
+
+- Refactor UI
+
 ## 0.0.83
 
 ### Patch Changes

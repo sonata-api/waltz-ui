@@ -72,38 +72,39 @@ watch(route, (currRoute) => {
 </script>
 
 <template>
-  <div
+  <w-tabs
     v-if="store && store.description.filtersPresets"
-    class="topbar"
+    dropdown
+    query="section"
   >
-    <w-tabs dropdown query="section">
-      <template
-        v-for="([presetName, preset]) in Object.entries(store.description.filtersPresets as Record<string, FiltersPreset<any>>)"
-        v-slot:[presetName]
+    <template
+      v-for="([presetName, preset]) in Object.entries(store.description.filtersPresets as Record<string, FiltersPreset<any>>)"
+      v-slot:[presetName]
+    >
+      <div
+        class="topbar__preset"
+        @click="togglePreset(preset)"
       >
-        <div
-          class="topbar__preset"
-          @click="togglePreset(preset)"
+        <w-icon
+          small
+          v-if="preset.icon"
+          :icon="preset.icon"
         >
-          <w-icon
-            small
-            v-if="preset.icon"
-            :icon="preset.icon"
-          >
-            {{ preset.name || $tc(presetName, 2) }}
-          </w-icon>
-          <span v-else>{{ preset.name || $tc(presetName, 2) }}</span>
-
-          <w-badge v-if="preset.badgeFunction">
-            <w-async
-              :initial-value="0"
-              :promise="store.$functions[preset.badgeFunction]({ filters: preset.filters })"
-            ></w-async>
-          </w-badge>
+          {{ preset.name || $tc(presetName, 2) }}
+        </w-icon>
+        <div v-else>
+          {{ preset.name || $tc(presetName, 2) }}
         </div>
-      </template>
-    </w-tabs>
-  </div>
+
+        <w-badge v-if="preset.badgeFunction">
+          <w-async
+            :initial-value="0"
+            :promise="store.$functions[preset.badgeFunction]({ filters: preset.filters })"
+          ></w-async>
+        </w-badge>
+      </div>
+    </template>
+  </w-tabs>
 </template>
 
 <style scoped src="./w-crud-topbar.less"></style>

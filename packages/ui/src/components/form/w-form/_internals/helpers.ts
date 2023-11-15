@@ -11,7 +11,7 @@ import WSearch from '../../w-search/w-search.vue'
 import WForm from '../../w-form/w-form.vue'
 
 export const getComponent = (property: CollectionProperty, customComponents: Record<string, any>) => {
-  const nestedProp = property.type === 'array'
+  const nestedProp = 'items' in property
     ? property.items
     : property
 
@@ -31,27 +31,33 @@ export const getComponent = (property: CollectionProperty, customComponents: Rec
       return 'input'
     }
 
+    if( 'type' in nestedProp ) {
+      if( nestedProp.type === 'object' ) {
+        return 'form'
+      }
+      if( nestedProp.type === 'boolean' ) {
+        return 'switch'
+      }
+    }
+
     switch( true ) {
       case ['checkbox', 'radio'].includes(property.s$element!):
         return 'options'
       case property.s$element === 'select':
         return 'select'
-      case nestedProp.type === 'boolean':
-        return 'switch'
       case property.s$referencedCollection === 'file':
         return 'file'
       case property.s$isReference && property.s$inline:
         return 'form'
       case property.s$isReference:
         return 'search'
-      case !!nestedProp.enum:
+      case 'enum' in nestedProp:
         return 'select'
-      case nestedProp.type === 'object':
-        return 'form'
 
       default:
         return 'input'
     }
+
   })()
 
   if( customComponents?.[mappedComponentType] ) {
@@ -63,7 +69,10 @@ export const getComponent = (property: CollectionProperty, customComponents: Rec
 
 export const pushToArray = (modelValue: Array<any>, property: CollectionProperty) => {
   modelValue ??= []
-  const propType = property.items?.type || property.type
+  const propType = 'items' in property
+    ? 'type' in property.items && property.items?.type
+    : 'type' in property && property.type
+
   if( property.s$isReference ) {
     const helperStore = useStore(property.s$referencedCollection!)
     const newVal = deepClone(helperStore.$freshItem)

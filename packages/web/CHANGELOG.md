@@ -1,5 +1,11 @@
 # @waltz-ui/web
 
+## 0.0.53
+
+### Patch Changes
+
+- Validation visual feedback
+
 ## 0.0.52
 
 ### Patch Changes

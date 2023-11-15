@@ -102,19 +102,11 @@ export const useStoreActions = (store: CollectionStore) => {
         ? `${store.$id}/${verb}`
         : store.$id
 
-      const promise = request(`${API_URL}/${route}`, payload)
-        .catch((err: any) => {
-          if( err.validation ) {
-            store.validationErrors = err.validation
-          }
-
-          throw err
-        })
-        .finally(() => {
-          if( !options?.skipLoading ) {
+      const promise = request(`${API_URL}/${route}`, payload).finally(() => {
+        if( !options?.skipLoading ) {
           store.loading[verb || ''] = false
-          }
-        })
+        }
+      })
 
       const data = (await promise)?.data
       if( options?.insert ) {
@@ -183,6 +175,11 @@ export const useStoreActions = (store: CollectionStore) => {
         'insert', { ...payload, what: payload?.what||store.item },
         (resultEither) => {
           if( isLeft(resultEither) ) {
+            const error: any = unwrapEither(resultEither)
+            if( ['INVALID_PROPERTIES', 'MISSING_PROPERTIES'].includes(error.code) ) {
+              store.validationErrors = error.errors
+            }
+
             return resultEither
           }
 
