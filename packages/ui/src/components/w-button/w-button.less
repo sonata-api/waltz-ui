@@ -17,6 +17,7 @@
   border-radius: var(--theme-radius-large);
   outline: none;
 
+  border: 1px solid transparent;
   color: var(--theme-foreground-color);
 
   :deep([data-component=icon]) {
@@ -47,17 +48,12 @@
 
   &--primary {
     background: var(--theme-brand-color-shade-2);
-    border: 1px solid var(--theme-button-border-color);
+    border-color: var(--theme-brand-color);
 
     :deep(*) {
       color: var(--theme-background-color);
       fill: var(--theme-background-color);
     }
-  }
-
-  &--brand {
-    background: var(--theme-brand-color);
-    color: var(--theme-foreground-color-contrast);
   }
 
   &--small {
@@ -67,6 +63,7 @@
 
   &--medium {
     padding: var(--theme-input-padding);
+    height: var(--theme-input-height);
     font-size: 10pt;
   }
 

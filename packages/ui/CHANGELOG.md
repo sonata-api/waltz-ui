@@ -1,5 +1,11 @@
 # @waltz-ui/ui
 
+## 0.0.87
+
+### Patch Changes
+
+- Set fixed height for input and button
+
 ## 0.0.86
 
 ### Patch Changes
