@@ -30,7 +30,7 @@
       &>.input__input,
       &>.input__textarea {
         background: var(--theme-background-color-shade-2);
-        border: 1px solid transparent;
+        border: 1px solid var(--theme-background-color-shade-2);
         transition: border-color .35s ease;
       }
     }
@@ -62,9 +62,9 @@
     }
 
     &--bold {
-      padding: 1rem .8rem;
-      font-size: 12.5pt;
+      padding: var(--theme-input-padding-large);
       border-radius: var(--theme-radius-large);
+      font-size: 12.5pt;
     }
 
     &--light {
@@ -111,8 +111,7 @@
   &__clipboard {
     display: flex;
     place-items: center;
-    border: 1px solid #dedede;
-    background: #ddd;
+    background: var(--theme-background-color-shade-3);
 
     padding: 0 .6em;
   }

@@ -268,7 +268,6 @@ provide('individualActions', individualActions)
         bordered
         v-model="store.textQuery"
         v-bind="{
-          variant: 'bold',
           property: {
             type: 'text',
             s$placeholder: store.description.search.placeholder || 'Pesquise aqui',

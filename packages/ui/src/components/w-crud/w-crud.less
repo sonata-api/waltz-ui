@@ -1,7 +1,7 @@
 .crud {
   &__controls {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     flex-wrap: wrap;
     justify-content: flex-end;
     gap: 1rem;
@@ -11,6 +11,10 @@
     flex: 1;
     order: 1;
     min-width: 90vw;
+
+    :deep(.input__container) {
+      height: 100%;
+    }
 
     @media screen and (min-width: 600px) {
       order: 0;

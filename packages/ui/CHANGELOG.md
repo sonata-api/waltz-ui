@@ -1,5 +1,11 @@
 # @waltz-ui/ui
 
+## 0.0.86
+
+### Patch Changes
+
+- Make button and input padding pixel perfect
+
 ## 0.0.85
 
 ### Patch Changes
