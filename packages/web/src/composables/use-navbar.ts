@@ -1,4 +1,5 @@
-import { type Ref, type ComputedRef, ref, computed, watch } from 'vue'
+import type { RouteRecordRaw } from 'vue-router'
+import {  ref, computed, watch } from 'vue'
 import { arraysIntersects } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
 import { Route, MenuSchema } from '..'
@@ -33,7 +34,7 @@ export const useNavbar = async (props: Props) => {
     })
   }
 
-  const getRoutes = async (node?: MenuSchema): Promise<Array<Route>> => {
+  const getRoutes = async (node?: MenuSchema) => {
     const children = node?.children
     const routes: unknown = children || typeof entrypoint === 'string'
       ? router.getRoutes().filter((route) => route.name?.toString().startsWith(`/${entrypoint}/`))
@@ -44,6 +45,15 @@ export const useNavbar = async (props: Props) => {
 
     await Promise.all(Object.entries(schema).map(async ([key, node]) => {
       if( !node ) {
+        return
+      }
+
+      if( 'collapsed' in node ) {
+        entries[key] = {
+          ...node,
+          children: await getRoutes(node)
+        }
+
         return
       }
 
@@ -79,7 +89,7 @@ export const useNavbar = async (props: Props) => {
     return Object.values(entries) as Array<Route>
   }
 
-  const isCurrent = (subroute: any) => {
+  const isCurrent = (subroute: RouteRecordRaw) => {
     const route = router.currentRoute.value
 
     const pathMatches = typeof subroute.redirect === 'string'
@@ -90,7 +100,7 @@ export const useNavbar = async (props: Props) => {
     return pathMatches || nameMatches
   }
 
-  const routes = ref<Array<Route>>(await getRoutes())
+  const routes = ref(await getRoutes())
   const routesWithChildren = computed(() => (
     routes.value.filter((route) => route.children?.length! > 0)
   ))
@@ -99,12 +109,9 @@ export const useNavbar = async (props: Props) => {
     routes.value = await getRoutes()
   })
 
-  // NOTE:
-  // the explicit annotation below was needed to solve a typescript
-  // error
   return {
-    routes: routes as Ref<Array<Route>>,
-    routesWithChildren: routesWithChildren as ComputedRef<Array<Route>>,
+    routes,
+    routesWithChildren,
     isCurrent
   }
 }
