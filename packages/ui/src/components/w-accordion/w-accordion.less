@@ -1,18 +1,16 @@
 .accordion {
-  background: var(--theme-background-color-shade-2);
+  background: var(--theme-background-color-shade-4);
   border-radius: var(--theme-radius-large);
   overflow: hidden;
 
   &__slot {
     &:not(:last-child) {
-      &> .accordion__header {
-        border-bottom: 1px solid var(--theme-border-color);
-      }
+      border-bottom: 1px solid var(--theme-border-color);
     }
   }
 
   &__header {
-    background: var(--theme-background-color-shade-3);
+    background: var(--theme-background-color-shade-2);
     padding: 1rem;
   }
 

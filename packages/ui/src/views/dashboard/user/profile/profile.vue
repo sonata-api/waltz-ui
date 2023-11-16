@@ -53,7 +53,9 @@ const signout = async () => {
     "
   >
     <template #caption>
-      <h2>{{ userStore.item.full_name }}</h2>
+      <div class="profile__user-name">
+        {{ userStore.item.full_name }}
+      </div>
     </template>
   </w-picture>
 

@@ -3,21 +3,16 @@ import { inject } from 'vue'
 
 type Props = {
   icon: string
-  variant?: string
   size?: string
   small?: boolean
   medium?: boolean
-  alt?: boolean
   reactive?: boolean|null
   iconRight?: boolean
   fill?: string
   iconClasses?: string
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  variant: 'line',
-  reactive: null
-})
+const props = defineProps<Props>()
 
 const size = (() => {
   switch( true ) {
@@ -38,7 +33,6 @@ const reactive = typeof props.reactive === 'boolean'
     :class="`
       icon
       ${reactive && 'icon--reactive'}
-      ${alt && 'icon--alt'}
       ${$slots.default && 'icon--centered'}
   `">
     <div :class="`
@@ -62,7 +56,7 @@ const reactive = typeof props.reactive === 'boolean'
 
         :class="iconClasses || ''"
       >
-        <use :href="`/assets/icons.svg#${variant}:${icon}`"></use>
+        <use :href="`/assets/icons.svg#line:${icon}`"></use>
       </svg>
     </div>
     <div

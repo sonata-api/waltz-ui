@@ -70,7 +70,10 @@ const buttonStyle = (subject: any, action: any) => {
 <template>
   <table
     v-if="(columns && Object.keys(columns).length > 0) || $slots.thead"
-    class="table"
+    class="
+      table
+      w-surface
+    "
   >
     <thead v-if=$slots.thead>
       <slot name="thead"></slot>
@@ -150,7 +153,7 @@ const buttonStyle = (subject: any, action: any) => {
                   v-if="row[column]"
                   small
                   icon="check"
-                  fill="green"
+                  icon-classes="w-blueish"
                 >
                   {{ $t('yes') }}
                 </w-icon>
@@ -158,7 +161,7 @@ const buttonStyle = (subject: any, action: any) => {
                   v-else
                   small
                   icon="times"
-                  fill="red"
+                  icon-classes="w-redish"
                 >
                   {{ $t('no') }}
                 </w-icon>

@@ -4,8 +4,7 @@
   gap: .4rem;
   padding: var(--theme-input-padding);
 
-  background: var(--theme-background-color-alt);
-  color: var(--theme-foreground-color);
+  background: var(--theme-background-color-shade-3);
   border: 1px solid transparent;
   transition: border-color .35s ease;
 
@@ -26,6 +25,11 @@
     }
 
     background: transparent;
+    color: var(--theme-foreground-color);
+
+    option {
+      background: var(--theme-background-color-shade-3);
+    }
   }
 }
 

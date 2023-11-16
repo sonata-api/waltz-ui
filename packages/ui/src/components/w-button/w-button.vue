@@ -12,7 +12,6 @@ type Size =
 type Variant =
   | 'primary'
   | 'transparent'
-  | 'brand'
 
 type Props = {
   size?: Size
