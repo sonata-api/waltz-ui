@@ -1,5 +1,17 @@
 # @waltz-ui/ui
 
+## 0.0.91
+
+### Patch Changes
+
+- Change prompt styling
+
+## 0.0.90
+
+### Patch Changes
+
+- Improve w-badge
+
 ## 0.0.89
 
 ### Patch Changes

@@ -1,16 +1,26 @@
 .badge {
   display: grid;
   place-items: center;
-  padding: .1rem .6rem;
   box-sizing: content-box;
 
   font-size: 8.5pt;
   font-weight: 500;
 
-  border-radius: 12px;
-  height: 1.4rem;
   min-width: 1rem;
 
   background: var(--theme-brand-color-shade-3);
-  color: white !important;
+  color: var(--theme-brand-color-contrast);
+
+  padding: .2rem .35rem;
+  height: 1rem;
+  border-radius: 20px;
+
+  &--alt {
+    background: var(--theme-brand-color-shade-2);
+  }
+
+  &--large {
+    padding: .35rem .55rem;
+    border-radius: 6px;
+  }
 }

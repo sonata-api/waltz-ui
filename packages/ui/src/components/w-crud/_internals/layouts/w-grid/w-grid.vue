@@ -51,6 +51,7 @@ const firstIfArray = (what: any) => {
         <w-badge
           v-for="badge in item[layoutOptions.badge]"
           :key="`${item._id}-${badge}`"
+          large
         >
           {{
             layoutOptions.translateBadge

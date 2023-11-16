@@ -234,7 +234,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
 <template>
   <form
     class="form"
-    :style="`row-gap: ${omitFormHeader ? '.8rem' : '2rem'};`"
+    :style="`row-gap: ${omitFormHeader ? '.8rem' : '1.6rem'};`"
   >
     <header v-if="$slots.header && !omitFormHeader" class="form__header">
       <slot name="header"></slot>

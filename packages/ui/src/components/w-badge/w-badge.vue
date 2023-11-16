@@ -1,5 +1,18 @@
+<script setup lang="ts">
+type Props = {
+  large?: boolean
+  alt?: boolean
+}
+
+const props = defineProps<Props>()
+</script>
+
 <template>
-  <div class="badge">
+  <div :class="`
+    badge
+    ${large && 'badge--large'}
+    ${alt && 'badge--alt'}
+  `">
     <slot></slot>
   </div>
 </template>
