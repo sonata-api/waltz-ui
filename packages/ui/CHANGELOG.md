@@ -1,5 +1,17 @@
 # @waltz-ui/ui
 
+## 0.0.89
+
+### Patch Changes
+
+- Minor fixes in theming system
+
+## 0.0.88
+
+### Patch Changes
+
+- Theming system
+
 ## 0.0.87
 
 ### Patch Changes
