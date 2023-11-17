@@ -12,7 +12,7 @@ export type MenuAdvancedChildNamed = MenuAdvancedChildBase & {
   name: string
 }
 
-export type MenuAdvancedChildCollapsable = MenuAdvancedChildBase & {
+export type MenuAdvancedChildCollapsible = MenuAdvancedChildBase & {
   collapsed: boolean | 'user'
   children: Array<string | MenuAdvancedChild>
   meta: {
@@ -23,7 +23,7 @@ export type MenuAdvancedChildCollapsable = MenuAdvancedChildBase & {
 
 export type MenuAdvancedChild = 
   | MenuAdvancedChildNamed
-  | MenuAdvancedChildCollapsable
+  | MenuAdvancedChildCollapsible
 
 export type MenuSchemaNode = Partial<RouteMeta> & {
   roles?: Array<string> | ((role: Array<string>) => boolean | Promise<boolean>)

@@ -2,7 +2,7 @@ import type { RouteRecordRaw } from 'vue-router'
 import {  ref, watch } from 'vue'
 import { arraysIntersects } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
-import { Route, MenuSchema, MenuSchemaNode, MenuAdvancedChildCollapsable } from '..'
+import { Route, MenuSchema, MenuSchemaNode, MenuAdvancedChildCollapsible } from '..'
 
 type Props = {
   entrypoint?: string
@@ -48,7 +48,7 @@ export const useNavbar = async (props: Props) => {
       : router.getRoutes() 
 
     const schema = getSchema(children || menuSchema, routes as unknown as Route[])
-    const entries: Record<string, Route | Omit<Partial<MenuAdvancedChildCollapsable>, 'children'> & {
+    const entries: Record<string, Route | Omit<Partial<MenuAdvancedChildCollapsible>, 'children'> & {
       children?: Route[]
     }> = {}
 
