@@ -1,8 +1,8 @@
 import type { RouteRecordRaw } from 'vue-router'
-import {  ref, computed, watch } from 'vue'
+import {  ref, watch } from 'vue'
 import { arraysIntersects } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
-import { Route, MenuSchema } from '..'
+import { Route, MenuSchema, MenuSchemaNode, MenuAdvancedChildCollapsable } from '..'
 
 type Props = {
   entrypoint?: string
@@ -19,32 +19,50 @@ export const useNavbar = async (props: Props) => {
   const userStore = useStore('user')
   const router = ROUTER
 
-  const getSchema = (schema: MenuSchema | MenuSchema[string], routes: Array<Route>) => {
-    if( !Array.isArray(schema) ) {
-      return schema
-    }
+  const getSchema = (schema: MenuSchema | MenuSchemaNode['children'] | Route[], routes: Array<Route>) => {
+    return schema.map((node) => {
+      if( typeof node === 'string' ) {
+        return routes.find((route) => route.name === node)
+      }
 
-    return schema.map((s) => {
-      return typeof s === 'string'
-        ? routes.find((route) => route.name === s)
-        : {
-          ...s,
-          ...routes.find((route) => route.name === s.name)
+      if( 'path' in node ) {
+        return node
+      }
+
+      return 'name' in node
+        ? {
+          ...node,
+          ...routes.find((route) => route.name === node.name)
         }
+        : node
     })
   }
 
-  const getRoutes = async (node?: MenuSchema) => {
-    const children = node?.children
-    const routes: unknown = children || typeof entrypoint === 'string'
+  const getRoutes = async (node?: MenuSchemaNode) => {
+    const children = node && 'children' in node
+      ? node.children
+      : null
+
+    const routes = children || typeof entrypoint === 'string'
       ? router.getRoutes().filter((route) => route.name?.toString().startsWith(`/${entrypoint}/`))
       : router.getRoutes() 
 
-    const schema = getSchema(children || menuSchema, routes as Array<Route>)
-    const entries: Record<string, Route> = {}
+    const schema = getSchema(children || menuSchema, routes as unknown as Route[])
+    const entries: Record<string, Route | Omit<Partial<MenuAdvancedChildCollapsable>, 'children'> & {
+      children?: Route[]
+    }> = {}
 
     await Promise.all(Object.entries(schema).map(async ([key, node]) => {
       if( !node ) {
+        return
+      }
+
+      if( Array.isArray(node) ) {
+        entries[key] = {
+          children: await getRoutes({
+            children: node
+          })
+        }
         return
       }
 
@@ -63,7 +81,10 @@ export const useNavbar = async (props: Props) => {
 
       } = node
 
-      const roles = route?.meta?.roles || node.roles
+      const roles = route?.meta?.roles || ('roles' in node
+        ? node.roles
+        : null)
+
       if( roles ) {
         if( typeof roles === 'function' ) {
           if( !await roles(userStore.$currentUser.roles || []) ) {
@@ -82,7 +103,7 @@ export const useNavbar = async (props: Props) => {
       }
 
       if( children ) {
-        entries[key].children = await getRoutes(node)
+        entries[key].children = await getRoutes(node as MenuSchemaNode)
       }
     }))
 
@@ -101,9 +122,6 @@ export const useNavbar = async (props: Props) => {
   }
 
   const routes = ref(await getRoutes())
-  const routesWithChildren = computed(() => (
-    routes.value.filter((route) => route.children?.length! > 0)
-  ))
 
   watch(() => metaStore.descriptions, async () => {
     routes.value = await getRoutes()
@@ -111,7 +129,6 @@ export const useNavbar = async (props: Props) => {
 
   return {
     routes,
-    routesWithChildren,
     isCurrent
   }
 }

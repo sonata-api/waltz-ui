@@ -2,34 +2,35 @@ import type { Component } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import type { RouteMeta } from './router'
 
-export type MenuAdvancedChildrenBase = {
+export type MenuAdvancedChildBase = {
   badge?: () => string | number extends infer ReturnType
     ? ReturnType | Promise<ReturnType>
     : never
 }
 
-export type MenuAdvancedChildrenNamed = MenuAdvancedChildrenBase & {
+export type MenuAdvancedChildNamed = MenuAdvancedChildBase & {
   name: string
 }
 
-export type MenuAdvancedChildrenCollapsable = MenuAdvancedChildrenBase & {
-  collapsed: boolean
-  children: Array<string | MenuAdvancedChildren>
+export type MenuAdvancedChildCollapsable = MenuAdvancedChildBase & {
+  collapsed: boolean | 'user'
+  children: Array<string | MenuAdvancedChild>
   meta: {
     title: string
-    icon: string
+    icon?: string
   }
 }
 
-export type MenuAdvancedChildren = 
-  | MenuAdvancedChildrenNamed
-  | MenuAdvancedChildrenCollapsable
+export type MenuAdvancedChild = 
+  | MenuAdvancedChildNamed
+  | MenuAdvancedChildCollapsable
 
-export type MenuSchema = Record<string, Partial<RouteMeta> & {
+export type MenuSchemaNode = Partial<RouteMeta> & {
   roles?: Array<string> | ((role: Array<string>) => boolean | Promise<boolean>)
-  children: Array<string | MenuAdvancedChildren>
-}>
+  children: Array<string | MenuAdvancedChild>
+}
 
+export type MenuSchema = Array<MenuSchemaNode | string | Array<string | MenuAdvancedChild>>
 
 export type AppOptions = {
   component: Component

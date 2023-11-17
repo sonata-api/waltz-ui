@@ -1,8 +1,9 @@
 export {
   type MenuSchema,
-  type MenuAdvancedChildren,
-  type MenuAdvancedChildrenNamed,
-  type MenuAdvancedChildrenCollapsable,
+  type MenuSchemaNode,
+  type MenuAdvancedChild,
+  type MenuAdvancedChildNamed,
+  type MenuAdvancedChildCollapsable,
   type AppOptions,
   type CollectionStore,
   defineOptions,
