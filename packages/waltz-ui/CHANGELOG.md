@@ -1,5 +1,13 @@
 # waltz-ui
 
+## 0.0.34
+
+### Patch Changes
+
+- Refactor recursive menu entries
+- Updated dependencies
+  - @waltz-ui/web@0.0.55
+
 ## 0.0.33
 
 ### Patch Changes

@@ -2,7 +2,7 @@ import type { RouteRecordRaw } from 'vue-router'
 import {  ref, watch } from 'vue'
 import { arraysIntersects } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
-import { Route, MenuSchema, MenuSchemaNode, MenuAdvancedChildCollapsible } from '..'
+import { Route, MenuSchema, MenuNode } from '..'
 
 type Props = {
   entrypoint?: string
@@ -19,7 +19,7 @@ export const useNavbar = async (props: Props) => {
   const userStore = useStore('user')
   const router = ROUTER
 
-  const getSchema = (schema: MenuSchema | MenuSchemaNode['children'] | Route[], routes: Array<Route>) => {
+  const getSchema = (schema: MenuSchema | Route[], routes: Array<Route>) => {
     return schema.map((node) => {
       if( typeof node === 'string' ) {
         return routes.find((route) => route.name === node)
@@ -38,7 +38,7 @@ export const useNavbar = async (props: Props) => {
     })
   }
 
-  const getRoutes = async (node?: MenuSchemaNode) => {
+  const getRoutes = async (node?: MenuNode) => {
     const children = node && 'children' in node
       ? node.children
       : null
@@ -48,9 +48,7 @@ export const useNavbar = async (props: Props) => {
       : router.getRoutes() 
 
     const schema = getSchema(children || menuSchema, routes as unknown as Route[])
-    const entries: Record<string, Route | Omit<Partial<MenuAdvancedChildCollapsible>, 'children'> & {
-      children?: Route[]
-    }> = {}
+    const entries: Record<string, Route | MenuNode> = {}
 
     await Promise.all(Object.entries(schema).map(async ([key, node]) => {
       if( !node ) {
@@ -66,7 +64,7 @@ export const useNavbar = async (props: Props) => {
         return
       }
 
-      if( 'collapsed' in node ) {
+      if( 'collapsed' in node  ) {
         entries[key] = {
           ...node,
           children: await getRoutes(node)
@@ -98,12 +96,9 @@ export const useNavbar = async (props: Props) => {
       }
 
       entries[key] = route
-      entries[key].meta = route.meta || {
-        title: key
-      }
 
       if( children ) {
-        entries[key].children = await getRoutes(node as MenuSchemaNode)
+        entries[key].children = await getRoutes(node as MenuNode)
       }
     }))
 
