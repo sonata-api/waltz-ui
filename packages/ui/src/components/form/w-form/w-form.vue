@@ -2,7 +2,7 @@
 import type { CollectionProperty, Condition } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
 import { onBeforeMount, ref, computed, provide, inject, isRef, type Ref } from 'vue'
-import { evaluateCondition } from '@sonata-api/common'
+import { evaluateCondition, deepClone } from '@sonata-api/common'
 import { useBreakpoints, insertReady } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
 
@@ -172,7 +172,7 @@ const fieldStyle = (key: string, property: any) => {
 
     if( !result.satisfied ) {
       props.modelValue[key] = store
-        ? store.$freshItem[key]
+        ? deepClone(store.$freshItem[key])
         : ![undefined, null].includes(props.modelValue[key])
           ? props.modelValue[key].constructor()
           : null
