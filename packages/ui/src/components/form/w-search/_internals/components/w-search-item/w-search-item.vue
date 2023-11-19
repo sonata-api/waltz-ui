@@ -5,7 +5,7 @@ import { useParentStore } from '@waltz-ui/state-management'
 
 type Props = {
   item: Record<string, any>
-  indexes: Array<string>
+  indexes: string[]
   modelValue?: any
   property: CollectionProperty
 }
@@ -37,7 +37,7 @@ const select = () => {
     return
   }
 
-  const filterEmpties = (array: Array<any>) => array.filter(e => !!e?._id)
+  const filterEmpties = (array: any[]) => array.filter(e => !!e?._id)
   const modelValue = 'type' in property && property.type === 'array'
     ? filterEmpties(Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue])
     : props.modelValue
@@ -65,7 +65,7 @@ const deselect = async (options?: { purge?: true }) => {
     return modelValue
   }
 
-  emit('update:modelValue', property.type === 'array'
+  emit('update:modelValue', 'items' in property
     ? deleteFirst()
     : null
   )

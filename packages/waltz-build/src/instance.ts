@@ -2,14 +2,14 @@ import { readFile } from 'fs/promises'
 
 export type InstanceConfig = {
   exposed: {
-    themes?: Array<string>
-    darkThemes?: Array<string>
+    themes?: string[]
+    darkThemes?: string[]
     dashboardLayout?: Record<string, {
     }>
     title: string
     signinText: string
   }
-  icons?: Array<string>
+  icons?: string[]
 }
 
 export const getInstanceConfig = async () => {

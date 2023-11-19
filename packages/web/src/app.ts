@@ -94,7 +94,7 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
 
         return dashboardLayout[role]?.[optionName]
       },
-      hasRoles(roles: string|Array<string>) {
+      hasRoles(roles: string | string[]) {
         return arraysIntersects(roles, userStore.$currentUser.roles)
       },
       useStore(storeName?: string) {

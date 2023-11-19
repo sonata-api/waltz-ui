@@ -1,5 +1,11 @@
 # @waltz-ui/ui
 
+## 0.0.93
+
+### Patch Changes
+
+- Recursive menus
+
 ## 0.0.92
 
 ### Patch Changes

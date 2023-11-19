@@ -6,7 +6,7 @@ export const insertReady = <
 >(
   item: TItem,
   properties: TProperties,
-  required?: Array<keyof TProperties>,
+  required?: (keyof TProperties)[],
   description?: Description
 
 ) => {
@@ -18,7 +18,7 @@ export const insertReady = <
   }
 
   const ensureFulfillment = () => {
-    const keys = required as Array<Lowercase<string>> || Object.keys(properties||{})
+    const keys = required as Lowercase<string>[] || Object.keys(properties||{})
 
     return keys.every((k) => {
       const property = description?.properties?.[k]! || {}

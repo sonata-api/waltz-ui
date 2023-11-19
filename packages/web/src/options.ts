@@ -3,8 +3,8 @@ import type { RouteRecordRaw } from 'vue-router'
 import type { RouteMeta } from './router'
 
 export type MenuNodeBase = Partial<RouteMeta> & {
-  roles?: Array<string> | ((role: Array<string>) => boolean | Promise<boolean>)
-  children?: Array<string | MenuNode>
+  roles?: string[] | ((role: string[]) => boolean | Promise<boolean>)
+  children?: (string | MenuNode)[]
   badge?: () => string | number extends infer ReturnType
     ? ReturnType | Promise<ReturnType>
     : never
@@ -16,7 +16,7 @@ export type MenuNodeNamed = MenuNodeBase & {
 
 export type MenuNodeCollapsible = MenuNodeBase & {
   collapsed: boolean | 'user'
-  children: Array<string | MenuNode>
+  children: (string | MenuNode)[]
   meta: {
     title: string
     icon?: string
@@ -30,7 +30,7 @@ export type MenuNode =
 export type MenuSchema = (
   | MenuNode
   | string
-  | Array<string | MenuNode>
+  | (string | MenuNode)[]
 )[]
 
 export type AppOptions = {
@@ -38,7 +38,7 @@ export type AppOptions = {
   dashboardComponent?: Component
   i18n?: any
   menuSchema?: MenuSchema
-  routes?: Array<RouteRecordRaw>
+  routes?: RouteRecordRaw[]
   setup?: () => void|Promise<void>
 }
 

@@ -34,7 +34,7 @@ type Props = FormFieldProps<any> & {
   layout?: {
     fields: Record<string, LayoutConfig>
   }
-  required?: Array<string>
+  required?: string[]
   formComponents?: Record<string, any>
   propertyComponents?: Record<string, any>
   omitFormHeader?: boolean
@@ -171,11 +171,15 @@ const fieldStyle = (key: string, property: any) => {
     )
 
     if( !result.satisfied ) {
-      props.modelValue[key] = store
-        ? deepClone(store.$freshItem[key])
-        : ![undefined, null].includes(props.modelValue[key])
+      if( store ) {
+        props.modelValue = typeof store.$freshItem[key] === 'object'
+          ? deepClone(store.$freshItem[key])
+          : store.$freshItem[key]
+      } else {
+        props.modelValue =  ![undefined, null].includes(props.modelValue[key])
           ? props.modelValue[key].constructor()
           : null
+      }
 
       style.push(`display: none;`)
     }

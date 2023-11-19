@@ -48,7 +48,7 @@ const insert = async () => {
     body: 'Verifique o link de confirmação no seu email'
   })
 
- router.push({ name: '/user/signin' })
+ router.push({ path: '/user/signin' })
 }
 </script>
 
@@ -58,7 +58,7 @@ const insert = async () => {
     <w-icon
       v-clickable
       icon="arrow-left"
-      @click="router.push({ name: '/user/signin' })"
+      @click="router.push({ path: '/user/signin' })"
     >
       Efetuar login
     </w-icon>

@@ -29,7 +29,7 @@ export const meta = () => registerStore(() => {
 
   const state = reactive({
     descriptions: {} as Record<string, Description>,
-    roles: [] as Array<string>,
+    roles: [] as string[],
     isLoading: false,
     globalIsLoading: false,
     theme: '',
@@ -57,9 +57,9 @@ export const meta = () => registerStore(() => {
       visible: false,
       title: '',
       body: '',
-      actions: [] as Array<PromptAction>,
+      actions: [] as PromptAction[],
     },
-    toasts: [] as Array<Toast>,
+    toasts: [] as Toast[],
   })
 
 
@@ -146,7 +146,7 @@ export const meta = () => registerStore(() => {
       spawnPrompt(props: {
         title?: string
         body?: string
-        actions: Array<PromptAction>
+        actions: PromptAction[]
       }): Promise<PromptAnswer> {
         Object.assign(state.prompt, {
           ...props,
@@ -178,7 +178,7 @@ export const meta = () => registerStore(() => {
       },
 
       spawnToast(
-        this: { toasts: Array<any> },
+        this: { toasts: any[] },
         props: {
           text: string
           icon?: string
@@ -192,7 +192,7 @@ export const meta = () => registerStore(() => {
         })
       },
 
-      popToast(this: { toasts: Array<any> }, itr?: number) {
+      popToast(this: { toasts: any[] }, itr?: number) {
         if( !itr ) {
           state.toasts.shift()
           return

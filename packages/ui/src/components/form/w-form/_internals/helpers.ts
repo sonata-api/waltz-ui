@@ -67,7 +67,7 @@ export const getComponent = (property: CollectionProperty, customComponents: Rec
   return defaultComponents[mappedComponentType] || defaultComponents.input
 }
 
-export const pushToArray = (modelValue: Array<any>, property: CollectionProperty) => {
+export const pushToArray = (modelValue: any[], property: CollectionProperty) => {
   modelValue ??= []
   const propType = 'items' in property
     ? 'type' in property.items && property.items?.type
@@ -86,6 +86,6 @@ export const pushToArray = (modelValue: Array<any>, property: CollectionProperty
   return modelValue.push(null)
 }
 
-export const spliceFromArray = (modelValue: Array<any>, index: number) => {
+export const spliceFromArray = (modelValue: any[], index: number) => {
   modelValue.splice(index, 1)
 }

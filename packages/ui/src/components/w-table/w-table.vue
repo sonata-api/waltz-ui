@@ -16,10 +16,10 @@ type Props = {
   rows?: any
   collection?: string | Ref<string>
   checkbox?: boolean
-  actions?: Array<CollectionAction<any> & {
+  actions?: (CollectionAction<any> & {
     action: string
     click: (...args: any[]) => void
-  }>
+  })[]
   layout?: any
 }
 
@@ -33,7 +33,7 @@ const store = collectionName
 
 const selected = computed({
   get: () => store?.selected,
-  set: (items: Array<any>) => store?.$actions.selectManyItems(items, true)
+  set: (items: any[]) => store?.$actions.selectManyItems(items, true)
 })
 
 const buttonActions = computed(() => (

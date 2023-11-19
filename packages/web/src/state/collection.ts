@@ -39,13 +39,13 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
     condensedItem: {} as TItem,
     freshItem: {} as TItem,
 
-    items: [] as Array<TItem>,
+    items: [] as TItem[],
     filters: {},
     freshFilters: {} as Record<string, any>,
     activeFilters: {} as Record<string, any>,
     filtersPreset: {} as Record<string, any>,
     preferredTableProperties: [],
-    selected: [] as Array<TItem> | Array<string>,
+    selected: [] as TItem[] | string[],
     currentLayout: '',
 
     validationErrors: {} as any,
@@ -123,7 +123,7 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
         return getValue(value)
       }
 
-      const entries = Object.entries(sanitizedFilters).reduce((a: Array<any>, [key, filter]) => {
+      const entries = Object.entries(sanitizedFilters).reduce((a: any[], [key, filter]) => {
         if( key.startsWith('$') ) {
           return [
             ...a,

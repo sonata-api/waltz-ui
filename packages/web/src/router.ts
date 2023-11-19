@@ -6,22 +6,22 @@ export type RouteMeta = {
   meta: {
     title: string
     icon?: string
-    roles?: Array<string>
+    roles?: string[]
   }
 }
 
 export type Route = RouteMeta & Omit<RouteRecordRaw, 'children'> & {
   path: string
-  children?: Array<Route>
+  children?: Route[]
   components?: any
   badgeFunction?: string
   badgePayload?: any
 }
 
-export type RouterExtensionNode = Array<Omit<Route, 'name'>>
+export type RouterExtensionNode = Omit<Route, 'name'>[]
 export type RouterExtension = Record<string, RouterExtensionNode>
 
-export const routerInstance = (routes: Array<RouteRecordRaw>, dashboardComponent?: Component) => {
+export const routerInstance = (routes: RouteRecordRaw[], dashboardComponent?: Component) => {
   const router = createRouter({
     history: createWebHistory(),
     extendRoutes: (fsRoutes) => {

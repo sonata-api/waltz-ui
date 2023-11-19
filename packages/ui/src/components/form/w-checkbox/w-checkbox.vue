@@ -30,7 +30,7 @@ const value = typeof props.value === 'object'
   ? ((props.value as any)?._id || props.value)
   : props.value||false
 
-const selectedValues = (values: Array<Props['modelValue']>): (string|boolean)[] => {
+const selectedValues = (values: Props['modelValue'][]): (string|boolean)[] => {
   return values.map((v: any) => v._id || v)
 }
 

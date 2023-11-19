@@ -13,7 +13,7 @@ import WInput from '../w-input/w-input.vue'
 import WSearchContainer from './_internals/components/w-search-container/w-search-container.vue'
 import WSearchItem from './_internals/components/w-search-item/w-search-item.vue'
 
-type Props = Omit<FormFieldProps<Record<string, any> | Array<Record<string, any>>>, 'property'> & {
+type Props = Omit<FormFieldProps<Record<string, any> | Record<string, any>[]>, 'property'> & {
   property: CollectionProperty & NonNullable<Pick<CollectionProperty,
     | 's$isReference'
     | 's$referencedCollection'
@@ -43,7 +43,7 @@ const selectPanel = ref(!!props.selectOnly)
 const selected = ref(props.modelValue)
 
 const searchResponse = ref({
-  data: [] as Array<any>,
+  data: [] as any[],
   pagination: {}
 })
 

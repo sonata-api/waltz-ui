@@ -19,7 +19,7 @@ export const useNavbar = async (props: Props) => {
   const userStore = useStore('user')
   const router = ROUTER
 
-  const getSchema = (schema: MenuSchema | Route[], routes: Array<Route>) => {
+  const getSchema = (schema: MenuSchema | Route[], routes: Route[]) => {
     return schema.map((node) => {
       if( typeof node === 'string' ) {
         return routes.find((route) => route.name === node)
@@ -102,7 +102,7 @@ export const useNavbar = async (props: Props) => {
       }
     }))
 
-    return Object.values(entries) as Array<Route>
+    return Object.values(entries) as Route[]
   }
 
   const isCurrent = (subroute: RouteRecordRaw) => {

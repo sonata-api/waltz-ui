@@ -2,13 +2,13 @@ import type { Description } from '@sonata-api/types'
 import { registerStore } from '@waltz-ui/state-management'
 import { left, right, isLeft, unwrapEither } from '@sonata-api/common'
 import { reactive, computed } from 'vue'
-import { createCollectionStore, type CollectionStore } from '../state/collection'
+import { createCollectionStore } from '../state/collection'
 import { meta } from '.'
 
 type User = {
   _id: string
   full_name: string
-  roles: Array<string>
+  roles: string[]
 }
 
 type Credentials = {
@@ -28,7 +28,7 @@ export const user = () => registerStore(() => {
       properties: {
         roles: {
           items: {
-            enum: Array<string>
+            enum: string[]
           }
         }
       }

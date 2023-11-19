@@ -7,7 +7,7 @@ import WBareButton from '../../w-bare-button/w-bare-button.vue'
 
 type Props = {
   title?: string
-  actions: Array<PromptAction>
+  actions: PromptAction[]
 }
 
 const props = defineProps<Props>()

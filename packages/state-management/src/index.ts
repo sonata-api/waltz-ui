@@ -9,13 +9,13 @@ import {
 
 } from 'vue'
 
+export type StoreState<TContent extends object = Record<string, Exclude<any, Function>>> = TContent
+
 export type Store = StoreState & {
   $id: string
   $actions: Record<string, (...args: any[]) => any>
   $functions: Record<string, (...args: any[]) => any>
 }
-
-export type StoreState<TContent extends object=Record<string, Exclude<any, Function>>> = TContent
 
 export type UnRef<TObj extends Record<string, ComputedRef<any>>> = {
   [P in keyof TObj]: UnwrapRef<TObj[P]>
