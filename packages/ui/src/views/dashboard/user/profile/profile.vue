@@ -2,12 +2,12 @@
 import { ref } from 'vue'
 import { useStore } from '@waltz-ui/state-management'
 
-import WBox from '../../../../components/w-box/w-box.vue'
-import WForm from '../../../../components/form/w-form/w-form.vue'
-import WButton from '../../../../components/w-button/w-button.vue'
-import WPicture from '../../../../components/w-picture/w-picture.vue'
-import WIcon from '../../../../components/w-icon/w-icon.vue'
-import WMenu from '../../../../components/w-menu/w-menu.vue'
+import AeriaPanel from '../../../../components/aeria-panel/aeria-panel.vue'
+import AeriaForm from '../../../../components/form/aeria-form/aeria-form.vue'
+import AeriaButton from '../../../../components/aeria-button/aeria-button.vue'
+import AeriaPicture from '../../../../components/aeria-picture/aeria-picture.vue'
+import AeriaIcon from '../../../../components/aeria-icon/aeria-icon.vue'
+import AeriaMenu from '../../../../components/aeria-menu/aeria-menu.vue'
 
 const userStore = useStore('user')
 const metaStore = useStore('meta')
@@ -36,7 +36,7 @@ const signout = async () => {
 </script>
 
 <template>
-  <w-picture
+  <aeria-picture
     v-bind="{
       width: '14rem',
       height: '14rem'
@@ -57,54 +57,54 @@ const signout = async () => {
         {{ userStore.item.full_name }}
       </div>
     </template>
-  </w-picture>
+  </aeria-picture>
 
   <slot
     v-if="$slots['user-profile']"
     name="user-profile"
   ></slot>
 
-  <w-menu>
+  <aeria-menu>
     <template #edit-profile>
-      <w-icon
+      <aeria-icon
         v-clickable
         icon="edit"
         @click="editPanel = true"
       >
         Editar perfil
-      </w-icon>
+      </aeria-icon>
     </template>
 
     <template #change-password>
-      <w-icon
+      <aeria-icon
         v-clickable
         icon="key-skeleton"
         @click="$router.push('/dashboard/user/changepass')"
       >
         Mudar senha
-      </w-icon>
+      </aeria-icon>
     </template>
 
     <template #signout>
-      <w-icon
+      <aeria-icon
         v-clickable
         icon="signout"
         @click="signout"
       >
         Sair
-      </w-icon>
+      </aeria-icon>
     </template>
 
-  </w-menu>
+  </aeria-menu>
 
-  <w-box
+  <aeria-panel
     float
     close-hint
     title="Editar perfil"
     v-model="editPanel"
     @overlay-click="editPanel = false"
   >
-    <w-form
+    <aeria-form
       v-model="userStore.item"
       v-bind="{
         collection: 'user',
@@ -116,18 +116,18 @@ const signout = async () => {
         ]),
         layout: userStore.formLayout
       }"
-    ></w-form>
+    ></aeria-form>
 
     <template #footer>
-      <w-button
+      <aeria-button
         large
         :loading="userStore.loading.insert"
         @click="insert"
       >
         Salvar
-      </w-button>
+      </aeria-button>
     </template>
-  </w-box>
+  </aeria-panel>
 </template>
 
 <style scoped src="./profile.less"></style>

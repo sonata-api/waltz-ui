@@ -1,4 +1,4 @@
-export { default as WPrompt } from './w-prompt/w-prompt.vue'
-export { default as WToast } from './w-toast/w-toast.vue'
-export { default as WCrudTopbar } from './w-crud-topbar/w-crud-topbar.vue'
-export { default as WPasswordForm } from './w-password-form/w-password-form.vue'
+export { default as AeriaPrompt } from './aeria-prompt/aeria-prompt.vue'
+export { default as AeriaToast } from './aeria-toast/aeria-toast.vue'
+export { default as AeriaCrudTopbar } from './aeria-crud-topbar/aeria-crud-topbar.vue'
+export { default as AeriaPasswordForm } from './aeria-password-form/aeria-password-form.vue'

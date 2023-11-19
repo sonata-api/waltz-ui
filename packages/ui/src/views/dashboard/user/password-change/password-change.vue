@@ -2,9 +2,9 @@
 import { ref } from 'vue'
 import { useStore } from '@waltz-ui/state-management'
 
-import WButton from '../../../../components/w-button/w-button.vue'
-import WBox from '../../../../components/w-box/w-box.vue'
-import WPasswordForm from '../../../../components/dashboard/w-password-form/w-password-form.vue'
+import AeriaButton from '../../../../components/aeria-button/aeria-button.vue'
+import AeriaPanel from '../../../../components/aeria-panel/aeria-panel.vue'
+import AeriaPasswordForm from '../../../../components/dashboard/aeria-password-form/aeria-password-form.vue'
 
 const router = ROUTER
 const userStore = useStore('user')
@@ -33,15 +33,15 @@ const insert = async () => {
 </script>
 
 <template>
-  <w-box style="max-width: 40rem;">
-    <w-password-form v-model="password" v-slot="{ passwordError }">
-      <w-button
+  <aeria-panel style="max-width: 40rem;">
+    <aeria-password-form v-model="password" v-slot="{ passwordError }">
+      <aeria-button
         class="passchange__save-button"
         :disabled="!!passwordError"
         @click="insert"
       >
         Salvar
-      </w-button>
-    </w-password-form>
-  </w-box>
+      </aeria-button>
+    </aeria-password-form>
+  </aeria-panel>
 </template>

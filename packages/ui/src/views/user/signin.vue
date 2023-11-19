@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { user, meta } from '@waltz-ui/web'
 import { isRight } from '@sonata-api/common'
-import WForm from '../../components/form/w-form/w-form.vue'
-import WButton from '../../components/w-button/w-button.vue'
+import AeriaForm from '../../components/form/aeria-form/aeria-form.vue'
+import AeriaButton from '../../components/aeria-button/aeria-button.vue'
 
 const router = ROUTER
 const userStore = user()()
@@ -39,7 +39,7 @@ const authenticate = async () => {
     </div>
   </div>
 
-  <w-form
+  <aeria-form
     v-model="userStore.credentials"
     :form="{
       email: {
@@ -52,7 +52,7 @@ const authenticate = async () => {
         s$inputType: 'password'
       }
     }"
-  ></w-form>
+  ></aeria-form>
 
   <div style="
     width: 100%;
@@ -60,7 +60,7 @@ const authenticate = async () => {
     flex-direction: column;
     gap: 1rem;
   ">
-    <w-button
+    <aeria-button
       :loading="userStore.loading.authenticate"
 
       :disabled="
@@ -69,14 +69,14 @@ const authenticate = async () => {
       @click="authenticate"
     >
       Entrar
-    </w-button>
+    </aeria-button>
 
-    <w-button
+    <aeria-button
       v-if="userStore.$currentUser._id && !metaStore.isLoading"
       :disabled="userStore.loading.authenticate || metaStore.isLoading"
       @click="router.push('/dashboard')"
     >
       Continuar como {{ userStore.$currentUser.first_name }}
-    </w-button>
+    </aeria-button>
   </div>
 </template>

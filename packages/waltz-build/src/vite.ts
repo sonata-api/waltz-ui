@@ -78,7 +78,7 @@ export default defineConfig(async () => {
         ],
         resolvers: [
           (componentName) => {
-            if( /^W[A-Z]/.test(componentName) ) {
+            if( /^Aeria[A-Z]/.test(componentName) ) {
               return {
                 name: componentName,
                 from: '@waltz-ui/ui'

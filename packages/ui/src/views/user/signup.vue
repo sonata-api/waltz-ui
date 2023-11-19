@@ -2,11 +2,11 @@
 import { ref } from 'vue'
 import { useStore } from '@waltz-ui/state-management'
 import { isLeft, unwrapEither } from '@sonata-api/common'
-import WForm from '../../components/form/w-form/w-form.vue'
-import WIcon from '../../components/w-icon/w-icon.vue'
-import WButton from '../../components/w-button/w-button.vue'
-import WCheckbox from '../../components/form/w-checkbox/w-checkbox.vue'
-import WPasswordForm from '../../components/dashboard/w-password-form/w-password-form.vue'
+import AeriaForm from '../../components/form/aeria-form/aeria-form.vue'
+import AeriaIcon from '../../components/aeria-icon/aeria-icon.vue'
+import AeriaButton from '../../components/aeria-button/aeria-button.vue'
+import AeriaCheckbox from '../../components/form/aeria-checkbox/aeria-checkbox.vue'
+import AeriaPasswordForm from '../../components/dashboard/aeria-password-form/aeria-password-form.vue'
 
 const router = ROUTER
 const userStore = useStore('user')
@@ -55,16 +55,16 @@ const insert = async () => {
 <template>
   <div>
     <h1>Criar conta</h1>
-    <w-icon
+    <aeria-icon
       v-clickable
       icon="arrow-left"
       @click="router.push({ path: '/user/signin' })"
     >
       Efetuar login
-    </w-icon>
+    </aeria-icon>
   </div>
 
-  <w-form
+  <aeria-form
     v-model="newUser"
     v-bind="{
       collection: 'user',
@@ -76,7 +76,7 @@ const insert = async () => {
     }"
   >
     <template #after>
-      <w-password-form
+      <aeria-password-form
         v-model="password"
         v-slot="{ passwordError }"
       >
@@ -86,7 +86,7 @@ const insert = async () => {
           align-items: start;
           gap: 2rem
         ">
-          <w-checkbox
+          <aeria-checkbox
             v-model="tosAccepted"
             :property="{
               type: 'boolean',
@@ -94,19 +94,19 @@ const insert = async () => {
             }"
           >
             Declaro que li e aceito os termos de uso
-          </w-checkbox>
+          </aeria-checkbox>
 
         </div>
 
-        <w-button
+        <aeria-button
           :disabled="!!passwordError || !tosAccepted"
           @click.prevent="insert"
         >
           Criar conta
-        </w-button>
-      </w-password-form>
+        </aeria-button>
+      </aeria-password-form>
     </template>
-  </w-form>
+  </aeria-form>
 
 
 </template>

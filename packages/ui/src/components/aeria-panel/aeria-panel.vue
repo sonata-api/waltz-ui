@@ -1,0 +1,185 @@
+<script setup lang="ts">
+import { watch, computed, ref } from 'vue'
+import AeriaIcon from '../aeria-icon/aeria-icon.vue'
+
+// #region props
+type Props = {
+  closeHint?: boolean
+  modelValue?: any
+  title?: string
+  float?: boolean
+  fixedRight?: boolean
+  floating?: boolean
+  bordered?: boolean
+  animate?: boolean
+  overlay?: boolean
+  invisibleOverlay?: boolean
+  collapsed?: boolean
+  collapsible?: boolean
+  fullAeriaidth?: boolean
+  fill?: boolean
+  fillFooter?: boolean
+  transparent?: boolean
+  transparentMobile?: boolean
+  outerHeader?: boolean
+  overlayLayer?: number
+}
+// #endregion props
+
+const props = withDefaults(defineProps<Props>(), {
+  collapsible: false,
+  closeHint: false,
+  modelValue: true,
+})
+
+const emit = defineEmits<{
+  (e:
+    'update:modelValue'
+    | 'update:collapsed'
+    | 'update:closeHint',
+    value: boolean
+  ): void
+  (e: 'overlayClick'): void
+  (e: 'close'): void
+}>()
+
+const isFloating = computed(() => props.floating || props.float)
+const isCollapsed = ref(props.collapsed)
+
+const body = ref<Element & { offsetHeight: number }>()
+
+const reachedEnd = ref(true)
+
+const updateScroll = () => {
+  const { value: bodyElem } = body
+  reachedEnd.value = bodyElem
+    ? bodyElem.scrollTop + bodyElem.offsetHeight! >= bodyElem.scrollHeight
+    : true
+}
+
+watch(() => body.value, (bodyElem) => {
+  if( bodyElem ) {
+    const ob = new ResizeObserver(updateScroll)
+    ob.observe(bodyElem)
+  }
+})
+
+const close = () => {
+  emit('update:modelValue', false)
+  emit('close')
+}
+
+const overlayClick = () => {
+  emit('overlayClick')
+}
+
+const toggleCollapsed = (value: boolean) => {
+  emit('update:collapsed', value)
+  isCollapsed.value = value
+}
+</script>
+
+<template>
+  <div
+    v-if="modelValue"
+    v-overlay="{
+      condition: overlay || fixedRight || isFloating,
+      invisible: invisibleOverlay,
+      click: overlayClick,
+      layer: overlayLayer || (isFloating
+        ? 60
+        : fixedRight
+          ? 50
+          : 0
+      )
+    }"
+
+    :class="`
+      box
+      ${fixedRight && 'box--fixed'}
+  `">
+    <component
+      :is="
+        isFloating
+          ? 'dialog'
+          : 'div'
+      "
+
+      data-component="box"
+      :class="`
+        aeria-surface
+        box__content
+        ${!(isFloating || fixedRight) && 'box__content--rounded'}
+        ${isFloating && 'box__content--floating'}
+        ${animate && 'box__content--animate'}
+        ${bordered && 'box__content--bordered-body'}
+        ${fixedRight && 'box__content--fixed-right'}
+        ${transparent && 'box__content--transparent'}
+        ${transparentMobile && 'box__content--transparent-mobile'}
+        ${outerHeader && 'box__content--outer-header'}
+      `"
+      @click="$event.stopPropagation()"
+    >
+      <div
+        v-if="$slots.header || title"
+        :class="`
+          box__header
+          ${isCollapsed && 'box__header--collapsed'}
+          ${outerHeader && 'box__header--outer'}
+      `">
+        <div class="box__header-left">
+          <slot v-if="$slots.header" name="header"></slot>
+          <div v-else-if="title">{{ title }}</div>
+          <div
+            v-if="$slots.extra"
+            style="margin-left: auto"
+          >
+            <slot name="extra"></slot>
+          </div>
+        </div>
+
+        <!-- <aeria-icon icon="minus"></aeria-icon> -->
+        <!-- <aeria-icon icon="plus"></aeria-icon> -->
+        <aeria-icon
+          v-clickable
+          v-if="collapsible"
+          reactive
+          :icon="!isCollapsed ? 'minus' : 'plus'"
+          @click="toggleCollapsed(!isCollapsed)"
+        />
+        <aeria-icon
+          v-clickable
+          v-else-if="closeHint"
+          reactive
+          icon="multiply"
+          @click="close"
+        />
+      </div>
+
+      <div
+        v-if="!isCollapsed"
+        :class="`
+          box__body
+          ${fill || 'box__body--padded'}
+      `"
+        ref="body"
+        @scroll="updateScroll"
+      >
+        <slot></slot>
+      </div>
+
+      <div
+        v-if="$slots.footer"
+        :class="`
+          box__footer
+          ${fillFooter || 'box__footer--padded'}
+          ${reachedEnd || 'box__footer--shadowed'}
+        `"
+      >
+        <slot name="footer"></slot>
+      </div>
+    </component>
+  </div>
+</template>
+
+<style scoped src="./aeria-panel.less"></style>

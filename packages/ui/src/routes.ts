@@ -58,7 +58,7 @@ export const dashboardRoutes = (component: Component | (() => Component|Promise<
       props: true,
       components: {
         default: () => import('./views/dashboard/crud-view/crud-view.vue'),
-        topbar: () => import('./components/dashboard/w-crud-topbar/w-crud-topbar.vue')
+        topbar: () => import('./components/dashboard/aeria-crud-topbar/aeria-crud-topbar.vue')
       },
       meta: {
         title: '%viewTitle%',

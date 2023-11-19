@@ -3,9 +3,9 @@ import { useStore } from '@waltz-ui/state-management'
 import { unsafe } from '@sonata-api/common'
 import { ref } from 'vue'
 
-import WForm from '../../components/form/w-form/w-form.vue'
-import WButton from '../../components/w-button/w-button.vue'
-import WPasswordForm from '../../components/dashboard/w-password-form/w-password-form.vue'
+import AeriaForm from '../../components/form/aeria-form/aeria-form.vue'
+import AeriaButton from '../../components/aeria-button/aeria-button.vue'
+import AeriaPasswordForm from '../../components/dashboard/aeria-password-form/aeria-password-form.vue'
 
 type Step = 
   | 'success'
@@ -50,7 +50,7 @@ const confirm = async () => {
 <template>
   <div v-if="step === 'password'" style="display: grid; gap: 1rem;">
     <h1>Cadastre uma senha</h1>
-    <w-form
+    <aeria-form
       v-model="password"
       :form="{
         full_name: {
@@ -62,23 +62,23 @@ const confirm = async () => {
           readOnly: true
         },
       }"
-    ></w-form>
+    ></aeria-form>
 
-    <w-password-form v-model="password" v-slot="{ passwordError }">
-      <w-button
+    <aeria-password-form v-model="password" v-slot="{ passwordError }">
+      <aeria-button
         :disabled="!!passwordError"
         @click="confirm"
       >
         Cadastrar senha
-      </w-button>
-    </w-password-form>
+      </aeria-button>
+    </aeria-password-form>
   </div>
 
   <div v-else style="display: grid; gap: 1rem;">
     <h1>Conta ativada com sucesso!</h1>
 
-    <w-button @click="router.push('/user/signin')">
+    <aeria-button @click="router.push('/user/signin')">
       Ir para a página de login
-    </w-button>
+    </aeria-button>
   </div>
 </template>

@@ -39,7 +39,7 @@ export type AppOptions = {
   i18n?: any
   menuSchema?: MenuSchema
   routes?: RouteRecordRaw[]
-  setup?: () => void|Promise<void>
+  setup?: () => void | Promise<void>
 }
 
 export const defineOptions = <TAppOptions extends AppOptions>(options: TAppOptions | (() => TAppOptions | Promise<TAppOptions>)) => {
