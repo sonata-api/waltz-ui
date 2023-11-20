@@ -1,5 +1,11 @@
 # waltz-build
 
+## 0.0.15
+
+### Patch Changes
+
+- Patch instance bug
+
 ## 0.0.14
 
 ### Patch Changes

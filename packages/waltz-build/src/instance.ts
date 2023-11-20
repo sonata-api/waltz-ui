@@ -19,5 +19,13 @@ export const getInstanceConfig = async () => {
     }
   })()
 
-  return config
+  const {
+    exposed = {},
+    icons
+  } = config
+
+  return {
+    exposed,
+    icons
+  }
 }
