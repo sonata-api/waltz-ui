@@ -69,7 +69,7 @@ importers:
         specifier: ^0.17.0
         version: 0.17.1(vite@4.5.0)
       waltz-build:
-        specifier: ^0.0.14
+        specifier: ^0.0.15
         version: link:../waltz-build
 
   packages/waltz-build:
