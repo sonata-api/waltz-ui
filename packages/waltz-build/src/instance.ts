@@ -2,12 +2,9 @@ import { readFile } from 'fs/promises'
 
 export type InstanceConfig = {
   exposed: {
-    themes?: string[]
-    darkThemes?: string[]
-    dashboardLayout?: Record<string, {
-    }>
     title: string
     signinText: string
+    signupForm?: boolean
   }
   icons?: string[]
 }
@@ -22,13 +19,5 @@ export const getInstanceConfig = async () => {
     }
   })()
 
-  const {
-    exposed = {},
-    icons = []
-  } = config
-
-  return {
-    exposed,
-    icons
-  }
+  return config
 }

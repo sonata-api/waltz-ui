@@ -1,5 +1,17 @@
 # @waltz-ui/ui
 
+## 0.0.95
+
+### Patch Changes
+
+- Fix form bug
+
+## 0.0.94
+
+### Patch Changes
+
+- Fix input bugs
+
 ## 0.0.93
 
 ### Patch Changes

@@ -30,7 +30,6 @@ type Props = FormFieldProps<any> & {
   collection?: string | Ref<string>
   isReadOnly?: boolean
   searchOnly?: boolean
-  strict?: boolean
   layout?: {
     fields: Record<string, LayoutConfig>
   }
@@ -48,7 +47,6 @@ type Props = FormFieldProps<any> & {
 const props = withDefaults(defineProps<Props>(), {
   isReadOnly: false,
   searchony: false,
-  strict: true,
   validationErrors: null,
   highlightRequired: true
 })
@@ -138,11 +136,7 @@ const filterProperties = (condition: (f: [string, CollectionProperty]) => boolea
 
 
 const has = (propertyName: string) => {
-  if(
-    props.searchOnly
-    || !props.strict
-    || !collectionName
-  ) {
+  if( props.searchOnly || !collectionName ) {
     return true
   }
 
@@ -171,15 +165,17 @@ const fieldStyle = (key: string, property: any) => {
       layout.if
     )
 
-    if( !result.satisfied && conditionMemo[key] ) {
-      if( store ) {
-        props.modelValue[key] = typeof store.$freshItem[key] === 'object'
-          ? deepClone(store.$freshItem[key])
-          : store.$freshItem[key]
-      } else {
-        props.modelValue[key] = ![undefined, null].includes(props.modelValue[key])
-          ? props.modelValue[key].constructor()
-          : null
+    if( !result.satisfied ) {
+      if( conditionMemo[key] ) {
+        if( store ) {
+          props.modelValue[key] = typeof store.$freshItem[key] === 'object'
+            ? deepClone(store.$freshItem[key])
+            : store.$freshItem[key]
+        } else {
+          props.modelValue[key] = ![undefined, null].includes(props.modelValue[key])
+            ? props.modelValue[key].constructor()
+            : null
+        }
       }
 
       style.push(`display: none;`)

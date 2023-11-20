@@ -8,10 +8,10 @@ import { useClipboard } from '@waltz-ui/web'
 import AeriaInfo from '../../aeria-info/aeria-info.vue'
 import AeriaIcon from '../../aeria-icon/aeria-icon.vue'
 
-type InputType = string|number|Date
+type InputType = string | number | Date
 
 type InputVariant =
-  'normal'
+  | 'normal'
   | 'bold'
   | 'light'
 
@@ -35,7 +35,6 @@ const emit = defineEmits<{
   (e: 'change', value: any): void
 }>()
 
-const input = ref(null)
 const variant = inject('inputVariant', props.variant) || 'normal'
 
 const {
@@ -172,7 +171,7 @@ watch(() => props.modelValue, (value, oldValue) => {
       : ''
   }
 
-  if( value && oldValue === undefined ) {
+  else if( value && oldValue === undefined ) {
     inputValue.value = value
   }
 })
@@ -198,7 +197,6 @@ watch(() => props.modelValue, (value, oldValue) => {
         v-maska
         v-bind="inputBind"
         v-focus="property.s$focus"
-        ref="input"
         :value="inputValue"
         data-component="input"
         :data-maska="mask"
@@ -248,6 +246,7 @@ watch(() => props.modelValue, (value, oldValue) => {
         v-focus="property.s$focus"
         :placeholder="inputBind.placeholder"
         :readonly="inputBind.readonly"
+        :value="inputValue"
 
         :class="`
           input__textarea
@@ -255,7 +254,7 @@ watch(() => props.modelValue, (value, oldValue) => {
         `"
 
         @input="onInput"
-      >{{ modelValue }}</textarea>
+      ></textarea>
     </div>
   </label>
 </template>

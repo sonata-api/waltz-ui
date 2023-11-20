@@ -1,6 +1,6 @@
 {
   "name": "@waltz-ui/ui",
-  "version": "0.0.93",
+  "version": "0.0.95",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -36,7 +36,7 @@
     "vite": "^4.4.8",
     "vite-plugin-dts": "^3.3.0",
     "vite-plugin-static-copy": "^0.17.0",
-    "waltz-build": "^0.0.13"
+    "waltz-build": "^0.0.14"
   },
   "peerDependencies": {
     "@sonata-api/common": "*",

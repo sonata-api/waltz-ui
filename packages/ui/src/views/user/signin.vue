@@ -25,9 +25,7 @@ const authenticate = async () => {
       v-html="instanceVars.signinText"
       style="font-size: 2.4rem; margin-bottom: .8rem"
     ></h1>
-    <div
-      v-if="instanceVars.signupForm"
-    >
+    <div v-if="instanceVars.signupForm">
       <span>Não possui uma conta?</span>
       <span 
         v-clickable
