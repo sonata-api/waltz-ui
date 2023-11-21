@@ -322,7 +322,7 @@ export const createCollectionStore = <TItem extends CollectionStoreItem>() => <
   return {
     $id: newer?.$id as TStoreId,
     state: state as typeof initial.state & TStoreState,
-    getters: newer.getters?.(state, actions as any) as UnRef<TStoreGetters>,
+    getters: newer.getters?.(state, actions as any) as TStoreGetters,
     actions: actions as TStoreActions extends {}
       ? typeof actions & TStoreActions
       : never

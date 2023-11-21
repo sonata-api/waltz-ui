@@ -55,9 +55,9 @@ export const hasStore = (storeId: string) => {
 export const registerStore = <
   const TStoreId extends string,
   TStoreState extends StoreState,
-  TStoreGetters extends UnRef<Record<string, ComputedRef<any>>>,
+  TStoreGetters extends Record<string, ComputedRef<any>>,
   TStoreActions extends Record<string, (...args: any[]) => any>,
-  Return=TStoreState & TStoreGetters & {
+  Return=TStoreState & UnRef<TStoreGetters> & {
     $id: TStoreId,
     $actions: TStoreActions
     $functions: Record<string, (...args: any[]) => any>

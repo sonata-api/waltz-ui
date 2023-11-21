@@ -1,6 +1,6 @@
 .focus {
   .input {
-    &__container--bordered {
+    &__container {
       &>.input__input,
       &>.input__textarea {
         border-color: var(--theme-brand-color);
@@ -22,17 +22,18 @@
 }
 
 .input {
+  --background-color: var(--input-background-color, var(--theme-background-color-shade-3));
+  --border-color: var(--input-border-color, var(--theme-background-color));
+
   &__container {
     position: relative;
     display: flex;
 
-    &--bordered {
-      &>.input__input,
-      &>.input__textarea {
-        background: var(--theme-background-color-shade-3);
-        border: 1px solid var(--theme-background-color-shade-3);
-        transition: border-color .15s ease;
-      }
+    &>.input__input,
+    &>.input__textarea {
+      background: var(--background-color);
+      border: 1px solid var(--border-color);
+      transition: border-color .15s ease;
     }
 
     &--light {
@@ -52,7 +53,7 @@
 
     &--normal, &--bold {
       color: var(--theme-foreground-color);
-      background: var(--theme-background-color-shade-3);
+      background: var(--background-color);
     }
 
     &--normal {
@@ -111,7 +112,7 @@
   &__clipboard {
     display: flex;
     place-items: center;
-    background: var(--theme-background-color-shade-4);
+    background: var(--background-color);
 
     padding: 0 .6em;
   }

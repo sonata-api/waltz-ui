@@ -265,7 +265,6 @@ provide('individualActions', individualActions)
       class="crud__search"
     >
       <aeria-input
-        bordered
         v-model="store.textQuery"
         v-bind="{
           property: {

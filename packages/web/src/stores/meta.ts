@@ -64,7 +64,7 @@ export const meta = () => registerStore(() => {
 
 
   const getters = {
-    $theme: computed(() => {
+    $theme: computed((): string => {
       const currTheme = state.themeOverride || state.theme
       if( !currTheme ) {
         const defaultTheme = 'default'

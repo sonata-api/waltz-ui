@@ -94,7 +94,6 @@ watch([page, limit], ([newPage]: [number, number]) => {
       </aeria-bare-button>
       <div class="pagination__page-input">
         <aeria-input
-          bordered
           v-model="pageInput"
           :key="page"
           :property="{

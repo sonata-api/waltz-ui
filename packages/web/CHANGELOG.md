@@ -1,5 +1,13 @@
 # @waltz-ui/web
 
+## 0.0.56
+
+### Patch Changes
+
+- Fix stores typing
+- Updated dependencies
+  - @waltz-ui/state-management@0.0.4
+
 ## 0.0.55
 
 ### Patch Changes

@@ -119,8 +119,7 @@ if( collectionName ) {
   provide('storeId', collectionName)
 }
 
-provide('searchOnly', props.searchOnly||false)
-provide('inputBordered', inject('inputBordered', true))
+provide('searchOnly', props.searchOnly)
 
 const filterProperties = (condition: (f: [string, CollectionProperty]) => boolean) => {
   if( !form.value ) {

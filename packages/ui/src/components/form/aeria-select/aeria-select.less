@@ -1,10 +1,12 @@
 .select {
+  --background-color: var(--input-background-color, var(--theme-background-color-shade-3));
+
   display: flex;
   align-items: center;
   gap: .4rem;
   padding: var(--theme-input-padding);
 
-  background: var(--theme-background-color-shade-3);
+  background: var(--background-color);
   border: 1px solid transparent;
   transition: border-color .35s ease;
 
@@ -28,7 +30,7 @@
     color: var(--theme-foreground-color);
 
     :deep(option) {
-      background: var(--theme-background-color-shade-3);
+      background: var(--background-color);
     }
   }
 }

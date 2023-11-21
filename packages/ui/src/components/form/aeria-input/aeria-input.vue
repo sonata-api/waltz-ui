@@ -17,12 +17,10 @@ type InputVariant =
 
 type Props = FormFieldProps<InputType> & {
   variant?: InputVariant
-  bordered?: boolean
 }
 
 const props = defineProps<Props>()
 const property = props.property || {} as CollectionProperty
-const bordered = props.bordered || inject('inputBordered', false)
 
 const searchOnly = inject('searchOnly', false)
 const innerInputLabel = inject('innerInputLabel', false)
@@ -191,7 +189,6 @@ watch(() => props.modelValue, (value, oldValue) => {
       :class="`
         input__container
         input__container--${variant}
-        ${bordered && 'input__container--bordered'}
     `">
       <input
         v-maska
@@ -240,7 +237,6 @@ watch(() => props.modelValue, (value, oldValue) => {
       :class="`
         input__container
         input__container--${variant}
-        ${bordered && 'input__container--bordered'}
     `">
       <textarea
         v-focus="property.s$focus"
