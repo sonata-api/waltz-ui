@@ -1,5 +1,11 @@
 # @waltz-ui/web
 
+## 0.0.57
+
+### Patch Changes
+
+- Fix roles bug in navbar
+
 ## 0.0.56
 
 ### Patch Changes

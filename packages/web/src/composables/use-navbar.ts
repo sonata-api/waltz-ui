@@ -64,15 +64,6 @@ export const useNavbar = async (props: Props) => {
         return
       }
 
-      if( 'collapsed' in node  ) {
-        entries[key] = {
-          ...node,
-          children: await getRoutes(node)
-        }
-
-        return
-      }
-
       const {
         children,
         ...route
@@ -93,6 +84,16 @@ export const useNavbar = async (props: Props) => {
         else if( !arraysIntersects(userStore.$currentUser.roles, roles) ) {
           return
         }
+      }
+
+
+      if( 'collapsed' in node  ) {
+        entries[key] = {
+          ...node,
+          children: await getRoutes(node)
+        }
+
+        return
       }
 
       entries[key] = route
