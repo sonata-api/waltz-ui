@@ -103,6 +103,7 @@ export default defineConfig(async () => {
     },
     build: {
       target: 'esnext',
+      sourcemap: !!instanceConfig.sourcemap
     },
   }
 

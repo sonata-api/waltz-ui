@@ -16,7 +16,7 @@ export type ActionFilter = Partial<CrudParameters>
 
 export type CustomOptions = {
   method?:
-    'GET'
+    | 'GET'
     | 'POST'
     | 'PUT'
     | 'DELETE'
@@ -28,6 +28,10 @@ export type CustomOptions = {
 export const useStoreActions = (store: CollectionStore) => {
   const actions = {
     setItem(item: typeof store['item']) {
+      for( const key in store.item ) {
+        store.item[key] = undefined
+      }
+
       Object.assign(store.item, deepClone(store.freshItem))
       Object.entries(item).forEach(([key, value]) => {
         store.item[key] = value

@@ -1,5 +1,11 @@
 # @waltz-ui/web
 
+## 0.0.58
+
+### Patch Changes
+
+- Fix duplicate UI action on aeria-crud
+
 ## 0.0.57
 
 ### Patch Changes

@@ -169,8 +169,12 @@ watch(() => actionEventBus.value, async (event) => {
   else if( event.name === 'duplicate' ) {
     await getPromise
 
-    const newItem = Object.entries(store.item).reduce((a, [key, value]: [string, any]) => {
+    const newItem = Object.entries(store.item).reduce((a, [key, value]) => {
       const property = store.properties[key]||{}
+      if( property.readOnly ) {
+        return a
+      }
+
       const unbound = (value: any) => {
         if( property.s$isFile ) {
           return {}
@@ -182,7 +186,7 @@ watch(() => actionEventBus.value, async (event) => {
         return value
       }
 
-      value = property.type === 'array'
+      value = Array.isArray(value)
         ? value.map(unbound)
         : unbound(value)
 

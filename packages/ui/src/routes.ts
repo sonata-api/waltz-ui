@@ -1,7 +1,7 @@
 import type { Component } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 
-export const userRoutes = (component: Component | (() => Component|Promise<Component>)): RouteRecordRaw => ({
+export const userRoutes = (component: Component | (() => Promise<Component>)): RouteRecordRaw => ({
   path: '/user',
   name: '/user',
   component,
@@ -41,7 +41,7 @@ export const userRoutes = (component: Component | (() => Component|Promise<Compo
   ]
 })
 
-export const dashboardRoutes = (component: Component | (() => Component|Promise<Component>)): RouteRecordRaw => ({
+export const dashboardRoutes = (component: Component | (() => Promise<Component>)): RouteRecordRaw => ({
   path: '/dashboard',
   name: 'dashboard',
   component,

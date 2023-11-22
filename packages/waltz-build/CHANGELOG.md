@@ -1,5 +1,11 @@
 # waltz-build
 
+## 0.0.16
+
+### Patch Changes
+
+- Add sourcemap flag to instance.json
+
 ## 0.0.15
 
 ### Patch Changes

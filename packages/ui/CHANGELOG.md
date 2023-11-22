@@ -1,5 +1,19 @@
 # @waltz-ui/ui
 
+## 0.0.97
+
+### Patch Changes
+
+- Fix duplicate UI action on aeria-crud
+- Updated dependencies
+  - @waltz-ui/web@0.0.58
+
+## 0.0.96
+
+### Patch Changes
+
+- Change ui routes signature
+
 ## 0.0.95
 
 ### Patch Changes
