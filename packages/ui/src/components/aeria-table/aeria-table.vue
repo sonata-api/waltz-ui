@@ -151,7 +151,6 @@ const buttonStyle = (subject: any, action: any) => {
               <div v-if="property.type === 'boolean'">
                 <aeria-icon
                   v-if="row[column]"
-                  small
                   icon="check"
                   icon-classes="aeria-blueish"
                 >
@@ -159,7 +158,6 @@ const buttonStyle = (subject: any, action: any) => {
                 </aeria-icon>
                 <aeria-icon
                   v-else
-                  small
                   icon="times"
                   icon-classes="aeria-redish"
                 >
@@ -234,9 +232,10 @@ const buttonStyle = (subject: any, action: any) => {
         >
           <div class="table__cell-actions">
             <aeria-button
-              small
               v-for="action in buttonActions"
               :key="`action-${action.action}`"
+
+              small
               variant="transparent"
               :icon="action.icon"
 
@@ -280,10 +279,7 @@ const buttonStyle = (subject: any, action: any) => {
               class="table__mobile-actions-button"
               @click="action.click(row)"
             >
-              <aeria-icon
-                small
-                :icon="action.icon || 'setting'"
-              >
+              <aeria-icon :icon="action.icon || 'setting'">
                 {{ $t(action.name) }}
               </aeria-icon>
             </aeria-bare-button>

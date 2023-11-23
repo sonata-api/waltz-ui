@@ -8,7 +8,7 @@
     height: 100%;
   }
 
-  fill: var(--theme-foreground-color);
+  fill: var(--icon-color, var(--theme-foreground-color));
 
   &--reactive {
     padding: 8px;
@@ -36,14 +36,7 @@
       order: 1;
     }
 
-    &--small {
-      width: 14px;
-      height: 14px;
-    }
-
-    &--medium {
-      width: 20px;
-      height: 20px;
-    }
+    width: var(--icon-size, 1em);
+    height: var(--icon-size, 1em);
   }
 }

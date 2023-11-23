@@ -25,7 +25,6 @@ const metaStore = useStore('meta')
     <div>
       <aeria-icon
         v-if="icon"
-        small
         :icon="icon"
       >
         <slot></slot>

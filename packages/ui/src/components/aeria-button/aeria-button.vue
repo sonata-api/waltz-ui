@@ -50,7 +50,6 @@ const size = (() => {
     <aeria-icon
       v-if="icon"
       :icon="icon"
-      :small="size === 'small'"
     >
       <div class="button__content">
         <slot></slot>

@@ -130,7 +130,6 @@ const position = computed(() => {
             @click="onClick(action, subject)"
           >
             <aeria-icon
-              small
               v-if="action.icon"
               :icon="action.icon"
             >

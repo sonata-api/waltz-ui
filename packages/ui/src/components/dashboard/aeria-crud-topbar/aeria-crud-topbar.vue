@@ -86,7 +86,6 @@ watch(route, (currRoute) => {
         @click="togglePreset(preset)"
       >
         <aeria-icon
-          small
           v-if="preset.icon"
           :icon="preset.icon"
         >

@@ -391,7 +391,6 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
 
           <div>
             <aeria-button
-              small
               variant="transparent"
               icon="plus"
               :disabled="

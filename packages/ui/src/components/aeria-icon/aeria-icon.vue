@@ -4,24 +4,13 @@ import { inject } from 'vue'
 type Props = {
   icon: string
   size?: string
-  small?: boolean
   medium?: boolean
   reactive?: boolean|null
   iconRight?: boolean
   fill?: string
-  iconClasses?: string
 }
 
 const props = defineProps<Props>()
-
-const size = (() => {
-  switch( true ) {
-    case props.small: return 'small'
-    case props.medium: return 'medium'
-  }
-
-  return inject('iconSize', props.size) || 'medium'
-})()
 
 const reactive = typeof props.reactive === 'boolean'
   ? props.reactive
@@ -39,11 +28,6 @@ const reactive = typeof props.reactive === 'boolean'
       icon__icon
       ${ size && `icon__icon--${size}` }
       ${ iconRight && 'icon__icon--right' }
-      ${
-        small
-          ? 'icon__icon--small'
-          : 'icon__icon--medium'
-      }
     `">
       <svg
         width="24"
@@ -53,8 +37,6 @@ const reactive = typeof props.reactive === 'boolean'
         v-bind="{
           ...(fill ? { fill } : {})
         }"
-
-        :class="iconClasses || ''"
       >
         <use :href="`/assets/icons.svg#line:${icon}`"></use>
       </svg>

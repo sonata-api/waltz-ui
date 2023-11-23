@@ -235,7 +235,6 @@ const save = () => {
       <template #footer>
         <aeria-icon
           v-clickable
-          small
           icon="plus"
           @click="openSelectPanel"
         >
