@@ -22,7 +22,11 @@ const reactive = typeof props.reactive === 'boolean'
     :class="`
       icon
       ${reactive && 'icon--reactive'}
-      ${$slots.default && 'icon--centered'}
+      ${
+        $slots.default
+        ? 'icon--centered'
+        : 'icon--standalone'
+      }
   `">
     <div :class="`
       icon__icon

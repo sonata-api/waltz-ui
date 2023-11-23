@@ -1,5 +1,11 @@
 # @waltz-ui/ui
 
+## 0.0.99
+
+### Patch Changes
+
+- Fix icon sizing
+
 ## 0.0.98
 
 ### Patch Changes
