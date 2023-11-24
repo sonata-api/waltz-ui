@@ -177,7 +177,7 @@ watch(() => props.modelValue, (value, oldValue) => {
 
 <template>
   <label class="input">
-    <div class="input__label" v-if="!innerInputLabel">
+    <div v-if="!innerInputLabel" class="input__label">
       <slot v-if="$slots.default"></slot>
       <slot v-else name="description"></slot>
     </div>

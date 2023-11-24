@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CollectionProperty, CollectionAction } from '@sonata-api/types'
+import type { CollectionProperty, CollectionAction, TableLayout } from '@sonata-api/types'
 import { inject, computed, type Ref } from 'vue'
 import { evaluateCondition } from '@sonata-api/common'
 import { useBreakpoints } from '@waltz-ui/web'
@@ -36,17 +36,44 @@ const selected = computed({
   set: (items: any[]) => store?.$actions.selectManyItems(items, true)
 })
 
-const buttonActions = computed(() => (
-  breakpoints.value.xl && breakpoints
-    ? props.actions?.filter((action) => props.layout?.actions?.[action.action]?.button) || []
-    : []
-))
+const isActionButton = (layout: TableLayout<any>['actions'][string], subject: any) => {
+  if( !layout?.button ) {
+    return false
+  }
 
-const dropdownActions = computed(() => (
-  breakpoints.value.xl
-    ? props.actions?.filter((action) => !props.layout?.actions?.[action.action]?.button) || []
-    : props.actions || []
-))
+  if( typeof layout.button === 'object' ) {
+    const result = evaluateCondition(subject, layout.button)
+    return result.satisfied
+  }
+
+  return layout.button
+}
+
+const buttonActions = (subject: any) => {
+  if( !breakpoints.value.xl || !props.layout?.actions || !props.actions ) {
+    return []
+  }
+
+  return props.actions.filter((action) => {
+    const layout = props.layout.actions[action.action]
+    return isActionButton(layout, subject)
+  })
+}
+
+const dropdownActions = (subject: any) => {
+  if( !props.actions ) {
+    return []
+  }
+
+  if( !breakpoints.value.xl || !props.layout?.actions ) {
+    return props.actions
+  }
+
+  return props.actions.filter((action) => {
+    const layout = props.layout.actions[action.action]
+    return !isActionButton(layout, subject)
+  })
+}
 
 const buttonStyle = (subject: any, action: any) => {
   const style = []
@@ -232,7 +259,7 @@ const buttonStyle = (subject: any, action: any) => {
         >
           <div class="table__cell-actions">
             <aeria-button
-              v-for="action in buttonActions"
+              v-for="action in buttonActions(row)"
               :key="`action-${action.action}`"
 
               small
@@ -246,10 +273,10 @@ const buttonStyle = (subject: any, action: any) => {
             </aeria-button>
 
             <aeria-context-menu
-              v-if="dropdownActions.length > 0"
+              v-if="dropdownActions(row).length > 0"
               v-bind="{
                 subject: row,
-                actions: dropdownActions
+                actions: dropdownActions(row)
             }">
               <aeria-icon
                 v-clickable
@@ -270,10 +297,10 @@ const buttonStyle = (subject: any, action: any) => {
         >
           <div
             class="table__mobile-actions-grid"
-            :style="`grid-template-columns: repeat(${buttonActions.length + (dropdownActions.length ? 1 : 0)}, 1fr);`"
+            :style="`grid-template-columns: repeat(${buttonActions(row).length + (dropdownActions(row).length ? 1 : 0)}, 1fr);`"
           >
             <aeria-bare-button
-              v-for="action in buttonActions"
+              v-for="action in buttonActions(row)"
               :key="`action-${action.action}`"
 
               class="table__mobile-actions-button"
@@ -285,10 +312,10 @@ const buttonStyle = (subject: any, action: any) => {
             </aeria-bare-button>
 
             <aeria-context-menu
-              v-if="dropdownActions.length > 0"
+              v-if="dropdownActions(row).length > 0"
               v-bind="{
                 subject: row,
-                actions: dropdownActions
+                actions: dropdownActions(row)
             }">
               <aeria-icon
                 icon="ellipsis-h"
