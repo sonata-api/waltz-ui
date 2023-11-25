@@ -148,13 +148,6 @@ const onInput = (
     ? (<CustomEvent<MaskaDetail>>event).detail?.unmasked
     : value
     
-  if( 'type' in property ) {
-    if( property.type === 'number' && !newValue ) {
-      updateValue(0)
-      return
-    }
-  }
-
   updateValue(newValue!)
 }
 
@@ -164,9 +157,7 @@ watch(() => props.modelValue, (value, oldValue) => {
   }
 
   if( oldValue && !value ) {
-    inputValue.value = 'type' in property && property.type === 'number'
-      ? 0
-      : ''
+    inputValue.value = ''
   }
 
   else if( value && oldValue === undefined ) {
