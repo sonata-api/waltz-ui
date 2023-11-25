@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { CollectionProperty } from '@sonata-api/types'
+import type { SearchProperty } from '../../../../types'
 import { computed } from 'vue'
 import { useParentStore } from '@waltz-ui/state-management'
 
 type Props = {
   item: Record<string, any>
-  indexes: string[]
+  indexes: readonly string[]
   modelValue?: any
-  property: CollectionProperty
+  property: SearchProperty
 }
 
 type Emits = {
@@ -52,7 +52,7 @@ const select = () => {
 
 
 const deselect = async (options?: { purge?: true }) => {
-  if( property.s$purge && options?.purge ) {
+  if( property.purge && options?.purge ) {
     const { _id } = props.item
     await store.$actions.remove({ filters: { _id } })
   }

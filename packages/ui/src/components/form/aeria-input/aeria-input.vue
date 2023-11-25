@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CollectionProperty } from '@sonata-api/types'
+import type { Property } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
 import { ref, inject, watch } from 'vue'
 import { type MaskaDetail, vMaska } from 'maska'
@@ -20,11 +20,11 @@ type Props = FormFieldProps<InputType> & {
 }
 
 const props = defineProps<Props>()
-const property = props.property || {} as CollectionProperty
+const property = props.property || {} as Property
 
 const searchOnly = inject('searchOnly', false)
 const innerInputLabel = inject('innerInputLabel', false)
-const readOnly = !searchOnly && (property.readOnly || property.s$isGetter)
+const readOnly = !searchOnly && (property.readOnly || property.isGetter)
 
 const copyToClipboard = useClipboard()
 
@@ -36,8 +36,8 @@ const emit = defineEmits<{
 const variant = inject('inputVariant', props.variant) || 'normal'
 
 const {
-  s$icon: icon = property.s$inputType === 'search' && 'search-alt',
-  s$mask: mask
+  icon: icon = property.inputType === 'search' && 'search-alt',
+  mask: mask
 
 } = property
 
@@ -56,8 +56,8 @@ const inputBind: {
       }
     }
 
-    if( property.s$inputType ) {
-      return property.s$inputType
+    if( property.inputType ) {
+      return property.inputType
     }
 
     switch( typeof props.modelValue ) {
@@ -68,7 +68,7 @@ const inputBind: {
   })(),
   placeholder: innerInputLabel
     ? property.description || props.propertyName
-    : property.s$placeholder
+    : property.placeholder
 }
 
 if( 'type' in property ) {
@@ -185,7 +185,7 @@ watch(() => props.modelValue, (value, oldValue) => {
       <slot name="hint"></slot>
     </div>
     <div
-      v-if="property.s$element !== 'textarea'"
+      v-if="property.element !== 'textarea'"
       :class="`
         input__container
         input__container--${variant}
@@ -193,7 +193,7 @@ watch(() => props.modelValue, (value, oldValue) => {
       <input
         v-maska
         v-bind="inputBind"
-        v-focus="property.s$focus"
+        v-focus="property.focus"
         :value="inputValue"
         data-component="input"
         :data-maska="mask"
@@ -239,7 +239,7 @@ watch(() => props.modelValue, (value, oldValue) => {
         input__container--${variant}
     `">
       <textarea
-        v-focus="property.s$focus"
+        v-focus="property.focus"
         :placeholder="inputBind.placeholder"
         :readonly="inputBind.readonly"
         :value="inputValue"

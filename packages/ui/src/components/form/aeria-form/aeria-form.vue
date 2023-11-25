@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { CollectionProperty, Condition } from '@sonata-api/types'
+import type { Property, Condition } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
 import { onBeforeMount, ref, computed, provide, inject, isRef, type Ref } from 'vue'
-import { evaluateCondition, deepClone } from '@sonata-api/common'
+import { evaluateCondition, deepClone, isRequired } from '@sonata-api/common'
 import { useBreakpoints, insertReady } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
 
@@ -25,7 +25,7 @@ type LayoutConfig = {
 }
 
 type Props = FormFieldProps<any> & {
-  form?: Record<string, CollectionProperty>
+  form?: Record<string, Property>
   modelValue: Record<string, any>
   collection?: string | Ref<string>
   isReadOnly?: boolean
@@ -63,7 +63,7 @@ onBeforeMount(() => {
 
 const collectionName = !props.property
     ? props.collection || inject('storeId', null)
-    : props.property.s$referencedCollection
+    : props.property.referencedCollection
 
 const store = collectionName
   ? useStore(isRef(collectionName)
@@ -80,7 +80,7 @@ if( !collectionName && process.env.NODE_ENV !== 'production' ) {
 
 const alreadyFocused = ref(false)
 
-const form = computed((): Record<string, CollectionProperty> | undefined => {
+const form = computed((): Record<string, Property> | undefined => {
   if( !props.form && props.property ) {
     if( 'properties' in props.property ) {
       return props.property.properties
@@ -121,14 +121,14 @@ if( collectionName ) {
 
 provide('searchOnly', props.searchOnly)
 
-const filterProperties = (condition: (f: [string, CollectionProperty]) => boolean) => {
+const filterProperties = (condition: (f: [string, Property]) => boolean) => {
   if( !form.value ) {
     return null
   }
 
   return Object.entries(form.value).filter(([key, property]) => {
     return property
-      && !property.s$noForm
+      && !property.noForm
       && (!condition || condition([key, property]))
   })
 }
@@ -256,7 +256,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
       >
         <label v-if="
           (!('type' in property) || property.type !== 'boolean' || searchOnly)
-            && !property.s$noLabel
+            && !property.noLabel
             && !omitInputLabels
             && !innerInputLabel
         ">
@@ -265,13 +265,13 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
             'form__field-required-hint':
               highlightRequired
                 && !searchOnly
-                && (!required || required.includes(key))
+                && (!required || isRequired(key, required, modelValue))
           }">
             {{ property.description || $t(key) }}
           </div>
           <div
-            v-if="property.s$hint"
-            v-html="property.s$hint"
+            v-if="property.hint"
+            v-html="property.hint"
           ></div>
         </label>
 
@@ -348,7 +348,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
         <div
           v-else-if="
             'type' in property && property.type === 'array'
-              && (!(property.s$isReference && !property.s$inline) || property.s$isFile)
+              && (!(property.isReference && !property.inline) || property.isFile)
           "
           style="display: grid; row-gap: .4rem"
         >
@@ -373,7 +373,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
                   columns: layout?.fields?.[key]?.optionsColumns
                     || layout?.fields?.$default?.optionsColumns,
                   validationErrors: getNestedValidationError(key, listIndex),
-                  ...(property.s$componentProps || {})
+                  ...(property.componentProps || {})
                 }"
 
                 @input="emit('input', key)"
@@ -397,7 +397,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
                 modelValue[key]?.length >= property.maxItems!
                   || unfilled(modelValue[key]?.[modelValue[key]?.length-1])
                   || (
-                    property.s$isFile
+                    property.isFile
                       && modelValue[key]?.length > 0
                       && !modelValue[key]?.[modelValue[key]?.length-1]?._id
                   )
@@ -423,7 +423,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
             parentCollection: collectionName,
             columns: layout?.fields?.[key]?.optionsColumns
               || layout?.fields?.$default?.optionsColumns,
-            ...(property.s$componentProps || {}),
+            ...(property.componentProps || {}),
             validationErrors: getNestedValidationError(key)
           }"
 

@@ -90,7 +90,7 @@ const insert = async () => {
             v-model="tosAccepted"
             :property="{
               type: 'boolean',
-              s$element: 'checkbox'
+              element: 'checkbox'
             }"
           >
             Declaro que li e aceito os termos de uso

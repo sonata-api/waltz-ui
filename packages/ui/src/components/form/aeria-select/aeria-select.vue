@@ -45,8 +45,8 @@ const modelValue = !props.booleanRef
 <template>
   <div class="select">
     <aeria-icon 
-      v-if="property.s$icon"
-      :icon="property.s$icon"
+      v-if="property.icon"
+      :icon="property.icon"
       class="select__icon"
     ></aeria-icon>
 
@@ -64,7 +64,7 @@ const modelValue = !props.booleanRef
         :key="option"
         :value="option"
       >
-        {{ property.s$translate ? $t(option) : option }}
+        {{ property.translate ? $t(option) : option }}
       </option>
       <slot></slot>
     </select>

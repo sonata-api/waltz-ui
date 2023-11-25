@@ -42,12 +42,12 @@ const authenticate = async () => {
     :form="{
       email: {
         type: 'string',
-        s$icon: 'user',
+        icon: 'user',
       },
       password: {
         type: 'string',
-        s$icon: 'key-skeleton',
-        s$inputType: 'password'
+        icon: 'key-skeleton',
+        inputType: 'password'
       }
     }"
   ></aeria-form>

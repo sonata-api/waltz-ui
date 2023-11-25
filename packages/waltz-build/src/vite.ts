@@ -25,9 +25,7 @@ export default defineConfig(async () => {
       waltzIcons({
         tag: 'w-icon',
         hash: true,
-        libraries: [
-          '@waltz-ui/ui'
-        ],
+        libraries: instanceConfig.icons?.libraries || [],
         async preEmit() {
           const userIcons = require(process.cwd() + '/../api/node_modules/.sonata/icons')
           const systemIcons = require(process.cwd() + '/../api/node_modules/@sonata-api/system/dist/icons')

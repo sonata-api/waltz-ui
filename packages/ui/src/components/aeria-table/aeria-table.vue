@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CollectionProperty, CollectionAction, TableLayout } from '@sonata-api/types'
+import type { Property, CollectionAction, TableLayout } from '@sonata-api/types'
 import { inject, computed, type Ref } from 'vue'
 import { evaluateCondition } from '@sonata-api/common'
 import { useBreakpoints } from '@waltz-ui/web'
@@ -12,7 +12,7 @@ import AeriaPicture from '../aeria-picture/aeria-picture.vue'
 import AeriaContextMenu from '../aeria-context-menu/aeria-context-menu.vue'
 
 type Props = {
-  columns?: Record<string, CollectionProperty>
+  columns?: Record<string, Property>
   rows?: any
   collection?: string | Ref<string>
   checkbox?: boolean
@@ -193,7 +193,7 @@ const buttonStyle = (subject: any, action: any) => {
               </div>
 
               <div v-else>
-                <div v-if="property.s$isFile && row[column]">
+                <div v-if="property.isFile && row[column]">
                   <aeria-picture
                     expandable
                     v-if="/^image/.test(row[column].mime)" 
@@ -232,11 +232,11 @@ const buttonStyle = (subject: any, action: any) => {
                 </span>
               </div>
               <div v-if="
-                property.s$indexes?.length! > 1
-                  && property.s$referencedCollection !== 'file'
+                property.indexes?.length! > 1
+                  && property.referencedCollection !== 'file'
               ">
                 <div
-                  v-for="(subvalue, index) in property.s$indexes!.slice(1, 2)"
+                  v-for="(subvalue, index) in property.indexes!.slice(1, 2)"
                   :key="`subvalue-${index}`"
                 >
                   {{

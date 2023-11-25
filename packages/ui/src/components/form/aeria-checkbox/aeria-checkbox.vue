@@ -96,7 +96,7 @@ const bindVal = computed({
       </div>
       <div class="checkbox__hint">
         <slot name="hint" v-if="$slots.hint"></slot>
-        <div v-else-if="property.s$hint" v-html="property.s$hint"></div>
+        <div v-else-if="property.hint" v-html="property.hint"></div>
       </div>
     </div>
   </label>

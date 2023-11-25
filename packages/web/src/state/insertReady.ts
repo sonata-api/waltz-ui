@@ -1,12 +1,13 @@
-import type { CollectionProperty, Description } from '@sonata-api/types'
+import type { Property, RequiredProperties, Description } from '@sonata-api/types'
+import { getMissingProperties, checkForUndefined } from '@sonata-api/common'
 
 export const insertReady = <
-  const TItem extends Record<string, any>,
-  TProperties extends Record<Lowercase<string>, CollectionProperty>
+  TItem extends Record<string, any>,
+  TProperties extends Record<Lowercase<string>, Property>
 >(
   item: TItem,
   properties: TProperties,
-  required?: (keyof TProperties)[],
+  required?: RequiredProperties<any>,
   description?: Description
 
 ) => {
@@ -17,29 +18,21 @@ export const insertReady = <
       : key in form
   }
 
-  const ensureFulfillment = () => {
-    const keys = required as Lowercase<string>[] || Object.keys(properties||{})
+  const requiredKeys = required || Object.keys(properties)
 
-    return keys.every((k) => {
-      const property = description?.properties?.[k]! || {}
-      if( property.readOnly || property.s$noForm ) {
-        return true
-      }
+  const missingProps = description
+    ? getMissingProperties(item, description, requiredKeys)
+    : Array.isArray(requiredKeys)
+      ? requiredKeys.filter((key: any) => checkForUndefined(properties[key], key, item)) as Lowercase<string>[]
+      : []
 
-      return !(k in properties)
-        || (description?.form && !formIncludes(k))
-        || ('type' in property && property.type === 'boolean')
-        || (
-          !!item[k]
-            && (
-              !property.s$isReference
-              || ('type' in property && property.type === 'array')
-              || item[k]._id
-            )
-        )
-    })
-  }
-  
-  return ensureFulfillment()
+  return missingProps.every((key) => {
+    const property = properties[key]
+
+    return (
+      description?.form && formIncludes(key)
+      || property.isReference
+    )
+  })
 }
 

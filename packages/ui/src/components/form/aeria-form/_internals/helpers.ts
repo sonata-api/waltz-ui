@@ -1,5 +1,5 @@
-import { CollectionProperty } from '@sonata-api/types'
-import { deepClone } from '@sonata-api/common'
+import { Property } from '@sonata-api/types'
+import { deepClone, isReference } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
 
 import AeriaInput from '../../aeria-input/aeria-input.vue'
@@ -10,7 +10,7 @@ import AeriaFile from '../../aeria-file/aeria-file.vue'
 import AeriaSearch from '../../aeria-search/aeria-search.vue'
 import AeriaForm from '../../aeria-form/aeria-form.vue'
 
-export const getComponent = (property: CollectionProperty, customComponents: Record<string, any>) => {
+export const getComponent = (property: Property, customComponents: Record<string, any>) => {
   const nestedProp = 'items' in property
     ? property.items
     : property
@@ -40,16 +40,21 @@ export const getComponent = (property: CollectionProperty, customComponents: Rec
       }
     }
 
-    switch( true ) {
-      case ['checkbox', 'radio'].includes(property.s$element!):
+    if( 'element' in property ) {
+      if( property.element === 'checkbox' || property.element === 'radio' ) {
         return 'options'
-      case property.s$element === 'select':
+      }
+      if( property.element === 'select' ) {
         return 'select'
-      case property.s$referencedCollection === 'file':
+      }
+    }
+
+    switch( true ) {
+      case property.referencedCollection === 'file':
         return 'file'
-      case property.s$isReference && property.s$inline:
+      case isReference(property) && property.inline:
         return 'form'
-      case property.s$isReference:
+      case isReference(property):
         return 'search'
       case 'enum' in nestedProp:
         return 'select'
@@ -67,14 +72,14 @@ export const getComponent = (property: CollectionProperty, customComponents: Rec
   return defaultComponents[mappedComponentType] || defaultComponents.input
 }
 
-export const pushToArray = (modelValue: any[], property: CollectionProperty) => {
+export const pushToArray = (modelValue: any[], property: Property) => {
   modelValue ??= []
   const propType = 'items' in property
     ? 'type' in property.items && property.items?.type
     : 'type' in property && property.type
 
-  if( property.s$isReference ) {
-    const helperStore = useStore(property.s$referencedCollection!)
+  if( property.isReference ) {
+    const helperStore = useStore(property.referencedCollection!)
     const newVal = deepClone(helperStore.$freshItem)
     return modelValue.push(newVal)
   }

@@ -176,10 +176,10 @@ watch(() => actionEventBus.value, async (event) => {
       }
 
       const unbound = (value: any) => {
-        if( property.s$isFile ) {
+        if( property.isFile ) {
           return {}
         }
-        if( property.s$inline && value ) {
+        if( property.inline && value ) {
           const { _id, ...rest } = value
           return rest
         }
@@ -273,8 +273,8 @@ provide('individualActions', individualActions)
         v-bind="{
           property: {
             type: 'text',
-            s$placeholder: store.description.search.placeholder || 'Pesquise aqui',
-            s$inputType: 'search'
+            placeholder: store.description.search.placeholder || 'Pesquise aqui',
+            inputType: 'search'
           }
         }"
       ></aeria-input>

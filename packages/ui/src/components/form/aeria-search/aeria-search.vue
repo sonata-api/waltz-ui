@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { CollectionProperty } from '@sonata-api/types'
-import type { FormFieldProps } from '../types'
-import { provide, computed, ref, watch, onMounted } from 'vue'
+import type { FormFieldProps, SearchProperty } from '../types'
+import { getReferencedCollection, convertConditionToQuery } from '@sonata-api/common'
+import { provide, inject, computed, ref, watch, onMounted } from 'vue'
 import { useDebounce } from '@waltz-ui/web'
-import { useStore } from '@waltz-ui/state-management'
+import { useStore, useParentStore } from '@waltz-ui/state-management'
 
 import AeriaPanel from '../../aeria-panel/aeria-panel.vue'
 import AeriaButton from '../../aeria-button/aeria-button.vue'
@@ -13,16 +13,13 @@ import AeriaInput from '../aeria-input/aeria-input.vue'
 import AeriaSearchContainer from './_internals/components/aeria-search-container/aeria-search-container.vue'
 import AeriaSearchItem from './_internals/components/aeria-search-item/aeria-search-item.vue'
 
-type Props = Omit<FormFieldProps<Record<string, any> | Record<string, any>[]>, 'property'> & {
-  property: CollectionProperty & NonNullable<Pick<CollectionProperty,
-    | 's$isReference'
-    | 's$referencedCollection'
-  >>
+type Props = Omit<FormFieldProps<any>, 'property'> & {
+  property: SearchProperty
   selectOnly?: boolean
 }
 
 const props = defineProps<Props>()
-const property = props.property
+const property = getReferencedCollection(props.property)!
 
 const DEFAULT_LIMIT = 10
 
@@ -31,15 +28,17 @@ const emit = defineEmits<{
   (e: 'panelClose'): void
 }>()
 
-provide('storeId', property.s$referencedCollection!)
+const store = useStore(property.referencedCollection!)
+const parentStore = useParentStore()
+const indexes = property.indexes!
+
+const parentStoreId = inject<string>('storeId')!
+provide('storeId', property.referencedCollection!)
 provide('innerInputLabel', true)
 provide('omitInputLabels', true)
 
-const store = useStore(property.s$referencedCollection!)
-const indexes = props.property.s$indexes!
 
 const selectPanel = ref(!!props.selectOnly)
-
 const selected = ref(props.modelValue)
 
 const searchResponse = ref({
@@ -54,12 +53,19 @@ const searchField = ref(indexes[0])
 const isTyping = ref(false)
 const inputValue = ref<Record<NonNullable<typeof indexes>[number], any>>({})
 
+const defaultFilters = () => property.constraints
+  ? convertConditionToQuery(property.constraints, {
+    [property.referencedCollection!]: store,
+    [parentStoreId]: parentStore
+  })
+  : {}
+
 const search = async (options?: { empty?: true }) => {
   if( Object.values(inputValue.value).every((v) => !(String(v).length > 0)) ) {
     if( options?.empty ) {
       searchResponse.value = await store.$actions.custom(
         'getAll',
-        { limit: DEFAULT_LIMIT },
+        { limit: DEFAULT_LIMIT, filters: defaultFilters() },
         { fullResponse: true }
       )
     }
@@ -74,6 +80,7 @@ const search = async (options?: { empty?: true }) => {
   searchResponse.value = await store.$actions.custom('getAll', {
     limit: DEFAULT_LIMIT,
     filters: {
+      ...defaultFilters(),
       $or: indexes?.filter((i) => inputValue.value[i]?.length > 0).map((i) => ({
         [i]: {
           $regex: inputValue.value[i].trim()
@@ -152,7 +159,7 @@ const save = () => {
               v-model="inputValue[searchField]"
               :property="{
                 ...store.properties[searchField],
-                s$inputType: 'search'
+                inputType: 'search'
               }"
 
               :key="searchField"
@@ -182,7 +189,7 @@ const save = () => {
           <div v-else-if="
             !store.loading.getAll
               && Object.values(inputValue).filter((v) => !!v).length > 0
-              && !((property.type === 'array' && modelValue?.length) || (!Array.isArray(modelValue) && modelValue?._id))
+              && !(('items' in property && modelValue?.length) || (!Array.isArray(modelValue) && modelValue?._id))
           ">
             Não há resultados
           </div>
@@ -206,7 +213,7 @@ const save = () => {
     class="search"
   >
     <aeria-search-container>
-      <div v-if="property.type === 'array'">
+      <div v-if="'items' in property">
         <aeria-search-item
           v-for="item in modelValue"
           v-bind="{
