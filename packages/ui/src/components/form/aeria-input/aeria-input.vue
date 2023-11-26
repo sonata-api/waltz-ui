@@ -129,7 +129,7 @@ const updateValue = (value: InputType) => {
 }
 
 const onInput = (
-  event: CustomEvent<MaskaDetail> | InputEvent,
+  event: CustomEvent<MaskaDetail> | Event,
   options?: {
     masked?: true
   }
@@ -139,7 +139,7 @@ const onInput = (
     return
   }
 
-  const value = inputValue.value = (<any>event).target.value
+  const value = inputValue.value = (event.target as HTMLInputElement).value
   const newValue = masked
     ? (<CustomEvent<MaskaDetail>>event).detail?.unmasked
     : value
@@ -182,7 +182,7 @@ watch(() => props.modelValue, (value, oldValue) => {
         v-focus="property.focus"
         :placeholder="inputBind.placeholder"
         :readonly="inputBind.readonly"
-        :value="inputValue"
+        :value="inputValue as string"
 
         :class="`
           input__textarea
@@ -215,7 +215,7 @@ watch(() => props.modelValue, (value, oldValue) => {
         `"
 
         @maska="onInput($event, { masked: true })"
-        @input="onInput"
+        @input="onInput($event)"
         @change="emit('change', $event)"
       />
       <aeria-icon 

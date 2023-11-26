@@ -62,6 +62,7 @@ watch([page, limit], ([newPage]: [number, number]) => {
     <aeria-select
       v-model="limit"
       :property="{
+        enum: [],
         icon: 'list-ul'
       }"
       class="pagination__control"

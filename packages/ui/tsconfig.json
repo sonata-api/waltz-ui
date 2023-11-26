@@ -15,10 +15,10 @@
     }
   },
   "types": [
-    "../web/global.d.ts"
+    "../web/@types/env.d.ts"
   ],
-  "exclude": [
-    "vite.config.ts",
-    "dist"
+  "include": [
+    "@types/*.d.ts",
+    "src"
   ]
 }

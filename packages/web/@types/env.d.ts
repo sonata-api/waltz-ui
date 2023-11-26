@@ -15,17 +15,8 @@ declare module 'vue-router/auto' {
   }
 }
 
-var ROUTER: import('vue-router').Router
 var I18N: any
+var ROUTER: import('vue-router').Router
 var STORES: Record<string, import('@waltz-ui/state-management').Store>
-var QUERY_CACHE: Record<string, {
-  items: any[]
-  satisfied: boolean
-}>
+var INSTANCE_VARS: InstanceConfig['site']
 
-var INSTANCE_VARS: {
-  themes?: string[]
-  darkThemes?: string[]
-  dashboardLayout?: Record<string, {
-  }>
-}

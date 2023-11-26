@@ -12,10 +12,10 @@ export const STORE_EFFECTS = <const>{
   'ITEM_REMOVE': 'removeItem',
 }
 
-export type ActionEvent<T={ _id: string }> = {
+export type ActionEvent = {
   id: number
   name: string
-  params?: T|object
+  params: any
 }
 
 const getEffect = (store: any, effectName: keyof typeof STORE_EFFECTS) => {
@@ -26,7 +26,7 @@ const getEffect = (store: any, effectName: keyof typeof STORE_EFFECTS) => {
 export const useAction = <F extends { _id: string }>(
   store: Store,
   router: Router
-): [(...args: any[]) => void, any] => {
+) => {
   const eventBus = reactive<ActionEvent>({
     id: -1,
     name: '',
@@ -114,7 +114,7 @@ export const useAction = <F extends { _id: string }>(
     return (filters: F) => storeAction(prepareFilters(filters))
   }
 
-  return [
+  return <const>[
     fn,
     eventBus
   ]

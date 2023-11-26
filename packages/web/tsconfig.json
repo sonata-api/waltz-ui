@@ -28,6 +28,9 @@
       ],
       "@waltz-ui/state-management": [
         "../state-management/dist"
+      ],
+      "waltz-build": [
+        "../waltz-build/dist"
       ]
     }
   },

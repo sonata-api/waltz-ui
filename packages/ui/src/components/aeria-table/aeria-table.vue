@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Property, CollectionAction, TableLayout } from '@sonata-api/types'
 import { inject, computed, type Ref } from 'vue'
-import { evaluateCondition } from '@sonata-api/common'
+import { evaluateCondition, getReferenceProperty } from '@sonata-api/common'
 import { useBreakpoints } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
 
@@ -112,11 +112,11 @@ const buttonStyle = (subject: any, action: any) => {
           <input
             type="checkbox"
             :checked="store.selected.length > 0 && store.selected.length === store.itemsCount"
-            @change="store.$actions.selectAllItems($event.target.checked)"
+            @change="store.$actions.selectAllItems(($event.target as HTMLInputElement).checked)"
           />
         </th>
         <th
-          v-for="([propertyName, property], index) in Object.entries(columns)"
+          v-for="([propertyName, property], index) in Object.entries(columns!)"
           :key="`header-${index}`"
           class="table__header"
         >
@@ -147,7 +147,7 @@ const buttonStyle = (subject: any, action: any) => {
           />
         </td>
         <td
-          v-for="([column, property], cindex) in Object.entries(columns)"
+          v-for="([column, property], cindex) in Object.entries(columns!)"
           :key="`column-${row._id}-${cindex}`"
         >
           <div class="table__cell-mobile-label">
@@ -175,7 +175,7 @@ const buttonStyle = (subject: any, action: any) => {
             class="table__cell-container"
           >
             <div class="table__cell-grid">
-              <div v-if="property.type === 'boolean'">
+              <div v-if="'type' in property && property.type === 'boolean'">
                 <aeria-icon
                   v-if="row[column]"
                   icon="check"
@@ -224,7 +224,7 @@ const buttonStyle = (subject: any, action: any) => {
                 <span v-else>
                   {{
                     Array.isArray(row[column])
-                      ? row[column].filter(_ => !!_).join(', ')
+                      ? row[column].filter((value: string) => !!value).join(', ')
                       : ![undefined, null].includes(row[column])
                         ? row[column]
                         : '-'
@@ -232,11 +232,11 @@ const buttonStyle = (subject: any, action: any) => {
                 </span>
               </div>
               <div v-if="
-                property.indexes?.length! > 1
+                getReferenceProperty(property)?.indexes?.length! > 1
                   && property.referencedCollection !== 'file'
               ">
                 <div
-                  v-for="(subvalue, index) in property.indexes!.slice(1, 2)"
+                  v-for="(subvalue, index) in getReferenceProperty(property)!.indexes!.slice(1, 2)"
                   :key="`subvalue-${index}`"
                 >
                   {{

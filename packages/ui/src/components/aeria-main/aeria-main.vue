@@ -64,11 +64,7 @@ bootstrapRoutes()
         v-bind="toast"
         :key="`toast-${toast.itr}`"
       >
-        <div v-html="
-        Array.isArray(toast.text)
-          ? $t(...toast.text)
-          : toast.text
-        "></div>
+        <div v-html="$t(toast.text)"></div>
       </aeria-toast>
     </div>
   </main>

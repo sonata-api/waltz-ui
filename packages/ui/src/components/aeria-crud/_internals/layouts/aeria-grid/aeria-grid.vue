@@ -33,12 +33,7 @@ const firstIfArray = (what: any) => {
     <aeria-card
       v-for="item in store.items"
       :key="item"
-
-      :inactive="
-        layoutOptions.active
-        && !item[layoutOptions.active]
-      "
-
+      :inactive="!!(layoutOptions.active && !item[layoutOptions.active])"
       :horizontal="componentName === 'list'"
     >
       <aeria-picture

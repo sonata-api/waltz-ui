@@ -41,7 +41,7 @@ const bindVal = computed({
       return false
     }
 
-    if( property.type !== 'array' ) {
+    if( !('items' in property) ) {
       return props.modelValue === props.value
     }
 
@@ -55,7 +55,7 @@ const bindVal = computed({
       return
     }
 
-    if( property.type !== 'array' ) {
+    if( !('items' in property) ) {
       emit('update:modelValue', !props.modelValue)
       return
     }

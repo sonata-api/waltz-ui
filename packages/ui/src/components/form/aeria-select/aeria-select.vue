@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { Property, EnumProperty } from '@sonata-api/types'
+import type { Property, EnumProperty, BooleanProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
 import { ref, computed } from 'vue'
 import AeriaIcon from '../../aeria-icon/aeria-icon.vue'
 
-type Props = FormFieldProps<any, Property & EnumProperty> & {
+type Props = FormFieldProps<any, Property & (EnumProperty | BooleanProperty)> & {
   booleanRef?: boolean
 }
 
@@ -61,7 +61,7 @@ const modelValue = !props.booleanRef
     >
       <option value="">{{ $t('none') }}</option>
       <option
-        v-for="option in property.enum"
+        v-for="option in 'enum' in property ? property.enum : []"
         :key="option"
         :value="option"
       >

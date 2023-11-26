@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Property, Condition } from '@sonata-api/types'
+import type { Property, Condition, BooleanProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
 import { onBeforeMount, ref, computed, provide, inject, isRef, type Ref } from 'vue'
 import { evaluateCondition, deepClone, isRequired } from '@sonata-api/common'
@@ -328,7 +328,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
         <div v-else-if="'type' in property && property.type === 'boolean' && searchOnly">
           <aeria-select
             v-bind="{
-              property,
+              property: property as BooleanProperty,
               propertyName: key
             }"
             boolean-ref
@@ -348,7 +348,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
         <div
           v-else-if="
             'type' in property && property.type === 'array'
-              && (!(property.isReference && !property.inline) || property.isFile)
+              && (!(property.isReference && !('inline' in property && property.inline)) || property.isFile)
           "
           style="display: grid; row-gap: .4rem"
         >

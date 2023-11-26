@@ -130,6 +130,9 @@ onUnmounted(() => {
 
 watch(() => actionEventBus.value, async (event) => {
   let getPromise: ReturnType<typeof store.$actions.get>
+  if( !event ) {
+    return
+  }
 
   if (
     [
@@ -272,7 +275,7 @@ provide('individualActions', individualActions)
         v-model="store.textQuery"
         v-bind="{
           property: {
-            type: 'text',
+            type: 'string',
             placeholder: store.description.search.placeholder || 'Pesquise aqui',
             inputType: 'search'
           }
@@ -342,7 +345,7 @@ provide('individualActions', individualActions)
             :icon="actionProps.icon || 'setting'"
             :disabled="store.selected.length === 0 && actionProps.selection"
 
-            @click="call(actionProps)({ _id: store.selected.map((_) => _._id) })"
+            @click="call!(actionProps)({ _id: store.selected.map((item: any) => item._id) })"
             >
             {{ $t(actionProps.name) }}
           </aeria-icon>
@@ -369,7 +372,7 @@ provide('individualActions', individualActions)
         :icon="actionProps.icon"
         :disabled="store.selected.length === 0 && actionProps.selection"
 
-        @click="call(actionProps)({ _id: store.selected.map((_) => _._id) })"
+        @click="call!(actionProps)({ _id: store.selected.map((item: any) => item._id) })"
       >
         {{ $t(actionProps.name) }}
       </aeria-button>

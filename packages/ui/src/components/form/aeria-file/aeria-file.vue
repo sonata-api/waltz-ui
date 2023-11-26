@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import type { Property, FileProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
 import { provide, ref, computed } from 'vue'
 import { useParentStore } from '@waltz-ui/state-management'
 import AeriaPicture from '../../aeria-picture/aeria-picture.vue'
 import AeriaButton from '../../aeria-button/aeria-button.vue'
 
-type Props = FormFieldProps<any> & {
+type Props = FormFieldProps<any, Property & FileProperty> & {
   meta?: Record<string, any>
   modelValue?: any
 }

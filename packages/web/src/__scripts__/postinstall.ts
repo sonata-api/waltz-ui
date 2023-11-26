@@ -35,6 +35,15 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+
+declare module '@vue/runtime-core' {
+  interface ComponentCustomProperties {
+    instanceConfig: typeof import('waltz-build').InstanceConfig,
+    currentUser: typeof import('@sonata-api/system/collections').User
+  }
+}
+
+export {}
 //`
 
 const install = async () => {
