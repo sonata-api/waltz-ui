@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { FormFieldProps, SearchProperty } from '../types'
-import { getReferencedCollection, convertConditionToQuery } from '@sonata-api/common'
+import { getReferenceProperty, convertConditionToQuery } from '@sonata-api/common'
 import { provide, inject, computed, ref, watch, onMounted } from 'vue'
 import { useDebounce } from '@waltz-ui/web'
 import { useStore, useParentStore } from '@waltz-ui/state-management'
@@ -13,13 +13,13 @@ import AeriaInput from '../aeria-input/aeria-input.vue'
 import AeriaSearchContainer from './_internals/components/aeria-search-container/aeria-search-container.vue'
 import AeriaSearchItem from './_internals/components/aeria-search-item/aeria-search-item.vue'
 
-type Props = Omit<FormFieldProps<any>, 'property'> & {
-  property: SearchProperty
+type Props = Omit<FormFieldProps<any, SearchProperty>, 'propertyName'> & {
+  propertyName: string
   selectOnly?: boolean
 }
 
 const props = defineProps<Props>()
-const property = getReferencedCollection(props.property)!
+const property = getReferenceProperty(props.property!)!
 
 const DEFAULT_LIMIT = 10
 

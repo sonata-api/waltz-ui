@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Property } from '@sonata-api/types'
+import type { Property, NumberProperty, StringProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
 import { ref, inject, watch } from 'vue'
 import { type MaskaDetail, vMaska } from 'maska'
@@ -15,12 +15,12 @@ type InputVariant =
   | 'bold'
   | 'light'
 
-type Props = FormFieldProps<InputType> & {
+type Props = FormFieldProps<InputType, Property & (NumberProperty | StringProperty)> & {
   variant?: InputVariant
 }
 
 const props = defineProps<Props>()
-const property = props.property || {} as Property
+const property = props.property || {} as NonNullable<typeof props.property>
 
 const searchOnly = inject('searchOnly', false)
 const innerInputLabel = inject('innerInputLabel', false)
@@ -35,12 +35,6 @@ const emit = defineEmits<{
 
 const variant = inject('inputVariant', props.variant) || 'normal'
 
-const {
-  icon: icon = property.inputType === 'search' && 'search-alt',
-  mask: mask
-
-} = property
-
 const inputBind: {
   type: string
   placeholder?: string
@@ -51,8 +45,10 @@ const inputBind: {
 } = {
   type: (() => {
     if( 'type' in property ) {
-      if( ['number', 'integer'].includes(property.type!) ) {
-        return 'number'
+      switch( property.type ) {
+        case 'number':
+        case 'integer':
+          return 'number'
       }
     }
 
@@ -157,7 +153,7 @@ watch(() => props.modelValue, (value, oldValue) => {
   }
 
   if( oldValue && !value ) {
-    inputValue.value = ''
+    inputValue.value = undefined
   }
 
   else if( value && oldValue === undefined ) {
@@ -175,8 +171,30 @@ watch(() => props.modelValue, (value, oldValue) => {
     <div v-if="$slots.hint" class="input__hint">
       <slot name="hint"></slot>
     </div>
+
     <div
-      v-if="property.element !== 'textarea'"
+      v-if="'element' in property && property.element === 'textarea'"
+      :class="`
+        input__container
+        input__container--${variant}
+    `">
+      <textarea
+        v-focus="property.focus"
+        :placeholder="inputBind.placeholder"
+        :readonly="inputBind.readonly"
+        :value="inputValue"
+
+        :class="`
+          input__textarea
+          input__input--${variant}
+        `"
+
+        @input="onInput"
+      ></textarea>
+    </div>
+
+    <div
+      v-else
       :class="`
         input__container
         input__container--${variant}
@@ -187,12 +205,12 @@ watch(() => props.modelValue, (value, oldValue) => {
         v-focus="property.focus"
         :value="inputValue"
         data-component="input"
-        :data-maska="mask"
+        :data-maska="'mask' in property && property.mask"
 
         :class="`
           input__input
           input__input--${variant}
-          ${icon && 'input__input--icon'}
+          ${'icon' in property && 'input__input--icon'}
           ${readOnly && 'input__input--readOnly'}
         `"
 
@@ -201,8 +219,8 @@ watch(() => props.modelValue, (value, oldValue) => {
         @change="emit('change', $event)"
       />
       <aeria-icon 
-        v-if="icon"
-        :icon="icon"
+        v-if="'icon' in property || ('inputType' in property && property.inputType === 'search')"
+        :icon="property.icon || 'search-alt'"
         :class="`
           input__icon
           input__icon--${variant}
@@ -223,26 +241,6 @@ watch(() => props.modelValue, (value, oldValue) => {
       </div>
     </div>
 
-    <div
-      v-else
-      :class="`
-        input__container
-        input__container--${variant}
-    `">
-      <textarea
-        v-focus="property.focus"
-        :placeholder="inputBind.placeholder"
-        :readonly="inputBind.readonly"
-        :value="inputValue"
-
-        :class="`
-          input__textarea
-          input__input--${variant}
-        `"
-
-        @input="onInput"
-      ></textarea>
-    </div>
   </label>
 </template>
 

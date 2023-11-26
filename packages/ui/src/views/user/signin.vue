@@ -74,7 +74,7 @@ const authenticate = async () => {
       :disabled="userStore.loading.authenticate || metaStore.isLoading"
       @click="router.push('/dashboard')"
     >
-      Continuar como {{ userStore.$currentUser.first_name }}
+      Continuar como {{ userStore.$currentUser.full_name }}
     </aeria-button>
   </div>
 </template>

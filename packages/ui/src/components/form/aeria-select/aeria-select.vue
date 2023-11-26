@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type { Property, EnumProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
 import { ref, computed } from 'vue'
 import AeriaIcon from '../../aeria-icon/aeria-icon.vue'
 
-type Props = FormFieldProps<any> & {
+type Props = FormFieldProps<any, Property & EnumProperty> & {
   booleanRef?: boolean
 }
 
@@ -12,7 +13,7 @@ const emit = defineEmits<{
   (e: 'update:modelValue'|'change', value: any): void
 }>()
 
-const property = props.property||{}
+const property = props.property || {} as NonNullable<typeof props.property>
 const update = (value: any) => {
   if( props.booleanRef ) {
     modelValue.value = value

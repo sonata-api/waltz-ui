@@ -5,10 +5,11 @@ export default {
 </script>
 
 <script setup lang="ts">
+import type { Property, BooleanProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
 import { computed } from 'vue'
 
-type Props = FormFieldProps<any>
+type Props = FormFieldProps<any, Property & BooleanProperty>
 
 type Emits = {
   (e: 'update:modelValue' | 'change', value: boolean): void
@@ -17,10 +18,10 @@ type Emits = {
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
-const property = computed(() => props.property || {})
+const property = props.property || {} as Property
 
 const toggle = () => {
-  if( !property.value.readOnly ) {
+  if( !property.readOnly ) {
     emit('change', !props.modelValue)
     emit('update:modelValue', !props.modelValue)
   }

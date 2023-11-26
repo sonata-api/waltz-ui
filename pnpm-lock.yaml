@@ -30,35 +30,26 @@ importers:
     dependencies:
       vue:
         specifier: ^3.3.4
-        version: 3.3.8(typescript@5.3.2)
+        version: 3.3.9(typescript@5.3.2)
 
   packages/ui:
     dependencies:
       '@sonata-api/common':
         specifier: '*'
         version: 0.0.20(bson@5.5.1)
-      '@waltz-ui/state-management':
-        specifier: '*'
-        version: link:../state-management
-      '@waltz-ui/web':
-        specifier: '*'
-        version: link:../web
       maska:
         specifier: ^2.1.10
         version: 2.1.10
-      vue-router:
-        specifier: '*'
-        version: 4.2.5(vue@3.3.8)
     devDependencies:
       '@sonata-api/system':
         specifier: '*'
-        version: 0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.75)(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.23)(@sonata-api/validation@0.0.20)
+        version: 0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20)
       '@sonata-api/types':
         specifier: '*'
-        version: 0.0.23
+        version: 0.0.24
       '@vitejs/plugin-vue':
         specifier: ^4.2.3
-        version: 4.5.0(vite@4.5.0)(vue@3.3.8)
+        version: 4.5.0(vite@4.5.0)(vue@3.3.9)
       vite:
         specifier: ^4.4.8
         version: 4.5.0(@types/node@20.5.1)
@@ -68,6 +59,9 @@ importers:
       vite-plugin-static-copy:
         specifier: ^0.17.0
         version: 0.17.1(vite@4.5.0)
+      vue-tsc:
+        specifier: ^1.8.22
+        version: 1.8.22(typescript@5.3.2)
       waltz-build:
         specifier: '*'
         version: link:../waltz-build
@@ -82,10 +76,10 @@ importers:
         version: 0.0.20(bson@6.2.0)
       '@sonata-api/types':
         specifier: '*'
-        version: 0.0.23
+        version: 0.0.24
       '@vitejs/plugin-vue':
         specifier: ^4.1.0
-        version: 4.5.0(vite@4.5.0)(vue@3.3.8)
+        version: 4.5.0(vite@4.5.0)(vue@3.3.9)
       bson:
         specifier: '*'
         version: 6.2.0
@@ -109,16 +103,16 @@ importers:
         version: 0.15.3
       unplugin-vue-components:
         specifier: ^0.24.1
-        version: 0.24.1(vue@3.3.8)
+        version: 0.24.1(vue@3.3.9)
       unplugin-vue-router:
         specifier: ^0.5.5
-        version: 0.5.5(vue@3.3.8)
+        version: 0.5.5(vue@3.3.9)
       vite:
         specifier: ^4.3.3
-        version: 4.5.0(@types/node@20.9.4)(less@4.2.0)(sass@1.69.5)
+        version: 4.5.0(@types/node@20.10.0)(less@4.2.0)(sass@1.69.5)
       vue:
         specifier: ^3.3.4
-        version: 3.3.8(typescript@5.3.2)
+        version: 3.3.9(typescript@5.3.2)
       waltz-icons:
         specifier: '*'
         version: 0.0.6
@@ -131,7 +125,7 @@ importers:
         version: 4.0.9
       '@types/node':
         specifier: ^20.8.6
-        version: 20.9.4
+        version: 20.10.0
 
   packages/waltz-ui:
     dependencies:
@@ -152,32 +146,32 @@ importers:
         version: 0.0.20(bson@5.5.1)
       '@sonata-api/system':
         specifier: '*'
-        version: 0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.75)(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.23)(@sonata-api/validation@0.0.20)
+        version: 0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20)
       '@sonata-api/types':
         specifier: '*'
-        version: 0.0.23
+        version: 0.0.24
       '@waltz-ui/state-management':
         specifier: '*'
         version: link:../state-management
       vue:
         specifier: ^3.3.4
-        version: 3.3.8(typescript@5.3.2)
+        version: 3.3.9(typescript@5.3.2)
       vue-demi:
         specifier: ^0.13.6
-        version: 0.13.11(vue@3.3.8)
+        version: 0.13.11(vue@3.3.9)
       vue-i18n:
         specifier: ^9.2.0-beta.16
-        version: 9.7.0(vue@3.3.8)
+        version: 9.7.1(vue@3.3.9)
       vue-router:
         specifier: ^4.2.1
-        version: 4.2.5(vue@3.3.8)
+        version: 4.2.5(vue@3.3.9)
     devDependencies:
       '@types/node':
         specifier: ^20.8.6
-        version: 20.9.4
+        version: 20.10.0
       vite:
         specifier: ^4.4.8
-        version: 4.5.0(@types/node@20.9.4)(less@4.2.0)(sass@1.69.5)
+        version: 4.5.0(@types/node@20.10.0)(less@4.2.0)(sass@1.69.5)
 
 packages:
 
@@ -1304,24 +1298,24 @@ packages:
     requiresBuild: true
     optional: true
 
-  /@intlify/core-base@9.7.0:
-    resolution: {integrity: sha512-1tBnfnCI23jXqGW15cagCjn2GgD487VST1dMG8P5LRzrSfx+kUzqFyTrjMNIwgq1tVaF4HnDpFMUuyrzTLKphw==}
+  /@intlify/core-base@9.7.1:
+    resolution: {integrity: sha512-jPJTeECEhqQ7g//8g3Fb79j5SzSSRqlFCWD6pcX94uMLXU+L1m07gVZnnvzoJBnaMyJHiiwxOqZVfvu6rQfLvw==}
     engines: {node: '>= 16'}
     dependencies:
-      '@intlify/message-compiler': 9.7.0
-      '@intlify/shared': 9.7.0
+      '@intlify/message-compiler': 9.7.1
+      '@intlify/shared': 9.7.1
     dev: false
 
-  /@intlify/message-compiler@9.7.0:
-    resolution: {integrity: sha512-/YdZCio2L2tCM5bZ2eMHbSEIQNPh1QqvZIOLI/yCVKXLscis7O0SsR2nmuU/DfCJ3iSeI8juw82C2wLvfsAeww==}
+  /@intlify/message-compiler@9.7.1:
+    resolution: {integrity: sha512-HfIr2Hn/K7b0Zv4kGqkxAxwtipyxAwhI9a3krN5cuhH/G9gkaik7of1PdzjR3Mix43t2onBiKYQyaU7mo7e0aA==}
     engines: {node: '>= 16'}
     dependencies:
-      '@intlify/shared': 9.7.0
+      '@intlify/shared': 9.7.1
       source-map-js: 1.0.2
     dev: false
 
-  /@intlify/shared@9.7.0:
-    resolution: {integrity: sha512-PUkEuk//YKu4CHS5ah3mNa3XL/+TZj6rAY/6yYN+GCNFd2u+uWUkeuwE4Q6t8dydRWlErOePHHS0KyNoof/oBw==}
+  /@intlify/shared@9.7.1:
+    resolution: {integrity: sha512-CBKnHzlUYGrk5QII9q4nElAQKO5cX1rRx8VmSWXltyOZjbkGHXYQTHULn6KwRi+CypuBCfmPkyPBHMzosypIeg==}
     engines: {node: '>= 16'}
     dev: false
 
@@ -1928,7 +1922,7 @@ packages:
       tslib: 2.6.2
     optional: true
 
-  /@sonata-api/access-control@0.0.22(@sonata-api/api@0.0.75)(@sonata-api/common@0.0.20)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.23)(mongodb@6.3.0):
+  /@sonata-api/access-control@0.0.22(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(mongodb@6.3.0):
     resolution: {integrity: sha512-wBrWHmWPeJncnIR3t7JQlGSIaBA/6RlleG0GwdLimmxCSuNy6yWcTdp9z0RA7AuQAwKBcve5/S4xtLuk50lKPg==}
     peerDependencies:
       '@sonata-api/api': '*'
@@ -1938,15 +1932,15 @@ packages:
       '@sonata-api/types': '*'
       mongodb: ^6.1.0
     dependencies:
-      '@sonata-api/api': 0.0.75(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.23)(@sonata-api/validation@0.0.20)(jsonwebtoken@8.5.1)(mongodb@6.3.0)
+      '@sonata-api/api': 0.0.76(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20)(jsonwebtoken@8.5.1)(mongodb@6.3.0)
       '@sonata-api/common': 0.0.20(bson@5.5.1)
-      '@sonata-api/server': 0.0.29(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.75)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.23)(mongodb@6.3.0)
-      '@sonata-api/system': 0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.75)(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.23)(@sonata-api/validation@0.0.20)
-      '@sonata-api/types': 0.0.23
+      '@sonata-api/server': 0.0.29(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(mongodb@6.3.0)
+      '@sonata-api/system': 0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20)
+      '@sonata-api/types': 0.0.24
       mongodb: 6.3.0
 
-  /@sonata-api/api@0.0.75(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.23)(@sonata-api/validation@0.0.20)(jsonwebtoken@8.5.1)(mongodb@6.3.0):
-    resolution: {integrity: sha512-tw324iM0yQpbzvWB+URnKBGbf0stAUJJubx2CjmO/cy4G/r7CJ+AcVEmijbnsA3Ct6k3dwf94DNI4kIFhMGsbw==}
+  /@sonata-api/api@0.0.76(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20)(jsonwebtoken@8.5.1)(mongodb@6.3.0):
+    resolution: {integrity: sha512-63ngqqj7mhwOyzzDie1BE4vCBPiK63o/bRq7QRaSKAusUqeMIuju4LGGgI7yUUeV0iUdjpkmwB7lfBX1OEqeSw==}
     requiresBuild: true
     peerDependencies:
       '@sonata-api/access-control': '*'
@@ -1960,14 +1954,14 @@ packages:
       jsonwebtoken: ^8.5.1
       mongodb: ^6.1.0
     dependencies:
-      '@sonata-api/access-control': 0.0.22(@sonata-api/api@0.0.75)(@sonata-api/common@0.0.20)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.23)(mongodb@6.3.0)
+      '@sonata-api/access-control': 0.0.22(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(mongodb@6.3.0)
       '@sonata-api/common': 0.0.20(bson@5.5.1)
       '@sonata-api/http': 0.0.17(@sonata-api/common@0.0.20)
       '@sonata-api/mailing': 0.0.9(@sonata-api/common@0.0.20)
-      '@sonata-api/security': 0.0.6(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.75)(@sonata-api/common@0.0.20)
-      '@sonata-api/system': 0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.75)(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.23)(@sonata-api/validation@0.0.20)
-      '@sonata-api/types': 0.0.23
-      '@sonata-api/validation': 0.0.20(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.23)(mongodb@6.3.0)
+      '@sonata-api/security': 0.0.6(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)
+      '@sonata-api/system': 0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20)
+      '@sonata-api/types': 0.0.24
+      '@sonata-api/validation': 0.0.20(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.24)(mongodb@6.3.0)
       jsonwebtoken: 8.5.1
       mongodb: 6.3.0
     optionalDependencies:
@@ -2016,18 +2010,18 @@ packages:
       '@sonata-api/http': 0.0.17(@sonata-api/common@0.0.20)
     optional: true
 
-  /@sonata-api/security@0.0.6(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.75)(@sonata-api/common@0.0.20):
+  /@sonata-api/security@0.0.6(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20):
     resolution: {integrity: sha512-fe+oY5dnoT5mqdEaLdVi0wT9k9Ih5DaY4YnAYsGoj/VJxW93gKB7jdXJCa1kJYMPYxXe8S3A3qxaj11xtTBDeA==}
     peerDependencies:
       '@sonata-api/access-control': '*'
       '@sonata-api/api': '*'
       '@sonata-api/common': '*'
     dependencies:
-      '@sonata-api/access-control': 0.0.22(@sonata-api/api@0.0.75)(@sonata-api/common@0.0.20)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.23)(mongodb@6.3.0)
-      '@sonata-api/api': 0.0.75(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.23)(@sonata-api/validation@0.0.20)(jsonwebtoken@8.5.1)(mongodb@6.3.0)
+      '@sonata-api/access-control': 0.0.22(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(mongodb@6.3.0)
+      '@sonata-api/api': 0.0.76(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20)(jsonwebtoken@8.5.1)(mongodb@6.3.0)
       '@sonata-api/common': 0.0.20(bson@5.5.1)
 
-  /@sonata-api/server@0.0.29(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.75)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.23)(mongodb@6.3.0):
+  /@sonata-api/server@0.0.29(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(mongodb@6.3.0):
     resolution: {integrity: sha512-+FG8IZcc3IjMUpFY0C4Ykqpq0/2dyqTlQ5E7vqn4NfJCM4AZZWFWHenYQxz/CkUiZATPyws4qrpIsaN81NaCHA==}
     peerDependencies:
       '@sonata-api/access-control': '*'
@@ -2039,19 +2033,19 @@ packages:
       '@sonata-api/types': '*'
       mongodb: ^6.1.0
     dependencies:
-      '@sonata-api/access-control': 0.0.22(@sonata-api/api@0.0.75)(@sonata-api/common@0.0.20)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.23)(mongodb@6.3.0)
-      '@sonata-api/api': 0.0.75(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.23)(@sonata-api/validation@0.0.20)(jsonwebtoken@8.5.1)(mongodb@6.3.0)
+      '@sonata-api/access-control': 0.0.22(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(mongodb@6.3.0)
+      '@sonata-api/api': 0.0.76(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20)(jsonwebtoken@8.5.1)(mongodb@6.3.0)
       '@sonata-api/common': 0.0.20(bson@5.5.1)
       '@sonata-api/http': 0.0.17(@sonata-api/common@0.0.20)
-      '@sonata-api/server': 0.0.29(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.75)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.23)(mongodb@6.3.0)
-      '@sonata-api/system': 0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.75)(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.23)(@sonata-api/validation@0.0.20)
-      '@sonata-api/types': 0.0.23
+      '@sonata-api/server': 0.0.29(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(mongodb@6.3.0)
+      '@sonata-api/system': 0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20)
+      '@sonata-api/types': 0.0.24
       dotenv: 10.0.0
       mongodb: 6.3.0
     optionalDependencies:
       '@sonata-api/node-http': 0.0.11(@sonata-api/http@0.0.17)
 
-  /@sonata-api/system@0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.75)(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.23)(@sonata-api/validation@0.0.20):
+  /@sonata-api/system@0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20):
     resolution: {integrity: sha512-GVV/xXuo44tm5B0OJUhCIR+XNtxJ9+2bTkY0zd3IlL/8U//j2ZAKhl82MWrVpM62KNO2Ngxc7ihYVvTVFd+PVg==}
     peerDependencies:
       '@sonata-api/access-control': '*'
@@ -2060,20 +2054,20 @@ packages:
       '@sonata-api/types': '*'
       '@sonata-api/validation': '*'
     dependencies:
-      '@sonata-api/access-control': 0.0.22(@sonata-api/api@0.0.75)(@sonata-api/common@0.0.20)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.23)(mongodb@6.3.0)
-      '@sonata-api/api': 0.0.75(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.23)(@sonata-api/validation@0.0.20)(jsonwebtoken@8.5.1)(mongodb@6.3.0)
+      '@sonata-api/access-control': 0.0.22(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(mongodb@6.3.0)
+      '@sonata-api/api': 0.0.76(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20)(jsonwebtoken@8.5.1)(mongodb@6.3.0)
       '@sonata-api/common': 0.0.20(bson@5.5.1)
-      '@sonata-api/types': 0.0.23
-      '@sonata-api/validation': 0.0.20(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.23)(mongodb@6.3.0)
+      '@sonata-api/types': 0.0.24
+      '@sonata-api/validation': 0.0.20(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.24)(mongodb@6.3.0)
       bcrypt: 5.1.1
     transitivePeerDependencies:
       - encoding
       - supports-color
 
-  /@sonata-api/types@0.0.23:
-    resolution: {integrity: sha512-5UO9UeWJixGAuLm+ZUBdxR5Q+42lu8PJZ1u8/mUuJWAwpLr3sT+XcgsVzcjptOFWOYSpAQrvXnzn7mp0b9bBlg==}
+  /@sonata-api/types@0.0.24:
+    resolution: {integrity: sha512-fP928PbJM+s5/ml8EWCtcAr35lxSxIfhDsNhFrSFBh0nXUCsNPEJ5JCkhuTwDiVfJtdARjpSX88DOXdyVaMGGQ==}
 
-  /@sonata-api/validation@0.0.20(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.23)(mongodb@6.3.0):
+  /@sonata-api/validation@0.0.20(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.24)(mongodb@6.3.0):
     resolution: {integrity: sha512-jKVTv86RoJSqNrV/R3WzSnrJN2GXiZF2y1+H+NUbBTkfbHUJYF9lUGdkJv8udHC7BjQ1WDtiD3/6Rh/Q/j0Pyw==}
     peerDependencies:
       '@sonata-api/common': '*'
@@ -2081,7 +2075,7 @@ packages:
       mongodb: '*'
     dependencies:
       '@sonata-api/common': 0.0.20(bson@5.5.1)
-      '@sonata-api/types': 0.0.23
+      '@sonata-api/types': 0.0.24
       mongodb: 6.3.0
 
   /@tsconfig/node10@1.0.9:
@@ -2147,13 +2141,13 @@ packages:
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
     dev: true
 
-  /@types/node@20.5.1:
-    resolution: {integrity: sha512-4tT2UrL5LBqDwoed9wZ6N3umC4Yhz3W3FloMmiiG4JwmUJWpie0c7lcnUNd4gtMKuDEO4wRVS8B6Xa0uMRsMKg==}
-
-  /@types/node@20.9.4:
-    resolution: {integrity: sha512-wmyg8HUhcn6ACjsn8oKYjkN/zUzQeNtMy44weTJSM6p4MMzEOuKbA3OjJ267uPCOW7Xex9dyrNTful8XTQYoDA==}
+  /@types/node@20.10.0:
+    resolution: {integrity: sha512-D0WfRmU9TQ8I9PFx9Yc+EBHw+vSpIub4IDvQivcp26PtPrdMGAq5SDcpXEo/epqa/DXotVpekHiLNTg3iaKXBQ==}
     dependencies:
       undici-types: 5.26.5
+
+  /@types/node@20.5.1:
+    resolution: {integrity: sha512-4tT2UrL5LBqDwoed9wZ6N3umC4Yhz3W3FloMmiiG4JwmUJWpie0c7lcnUNd4gtMKuDEO4wRVS8B6Xa0uMRsMKg==}
 
   /@types/normalize-package-data@2.4.4:
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
@@ -2179,11 +2173,11 @@ packages:
     resolution: {integrity: sha512-FtQu10RWgn3D9U4aazdwIE2yzphmTJREDqNdODHrbrZmmMqI0vMheC/6NE/J1Yveaj8H+ela+YwWTjq5PGmuhA==}
     requiresBuild: true
     dependencies:
-      '@types/node': 20.9.4
+      '@types/node': 20.10.0
       '@types/webidl-conversions': 7.0.3
     optional: true
 
-  /@vitejs/plugin-vue@4.5.0(vite@4.5.0)(vue@3.3.8):
+  /@vitejs/plugin-vue@4.5.0(vite@4.5.0)(vue@3.3.9):
     resolution: {integrity: sha512-a2WSpP8X8HTEww/U00bU4mX1QpLINNuz/2KMNpLsdu3BzOpak3AGI1CJYBTXcc4SPhaD0eNRUp7IyQK405L5dQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
@@ -2191,7 +2185,7 @@ packages:
       vue: ^3.2.25
     dependencies:
       vite: 4.5.0(@types/node@20.5.1)
-      vue: 3.3.8(typescript@5.3.2)
+      vue: 3.3.9(typescript@5.3.2)
 
   /@volar/language-core@1.10.10:
     resolution: {integrity: sha512-nsV1o3AZ5n5jaEAObrS3MWLBWaGwUj/vAsc15FVNIv+DbpizQRISg9wzygsHBr56ELRH8r4K75vkYNMtsSNNWw==}
@@ -2212,7 +2206,7 @@ packages:
       path-browserify: 1.0.1
     dev: true
 
-  /@vue-macros/common@1.9.0(vue@3.3.8):
+  /@vue-macros/common@1.9.0(vue@3.3.9):
     resolution: {integrity: sha512-LbfRHDkceuokkLlVuQW9Wq3ZLmRs6KIDPzCjUvvL14HB4GslWdtvBB1suFfNs6VMvh9Zj30cEKF/EAP7QBCZ6Q==}
     engines: {node: '>=16.14.0'}
     peerDependencies:
@@ -2223,48 +2217,48 @@ packages:
     dependencies:
       '@babel/types': 7.23.4
       '@rollup/pluginutils': 5.0.5
-      '@vue/compiler-sfc': 3.3.8
+      '@vue/compiler-sfc': 3.3.9
       ast-kit: 0.11.2
       local-pkg: 0.5.0
       magic-string-ast: 0.3.0
-      vue: 3.3.8(typescript@5.3.2)
+      vue: 3.3.9(typescript@5.3.2)
     transitivePeerDependencies:
       - rollup
     dev: false
 
-  /@vue/compiler-core@3.3.8:
-    resolution: {integrity: sha512-hN/NNBUECw8SusQvDSqqcVv6gWq8L6iAktUR0UF3vGu2OhzRqcOiAno0FmBJWwxhYEXRlQJT5XnoKsVq1WZx4g==}
+  /@vue/compiler-core@3.3.9:
+    resolution: {integrity: sha512-+/Lf68Vr/nFBA6ol4xOtJrW+BQWv3QWKfRwGSm70jtXwfhZNF4R/eRgyVJYoxFRhdCTk/F6g99BP0ffPgZihfQ==}
     dependencies:
       '@babel/parser': 7.23.4
-      '@vue/shared': 3.3.8
+      '@vue/shared': 3.3.9
       estree-walker: 2.0.2
       source-map-js: 1.0.2
 
-  /@vue/compiler-dom@3.3.8:
-    resolution: {integrity: sha512-+PPtv+p/nWDd0AvJu3w8HS0RIm/C6VGBIRe24b9hSyNWOAPEUosFZ5diwawwP8ip5sJ8n0Pe87TNNNHnvjs0FQ==}
+  /@vue/compiler-dom@3.3.9:
+    resolution: {integrity: sha512-nfWubTtLXuT4iBeDSZ5J3m218MjOy42Vp2pmKVuBKo2/BLcrFUX8nCSr/bKRFiJ32R8qbdnnnBgRn9AdU5v0Sg==}
     dependencies:
-      '@vue/compiler-core': 3.3.8
-      '@vue/shared': 3.3.8
+      '@vue/compiler-core': 3.3.9
+      '@vue/shared': 3.3.9
 
-  /@vue/compiler-sfc@3.3.8:
-    resolution: {integrity: sha512-WMzbUrlTjfYF8joyT84HfwwXo+8WPALuPxhy+BZ6R4Aafls+jDBnSz8PDz60uFhuqFbl3HxRfxvDzrUf3THwpA==}
+  /@vue/compiler-sfc@3.3.9:
+    resolution: {integrity: sha512-wy0CNc8z4ihoDzjASCOCsQuzW0A/HP27+0MDSSICMjVIFzk/rFViezkR3dzH+miS2NDEz8ywMdbjO5ylhOLI2A==}
     dependencies:
       '@babel/parser': 7.23.4
-      '@vue/compiler-core': 3.3.8
-      '@vue/compiler-dom': 3.3.8
-      '@vue/compiler-ssr': 3.3.8
-      '@vue/reactivity-transform': 3.3.8
-      '@vue/shared': 3.3.8
+      '@vue/compiler-core': 3.3.9
+      '@vue/compiler-dom': 3.3.9
+      '@vue/compiler-ssr': 3.3.9
+      '@vue/reactivity-transform': 3.3.9
+      '@vue/shared': 3.3.9
       estree-walker: 2.0.2
       magic-string: 0.30.5
       postcss: 8.4.31
       source-map-js: 1.0.2
 
-  /@vue/compiler-ssr@3.3.8:
-    resolution: {integrity: sha512-hXCqQL/15kMVDBuoBYpUnSYT8doDNwsjvm3jTefnXr+ytn294ySnT8NlsFHmTgKNjwpuFy7XVV8yTeLtNl/P6w==}
+  /@vue/compiler-ssr@3.3.9:
+    resolution: {integrity: sha512-NO5oobAw78R0G4SODY5A502MGnDNiDjf6qvhn7zD7TJGc8XDeIEw4fg6JU705jZ/YhuokBKz0A5a/FL/XZU73g==}
     dependencies:
-      '@vue/compiler-dom': 3.3.8
-      '@vue/shared': 3.3.8
+      '@vue/compiler-dom': 3.3.9
+      '@vue/shared': 3.3.9
 
   /@vue/devtools-api@6.5.1:
     resolution: {integrity: sha512-+KpckaAQyfbvshdDW5xQylLni1asvNSGme1JFs8I1+/H5pHEhqUKMEQD/qn3Nx5+/nycBq11qAEi8lk+LXI2dA==}
@@ -2280,8 +2274,8 @@ packages:
     dependencies:
       '@volar/language-core': 1.10.10
       '@volar/source-map': 1.10.10
-      '@vue/compiler-dom': 3.3.8
-      '@vue/shared': 3.3.8
+      '@vue/compiler-dom': 3.3.9
+      '@vue/shared': 3.3.9
       computeds: 0.0.1
       minimatch: 9.0.3
       muggle-string: 0.3.1
@@ -2289,44 +2283,44 @@ packages:
       vue-template-compiler: 2.7.15
     dev: true
 
-  /@vue/reactivity-transform@3.3.8:
-    resolution: {integrity: sha512-49CvBzmZNtcHua0XJ7GdGifM8GOXoUMOX4dD40Y5DxI3R8OUhMlvf2nvgUAcPxaXiV5MQQ1Nwy09ADpnLQUqRw==}
+  /@vue/reactivity-transform@3.3.9:
+    resolution: {integrity: sha512-HnUFm7Ry6dFa4Lp63DAxTixUp8opMtQr6RxQCpDI1vlh12rkGIeYqMvJtK+IKyEfEOa2I9oCkD1mmsPdaGpdVg==}
     dependencies:
       '@babel/parser': 7.23.4
-      '@vue/compiler-core': 3.3.8
-      '@vue/shared': 3.3.8
+      '@vue/compiler-core': 3.3.9
+      '@vue/shared': 3.3.9
       estree-walker: 2.0.2
       magic-string: 0.30.5
 
-  /@vue/reactivity@3.3.8:
-    resolution: {integrity: sha512-ctLWitmFBu6mtddPyOKpHg8+5ahouoTCRtmAHZAXmolDtuZXfjL2T3OJ6DL6ezBPQB1SmMnpzjiWjCiMYmpIuw==}
+  /@vue/reactivity@3.3.9:
+    resolution: {integrity: sha512-VmpIqlNp+aYDg2X0xQhJqHx9YguOmz2UxuUJDckBdQCNkipJvfk9yA75woLWElCa0Jtyec3lAAt49GO0izsphw==}
     dependencies:
-      '@vue/shared': 3.3.8
+      '@vue/shared': 3.3.9
 
-  /@vue/runtime-core@3.3.8:
-    resolution: {integrity: sha512-qurzOlb6q26KWQ/8IShHkMDOuJkQnQcTIp1sdP4I9MbCf9FJeGVRXJFr2mF+6bXh/3Zjr9TDgURXrsCr9bfjUw==}
+  /@vue/runtime-core@3.3.9:
+    resolution: {integrity: sha512-xxaG9KvPm3GTRuM4ZyU8Tc+pMVzcu6eeoSRQJ9IE7NmCcClW6z4B3Ij6L4EDl80sxe/arTtQ6YmgiO4UZqRc+w==}
     dependencies:
-      '@vue/reactivity': 3.3.8
-      '@vue/shared': 3.3.8
+      '@vue/reactivity': 3.3.9
+      '@vue/shared': 3.3.9
 
-  /@vue/runtime-dom@3.3.8:
-    resolution: {integrity: sha512-Noy5yM5UIf9UeFoowBVgghyGGPIDPy1Qlqt0yVsUdAVbqI8eeMSsTqBtauaEoT2UFXUk5S64aWVNJN4MJ2vRdA==}
+  /@vue/runtime-dom@3.3.9:
+    resolution: {integrity: sha512-e7LIfcxYSWbV6BK1wQv9qJyxprC75EvSqF/kQKe6bdZEDNValzeRXEVgiX7AHI6hZ59HA4h7WT5CGvm69vzJTQ==}
     dependencies:
-      '@vue/runtime-core': 3.3.8
-      '@vue/shared': 3.3.8
+      '@vue/runtime-core': 3.3.9
+      '@vue/shared': 3.3.9
       csstype: 3.1.2
 
-  /@vue/server-renderer@3.3.8(vue@3.3.8):
-    resolution: {integrity: sha512-zVCUw7RFskvPuNlPn/8xISbrf0zTWsTSdYTsUTN1ERGGZGVnRxM2QZ3x1OR32+vwkkCm0IW6HmJ49IsPm7ilLg==}
+  /@vue/server-renderer@3.3.9(vue@3.3.9):
+    resolution: {integrity: sha512-w0zT/s5l3Oa3ZjtLW88eO4uV6AQFqU8X5GOgzq7SkQQu6vVr+8tfm+OI2kDBplS/W/XgCBuFXiPw6T5EdwXP0A==}
     peerDependencies:
-      vue: 3.3.8
+      vue: 3.3.9
     dependencies:
-      '@vue/compiler-ssr': 3.3.8
-      '@vue/shared': 3.3.8
-      vue: 3.3.8(typescript@5.3.2)
+      '@vue/compiler-ssr': 3.3.9
+      '@vue/shared': 3.3.9
+      vue: 3.3.9(typescript@5.3.2)
 
-  /@vue/shared@3.3.8:
-    resolution: {integrity: sha512-8PGwybFwM4x8pcfgqEQFy70NaQxASvOC5DJwLQfpArw1UDfUXrJkdxD3BhVTMS+0Lef/TU7YO0Jvr0jJY8T+mw==}
+  /@vue/shared@3.3.9:
+    resolution: {integrity: sha512-ZE0VTIR0LmYgeyhurPTpy4KzKsuDyQbMSdM49eKkMnT5X4VfFBLysMzjIZhLEFQYjjOVVfbvUDHckwjDFiO2eA==}
 
   /@webassemblyjs/ast@1.11.6:
     resolution: {integrity: sha512-IN1xI7PwOvLPgjcf180gC1bqn3q/QaOCwYUahIOhbYUu8KA/3tw2RT/T0Gidi1l7Hhj5D/INhJxiICObqpMu4Q==}
@@ -2726,8 +2720,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001563
-      electron-to-chromium: 1.4.590
+      caniuse-lite: 1.0.30001564
+      electron-to-chromium: 1.4.594
       node-releases: 2.0.13
       update-browserslist-db: 1.0.13(browserslist@4.22.1)
     dev: false
@@ -2806,8 +2800,8 @@ packages:
     requiresBuild: true
     optional: true
 
-  /caniuse-lite@1.0.30001563:
-    resolution: {integrity: sha512-na2WUmOxnwIZtwnFI2CZ/3er0wdNzU7hN+cPYz/z2ajHThnkWjNBOpEPP4n+4r2WPM847JaMotaJE3bnfzjyKw==}
+  /caniuse-lite@1.0.30001564:
+    resolution: {integrity: sha512-DqAOf+rhof+6GVx1y+xzbFPeOumfQnhYzVnZD6LAXijR77yPtm9mfOcqOnT3mpnJiZVT+kwLAFnRlZcIz+c6bg==}
     dev: false
 
   /chalk@2.4.2:
@@ -3170,8 +3164,8 @@ packages:
       jake: 10.8.7
     dev: false
 
-  /electron-to-chromium@1.4.590:
-    resolution: {integrity: sha512-hohItzsQcG7/FBsviCYMtQwUSWvVF7NVqPOnJCErWsAshsP/CR2LAXdmq276RbESNdhxiAq5/vRo1g2pxGXVww==}
+  /electron-to-chromium@1.4.594:
+    resolution: {integrity: sha512-xT1HVAu5xFn7bDfkjGQi9dNpMqGchUkebwf1GL7cZN32NSwwlHRPMSDJ1KN6HkS0bWUtndbSQZqvpQftKG2uFQ==}
     dev: false
 
   /emoji-regex@8.0.0:
@@ -4047,7 +4041,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 20.9.4
+      '@types/node': 20.10.0
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: false
@@ -5678,8 +5672,8 @@ packages:
   /undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
 
-  /unimport@3.5.0:
-    resolution: {integrity: sha512-0Ei1iTeSYxs7oxxUf79/KaBc2dPjZxe7qdVpw7yIz5YcdTZjmBYO6ToLDW+fX9QOHiueZ3xtwb5Z/wqaSfXx6A==}
+  /unimport@3.6.0:
+    resolution: {integrity: sha512-yXW3Z30yk1vX8fxO8uHlq9wY9K+L56LHp4Hlbv8i7tW+NENSOv8AaFJUPtOQchxlT7/JBAzCtkrBtcVjKIr1VQ==}
     dependencies:
       '@rollup/pluginutils': 5.0.5
       escape-string-regexp: 5.0.0
@@ -5723,13 +5717,13 @@ packages:
       local-pkg: 0.4.3
       magic-string: 0.30.5
       minimatch: 9.0.3
-      unimport: 3.5.0
+      unimport: 3.6.0
       unplugin: 1.5.1
     transitivePeerDependencies:
       - rollup
     dev: false
 
-  /unplugin-vue-components@0.24.1(vue@3.3.8):
+  /unplugin-vue-components@0.24.1(vue@3.3.9):
     resolution: {integrity: sha512-T3A8HkZoIE1Cja95xNqolwza0yD5IVlgZZ1PVAGvVCx8xthmjsv38xWRCtHtwl+rvZyL9uif42SRkDGw9aCfMA==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -5752,13 +5746,13 @@ packages:
       minimatch: 7.4.6
       resolve: 1.22.8
       unplugin: 1.5.1
-      vue: 3.3.8(typescript@5.3.2)
+      vue: 3.3.9(typescript@5.3.2)
     transitivePeerDependencies:
       - rollup
       - supports-color
     dev: false
 
-  /unplugin-vue-router@0.5.5(vue@3.3.8):
+  /unplugin-vue-router@0.5.5(vue@3.3.9):
     resolution: {integrity: sha512-4ymcsmCXD5vBs7I+8bZbBVgt+qGP8myIsWmLLABFj70qqOc+dXoNLwH7jMS16dnxeKb816GHz2ZhG73qzQCoJg==}
     peerDependencies:
       vue-router: ^4.1.0
@@ -5768,7 +5762,7 @@ packages:
     dependencies:
       '@babel/types': 7.23.4
       '@rollup/pluginutils': 5.0.5
-      '@vue-macros/common': 1.9.0(vue@3.3.8)
+      '@vue-macros/common': 1.9.0(vue@3.3.9)
       ast-walker-scope: 0.4.2
       chokidar: 3.5.3
       fast-glob: 3.3.2
@@ -5790,7 +5784,7 @@ packages:
       acorn: 8.11.2
       chokidar: 3.5.3
       webpack-sources: 3.2.3
-      webpack-virtual-modules: 0.6.0
+      webpack-virtual-modules: 0.6.1
     dev: false
 
   /update-browserslist-db@1.0.13(browserslist@4.22.1):
@@ -5877,6 +5871,43 @@ packages:
       vite: 4.5.0(@types/node@20.5.1)
     dev: true
 
+  /vite@4.5.0(@types/node@20.10.0)(less@4.2.0)(sass@1.69.5):
+    resolution: {integrity: sha512-ulr8rNLA6rkyFAlVWw2q5YJ91v098AFQ2R0PRFwPzREXOUJQPtFUG0t+/ZikhaOCDqFoDhN6/v8Sq0o4araFAw==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': '>= 14'
+      less: '*'
+      lightningcss: ^1.21.0
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      lightningcss:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      '@types/node': 20.10.0
+      esbuild: 0.18.20
+      less: 4.2.0
+      postcss: 8.4.31
+      rollup: 3.29.4
+      sass: 1.69.5
+    optionalDependencies:
+      fsevents: 2.3.3
+
   /vite@4.5.0(@types/node@20.5.1):
     resolution: {integrity: sha512-ulr8rNLA6rkyFAlVWw2q5YJ91v098AFQ2R0PRFwPzREXOUJQPtFUG0t+/ZikhaOCDqFoDhN6/v8Sq0o4araFAw==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -5912,44 +5943,7 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
 
-  /vite@4.5.0(@types/node@20.9.4)(less@4.2.0)(sass@1.69.5):
-    resolution: {integrity: sha512-ulr8rNLA6rkyFAlVWw2q5YJ91v098AFQ2R0PRFwPzREXOUJQPtFUG0t+/ZikhaOCDqFoDhN6/v8Sq0o4araFAw==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    hasBin: true
-    peerDependencies:
-      '@types/node': '>= 14'
-      less: '*'
-      lightningcss: ^1.21.0
-      sass: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.4.0
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      less:
-        optional: true
-      lightningcss:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-    dependencies:
-      '@types/node': 20.9.4
-      esbuild: 0.18.20
-      less: 4.2.0
-      postcss: 8.4.31
-      rollup: 3.29.4
-      sass: 1.69.5
-    optionalDependencies:
-      fsevents: 2.3.3
-
-  /vue-demi@0.13.11(vue@3.3.8):
+  /vue-demi@0.13.11(vue@3.3.9):
     resolution: {integrity: sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==}
     engines: {node: '>=12'}
     hasBin: true
@@ -5961,28 +5955,28 @@ packages:
       '@vue/composition-api':
         optional: true
     dependencies:
-      vue: 3.3.8(typescript@5.3.2)
+      vue: 3.3.9(typescript@5.3.2)
     dev: false
 
-  /vue-i18n@9.7.0(vue@3.3.8):
-    resolution: {integrity: sha512-8Z8kSz9U2juzuAf+6mjW1HTd5pIlYuFJZkC+HvYOglFdpzwc2rTUGjxKwN8xGdtGur1MFnyJ44TSr+TksJtY8A==}
+  /vue-i18n@9.7.1(vue@3.3.9):
+    resolution: {integrity: sha512-A6DzWqJQMdzBj+392+g3zIgGV0FnFC7o/V+txs5yIALANEZzY6ZV8hM2wvZR3nTbQI7dntAmzBHMeoEteJO0kQ==}
     engines: {node: '>= 16'}
     peerDependencies:
       vue: ^3.0.0
     dependencies:
-      '@intlify/core-base': 9.7.0
-      '@intlify/shared': 9.7.0
+      '@intlify/core-base': 9.7.1
+      '@intlify/shared': 9.7.1
       '@vue/devtools-api': 6.5.1
-      vue: 3.3.8(typescript@5.3.2)
+      vue: 3.3.9(typescript@5.3.2)
     dev: false
 
-  /vue-router@4.2.5(vue@3.3.8):
+  /vue-router@4.2.5(vue@3.3.9):
     resolution: {integrity: sha512-DIUpKcyg4+PTQKfFPX88UWhlagBEBEfJ5A8XDXRJLUnZOvcpMF8o/dnL90vpVkGaPbjvXazV/rC1qBKrZlFugw==}
     peerDependencies:
       vue: ^3.2.0
     dependencies:
       '@vue/devtools-api': 6.5.1
-      vue: 3.3.8(typescript@5.3.2)
+      vue: 3.3.9(typescript@5.3.2)
     dev: false
 
   /vue-template-compiler@2.7.15:
@@ -6004,19 +5998,19 @@ packages:
       typescript: 5.3.2
     dev: true
 
-  /vue@3.3.8(typescript@5.3.2):
-    resolution: {integrity: sha512-5VSX/3DabBikOXMsxzlW8JyfeLKlG9mzqnWgLQLty88vdZL7ZJgrdgBOmrArwxiLtmS+lNNpPcBYqrhE6TQW5w==}
+  /vue@3.3.9(typescript@5.3.2):
+    resolution: {integrity: sha512-sy5sLCTR8m6tvUk1/ijri3Yqzgpdsmxgj6n6yl7GXXCXqVbmW2RCXe9atE4cEI6Iv7L89v5f35fZRRr5dChP9w==}
     peerDependencies:
       typescript: '*'
     peerDependenciesMeta:
       typescript:
         optional: true
     dependencies:
-      '@vue/compiler-dom': 3.3.8
-      '@vue/compiler-sfc': 3.3.8
-      '@vue/runtime-dom': 3.3.8
-      '@vue/server-renderer': 3.3.8(vue@3.3.8)
-      '@vue/shared': 3.3.8
+      '@vue/compiler-dom': 3.3.9
+      '@vue/compiler-sfc': 3.3.9
+      '@vue/runtime-dom': 3.3.9
+      '@vue/server-renderer': 3.3.9(vue@3.3.9)
+      '@vue/shared': 3.3.9
       typescript: 5.3.2
 
   /waltz-icons@0.0.6:
@@ -6049,8 +6043,8 @@ packages:
     engines: {node: '>=10.13.0'}
     dev: false
 
-  /webpack-virtual-modules@0.6.0:
-    resolution: {integrity: sha512-KnaMTE6EItz/f2q4Gwg5/rmeKVi79OR58NoYnwDJqCk9ywMtTGbBnBcfoBtN4QbYu0lWXvyMoH2Owxuhe4qI6Q==}
+  /webpack-virtual-modules@0.6.1:
+    resolution: {integrity: sha512-poXpCylU7ExuvZK8z+On3kX+S8o/2dQ/SVYueKA0D4WEMXROXgY8Ez50/bQEUmvoSMMrWcrJqCHuhAbsiwg7Dg==}
     dev: false
 
   /webpack@5.89.0:

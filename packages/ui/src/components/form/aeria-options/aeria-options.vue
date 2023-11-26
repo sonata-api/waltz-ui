@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import type { Property, EnumProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
 import { computed } from 'vue'
 import AeriaCheckbox from '../aeria-checkbox/aeria-checkbox.vue'
 
-type Props = FormFieldProps<any> & {
+type Props = Omit<FormFieldProps<any>, 'property'> & {
+  property: Property & EnumProperty
   columns?: number
 }
 

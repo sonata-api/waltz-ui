@@ -5,18 +5,19 @@ export default {
 </script>
 
 <script setup lang="ts">
+import type { ArrayProperty, EnumProperty, BooleanProperty, Property } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
 import { computed, ref } from 'vue'
 
-type Props = FormFieldProps<any> & {
+type Props = FormFieldProps<any, (ArrayProperty | EnumProperty | BooleanProperty) & Property> & {
   value?: any
   variant?: string
 }
 
 const props = defineProps<Props>()
-const property = props.property||{}
+const property = props.property || {} as NonNullable<typeof props.property>
 
-const type = ['array', 'boolean'].includes(property.type!)
+const type = !('enum' in property) && ['array', 'boolean'].includes(property.type)
   ? 'checkbox'
   : 'radio'
 

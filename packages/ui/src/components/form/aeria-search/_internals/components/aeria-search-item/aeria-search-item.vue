@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SearchProperty } from '../../../../types'
+import type { Property, RefProperty } from '@sonata-api/types'
 import { computed } from 'vue'
 import { useParentStore } from '@waltz-ui/state-management'
 
@@ -7,7 +7,7 @@ type Props = {
   item: Record<string, any>
   indexes: readonly string[]
   modelValue?: any
-  property: SearchProperty
+  property: Property & RefProperty
 }
 
 type Emits = {
