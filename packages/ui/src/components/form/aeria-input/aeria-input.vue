@@ -21,6 +21,7 @@ type Props = FormFieldProps<InputType, Property & (NumberProperty | StringProper
 
 const props = defineProps<Props>()
 const property = props.property || {} as NonNullable<typeof props.property>
+const hasIcon = 'icon' in property || ('inputType' in property && property.inputType === 'search')
 
 const searchOnly = inject('searchOnly', false)
 const innerInputLabel = inject('innerInputLabel', false)
@@ -135,6 +136,9 @@ const onInput = (
   }
 ) => {
   const { masked } = options || {}
+  if( !masked ) {
+    return
+  }
 
   const value = inputValue.value = (event.target as HTMLInputElement).value
   const newValue = masked
@@ -211,7 +215,7 @@ watch(() => props.modelValue, (value, oldValue) => {
         :class="`
           input__input
           input__input--${variant}
-          ${'icon' in property && 'input__input--icon'}
+          ${hasIcon && 'input__input--icon'}
           ${readOnly && 'input__input--readOnly'}
         `"
 
@@ -220,7 +224,7 @@ watch(() => props.modelValue, (value, oldValue) => {
         @change="emit('change', $event)"
       />
       <aeria-icon 
-        v-if="'icon' in property || ('inputType' in property && property.inputType === 'search')"
+        v-if="hasIcon"
         :icon="property.icon || 'search-alt'"
         :class="`
           input__icon
