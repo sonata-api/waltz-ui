@@ -36,7 +36,7 @@ importers:
     dependencies:
       '@sonata-api/common':
         specifier: '*'
-        version: 0.0.20(bson@5.5.1)
+        version: 0.1.0(bson@5.5.1)
       '@waltz-ui/state-management':
         specifier: '*'
         version: link:../state-management
@@ -52,10 +52,10 @@ importers:
     devDependencies:
       '@sonata-api/system':
         specifier: '*'
-        version: 0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20)
+        version: 1.0.0(@sonata-api/access-control@1.0.0)(@sonata-api/api@1.0.0)(@sonata-api/common@0.1.0)(@sonata-api/types@0.1.0)(@sonata-api/validation@1.0.0)
       '@sonata-api/types':
         specifier: '*'
-        version: 0.0.24
+        version: 0.1.0
       '@vitejs/plugin-vue':
         specifier: ^4.2.3
         version: 4.5.0(vite@4.5.0)(vue@3.3.9)
@@ -82,10 +82,10 @@ importers:
         version: 15.2.3
       '@sonata-api/common':
         specifier: '*'
-        version: 0.0.20(bson@6.2.0)
+        version: 0.1.0(bson@6.2.0)
       '@sonata-api/types':
         specifier: '*'
-        version: 0.0.24
+        version: 0.1.0
       '@vitejs/plugin-vue':
         specifier: ^4.1.0
         version: 4.5.0(vite@4.5.0)(vue@3.3.9)
@@ -152,13 +152,13 @@ importers:
     dependencies:
       '@sonata-api/common':
         specifier: '*'
-        version: 0.0.20(bson@5.5.1)
+        version: 0.1.0(bson@5.5.1)
       '@sonata-api/system':
         specifier: '*'
-        version: 0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20)
+        version: 1.0.0(@sonata-api/access-control@1.0.0)(@sonata-api/api@1.0.0)(@sonata-api/common@0.1.0)(@sonata-api/types@0.1.0)(@sonata-api/validation@1.0.0)
       '@sonata-api/types':
         specifier: '*'
-        version: 0.0.24
+        version: 0.1.0
       '@waltz-ui/state-management':
         specifier: '*'
         version: link:../state-management
@@ -1931,8 +1931,8 @@ packages:
       tslib: 2.6.2
     optional: true
 
-  /@sonata-api/access-control@0.0.22(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(mongodb@6.3.0):
-    resolution: {integrity: sha512-wBrWHmWPeJncnIR3t7JQlGSIaBA/6RlleG0GwdLimmxCSuNy6yWcTdp9z0RA7AuQAwKBcve5/S4xtLuk50lKPg==}
+  /@sonata-api/access-control@1.0.0(@sonata-api/api@1.0.0)(@sonata-api/common@0.1.0)(@sonata-api/server@1.0.0)(@sonata-api/system@1.0.0)(@sonata-api/types@0.1.0)(mongodb@6.3.0):
+    resolution: {integrity: sha512-+ew8XnXjUc9NnAqN4HHDy71Yec+8gumiW4VLS2vygUQA20+lmTxrL+T7Egyk8/fFc6dspK8SfLfT+xD7D3natg==}
     peerDependencies:
       '@sonata-api/api': '*'
       '@sonata-api/common': '*'
@@ -1941,15 +1941,15 @@ packages:
       '@sonata-api/types': '*'
       mongodb: ^6.1.0
     dependencies:
-      '@sonata-api/api': 0.0.76(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20)(jsonwebtoken@8.5.1)(mongodb@6.3.0)
-      '@sonata-api/common': 0.0.20(bson@5.5.1)
-      '@sonata-api/server': 0.0.29(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(mongodb@6.3.0)
-      '@sonata-api/system': 0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20)
-      '@sonata-api/types': 0.0.24
+      '@sonata-api/api': 1.0.0(@sonata-api/access-control@1.0.0)(@sonata-api/common@0.1.0)(@sonata-api/http@1.0.0)(@sonata-api/mailing@1.0.0)(@sonata-api/security@1.0.0)(@sonata-api/system@1.0.0)(@sonata-api/types@0.1.0)(@sonata-api/validation@1.0.0)(jsonwebtoken@8.5.1)(mongodb@6.3.0)
+      '@sonata-api/common': 0.1.0(bson@5.5.1)
+      '@sonata-api/server': 1.0.0(@sonata-api/access-control@1.0.0)(@sonata-api/api@1.0.0)(@sonata-api/common@0.1.0)(@sonata-api/http@1.0.0)(@sonata-api/system@1.0.0)(@sonata-api/types@0.1.0)(mongodb@6.3.0)
+      '@sonata-api/system': 1.0.0(@sonata-api/access-control@1.0.0)(@sonata-api/api@1.0.0)(@sonata-api/common@0.1.0)(@sonata-api/types@0.1.0)(@sonata-api/validation@1.0.0)
+      '@sonata-api/types': 0.1.0
       mongodb: 6.3.0
 
-  /@sonata-api/api@0.0.76(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20)(jsonwebtoken@8.5.1)(mongodb@6.3.0):
-    resolution: {integrity: sha512-63ngqqj7mhwOyzzDie1BE4vCBPiK63o/bRq7QRaSKAusUqeMIuju4LGGgI7yUUeV0iUdjpkmwB7lfBX1OEqeSw==}
+  /@sonata-api/api@1.0.0(@sonata-api/access-control@1.0.0)(@sonata-api/common@0.1.0)(@sonata-api/http@1.0.0)(@sonata-api/mailing@1.0.0)(@sonata-api/security@1.0.0)(@sonata-api/system@1.0.0)(@sonata-api/types@0.1.0)(@sonata-api/validation@1.0.0)(jsonwebtoken@8.5.1)(mongodb@6.3.0):
+    resolution: {integrity: sha512-feZriOfgjoxFQeauwvtOnQSKlY8PUS3b2z90zpEuyD5L6uLMQXTPl21uuqwYnAFwDLkwFEGOfocmVgcXkCi2eA==}
     requiresBuild: true
     peerDependencies:
       '@sonata-api/access-control': '*'
@@ -1963,14 +1963,14 @@ packages:
       jsonwebtoken: ^8.5.1
       mongodb: ^6.1.0
     dependencies:
-      '@sonata-api/access-control': 0.0.22(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(mongodb@6.3.0)
-      '@sonata-api/common': 0.0.20(bson@5.5.1)
-      '@sonata-api/http': 0.0.17(@sonata-api/common@0.0.20)
-      '@sonata-api/mailing': 0.0.9(@sonata-api/common@0.0.20)
-      '@sonata-api/security': 0.0.6(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)
-      '@sonata-api/system': 0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20)
-      '@sonata-api/types': 0.0.24
-      '@sonata-api/validation': 0.0.20(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.24)(mongodb@6.3.0)
+      '@sonata-api/access-control': 1.0.0(@sonata-api/api@1.0.0)(@sonata-api/common@0.1.0)(@sonata-api/server@1.0.0)(@sonata-api/system@1.0.0)(@sonata-api/types@0.1.0)(mongodb@6.3.0)
+      '@sonata-api/common': 0.1.0(bson@5.5.1)
+      '@sonata-api/http': 1.0.0(@sonata-api/access-control@1.0.0)(@sonata-api/common@0.1.0)
+      '@sonata-api/mailing': 1.0.0(@sonata-api/common@0.1.0)
+      '@sonata-api/security': 1.0.0(@sonata-api/access-control@1.0.0)(@sonata-api/api@1.0.0)(@sonata-api/common@0.1.0)
+      '@sonata-api/system': 1.0.0(@sonata-api/access-control@1.0.0)(@sonata-api/api@1.0.0)(@sonata-api/common@0.1.0)(@sonata-api/types@0.1.0)(@sonata-api/validation@1.0.0)
+      '@sonata-api/types': 0.1.0
+      '@sonata-api/validation': 1.0.0(@sonata-api/common@0.1.0)(@sonata-api/types@0.1.0)(mongodb@6.3.0)
       jsonwebtoken: 8.5.1
       mongodb: 6.3.0
     optionalDependencies:
@@ -1979,59 +1979,61 @@ packages:
       - aws-crt
       - supports-color
 
-  /@sonata-api/common@0.0.20(bson@5.5.1):
-    resolution: {integrity: sha512-dYPcIf8FxhJbENYWpctY+AuZG30LVyv3rArGvcVg/Zx2StGftKGNh+wFYtBEevHK561rPlm1tx8MvnXQO775Yw==}
+  /@sonata-api/common@0.1.0(bson@5.5.1):
+    resolution: {integrity: sha512-8jwztmqoVEX9UzZjHNEoobsd4n8TN9BQZX/TdiL70FFnsQ8OC0XMAur0g3WSxGbT8M2IpdpE9b2Lga/c9boy5g==}
     peerDependencies:
       bson: ^5.4.0
     dependencies:
       bson: 5.5.1
 
-  /@sonata-api/common@0.0.20(bson@6.2.0):
-    resolution: {integrity: sha512-dYPcIf8FxhJbENYWpctY+AuZG30LVyv3rArGvcVg/Zx2StGftKGNh+wFYtBEevHK561rPlm1tx8MvnXQO775Yw==}
+  /@sonata-api/common@0.1.0(bson@6.2.0):
+    resolution: {integrity: sha512-8jwztmqoVEX9UzZjHNEoobsd4n8TN9BQZX/TdiL70FFnsQ8OC0XMAur0g3WSxGbT8M2IpdpE9b2Lga/c9boy5g==}
     peerDependencies:
       bson: ^5.4.0
     dependencies:
       bson: 6.2.0
     dev: false
 
-  /@sonata-api/http@0.0.17(@sonata-api/common@0.0.20):
-    resolution: {integrity: sha512-hC1IWBF/WbBDcgN06umplvDuNqtozddGe5F6krGIMEAis4+z/cE74sT4kwy4RjDD/BY9C90aErimY/X6OZ79iw==}
+  /@sonata-api/http@1.0.0(@sonata-api/access-control@1.0.0)(@sonata-api/common@0.1.0):
+    resolution: {integrity: sha512-avxrLbbm/i3DMRZXsFC8DLkbFHKUxNhILnMPDhHjtKcYxFA9ujOLw1bBPSHSqBbgtcwrwS0cY45Hh8790dXA4A==}
     peerDependencies:
+      '@sonata-api/access-control': '*'
       '@sonata-api/common': '*'
     dependencies:
-      '@sonata-api/common': 0.0.20(bson@5.5.1)
+      '@sonata-api/access-control': 1.0.0(@sonata-api/api@1.0.0)(@sonata-api/common@0.1.0)(@sonata-api/server@1.0.0)(@sonata-api/system@1.0.0)(@sonata-api/types@0.1.0)(mongodb@6.3.0)
+      '@sonata-api/common': 0.1.0(bson@5.5.1)
 
-  /@sonata-api/mailing@0.0.9(@sonata-api/common@0.0.20):
-    resolution: {integrity: sha512-ehKNA+kpc5wYMxi+aufdKVlsi5tCN8/+W1IqxbZxHtGTQtHIv7aDvYdjpBRTSApbTAzTLJ8sHia+JKFkn75l9A==}
+  /@sonata-api/mailing@1.0.0(@sonata-api/common@0.1.0):
+    resolution: {integrity: sha512-x3kF85R6dnZcLFCY6XuIhzfaC/mi+wQb/9YzP5Zg9rQWsR+Ow1E57VKtZ+4eFeVj+DwPX3TU4lj8TjLEbjC19g==}
     peerDependencies:
       '@sonata-api/common': '*'
     dependencies:
-      '@sonata-api/common': 0.0.20(bson@5.5.1)
+      '@sonata-api/common': 0.1.0(bson@5.5.1)
     optionalDependencies:
       nodemailer: 6.9.7
 
-  /@sonata-api/node-http@0.0.11(@sonata-api/http@0.0.17):
-    resolution: {integrity: sha512-aUhjGyuTsceVc9RYYbM4Dtqlv0w8tTrTW9nuyBd9J9aKnsPr+xdgKbBRsmbJ1gV5eXPg4vqwgVmAFZCtOkX9pQ==}
+  /@sonata-api/node-http@1.0.0(@sonata-api/http@1.0.0):
+    resolution: {integrity: sha512-5/ahR1xE3AMV0GnHBdV2xy+59Bpb3678Bs4I0l341VKjg3PzkbEFu9mRvx2aCA7gfs4lenkzEt4yFETkjzaroQ==}
     requiresBuild: true
     peerDependencies:
       '@sonata-api/http': '*'
     dependencies:
-      '@sonata-api/http': 0.0.17(@sonata-api/common@0.0.20)
+      '@sonata-api/http': 1.0.0(@sonata-api/access-control@1.0.0)(@sonata-api/common@0.1.0)
     optional: true
 
-  /@sonata-api/security@0.0.6(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20):
-    resolution: {integrity: sha512-fe+oY5dnoT5mqdEaLdVi0wT9k9Ih5DaY4YnAYsGoj/VJxW93gKB7jdXJCa1kJYMPYxXe8S3A3qxaj11xtTBDeA==}
+  /@sonata-api/security@1.0.0(@sonata-api/access-control@1.0.0)(@sonata-api/api@1.0.0)(@sonata-api/common@0.1.0):
+    resolution: {integrity: sha512-S1F2PcpHgsktwC40ykq3LC6wWX04IAqR5zIHnmX/812gQN5feyrjELKWWONeKIeSVL4HSuTW2quBPvuXnhJHMQ==}
     peerDependencies:
       '@sonata-api/access-control': '*'
       '@sonata-api/api': '*'
       '@sonata-api/common': '*'
     dependencies:
-      '@sonata-api/access-control': 0.0.22(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(mongodb@6.3.0)
-      '@sonata-api/api': 0.0.76(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20)(jsonwebtoken@8.5.1)(mongodb@6.3.0)
-      '@sonata-api/common': 0.0.20(bson@5.5.1)
+      '@sonata-api/access-control': 1.0.0(@sonata-api/api@1.0.0)(@sonata-api/common@0.1.0)(@sonata-api/server@1.0.0)(@sonata-api/system@1.0.0)(@sonata-api/types@0.1.0)(mongodb@6.3.0)
+      '@sonata-api/api': 1.0.0(@sonata-api/access-control@1.0.0)(@sonata-api/common@0.1.0)(@sonata-api/http@1.0.0)(@sonata-api/mailing@1.0.0)(@sonata-api/security@1.0.0)(@sonata-api/system@1.0.0)(@sonata-api/types@0.1.0)(@sonata-api/validation@1.0.0)(jsonwebtoken@8.5.1)(mongodb@6.3.0)
+      '@sonata-api/common': 0.1.0(bson@5.5.1)
 
-  /@sonata-api/server@0.0.29(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(mongodb@6.3.0):
-    resolution: {integrity: sha512-+FG8IZcc3IjMUpFY0C4Ykqpq0/2dyqTlQ5E7vqn4NfJCM4AZZWFWHenYQxz/CkUiZATPyws4qrpIsaN81NaCHA==}
+  /@sonata-api/server@1.0.0(@sonata-api/access-control@1.0.0)(@sonata-api/api@1.0.0)(@sonata-api/common@0.1.0)(@sonata-api/http@1.0.0)(@sonata-api/system@1.0.0)(@sonata-api/types@0.1.0)(mongodb@6.3.0):
+    resolution: {integrity: sha512-bGpN+KNsf4rRGdcje9lg99SA3wnjgXD7Y8V1PZqMrXK54KuGlCcqee+G2b/mgxWmJzo/BU2bZ7Bx2h+cQIeG/A==}
     peerDependencies:
       '@sonata-api/access-control': '*'
       '@sonata-api/api': '*'
@@ -2042,20 +2044,20 @@ packages:
       '@sonata-api/types': '*'
       mongodb: ^6.1.0
     dependencies:
-      '@sonata-api/access-control': 0.0.22(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(mongodb@6.3.0)
-      '@sonata-api/api': 0.0.76(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20)(jsonwebtoken@8.5.1)(mongodb@6.3.0)
-      '@sonata-api/common': 0.0.20(bson@5.5.1)
-      '@sonata-api/http': 0.0.17(@sonata-api/common@0.0.20)
-      '@sonata-api/server': 0.0.29(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(mongodb@6.3.0)
-      '@sonata-api/system': 0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20)
-      '@sonata-api/types': 0.0.24
+      '@sonata-api/access-control': 1.0.0(@sonata-api/api@1.0.0)(@sonata-api/common@0.1.0)(@sonata-api/server@1.0.0)(@sonata-api/system@1.0.0)(@sonata-api/types@0.1.0)(mongodb@6.3.0)
+      '@sonata-api/api': 1.0.0(@sonata-api/access-control@1.0.0)(@sonata-api/common@0.1.0)(@sonata-api/http@1.0.0)(@sonata-api/mailing@1.0.0)(@sonata-api/security@1.0.0)(@sonata-api/system@1.0.0)(@sonata-api/types@0.1.0)(@sonata-api/validation@1.0.0)(jsonwebtoken@8.5.1)(mongodb@6.3.0)
+      '@sonata-api/common': 0.1.0(bson@5.5.1)
+      '@sonata-api/http': 1.0.0(@sonata-api/access-control@1.0.0)(@sonata-api/common@0.1.0)
+      '@sonata-api/server': 1.0.0(@sonata-api/access-control@1.0.0)(@sonata-api/api@1.0.0)(@sonata-api/common@0.1.0)(@sonata-api/http@1.0.0)(@sonata-api/system@1.0.0)(@sonata-api/types@0.1.0)(mongodb@6.3.0)
+      '@sonata-api/system': 1.0.0(@sonata-api/access-control@1.0.0)(@sonata-api/api@1.0.0)(@sonata-api/common@0.1.0)(@sonata-api/types@0.1.0)(@sonata-api/validation@1.0.0)
+      '@sonata-api/types': 0.1.0
       dotenv: 10.0.0
       mongodb: 6.3.0
     optionalDependencies:
-      '@sonata-api/node-http': 0.0.11(@sonata-api/http@0.0.17)
+      '@sonata-api/node-http': 1.0.0(@sonata-api/http@1.0.0)
 
-  /@sonata-api/system@0.0.44(@sonata-api/access-control@0.0.22)(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20):
-    resolution: {integrity: sha512-GVV/xXuo44tm5B0OJUhCIR+XNtxJ9+2bTkY0zd3IlL/8U//j2ZAKhl82MWrVpM62KNO2Ngxc7ihYVvTVFd+PVg==}
+  /@sonata-api/system@1.0.0(@sonata-api/access-control@1.0.0)(@sonata-api/api@1.0.0)(@sonata-api/common@0.1.0)(@sonata-api/types@0.1.0)(@sonata-api/validation@1.0.0):
+    resolution: {integrity: sha512-1FyLGUWhg7K1GngL8BOem8m5FbDkfNEViRiZTO4LuTy96YhmzYq5TIOd4qN/y5ekB79ziyHBLT2BNWbKbV6RzA==}
     peerDependencies:
       '@sonata-api/access-control': '*'
       '@sonata-api/api': '*'
@@ -2063,28 +2065,28 @@ packages:
       '@sonata-api/types': '*'
       '@sonata-api/validation': '*'
     dependencies:
-      '@sonata-api/access-control': 0.0.22(@sonata-api/api@0.0.76)(@sonata-api/common@0.0.20)(@sonata-api/server@0.0.29)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(mongodb@6.3.0)
-      '@sonata-api/api': 0.0.76(@sonata-api/access-control@0.0.22)(@sonata-api/common@0.0.20)(@sonata-api/http@0.0.17)(@sonata-api/mailing@0.0.9)(@sonata-api/security@0.0.6)(@sonata-api/system@0.0.44)(@sonata-api/types@0.0.24)(@sonata-api/validation@0.0.20)(jsonwebtoken@8.5.1)(mongodb@6.3.0)
-      '@sonata-api/common': 0.0.20(bson@5.5.1)
-      '@sonata-api/types': 0.0.24
-      '@sonata-api/validation': 0.0.20(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.24)(mongodb@6.3.0)
+      '@sonata-api/access-control': 1.0.0(@sonata-api/api@1.0.0)(@sonata-api/common@0.1.0)(@sonata-api/server@1.0.0)(@sonata-api/system@1.0.0)(@sonata-api/types@0.1.0)(mongodb@6.3.0)
+      '@sonata-api/api': 1.0.0(@sonata-api/access-control@1.0.0)(@sonata-api/common@0.1.0)(@sonata-api/http@1.0.0)(@sonata-api/mailing@1.0.0)(@sonata-api/security@1.0.0)(@sonata-api/system@1.0.0)(@sonata-api/types@0.1.0)(@sonata-api/validation@1.0.0)(jsonwebtoken@8.5.1)(mongodb@6.3.0)
+      '@sonata-api/common': 0.1.0(bson@5.5.1)
+      '@sonata-api/types': 0.1.0
+      '@sonata-api/validation': 1.0.0(@sonata-api/common@0.1.0)(@sonata-api/types@0.1.0)(mongodb@6.3.0)
       bcrypt: 5.1.1
     transitivePeerDependencies:
       - encoding
       - supports-color
 
-  /@sonata-api/types@0.0.24:
-    resolution: {integrity: sha512-fP928PbJM+s5/ml8EWCtcAr35lxSxIfhDsNhFrSFBh0nXUCsNPEJ5JCkhuTwDiVfJtdARjpSX88DOXdyVaMGGQ==}
+  /@sonata-api/types@0.1.0:
+    resolution: {integrity: sha512-Q1hZlL95pyCSMKOr9Vbkx91vjCP20Qb6K95VNxJjcrrP2ATImHhKmm/V+dsLOgVbliPTBfFoulzU4An8UKaULQ==}
 
-  /@sonata-api/validation@0.0.20(@sonata-api/common@0.0.20)(@sonata-api/types@0.0.24)(mongodb@6.3.0):
-    resolution: {integrity: sha512-jKVTv86RoJSqNrV/R3WzSnrJN2GXiZF2y1+H+NUbBTkfbHUJYF9lUGdkJv8udHC7BjQ1WDtiD3/6Rh/Q/j0Pyw==}
+  /@sonata-api/validation@1.0.0(@sonata-api/common@0.1.0)(@sonata-api/types@0.1.0)(mongodb@6.3.0):
+    resolution: {integrity: sha512-ju3qrTrxwjY7ToTBDCAeMHYDlozWy0Gm8v1+Rb9lAj1GpKOxaf4BjPeQhjFlPp4wmMbICRW1TcjMCF/+3cBQkw==}
     peerDependencies:
       '@sonata-api/common': '*'
       '@sonata-api/types': '*'
       mongodb: '*'
     dependencies:
-      '@sonata-api/common': 0.0.20(bson@5.5.1)
-      '@sonata-api/types': 0.0.24
+      '@sonata-api/common': 0.1.0(bson@5.5.1)
+      '@sonata-api/types': 0.1.0
       mongodb: 6.3.0
 
   /@tsconfig/node10@1.0.9:
