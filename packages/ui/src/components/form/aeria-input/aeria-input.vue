@@ -135,9 +135,6 @@ const onInput = (
   }
 ) => {
   const { masked } = options || {}
-  if( !masked && (<CustomEvent<MaskaDetail>>event).detail?.unmasked ) {
-    return
-  }
 
   const value = inputValue.value = (event.target as HTMLInputElement).value
   const newValue = masked
@@ -205,7 +202,11 @@ watch(() => props.modelValue, (value, oldValue) => {
         v-focus="property.focus"
         :value="inputValue"
         data-component="input"
-        :data-maska="'mask' in property && property.mask"
+        :data-maska="
+          'mask' in property
+            ? property.mask
+            : ''
+        "
 
         :class="`
           input__input

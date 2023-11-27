@@ -1,22 +1,16 @@
+import type { defineOptions } from './options'
 import { createApp, App } from 'vue'
 import { Router } from 'vue-router'
 import { arraysIntersects } from '@sonata-api/common'
-import {
-  capitalize,
-  formatDateTime,
-  formatToString,
-  daysAgo,
-  getRelativeTimeFromNow
-  
-} from '@sonata-api/common'
-
 import { createI18n } from 'vue-i18n'
 import { routerInstance as createRouter } from './router'
+import { templateFunctions } from './templateFunctions'
 
-import type { defineOptions } from './options'
 import { useParentStore } from '@waltz-ui/state-management'
 import { meta, user } from './stores'
 import registerDirectives from './directives'
+
+export type * from './templateFunctions'
 
 export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promise<{
   app: App
@@ -83,6 +77,7 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
       }
     },
     methods: {
+      ...templateFunctions,
       getLayoutOption(optionName: keyof typeof INSTANCE_VARS['dashboardLayout']) {
         const dashboardLayout = INSTANCE_VARS.dashboardLayout
 
@@ -100,15 +95,6 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
       useStore(storeName?: string) {
         return useParentStore(storeName)
       },
-
-      // string
-      capitalize,
-      formatDateTime,
-
-      // date
-      formatToString,
-      daysAgo,
-      getRelativeTimeFromNow
     }
   })
 

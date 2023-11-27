@@ -2,7 +2,7 @@
 import type { Property, Condition, BooleanProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
 import { onBeforeMount, ref, computed, provide, inject, isRef, type Ref } from 'vue'
-import { evaluateCondition, deepClone, isRequired } from '@sonata-api/common'
+import { evaluateCondition, deepClone, isRequired, getReferenceProperty } from '@sonata-api/common'
 import { useBreakpoints, insertReady } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
 
@@ -109,8 +109,8 @@ const validationErrors = computed(() => props.validationErrors !== null
   ? props.validationErrors
   : store?.validationErrors)
 
-const formComponents = passAhead('formComponents')||{}
-const propertyComponents = passAhead('propertyComponents')||{}
+const formComponents = passAhead('formComponents') || {}
+const propertyComponents = passAhead('propertyComponents') || {}
 const omitFormHeader = passAhead('omitFormHeader')
 const omitInputLabels = passAhead('omitInputLabels')
 const innerInputLabel = passAhead('innerInputLabel')
@@ -348,7 +348,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
         <div
           v-else-if="
             'type' in property && property.type === 'array'
-              && (!(property.isReference && !('inline' in property && property.inline)) || property.isFile)
+              && (!(property.isReference && !getReferenceProperty(property)?.inline) || property.isFile)
           "
           style="display: grid; row-gap: .4rem"
         >

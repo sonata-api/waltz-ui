@@ -19,6 +19,7 @@
   ],
   "include": [
     "@types/*.d.ts",
+    "./vue.d.ts",
     "src"
   ]
 }

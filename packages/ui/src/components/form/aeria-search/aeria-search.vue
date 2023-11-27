@@ -13,13 +13,14 @@ import AeriaInput from '../aeria-input/aeria-input.vue'
 import AeriaSearchContainer from './_internals/components/aeria-search-container/aeria-search-container.vue'
 import AeriaSearchItem from './_internals/components/aeria-search-item/aeria-search-item.vue'
 
-type Props = Omit<FormFieldProps<any, SearchProperty>, 'propertyName'> & {
+type Props = Omit<FormFieldProps<any>, 'property' | 'propertyName'> & {
+  property: SearchProperty
   propertyName: string
   selectOnly?: boolean
 }
 
 const props = defineProps<Props>()
-const property = getReferenceProperty(props.property!)!
+const property = getReferenceProperty(props.property)!
 
 const DEFAULT_LIMIT = 10
 
@@ -28,12 +29,12 @@ const emit = defineEmits<{
   (e: 'panelClose'): void
 }>()
 
-const store = useStore(property.referencedCollection!)
+const store = useStore(props.property.referencedCollection!)
 const parentStore = useParentStore()
 const indexes = property.indexes!
 
 const parentStoreId = inject<string>('storeId')!
-provide('storeId', property.referencedCollection!)
+provide('storeId', props.property.referencedCollection!)
 provide('innerInputLabel', true)
 provide('omitInputLabels', true)
 
@@ -55,7 +56,6 @@ const inputValue = ref<Record<NonNullable<typeof indexes>[number], any>>({})
 
 const defaultFilters = () => property.constraints
   ? convertConditionToQuery(property.constraints, {
-    [property.referencedCollection!]: store,
     [parentStoreId]: parentStore
   })
   : {}

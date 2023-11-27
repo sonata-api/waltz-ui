@@ -1,5 +1,5 @@
 import { Property } from '@sonata-api/types'
-import { deepClone, isReference } from '@sonata-api/common'
+import { deepClone, isReference, getReferenceProperty } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
 
 import AeriaInput from '../../aeria-input/aeria-input.vue'
@@ -52,7 +52,7 @@ export const getComponent = (property: Property, customComponents: Record<string
     switch( true ) {
       case property.referencedCollection === 'file':
         return 'file'
-      case isReference(property) && property.inline:
+      case getReferenceProperty(property)?.inline:
         return 'form'
       case isReference(property):
         return 'search'

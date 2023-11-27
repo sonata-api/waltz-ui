@@ -37,7 +37,9 @@ declare module '*.vue' {
 }
 
 declare module '@vue/runtime-core' {
-  interface ComponentCustomProperties {
+  import type { TemplateFunctions } from '@waltz-ui/web'
+
+  interface ComponentCustomProperties extends TemplateFunctions {
     instanceConfig: typeof import('waltz-build').InstanceConfig,
     currentUser: typeof import('@sonata-api/system/collections').User
   }
