@@ -1,5 +1,18 @@
 # waltz-ui
 
+## 1.0.0
+
+### Minor Changes
+
+- Typechecking and runtime changes
+
+### Patch Changes
+
+- Updated dependencies
+  - @waltz-ui/ui@1.0.0
+  - @waltz-ui/state-management@0.1.0
+  - @waltz-ui/web@1.0.0
+
 ## 0.0.34
 
 ### Patch Changes

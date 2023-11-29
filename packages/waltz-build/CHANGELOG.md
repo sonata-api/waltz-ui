@@ -1,5 +1,11 @@
 # waltz-build
 
+## 0.1.0
+
+### Minor Changes
+
+- Typechecking and runtime changes
+
 ## 0.0.16
 
 ### Patch Changes

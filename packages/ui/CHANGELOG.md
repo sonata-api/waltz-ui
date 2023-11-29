@@ -1,5 +1,23 @@
 # @waltz-ui/ui
 
+## 1.0.1
+
+### Patch Changes
+
+- Fix aeria-search bug
+
+## 1.0.0
+
+### Minor Changes
+
+- Typechecking and runtime changes
+
+### Patch Changes
+
+- Updated dependencies
+  - @waltz-ui/state-management@0.1.0
+  - @waltz-ui/web@1.0.0
+
 ## 0.0.99
 
 ### Patch Changes

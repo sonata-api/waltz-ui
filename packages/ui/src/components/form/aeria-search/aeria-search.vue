@@ -20,7 +20,7 @@ type Props = Omit<FormFieldProps<any>, 'property' | 'propertyName'> & {
 }
 
 const props = defineProps<Props>()
-const property = getReferenceProperty(props.property)!
+const refProperty = getReferenceProperty(props.property)!
 
 const DEFAULT_LIMIT = 10
 
@@ -31,7 +31,7 @@ const emit = defineEmits<{
 
 const store = useStore(props.property.referencedCollection!)
 const parentStore = useParentStore()
-const indexes = property.indexes!
+const indexes = refProperty.indexes!
 
 const parentStoreId = inject<string>('storeId')!
 provide('storeId', props.property.referencedCollection!)
@@ -54,8 +54,8 @@ const searchField = ref(indexes[0])
 const isTyping = ref(false)
 const inputValue = ref<Record<NonNullable<typeof indexes>[number], any>>({})
 
-const defaultFilters = () => property.constraints
-  ? convertConditionToQuery(property.constraints, {
+const defaultFilters = () => refProperty.constraints
+  ? convertConditionToQuery(refProperty.constraints, {
     [parentStoreId]: parentStore
   })
   : {}
@@ -133,7 +133,7 @@ const save = () => {
     <aeria-panel
       float
       close-hint
-      :title="`Selecionar ${$t(props.propertyName)}`"
+      :title="`Selecionar ${$t(propertyName)}`"
       v-model="selectPanel"
       @close="emit('panelClose')"
       @overlay-click="selectPanel = false; emit('panelClose')"
@@ -175,7 +175,7 @@ const save = () => {
             v-bind="{
               item,
               indexes,
-              property,
+              property: refProperty,
             }"
 
             :key="`matching-${item._id}`"
@@ -219,7 +219,7 @@ const save = () => {
           v-bind="{
             item,
             indexes,
-            property,
+            property: refProperty,
             modelValue
           }"
 
@@ -233,7 +233,7 @@ const save = () => {
         v-bind="{
           item: modelValue,
           indexes,
-          property,
+          property: refProperty,
           modelValue
         }"
         @update:model-value="emit('update:modelValue', $event)"
