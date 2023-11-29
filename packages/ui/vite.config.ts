@@ -10,12 +10,6 @@ export default defineConfig({
     dts({
       insertTypesEntry: true
     }),
-    // typescript2({
-    //   check: true,
-    //   exclude: [
-    //     'vite.config.ts'
-    //   ]
-    // }),
     viteStaticCopy({
       targets: [
         {
