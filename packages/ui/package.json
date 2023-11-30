@@ -1,6 +1,7 @@
 {
   "name": "@waltz-ui/ui",
-  "version": "1.0.1",
+  "type": "module",
+  "version": "1.0.3",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,7 +19,7 @@
     "access": "public"
   },
   "exports": {
-    ".": "./dist/ui.mjs",
+    ".": "./dist/ui.js",
     "./themes/*": "./themes/*",
     "./*": "./dist/*"
   },

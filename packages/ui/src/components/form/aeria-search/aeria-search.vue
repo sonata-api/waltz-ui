@@ -175,7 +175,7 @@ const save = () => {
             v-bind="{
               item,
               indexes,
-              property: refProperty,
+              property,
             }"
 
             :key="`matching-${item._id}`"
@@ -219,7 +219,7 @@ const save = () => {
           v-bind="{
             item,
             indexes,
-            property: refProperty,
+            property,
             modelValue
           }"
 

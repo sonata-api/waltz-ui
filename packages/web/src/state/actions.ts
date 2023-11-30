@@ -214,26 +214,27 @@ export const useStoreActions = (store: CollectionStore) => {
           && Object.keys(newItem[propertyName]).length > 0
         ) {
           const helperStore = useStore(collection!)
+          const subject = newItem[propertyName]
 
-          const getInsertedId = async (subject: any) => {
-            if( type === 'array' && Array.isArray(subject) ) {
-              const ids = []
-              for( const item of subject ) {
-                const result = await helperStore.$actions.deepInsert({ what: item })
-                ids.push(result._id)
-              }
-
-              return ids
+          if( type === 'array' && Array.isArray(subject) ) {
+            const ids = []
+            for( const item of subject ) {
+              const result = await helperStore.$actions.deepInsert({ what: item })
+              ids.push(result._id)
             }
 
-            const result = await helperStore.$actions.deepInsert({
-              what: subject
-            })
-
-            return result?._id
+            return ids
           }
 
-          newItem[propertyName] = await getInsertedId(newItem[propertyName])
+          const result = await helperStore.$actions.deepInsert({
+            what: subject
+          })
+
+          if( isLeft(result) ) {
+            return result
+          }
+
+          newItem[propertyName] = result._id
         }
       }
 

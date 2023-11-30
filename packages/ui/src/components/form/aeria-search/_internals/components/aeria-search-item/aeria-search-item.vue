@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { Property, RefProperty } from '@sonata-api/types'
+import type { SearchProperty } from '../../../../types'
+import { getReferenceProperty } from '@sonata-api/common'
 import { computed } from 'vue'
 import { useParentStore } from '@waltz-ui/state-management'
 
@@ -7,7 +8,7 @@ type Props = {
   item: Record<string, any>
   indexes: readonly string[]
   modelValue?: any
-  property: Property & RefProperty
+  property: SearchProperty
 }
 
 type Emits = {
@@ -19,6 +20,7 @@ const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
 const property = props.property
+const refProperty = getReferenceProperty(property)!
 const store = useParentStore()
 
 const isAlreadySelected = computed(() => {
@@ -38,7 +40,7 @@ const select = () => {
   }
 
   const filterEmpties = (array: any[]) => array.filter(e => !!e?._id)
-  const modelValue = 'type' in property && property.type === 'array'
+  const modelValue = 'items' in property
     ? filterEmpties(Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue])
     : props.modelValue
 
@@ -52,7 +54,7 @@ const select = () => {
 
 
 const deselect = async (options?: { purge?: true }) => {
-  if( property.purge && options?.purge ) {
+  if( refProperty.purge && options?.purge ) {
     const { _id } = props.item
     await store.$actions.remove({ filters: { _id } })
   }

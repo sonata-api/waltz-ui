@@ -1,5 +1,17 @@
 # @waltz-ui/web
 
+## 1.0.2
+
+### Patch Changes
+
+- Fix aeria-input bug
+
+## 1.0.1
+
+### Patch Changes
+
+- Bug fixes
+
 ## 1.0.0
 
 ### Minor Changes
