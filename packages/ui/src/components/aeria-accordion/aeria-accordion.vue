@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 type Props = {
   enumerate?: boolean
+  noPadding?: boolean
   headers: Record<string, string | {
     title: string
     icon: string
@@ -20,7 +21,10 @@ const getTitle = (header: Props['headers'][keyof Props['headers']]) => {
 </script>
 
 <template>
-  <div class="accordion">
+  <div :class="{
+    'accordion': true,
+    'accordion--padded': !noPadding
+  }">
     <div
       v-for="(slotName, index) in Object.keys($slots).filter((slotName) => slotName !== 'default')"
       :key="slotName"

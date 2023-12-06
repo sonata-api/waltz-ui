@@ -1,5 +1,11 @@
 # @waltz-ui/web
 
+## 1.0.3
+
+### Patch Changes
+
+- Frontend refactor
+
 ## 1.0.2
 
 ### Patch Changes

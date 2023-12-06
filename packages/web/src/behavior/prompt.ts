@@ -2,7 +2,7 @@ export type PromptAction = {
   name: string
   title: string
   variant?:
-    | 'normal'
-    | 'danger'
+    | 'primary'
+    | 'transparent'
   click?: (answer: PromptAction) => void
 }

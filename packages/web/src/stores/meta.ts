@@ -43,9 +43,6 @@ export const meta = () => registerStore(() => {
     menu: {
       visible: false
     },
-    sidepanel: {
-      visible: false
-    },
     modal: {
       visible: false,
       title: '',
@@ -138,10 +135,32 @@ export const meta = () => registerStore(() => {
         state.isLoading = false
       },
 
-      swapSidepanel() {
-        state.sidepanel.visible = !state.sidepanel.visible
-        localStorage.setItem('meta:sidepanel:visible', String(state.sidepanel.visible))
-      },
+    async ask(props: {
+      action: (params: any) => unknown,
+      params?: any
+      title?: string
+      body?: string
+    }) {
+      const answer = await useStore('meta').$actions.spawnPrompt({
+        body: I18N.global.tc(props.body || 'prompt.default'),
+        actions: [
+          {
+            name: 'cancel',
+            title: I18N.global.tc('action.cancel'),
+            variant: 'transparent',
+          },
+          {
+            name: 'confirm',
+            title: I18N.global.tc('action.confirm'),
+          },
+        ]
+      })
+
+      if( answer.name === 'confirm' ) {
+        const { action, params } = props
+        return action(params)
+      }
+    },
 
       spawnPrompt(props: {
         title?: string
@@ -178,13 +197,17 @@ export const meta = () => registerStore(() => {
       },
 
       spawnToast(
-        this: { toasts: any[] },
+        this: any,
         props: {
           text: string
           icon?: string
         }
       ) {
-        state.toasts.push({
+        if( state.toasts.length >= 3 ) {
+          state.toasts.splice(0, 1)
+        }
+
+        state.toasts.unshift({
           ...props,
           itr: Math.random(),
           idx: state.toasts.length,

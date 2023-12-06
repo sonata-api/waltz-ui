@@ -3,7 +3,7 @@ import type { FormFieldProps, SearchProperty } from '../types'
 import { getReferenceProperty, convertConditionToQuery } from '@sonata-api/common'
 import { provide, inject, computed, ref, watch, onMounted } from 'vue'
 import { useDebounce } from '@waltz-ui/web'
-import { useStore, useParentStore } from '@waltz-ui/state-management'
+import { useStore, useParentStore, type Store } from '@waltz-ui/state-management'
 
 import AeriaPanel from '../../aeria-panel/aeria-panel.vue'
 import AeriaButton from '../../aeria-button/aeria-button.vue'
@@ -30,10 +30,14 @@ const emit = defineEmits<{
 }>()
 
 const store = useStore(props.property.referencedCollection!)
-const parentStore = useParentStore()
+
+const parentStoreId = inject<string>('storeId')
+const parentStore = parentStoreId
+  ? useParentStore()
+  : null
+
 const indexes = refProperty.indexes!
 
-const parentStoreId = inject<string>('storeId')!
 provide('storeId', props.property.referencedCollection!)
 provide('innerInputLabel', true)
 provide('omitInputLabels', true)
@@ -54,11 +58,16 @@ const searchField = ref(indexes[0])
 const isTyping = ref(false)
 const inputValue = ref<Record<NonNullable<typeof indexes>[number], any>>({})
 
-const defaultFilters = () => refProperty.constraints
-  ? convertConditionToQuery(refProperty.constraints, {
-    [parentStoreId]: parentStore
-  })
-  : {}
+const defaultFilters = () => {
+  const subject: Record<string, Store> = {}
+  if( parentStoreId ) {
+    subject[parentStoreId] = parentStore!
+  }
+
+  return refProperty.constraints
+    ? convertConditionToQuery(refProperty.constraints, subject)
+    : {}
+}
 
 const search = async (options?: { empty?: true }) => {
   if( Object.values(inputValue.value).every((v) => !(String(v).length > 0)) ) {

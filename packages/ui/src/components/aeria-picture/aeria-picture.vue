@@ -63,7 +63,7 @@ const expand = ref(false)
           v-if="meta?.owner"
           class="picture__meta"
         >
-          Criado por {{ meta.owner.full_name }} em {{ formatDateTime(meta.created_at, true) }}
+          Criado por {{ meta.owner.full_name }} em {{ formatDateTime(meta.created_at, { hours: true }) }}
         </div>
       </div>
     </teleport>

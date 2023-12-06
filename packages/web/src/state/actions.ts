@@ -290,34 +290,6 @@ export const useStoreActions = (store: CollectionStore) => {
       return filters
     },
 
-    async ask(props: {
-      action: (params: any) => unknown,
-      params: any
-      title?: string
-      body?: string
-    }) {
-      const answer = await (await import('../stores/meta')).meta()().$actions.spawnPrompt({
-        body: I18N.global.tc(props.body || 'prompt.default'),
-        actions: [
-          {
-            name: 'cancel',
-            title: I18N.global.tc('action.cancel'),
-            variant: 'danger',
-          },
-          {
-            name: 'confirm',
-            title: I18N.global.tc('action.confirm'),
-            variant: 'normal',
-          },
-        ]
-      })
-
-      if( answer.name === 'confirm' ) {
-        const { action, params } = props
-        return action(params)
-      }
-    },
-
     useProperties(properties: (keyof typeof store['properties'])[]) {
       return properties.reduce((a, property) => {
         if( !(property in store.properties) ) {

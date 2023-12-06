@@ -1,17 +1,23 @@
 <script setup lang="ts">
 import type { Property, EnumProperty, BooleanProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
+import { useBreakpoints } from '@waltz-ui/web'
 import AeriaIcon from '../../aeria-icon/aeria-icon.vue'
 
 type Props = FormFieldProps<any, Property & (EnumProperty | BooleanProperty)> & {
   booleanRef?: boolean
+  multiple?: boolean | number
+  noOutline?: boolean
 }
 
 const props = defineProps<Props>()
 const emit = defineEmits<{
   (e: 'update:modelValue'|'change', value: any): void
 }>()
+
+const breakpoints = useBreakpoints()
+const select = ref<HTMLSelectElement | null>(null)
 
 const property = props.property || {} as NonNullable<typeof props.property>
 const update = (value: any) => {
@@ -41,34 +47,86 @@ const modelValue = !props.booleanRef
 
     return comp
   })()
+
+const isSelected = (option: any) => {
+  return Array.isArray(props.modelValue)
+    ? props.modelValue.includes(option)
+    : props.modelValue === option
+}
+
+const multiple = computed(() => {
+  return props.multiple
+      ? typeof props.multiple === 'number'
+        ? props.multiple
+        : 5
+      : 1
+})
+
+if( !!props.multiple ) {
+  watch(() => props.modelValue, (value) => {
+    if( !select.value ) {
+      return
+    }
+
+    const prev = select.value.querySelector('option[data-selected="true"]')
+    if( prev ) {
+      prev.removeAttribute('data-selected')
+    }
+
+    select.value.querySelector(`option[value="${value}"]`)?.
+      setAttribute('data-selected', 'true')
+  })
+}
 </script>
 
 <template>
-  <div class="select">
-    <aeria-icon 
-      v-if="property.icon"
-      :icon="property.icon"
-      class="select__icon"
-    ></aeria-icon>
-
+  <div :class="{
+    'select': true,
+    'select--outline': !noOutline
+  }">
     <select
-      :key="modelValue?._id || modelValue"
-      :value="modelValue?._id || modelValue"
-      class="select__select"
+      ref="select"
+      :value="modelValue"
+      v-bind="{
+        size: multiple
+      }"
 
-      @click.stop="void"
+
+      :class="{
+        'select__select': true,
+        'select__select--multiple': !!props.multiple
+      }"
+
       @change="update(($event.target as any).value)"
     >
-      <option value="">{{ $t('none') }}</option>
+      <aeria-icon 
+        v-if="property.icon"
+        :icon="property.icon"
+      ></aeria-icon>
+
+      <option
+        v-if="!props.multiple"
+        value=""
+      >
+        {{ $t('none') }}
+      </option>
+
       <option
         v-for="option in 'enum' in property ? property.enum : []"
         :key="option"
         :value="option"
+        :data-selected="isSelected(option)"
       >
-        {{ property.translate ? $t(option) : option }}
+        {{
+          property.translate
+            ? $t(option)
+            : option
+        }}
       </option>
+
       <slot></slot>
     </select>
+
   </div>
 </template>
 

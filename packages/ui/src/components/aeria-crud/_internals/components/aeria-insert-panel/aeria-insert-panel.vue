@@ -26,7 +26,7 @@ const insert = async () => {
 }
 
 const cancel = () => {
-  store.$actions.ask({
+  metaStore.$actions.ask({
     action: () => {
       store.$actions.clearItem()
       store.validationErrors = {}

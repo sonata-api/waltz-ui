@@ -5,15 +5,11 @@ import { useStore } from '@waltz-ui/state-management'
 import { Route, MenuSchema, MenuNode } from '..'
 
 type Props = {
-  entrypoint?: string
   schema: MenuSchema
 }
 
 export const useNavbar = async (props: Props) => {
-  const {
-    entrypoint = 'dashboard',
-    schema: menuSchema
-  } = props
+  const { schema: menuSchema } = props
 
   const metaStore = useStore('meta')
   const userStore = useStore('user')
@@ -43,9 +39,7 @@ export const useNavbar = async (props: Props) => {
       ? node.children
       : null
 
-    const routes = children || typeof entrypoint === 'string'
-      ? router.getRoutes().filter((route) => route.name?.toString().startsWith(`/${entrypoint}/`))
-      : router.getRoutes() 
+    const routes = router.getRoutes().filter((route) => !!route.meta)
 
     const schema = getSchema(children || menuSchema, routes as unknown as Route[])
     const entries: Record<string, Route | MenuNode> = {}

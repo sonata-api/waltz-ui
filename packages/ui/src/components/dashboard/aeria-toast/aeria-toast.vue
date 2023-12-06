@@ -2,12 +2,16 @@
 import { useStore } from '@waltz-ui/state-management'
 import AeriaIcon from '../../aeria-icon/aeria-icon.vue'
 
-const props = defineProps<{
+type Props = {
   idx: number
   itr: number
-  date: Date
+  date: string
   icon?: string
-}>()
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  icon: 'exclamation-circle'
+})
 
 const metaStore = useStore('meta')
 </script>
@@ -22,19 +26,20 @@ const metaStore = useStore('meta')
     @animationend="metaStore.$actions.popToast()"
     @click="metaStore.$actions.popToast(itr)"
   >
-    <div>
-      <aeria-icon
-        v-if="icon"
-        :icon="icon"
-      >
-        <slot></slot>
-      </aeria-icon>
+    <aeria-icon
+      :icon="icon"
+      style="
+        --icon-size: 4rem;
+        --icon-color: var(--theme-brand-color-shade-3);
+      "
+    ></aeria-icon>
 
-      <slot v-else></slot>
-    </div>
+    <div class="toast__content">
+      <slot></slot>
 
-    <div>
-      {{ date }}
+      <div class="toast__time">
+        {{ formatDateTime(date, { hoursOnly: true }) }}
+      </div>
     </div>
   </div>
 </template>

@@ -1,6 +1,7 @@
 import type { Router } from 'vue-router'
 import type { CollectionAction } from '@sonata-api/types'
 import type { Store } from '@waltz-ui/state-management'
+import { useStore } from '@waltz-ui/state-management'
 import { reactive } from 'vue'
 import { deepClone } from '@sonata-api/common'
 
@@ -105,7 +106,8 @@ export const useAction = <F extends { _id: string }>(
     })()
 
     if( actionProps.ask ) {
-      return (filters: F) => store.$actions.ask({
+      const metaStore = useStore('meta')
+      return (filters: F) => metaStore.$actions.ask({
         action: storeAction,
         params: prepareFilters(filters)
       })
