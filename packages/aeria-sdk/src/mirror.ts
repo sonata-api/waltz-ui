@@ -15,9 +15,9 @@ declare module 'aeria-sdk' {
 `
 
 export const mirror = async (config: InstanceConfig) => {
-  const tlo = topLevel(config)
+  const api = topLevel(config)
 
-  const mirror = deserialize(await tlo.describe())
+  const mirror = deserialize(await api.describe())
   await writeFile(path.join(process.cwd(), 'aeria-sdk.d.ts'), mirrorDts(mirror))
 }
 
