@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "lib": [
+      "esnext"
+    ]
+  },
+  "include": [
+    "aeria-sdk.d.ts",
+    "src"
+  ]
+}

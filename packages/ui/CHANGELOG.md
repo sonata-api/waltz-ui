@@ -1,5 +1,23 @@
 # @waltz-ui/ui
 
+## 1.0.8
+
+### Patch Changes
+
+- Fix aeria-file
+
+## 1.0.7
+
+### Patch Changes
+
+- Fix aeria-file
+
+## 1.0.6
+
+### Patch Changes
+
+- Allow usage of aeria-file without collection
+
 ## 1.0.5
 
 ### Patch Changes

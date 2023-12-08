@@ -11,7 +11,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "bin": {
+  "__bin": {
     "create-waltz-app": "bin/index.js"
   },
   "files": [

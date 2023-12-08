@@ -1,8 +1,9 @@
 import type { Property } from '@sonata-api/types'
 import type { CollectionStore } from './collection'
-import { formatValue, deepClone, request, isLeft, unwrapEither, isReference } from '@sonata-api/common'
+import { formatValue, deepClone, isLeft, unwrapEither, isReference } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
 import { API_URL } from '../constants'
+import { request } from '../http'
 import { condenseItem } from './helpers'
 
 export type CrudParameters = {

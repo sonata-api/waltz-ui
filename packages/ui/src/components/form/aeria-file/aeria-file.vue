@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Property, FileProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
-import { provide, ref, computed } from 'vue'
+import { inject, provide, ref, computed } from 'vue'
 import { useParentStore } from '@waltz-ui/state-management'
 import AeriaPicture from '../../aeria-picture/aeria-picture.vue'
 import AeriaButton from '../../aeria-button/aeria-button.vue'
@@ -17,7 +17,11 @@ const emit = defineEmits<{
   (e: 'update:modelValue' | 'change', value: any): void
 }>()
 
-const store = useParentStore()
+const parentStoreId = inject('storeId')
+const store = parentStoreId
+  ? useParentStore()
+  : null
+
 provide('buttonSize', 'small')
 
 const preview = ref<({ type: string }&Blob)|null>(null)
@@ -47,8 +51,8 @@ const readFile = (file: any): Promise<any> => new Promise((resolve) => {
   fr.readAsDataURL(file)
 })
 
-const changePreview = (event: any) => {
-  preview.value = event.target.files[0]
+const changePreview = (event: Event) => {
+  preview.value = (event.target as HTMLInputElement).files![0]
 }
 
 const clearPreview = () => {
@@ -57,29 +61,35 @@ const clearPreview = () => {
 
 const insert = async () => {
   const file = await readFile(preview.value)
-  const result = await store.$functions.upload({
-    parentId: store.item._id,
-    propertyName: props.propertyName,
-    what: {
-      _id: props.modelValue?._id,
-      ...file
-    },
-    meta: props.meta
-  })
+
+  const result = store
+    ? await store.$functions.upload({
+      parentId: store.item._id,
+      propertyName: props.propertyName,
+      what: {
+        _id: props.modelValue?._id,
+        ...file
+      },
+      meta: props.meta
+    })
+    : file
 
   clearPreview()
+
   emit('update:modelValue', result)
   emit('change', result)
 }
 
 const remove = async () => {
-  await store.$functions.removeFile({
-    parentId: store.item._id,
-    propertyName: props.propertyName,
-    filters: {
-      _id: props.modelValue._id
-    }
-  })
+  if( store ) {
+    await store.$functions.removeFile({
+      parentId: store.item._id,
+      propertyName: props.propertyName,
+      filters: {
+        _id: props.modelValue._id
+      }
+    })
+  }
 
   emit('update:modelValue', {})
 }
@@ -93,7 +103,7 @@ const remove = async () => {
         v-model="previewFile"
         :class="`
           file__image
-          ${modelValue?._id || 'file__image--unsent'}
+          ${(!store || modelValue?._id) || 'file__image--unsent'}
         `"
       ></aeria-picture>
       <a

@@ -1,5 +1,5 @@
 import type { PromptAction } from '../behavior'
-import { deepClone, deserialize, request } from '@sonata-api/common'
+import { deepClone, deserialize } from '@sonata-api/common'
 import { Description } from '@sonata-api/types'
 import { reactive, computed } from 'vue'
 
@@ -7,6 +7,7 @@ import { useStore, hasStore, registerStore } from '@waltz-ui/state-management'
 import { createCollectionStore } from '../state/collection'
 import { freshItem, freshFilters } from '../state/helpers'
 import { API_URL } from '../constants'
+import { request } from '../http'
 import { user } from './user'
 
 type CollectionName = string
