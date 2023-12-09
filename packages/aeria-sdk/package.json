@@ -12,11 +12,21 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "aeria-sdk": "bin/index.js"
+  },
   "peerDependencies": {
     "@sonata-api/common": "*",
     "@sonata-api/types": "*"
   },
   "devDependencies": {
     "@types/node": "^20.10.4"
-  }
+  },
+  "files": [
+    "dist",
+    "bin"
+  ]
 }
