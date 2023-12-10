@@ -34,7 +34,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{
   (e:
-    'update:modelValue'
+    | 'update:modelValue'
     | 'update:collapsed'
     | 'update:closeHint',
     value: boolean
@@ -95,8 +95,8 @@ const toggleCollapsed = (value: boolean) => {
     }"
 
     :class="`
-      box
-      ${fixedRight && 'box--fixed'}
+      panel
+      ${fixedRight && 'panel--fixed'}
   `">
     <component
       :is="
@@ -105,29 +105,29 @@ const toggleCollapsed = (value: boolean) => {
           : 'div'
       "
 
-      data-component="box"
+      data-component="panel"
       :class="`
         aeria-surface
-        box__content
-        ${!(isFloating || fixedRight) && 'box__content--rounded'}
-        ${isFloating && 'box__content--floating'}
-        ${animate && 'box__content--animate'}
-        ${bordered && 'box__content--bordered-body'}
-        ${fixedRight && 'box__content--fixed-right'}
-        ${transparent && 'box__content--transparent'}
-        ${transparentMobile && 'box__content--transparent-mobile'}
-        ${outerHeader && 'box__content--outer-header'}
+        panel__content
+        ${!(isFloating || fixedRight) && 'panel__content--rounded'}
+        ${isFloating && 'panel__content--floating'}
+        ${animate && 'panel__content--animate'}
+        ${bordered && 'panel__content--bordered-body'}
+        ${fixedRight && 'panel__content--fixed-right'}
+        ${transparent && 'panel__content--transparent'}
+        ${transparentMobile && 'panel__content--transparent-mobile'}
+        ${outerHeader && 'panel__content--outer-header'}
       `"
       @click="$event.stopPropagation()"
     >
       <div
         v-if="$slots.header || title"
         :class="`
-          box__header
-          ${isCollapsed && 'box__header--collapsed'}
-          ${outerHeader && 'box__header--outer'}
+          panel__header
+          ${isCollapsed && 'panel__header--collapsed'}
+          ${outerHeader && 'panel__header--outer'}
       `">
-        <div class="box__header-left">
+        <div class="panel__header-left">
           <slot v-if="$slots.header" name="header"></slot>
           <div v-else-if="title">{{ title }}</div>
           <div
@@ -159,8 +159,8 @@ const toggleCollapsed = (value: boolean) => {
       <div
         v-if="!isCollapsed"
         :class="`
-          box__body
-          ${fill || 'box__body--padded'}
+          panel__body
+          ${fill || 'panel__body--padded'}
       `"
         ref="body"
         @scroll="updateScroll"
@@ -171,9 +171,9 @@ const toggleCollapsed = (value: boolean) => {
       <div
         v-if="$slots.footer"
         :class="`
-          box__footer
-          ${fillFooter || 'box__footer--padded'}
-          ${reachedEnd || 'box__footer--shadowed'}
+          panel__footer
+          ${fillFooter || 'panel__footer--padded'}
+          ${reachedEnd || 'panel__footer--shadowed'}
         `"
       >
         <slot name="footer"></slot>

@@ -164,7 +164,7 @@ const position = computed(() => {
 <style scoped src="./aeria-context-menu.less"></style>
 
 <style scoped>
-.content :deep(.box__content) {
+.content :deep(.panel__content) {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -174,7 +174,7 @@ const position = computed(() => {
 }
 
 @media screen and (min-width: 600px) {
-  .content :deep(.box__content) {
+  .content :deep(.panel__content) {
     top: 0;
     left: 0;
     transform:

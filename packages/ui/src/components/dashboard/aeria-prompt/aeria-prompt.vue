@@ -23,6 +23,7 @@ const onClick = (answer: PromptAction) => {
     float
     fill-footer
     :close-hint="false"
+    style="--panel-min-width: 30rem;"
   >
     <div class="prompt">
       <slot></slot>
@@ -43,7 +44,7 @@ const onClick = (answer: PromptAction) => {
 
           :class="`
             prompt__action
-            prompt__action--${action.variant || 'normal'}
+            prompt__action--${action.variant || 'primary'}
           `"
           @click="action.click
             ? action.click(action)

@@ -1,5 +1,14 @@
 # waltz-ui
 
+## 1.0.1
+
+### Patch Changes
+
+- Refactors
+- Updated dependencies
+  - @waltz-ui/web@1.0.4
+  - @waltz-ui/ui@1.0.9
+
 ## 1.0.0
 
 ### Minor Changes

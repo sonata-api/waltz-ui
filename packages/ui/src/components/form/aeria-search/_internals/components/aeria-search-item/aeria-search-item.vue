@@ -60,7 +60,7 @@ const deselect = async (options?: { purge?: true }) => {
   }
 
   const deleteFirst = () => {
-    const modelValue = props.modelValue
+    const modelValue = [ ...props.modelValue ]
     const idx = modelValue.findIndex((option: any) => option._id === props.item._id)
 
     modelValue.splice(idx, 1)

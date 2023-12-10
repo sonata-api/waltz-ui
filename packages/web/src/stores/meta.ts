@@ -148,7 +148,7 @@ export const meta = () => registerStore(() => {
           {
             name: 'cancel',
             title: I18N.global.tc('action.cancel'),
-            variant: 'transparent',
+            variant: 'danger',
           },
           {
             name: 'confirm',
@@ -205,7 +205,7 @@ export const meta = () => registerStore(() => {
         }
       ) {
         if( state.toasts.length >= 3 ) {
-          state.toasts.splice(0, 1)
+          state.toasts.splice(-1)
         }
 
         state.toasts.unshift({

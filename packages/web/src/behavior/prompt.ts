@@ -3,6 +3,6 @@ export type PromptAction = {
   title: string
   variant?:
     | 'primary'
-    | 'transparent'
+    | 'danger'
   click?: (answer: PromptAction) => void
 }

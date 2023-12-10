@@ -49,6 +49,7 @@ declare module 'aeria-sdk' {
       : never
   }
 
+  export const url: string
   export const aeria: StrongelyTypedTLO
 }
 `

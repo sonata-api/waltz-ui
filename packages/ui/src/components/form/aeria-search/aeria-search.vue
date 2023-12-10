@@ -42,7 +42,6 @@ provide('storeId', props.property.referencedCollection!)
 provide('innerInputLabel', true)
 provide('omitInputLabels', true)
 
-
 const selectPanel = ref(!!props.selectOnly)
 const selected = ref(props.modelValue)
 
@@ -131,6 +130,10 @@ onMounted(() => {
   }
 })
 
+const update = (newVal: typeof props.modelValue) => {
+  selected.value = newVal
+}
+
 const save = () => {
   emit('update:modelValue', selected.value)
   selectPanel.value = false
@@ -143,6 +146,7 @@ const save = () => {
       float
       close-hint
       :title="`Selecionar ${$t(propertyName)}`"
+      :overlay-layer="65"
       v-model="selectPanel"
       @close="emit('panelClose')"
       @overlay-click="selectPanel = false; emit('panelClose')"
@@ -233,7 +237,7 @@ const save = () => {
           }"
 
           :key="`selected-${item._id}`"
-          @update:model-value="emit('update:modelValue', $event)"
+          @update:model-value="update"
         ></aeria-search-item>
       </div>
 
@@ -245,7 +249,7 @@ const save = () => {
           property: refProperty,
           modelValue
         }"
-        @update:model-value="emit('update:modelValue', $event)"
+        @update:model-value="update"
       ></aeria-search-item>
 
       <template #footer>

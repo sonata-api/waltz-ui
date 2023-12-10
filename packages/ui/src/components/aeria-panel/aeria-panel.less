@@ -1,12 +1,14 @@
 .padding {
   padding: 1.4rem;
 
-  @media screen and (min-width: 800px) {
+  @media screen and (min-width: 768px) {
     padding: 1.8rem 2.4rem;
   }
 }
 
-.box {
+.panel {
+  --min-width: var(--panel-min-width, 36rem);
+
   &--fixed {
     position: absolute;
   }
@@ -25,8 +27,8 @@
       background: transparent !important;
       border: none !important;
 
-      .box__body,
-      .box__footer
+      .panel__body,
+      .panel__footer
       {
         background: var(--theme-background-color);
         border-radius: 5px;
@@ -34,20 +36,20 @@
     }
 
     &--bordered-body {
-      .box__body {
+      .panel__body {
         border: 1px solid var(--theme-border-color);
       }
     }
 
     &--floating, &--fixed-right {
-      .box__header {
+      .panel__header {
         padding: .6rem 1.4rem;
-        box-sizing: content-box;
+        box-sizing: content-panel;
 
         font-weight: 600;
         font-size: 14pt;
 
-        @media screen and (min-width: 800px) {
+        @media screen and (min-width: 768px) {
           padding: .6rem 2.4rem;
         }
       }
@@ -63,8 +65,8 @@
       max-height: 80vh;
       border-radius: var(--theme-radius-large);
 
-      @media screen and (min-width: 800px) {
-        min-width: 36rem;
+      @media screen and (min-width: 768px) {
+        min-width: var(--min-width);
       }
     }
 
@@ -79,7 +81,7 @@
       border: 0;
       border-radius: 0;
 
-      @media screen and (min-width: 800px) {
+      @media screen and (min-width: 768px) {
         width: 44rem;
       }
     }
@@ -90,11 +92,11 @@
     }
 
     &--transparent-mobile {
-      @media screen and (max-width: 800px) {
+      @media screen and (max-width: 768px) {
         border: none !important;
         background: none !important;
 
-        .box__header {
+        .panel__header {
           margin-bottom: 1rem;
         }
       }
@@ -146,7 +148,7 @@
     &--padded {
       padding: 1rem 1.4rem;
 
-      @media screen and (min-width: 800px) {
+      @media screen and (min-width: 768px) {
         padding: 1rem 2.4rem;
       }
     }

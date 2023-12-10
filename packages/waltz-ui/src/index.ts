@@ -12,6 +12,7 @@ export {
   useStoreActions,
   useNavbar,
   useApp,
+  request,
   API_URL
 
 } from '@waltz-ui/web'

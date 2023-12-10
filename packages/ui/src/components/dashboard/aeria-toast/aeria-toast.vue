@@ -9,10 +9,7 @@ type Props = {
   icon?: string
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  icon: 'exclamation-circle'
-})
-
+const props = defineProps<Props>()
 const metaStore = useStore('meta')
 </script>
 
@@ -27,7 +24,11 @@ const metaStore = useStore('meta')
     @click="metaStore.$actions.popToast(itr)"
   >
     <aeria-icon
-      :icon="icon"
+      v-bind="
+        icon
+          ? { icon }
+          : { icon: 'exclamation-circle' }
+      "
       style="
         --icon-size: 4rem;
         --icon-color: var(--theme-brand-color-shade-3);
