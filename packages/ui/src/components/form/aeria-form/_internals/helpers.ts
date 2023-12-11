@@ -1,5 +1,5 @@
 import { Property } from '@sonata-api/types'
-import { deepClone, isReference, getReferenceProperty } from '@sonata-api/common'
+import { deepClone, isReference, getReferenceProperty, freshItem } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
 
 import AeriaInput from '../../aeria-input/aeria-input.vue'
@@ -74,9 +74,10 @@ export const getComponent = (property: Property, customComponents: Record<string
 
 export const pushToArray = (modelValue: any[], property: Property) => {
   modelValue ??= []
-  const propType = 'items' in property
-    ? 'type' in property.items && property.items?.type
-    : 'type' in property && property.type
+  const nestedProp = 'items' in property
+    ? property.items
+    : property
+
 
   if( property.isReference ) {
     const helperStore = useStore(property.referencedCollection!)
@@ -84,7 +85,11 @@ export const pushToArray = (modelValue: any[], property: Property) => {
     return modelValue.push(newVal)
   }
 
-  if( propType === 'object' ) {
+  if( 'properties' in nestedProp ) {
+    return modelValue.push(freshItem(nestedProp))
+  }
+
+  if( 'type' in nestedProp && nestedProp.type === 'boolean' ) {
     return modelValue.push({})
   }
 

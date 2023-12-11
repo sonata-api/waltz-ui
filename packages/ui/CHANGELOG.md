@@ -1,5 +1,23 @@
 # @waltz-ui/ui
 
+## 1.0.13
+
+### Patch Changes
+
+- Fix nested form bug
+
+## 1.0.12
+
+### Patch Changes
+
+- UI improvements
+
+## 1.0.11
+
+### Patch Changes
+
+- UI improvements
+
 ## 1.0.10
 
 ### Patch Changes

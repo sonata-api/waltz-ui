@@ -11,6 +11,7 @@ type Size =
 
 type Variant =
   | 'primary'
+  | 'alt'
   | 'transparent'
 
 type Props = {
