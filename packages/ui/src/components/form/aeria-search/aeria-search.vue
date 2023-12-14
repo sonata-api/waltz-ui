@@ -132,6 +132,9 @@ onMounted(() => {
 
 const update = (newVal: typeof props.modelValue) => {
   selected.value = newVal
+  if( !props.selectOnly ) {
+    emit('update:modelValue', newVal)
+  }
 }
 
 const save = () => {

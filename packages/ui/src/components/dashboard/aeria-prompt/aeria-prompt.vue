@@ -23,7 +23,7 @@ const onClick = (answer: PromptAction) => {
     float
     fill-footer
     :close-hint="false"
-    style="--panel-min-width: 30rem;"
+    style="--panel-min-width: 32rem;"
   >
     <div class="prompt">
       <slot></slot>
