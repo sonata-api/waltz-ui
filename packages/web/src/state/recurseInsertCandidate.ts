@@ -1,0 +1,51 @@
+import type { Property } from '@sonata-api/types'
+import { isLeft } from '@sonata-api/common'
+import { useStore } from '@waltz-ui/state-management'
+
+export const recurseInsertCandidate = async (obj: any, property: Property): Promise<any> => {
+  if( !property ) {
+    return obj
+  }
+
+  if( 'properties' in property ) {
+    const entries: [string, string][] = []
+    for( const key in obj ) {
+      const result = await recurseInsertCandidate(obj[key], property.properties[key])
+      if( isLeft(result) ) {
+        return result
+      }
+
+      entries.push([key, result])
+    }
+
+    return Object.fromEntries(entries)
+  }
+
+  if( 'items' in property ) {
+    const arr: any[] = []
+    for( const elem of obj ) {
+      const result = await recurseInsertCandidate(elem, property.items)
+      if( isLeft(result) ) {
+        return result
+      }
+
+      arr.push(result)
+    }
+    return arr
+  }
+
+  if( 'inline' in property && property.inline ) {
+    const collection = property.referencedCollection!
+    const helperStore = useStore(collection)
+
+    const result = await helperStore.$actions.deepInsert({
+      what: obj
+    })
+
+    return isLeft(result)
+      ? result
+      : result._id
+  }
+
+  return obj
+}

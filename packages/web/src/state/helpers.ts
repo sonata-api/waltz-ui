@@ -68,7 +68,7 @@ export const normalizeActions = <const TActions extends CollectionActions<any>>(
 export const normalizeFilters = (filters: Description['filters']) => {
   return filters?.reduce((a, b) => {
     const filter = typeof b === 'object'
-      ? { [b.property]: b.default||'' }
+      ? { [b.property]: b.default || '' }
       : { [b]: '' }
 
       return {

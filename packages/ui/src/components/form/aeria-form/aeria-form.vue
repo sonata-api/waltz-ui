@@ -57,13 +57,17 @@ const emit = defineEmits<{
 
 onBeforeMount(() => {
   if( !props.modelValue ) {
-    emit('update:modelValue', {})
+    emit('update:modelValue', props.property && 'items' in props.property
+      ? []
+      : {}
+    )
   }
 })
 
-const collectionName = !props.property
-    ? props.collection || inject('storeId', null)
-    : props.property.referencedCollection
+const refProperty = props.property && getReferenceProperty(props.property)
+const collectionName = refProperty
+    ? refProperty.referencedCollection
+    : props.collection || inject('storeId', null)
 
 const store = collectionName
   ? useStore(isRef(collectionName)
@@ -235,6 +239,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
 
 <template>
   <form
+    v-if="modelValue"
     class="form"
     :style="`row-gap: ${omitFormHeader ? '.8rem' : 'var(--form-internal-gap, 1.6rem);'};`"
   >
@@ -300,7 +305,11 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
         />
 
         <div
-          v-else-if="'format' in property && ['date', 'date-time'].includes(property.format!) && searchOnly"
+          v-else-if="
+            'format' in property
+              && ['date', 'date-time'].includes(property.format!)
+              && searchOnly
+          "
           style="
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -325,7 +334,11 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
           ></aeria-input>
         </div>
 
-        <div v-else-if="'type' in property && property.type === 'boolean' && searchOnly">
+        <div v-else-if="
+          'type' in property
+            && property.type === 'boolean'
+            && searchOnly
+        ">
           <aeria-select
             v-bind="{
               property: property as BooleanProperty,
@@ -348,7 +361,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
         <div
           v-else-if="
             'type' in property && property.type === 'array'
-              && (!(property.isReference && !getReferenceProperty(property)?.inline) || property.isFile)
+              && (!(property.items.isReference && !getReferenceProperty(property.items)?.inline) || property.items.isFile)
           "
           style="display: grid; row-gap: .4rem"
         >
@@ -395,13 +408,15 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
               variant="transparent"
               icon="plus"
               :disabled="
-                modelValue[key]?.length >= property.maxItems!
+                !('inline' in property.items && property.items.inline) && (
+                  modelValue[key]?.length >= property.maxItems!
                   || unfilled(modelValue[key]?.[modelValue[key]?.length-1])
                   || (
                     property.isFile
                       && modelValue[key]?.length > 0
                       && !modelValue[key]?.[modelValue[key]?.length-1]?._id
                   )
+                )
               "
               @click.prevent="
                 if(!modelValue[key]) modelValue[key] = [];
@@ -414,7 +429,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
         </div>
 
         <component
-          v-else-if="modelValue"
+          v-else
           :is="getComponent(property, formComponents)"
           v-model="modelValue[key]"
           v-bind="{

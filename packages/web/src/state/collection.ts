@@ -180,18 +180,16 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
       condensedItem: computed(() => condenseItem(state.item)),
 
       $freshItem: computed(() => {
-        const recurse = (
-          store: any,
-          parent?: string,
-          grandParent?: string
-        ): TItem => {
+        const recurse = (store: any, parent?: string, grandParent?: string): TItem => {
           return Object.entries(properties.value).reduce((a, [key, property]) => {
-            if(
-              isReference(property)
-            && property.inline
-            && 'items' in property
-            && store.$id !== grandParent
-            ) {
+            if( 'items' in property ) {
+              return {
+                ...a,
+                [key]: []
+              }
+            }
+
+            if( isReference(property) && property.inline && store.$id !== grandParent ) {
               const subject = property.referencedCollection!
               const helperStore = useStore(subject)
 
@@ -242,16 +240,6 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
         if( !description.value.properties ) {
           return []
         }
-        return Object.entries(description.value.properties).filter(([, property]) => {
-          return isReference(property) && property.inline
-        })
-      }),
-
-      inlineReferences: computed(() => {
-        if( !description.value.properties ) {
-          return []
-        }
-
         return Object.entries(description.value.properties).filter(([, property]) => {
           return isReference(property) && property.inline
         })

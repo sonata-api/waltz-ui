@@ -54,7 +54,7 @@ export const getComponent = (property: Property, customComponents: Record<string
         return 'file'
       case getReferenceProperty(property)?.inline:
         return 'form'
-      case isReference(property):
+      case isReference(nestedProp):
         return 'search'
       case 'enum' in nestedProp:
         return 'select'
@@ -77,7 +77,6 @@ export const pushToArray = (modelValue: any[], property: Property) => {
   const nestedProp = 'items' in property
     ? property.items
     : property
-
 
   if( property.isReference ) {
     const helperStore = useStore(property.referencedCollection!)

@@ -29,7 +29,7 @@ const emit = defineEmits<{
   (e: 'panelClose'): void
 }>()
 
-const store = useStore(props.property.referencedCollection!)
+const store = useStore(getReferenceProperty(props.property)!.referencedCollection!)
 
 const parentStoreId = inject<string>('storeId')
 const parentStore = parentStoreId
@@ -38,7 +38,7 @@ const parentStore = parentStoreId
 
 const indexes = refProperty.indexes!
 
-provide('storeId', props.property.referencedCollection!)
+provide('storeId', getReferenceProperty(props.property)!.referencedCollection)
 provide('innerInputLabel', true)
 provide('omitInputLabels', true)
 

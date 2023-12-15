@@ -5,6 +5,7 @@ import { useStore } from '@waltz-ui/state-management'
 import { API_URL } from '../constants'
 import { request } from '../http'
 import { condenseItem } from './helpers'
+import { recurseInsertCandidate } from './recurseInsertCandidate'
 
 export type CrudParameters = {
   filters: Record<string, any>
@@ -196,47 +197,11 @@ export const useStoreActions = (store: CollectionStore) => {
     },
 
     async deepInsert(payload?: { what: Partial<typeof store['item']> }, options?: CustomOptions) {
-      const inlineReferences = store.inlineReferences
-      const newItem = Object.assign({}, payload?.what || store.diffedItem)
+      const candidate = Object.assign({}, payload?.what || store.diffedItem)
+      const newItem = await recurseInsertCandidate(candidate, store.description as unknown as Property)
 
-      for( const [propertyName, property] of inlineReferences ) {
-        const type = 'type' in property
-          ? property.type
-          : null
-
-        const {
-          referencedCollection: collection
-
-        } = property
-
-        if(
-          newItem[propertyName]
-          && typeof newItem[propertyName] === 'object'
-          && Object.keys(newItem[propertyName]).length > 0
-        ) {
-          const helperStore = useStore(collection!)
-          const subject = newItem[propertyName]
-
-          if( type === 'array' && Array.isArray(subject) ) {
-            const ids = []
-            for( const item of subject ) {
-              const result = await helperStore.$actions.deepInsert({ what: item })
-              ids.push(result._id)
-            }
-
-            return ids
-          }
-
-          const result = await helperStore.$actions.deepInsert({
-            what: subject
-          })
-
-          if( isLeft(result) ) {
-            return result
-          }
-
-          newItem[propertyName] = result._id
-        }
+      if( isLeft(newItem) ) {
+        return newItem
       }
 
       return actions.insert({
