@@ -128,7 +128,8 @@ onUnmounted(() => {
   store.$actions.clearFilters()
 })
 
-watch(() => actionEventBus.value, async (event) => {
+watch(() => actionEventBus.value, async (_event) => {
+  const event = deepClone(_event!)
   let getPromise: ReturnType<typeof store.$actions.get>
   if( !event ) {
     return
@@ -346,7 +347,7 @@ provide('individualActions', individualActions)
             :disabled="store.selected.length === 0 && actionProps.selection"
 
             @click="call!(actionProps)({ _id: store.selected.map((item: any) => item._id) })"
-            >
+          >
             {{ $t(actionProps.name) }}
           </aeria-icon>
         </template>

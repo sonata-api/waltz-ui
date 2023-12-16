@@ -19,7 +19,7 @@ export const deepDiff = <T extends Record<string, any>>(origin: T, target: T, op
     const diff = Object.entries(target).reduce((a: any, [key, value]) => {
       const isUnequal = (() => {
         if( Array.isArray(value) && Array.isArray(origin[key]) ) {
-          return !value.every((v, i) => (v === null && i !== value.length-1) || equals(origin[key][i], v))
+          return !value.every((v, i) => (v === null && i !== value.length - 1) || equals(origin[key][i], v))
             || value.length < origin[key].length
         }
 

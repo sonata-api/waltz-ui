@@ -22,7 +22,7 @@
     "url": ""
   },
   "exports": {
-    ".": "./dist/index.js",
+    ".": "./src/index.ts",
     "./stores": "./dist/stores/index.js",
     "./types": "./dist/types/index.js"
   },

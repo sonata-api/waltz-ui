@@ -52,7 +52,12 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-  (e: 'update:modelValue' | 'input' | 'change', value: any): void
+  (e: 
+    | 'update:modelValue'
+    | 'input'
+    | 'change',
+  value: any
+  ): void
 }>()
 
 onBeforeMount(() => {
@@ -238,6 +243,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
 </script>
 
 <template>
+  <pre>{{ modelValue }}</pre>
   <form
     v-if="modelValue"
     class="form"
@@ -254,9 +260,9 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
       class="form__fieldset"
     >
       <div
-        v-for="([key, property]) in properties"
-        :key="`field-${key}`"
-        :style="fieldStyle(key, property)"
+        v-for="([propertyName, property]) in properties"
+        :key="`field-${propertyName}`"
+        :style="fieldStyle(propertyName, property)"
         class="form__field"
       >
         <label v-if="
@@ -270,9 +276,9 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
             'form__field-required-hint':
               highlightRequired
                 && !searchOnly
-                && (!required || isRequired(key, required, modelValue))
+                && (!required || isRequired(propertyName, required, modelValue))
           }">
-            {{ property.description || $t(key) }}
+            {{ property.description || $t(propertyName) }}
           </div>
           <div
             v-if="property.hint"
@@ -281,26 +287,26 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
         </label>
 
         <slot
-          v-if="$slots[`field-${key}`]"
+          v-if="$slots[`field-${propertyName}`]"
           v-bind="{
             property,
             modelValue,
-            key
+            key: propertyName
           }"
-          :name="`field-${key}`"
+          :name="`field-${propertyName}`"
         ></slot>
 
         <component
-          v-else-if="layout?.fields?.[key]?.component && propertyComponents[layout.fields[key].component!.name]"
-          :is="propertyComponents[layout.fields[key].component!.name]"
-          v-model="modelValue[key]"
+          v-else-if="layout?.fields?.[propertyName]?.component && propertyComponents[layout.fields[propertyName].component!.name]"
+          :is="propertyComponents[layout.fields[propertyName].component!.name]"
+          v-model="modelValue[propertyName]"
           v-bind="{
             property,
-            propertyName: key,
-            ...layout.fields[key].component!.props||{},
+            propertyName,
+            ...layout.fields[propertyName].component!.props||{},
           }"
 
-          @input="emit('input', key)"
+          @input="emit('input', propertyName)"
           @change="emit('change', $event)"
         />
 
@@ -315,21 +321,21 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
             grid-template-columns: repeat(2, 1fr);
             column-gap: 1rem;
           "
-          @input="emit('input', key)"
+          @input="emit('input', propertyName)"
           @change="emit('change', $event)"
         >
           <aeria-input
-            v-model="modelValue[key].$gte"
+            v-model="modelValue[propertyName].$gte"
             v-bind="{
               property,
-              propertyName: key
+              propertyName 
             }"
           ></aeria-input>
           <aeria-input
-            v-model="modelValue[key].$lte"
+            v-model="modelValue[propertyName].$lte"
             v-bind="{
               property,
-              propertyName: key
+              propertyName 
             }"
           ></aeria-input>
         </div>
@@ -342,14 +348,14 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
           <aeria-select
             v-bind="{
               property: property as BooleanProperty,
-              propertyName: key
+              propertyName
             }"
             boolean-ref
-            :model-value="modelValue[key]"
+            :model-value="modelValue[propertyName]"
 
             @change="emit('change', $event)"
             @update:model-value="(value) => {
-              modelValue[key] = value == 'true'
+              modelValue[propertyName] = value == 'true'
                 ? true : value == 'false'
                 ? false : null
           }">
@@ -366,30 +372,27 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
           style="display: grid; row-gap: .4rem"
         >
           <div
-            v-for="(value, listIndex) in modelValue[key]"
-            :key="`rep-${key}-${listIndex}`"
+            v-for="(value, listIndex) in modelValue[propertyName]"
+            :key="`rep-${propertyName}-${listIndex}`"
             style="display: flex; column-gap: .6rem; align-items: center"
           >
             <div style="flex-grow: 1">
               <component
                 :is="getComponent(property, formComponents)"
-                v-model="modelValue[key][listIndex]"
+                v-model="modelValue[propertyName][listIndex]"
                 v-bind="{
-                  property: {
-                    ...property,
-                    ...property.items
-                  },
+                  property: property.items,
                   value,
-                  propertyName: key,
+                  propertyName,
                   parentCollection: collectionName,
-                  parentPropertyName: key,
-                  columns: layout?.fields?.[key]?.optionsColumns
+                  parentPropertyName,
+                  columns: layout?.fields?.[propertyName]?.optionsColumns
                     || layout?.fields?.$default?.optionsColumns,
-                  validationErrors: getNestedValidationError(key, listIndex),
+                  validationErrors: getNestedValidationError(propertyName, listIndex),
                   ...(property.componentProps || {})
                 }"
 
-                @input="emit('input', key)"
+                @input="emit('input', propertyName)"
                 @change="emit('change', $event)"
               ></component>
             </div>
@@ -398,7 +401,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
               v-clickable
               reactive
               icon="trash"
-              @click="spliceFromArray(modelValue[key], listIndex)"
+              @click="spliceFromArray(modelValue[propertyName], listIndex)"
             ></aeria-icon>
           </div>
 
@@ -409,18 +412,18 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
               icon="plus"
               :disabled="
                 !('inline' in property.items && property.items.inline) && (
-                  modelValue[key]?.length >= property.maxItems!
-                  || unfilled(modelValue[key]?.[modelValue[key]?.length-1])
+                  modelValue[propertyName]?.length >= property.maxItems!
+                  || unfilled(modelValue[propertyName]?.[modelValue[propertyName]?.length-1])
                   || (
                     property.isFile
-                      && modelValue[key]?.length > 0
-                      && !modelValue[key]?.[modelValue[key]?.length-1]?._id
+                      && modelValue[propertyName]?.length > 0
+                      && !modelValue[propertyName]?.[modelValue[propertyName]?.length-1]?._id
                   )
                 )
               "
               @click.prevent="
-                if(!modelValue[key]) modelValue[key] = [];
-                pushToArray(modelValue[key], property)
+                if(!modelValue[propertyName]) modelValue[propertyName] = [];
+                pushToArray(modelValue[propertyName], property)
               "
             >
               Adicionar
@@ -431,33 +434,33 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
         <component
           v-else
           :is="getComponent(property, formComponents)"
-          v-model="modelValue[key]"
+          v-model="modelValue[propertyName]"
           v-bind="{
             property,
-            propertyName: key,
-            parentPropertyName: key,
+            propertyName,
+            parentPropertyName,
             parentCollection: collectionName,
-            columns: layout?.fields?.[key]?.optionsColumns
+            columns: layout?.fields?.[propertyName]?.optionsColumns
               || layout?.fields?.$default?.optionsColumns,
             ...(property.componentProps || {}),
-            validationErrors: getNestedValidationError(key)
+            validationErrors: getNestedValidationError(propertyName)
           }"
 
           v-focus="!alreadyFocused && (alreadyFocused = !!focus)"
 
-          @input="emit('input', key)"
+          @input="emit('input', propertyName)"
           @change="emit('change', $event)"
         ></component>
 
         <div
-          v-if="validationErrors?.[key]"
+          v-if="validationErrors?.[propertyName]"
           class="form__validation-error"
         >
-          <span v-if="validationErrors[key].type">
-            {{ $t(`validation_error.${validationErrors[key].type}`) }}
+          <span v-if="validationErrors[propertyName].type">
+            {{ $t(`validation_error.${validationErrors[propertyName].type}`) }}
           </span>
-          <span v-if="validationErrors[key].detail">
-            {{ $t(validationErrors[key].detail) }}
+          <span v-if="validationErrors[propertyName].detail">
+            {{ $t(validationErrors[propertyName].detail) }}
           </span>
         </div>
       </div>
