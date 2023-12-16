@@ -4,7 +4,7 @@ import { useStore, type StoreState, type UnRef } from '@waltz-ui/state-managemen
 import { deepClone, deepMerge, isReference } from '@sonata-api/common'
 import { PAGINATION_PER_PAGE_DEFAULT } from '../constants'
 import { deepDiff } from './deepDiff'
-import { insertReady } from './insertReady'
+import { isDocumentComplete } from './isDocumentComplete'
 import { useStoreActions } from './actions'
 
 import  {
@@ -211,13 +211,18 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
 
       itemsCount: computed(() => state.items.length),
       diffedItem,
-      hasDiff: computed(() => Object.keys(diffedItem.value).length),
-      isInsertReady: computed(() => insertReady(
-        state.item,
-        properties.value,
-        description.value.required as Lowercase<string>[],
-        description.value
-      )),
+      isInsertReady: computed(() => {
+        const isComplete = isDocumentComplete(
+          state.item,
+          properties.value,
+          description.value.required as Lowercase<string>[],
+          description.value
+        )
+
+        return state.item._id
+          ? isComplete && Object.keys(diffedItem.value).length > 0
+          : isComplete
+      }),
 
       filtersCount: computed(() => Object.values($filters.value).filter((_: any) => !!_).length),
       hasActiveFilters: computed(() => Object.values(state.filters).some((_) => !!_)),

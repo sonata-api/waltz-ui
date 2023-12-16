@@ -11,7 +11,7 @@ export const recurseInsertCandidate = async (obj: any, property: Property): Prom
     const entries: [string, string][] = []
     for( const key in obj ) {
       const result = await recurseInsertCandidate(obj[key], property.properties[key])
-      if( isLeft(result) ) {
+      if( result && isLeft(result) ) {
         return result
       }
 

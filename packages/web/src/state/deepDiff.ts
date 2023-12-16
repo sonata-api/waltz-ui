@@ -7,12 +7,14 @@ export const deepDiff = <T extends Record<string, any>>(origin: T, target: T, op
   } = options || {}
 
   const equals = (left: any, right: any) => {
-    const toStr = (obj: any) => JSON.stringify(
-      obj,
-      obj instanceof Object && !(obj instanceof Date) && obj
-        ? Object.keys(obj).sort()
-        : null
-    )
+    const toStr = (obj: any) => {
+      const sortedObj = obj && obj.constructor === Object
+        ? Object.fromEntries(Object.keys(obj).sort().map((key) => [key, obj[key]]))
+        : obj
+
+      return JSON.stringify(sortedObj)
+    }
+
     return toStr(left) === toStr(right)
   }
   const changes = (target: T, origin: T): any => {
@@ -23,7 +25,7 @@ export const deepDiff = <T extends Record<string, any>>(origin: T, target: T, op
             || value.length < origin[key].length
         }
 
-        return value !== origin[key]
+        return !equals(value, origin[key])
           && (
             (typeof value !== 'number' && (value || origin[key]))
               || typeof value === 'number'
@@ -32,7 +34,7 @@ export const deepDiff = <T extends Record<string, any>>(origin: T, target: T, op
       })()
 
       if( isUnequal ) {
-        if( value instanceof Object && origin[key] instanceof Object ) {
+        if( value?.constructor === Object && origin[key]?.constructor === Object ) {
           if( !value._id ) {
             return {
               ...a,

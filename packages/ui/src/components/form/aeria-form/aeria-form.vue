@@ -3,7 +3,7 @@ import type { Property, Condition, BooleanProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
 import { onBeforeMount, ref, computed, provide, inject, isRef, type Ref } from 'vue'
 import { evaluateCondition, deepClone, isRequired, getReferenceProperty } from '@sonata-api/common'
-import { useBreakpoints, insertReady } from '@waltz-ui/web'
+import { useBreakpoints, isDocumentComplete } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
 
 import AeriaIcon from '../../aeria-icon/aeria-icon.vue'
@@ -223,7 +223,7 @@ const isInsertReady = computed(() => {
     return true
   }
 
-  return insertReady(
+  return isDocumentComplete(
     props.modelValue,
     props.form,
     required.value,
@@ -243,7 +243,6 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
 </script>
 
 <template>
-  <pre>{{ modelValue }}</pre>
   <form
     v-if="modelValue"
     class="form"

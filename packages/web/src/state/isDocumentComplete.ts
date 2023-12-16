@@ -1,7 +1,7 @@
 import type { Property, RequiredProperties, Description } from '@sonata-api/types'
 import { getMissingProperties, checkForUndefined } from '@sonata-api/common'
 
-export const insertReady = <
+export const isDocumentComplete = <
   TItem extends Record<string, any>,
   TProperties extends Record<Lowercase<string>, Property>
 >(
