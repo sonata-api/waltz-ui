@@ -1,5 +1,13 @@
 # @waltz-ui/web
 
+## 1.0.5
+
+### Patch Changes
+
+- Update packages
+- Updated dependencies
+  - @waltz-ui/state-management@0.1.1
+
 ## 1.0.4
 
 ### Patch Changes
