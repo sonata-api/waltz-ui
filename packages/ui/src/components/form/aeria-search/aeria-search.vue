@@ -178,7 +178,7 @@ const save = () => {
                 inputType: 'search'
               }"
 
-              :key="searchField"
+              :key="`field-${searchField}`"
               @input="lazySearch"
             ></aeria-input>
           </div>

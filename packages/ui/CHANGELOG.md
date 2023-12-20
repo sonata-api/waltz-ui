@@ -1,5 +1,11 @@
 # @waltz-ui/ui
 
+## 1.0.16
+
+### Patch Changes
+
+- Fix bug related to Vue internals
+
 ## 1.0.15
 
 ### Patch Changes

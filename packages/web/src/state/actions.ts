@@ -63,6 +63,7 @@ export const useStoreActions = (store: CollectionStore) => {
 
       const found = store.items.find(({ _id }) => _id === item._id)
       if( found ) {
+        Object.assign(found, deepClone(store.freshItem))
         Object.assign(found, item)
         return item
       }

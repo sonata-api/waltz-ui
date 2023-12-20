@@ -289,8 +289,8 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
           v-if="$slots[`field-${propertyName}`]"
           v-bind="{
             property,
+            propertyName,
             modelValue,
-            key: propertyName
           }"
           :name="`field-${propertyName}`"
         ></slot>
@@ -371,7 +371,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
           style="display: grid; row-gap: .4rem"
         >
           <div
-            v-for="(value, listIndex) in modelValue[propertyName]"
+            v-for="(_, listIndex) in modelValue[propertyName]"
             :key="`rep-${propertyName}-${listIndex}`"
             style="display: flex; column-gap: .6rem; align-items: center"
           >
@@ -381,7 +381,6 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
                 v-model="modelValue[propertyName][listIndex]"
                 v-bind="{
                   property: property.items,
-                  value,
                   propertyName,
                   parentCollection: collectionName,
                   parentPropertyName,

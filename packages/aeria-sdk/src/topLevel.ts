@@ -8,11 +8,13 @@ type UserFunctions = {
   }
 }
 
-type TLOFunctions = {
+export type TLOFunctions = {
   [P in string]: ((payload?: any) => Promise<any>) & TLOFunctions
 }
 
-type TopLevelObject = TLOFunctions & UserFunctions
+export type TopLevelObject = UserFunctions & {
+  describe: (...args: any) => Promise<any>
+}
 
 export const topLevel = (config: InstanceConfig) => {
   const proxify = (target: any, parent?: string): TopLevelObject => new Proxy<TopLevelObject>(target, {
