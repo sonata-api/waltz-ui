@@ -8,60 +8,61 @@ const mirrorDts = (mirrorObj: any) => {
   const collections = mirrorObj.descriptions
 
   return `import type {
-    Schema,
-    SchemaWithId,
-    MakeEndpoint,
-    CollectionDocument,
-    GetPayload,
-    GetAllPayload,
-    InsertPayload,
-    RemovePayload,
-    RemoveAllPayload,
-    UploadPayload,
-    RemoveFilePayload,
+  Schema,
+  SchemaWithId,
+  MakeEndpoint,
+  CollectionDocument,
+  GetPayload,
+  GetAllPayload,
+  InsertPayload,
+  RemovePayload,
+  RemoveAllPayload,
+  UploadPayload,
+  RemoveFilePayload,
+  CollectionFunctions
 
-  } from '@sonata-api/types'
+} from '@sonata-api/types'
 
-  declare type MirrorDescriptions = ${JSON.stringify(collections, null, 2)}\n
+declare type MirrorDescriptions = ${JSON.stringify(collections, null, 2)}\n
 
-  declare type MirrorRouter = ${JSON.stringify(mirrorObj.router, null, 2)}\n
+declare type MirrorRouter = ${JSON.stringify(mirrorObj.router, null, 2)}\n
 
-  declare global {
-    type Collections = {
-      [K in keyof MirrorDescriptions]: {
-        item: SchemaWithId<MirrorDescriptions[K]>
-      }
+declare global {
+  type Collections = {
+    [K in keyof MirrorDescriptions]: {
+      item: SchemaWithId<MirrorDescriptions[K]>
     }
   }
+}
 
-  declare module 'aeria-sdk' {
-    import { TopLevelObject, TLOFunctions } from 'aeria-sdk'
+declare module 'aeria-sdk' {
+  import { TopLevelObject, TLOFunctions } from 'aeria-sdk'
 
-    type UnionToIntersection<T> = (T extends any ? ((x: T) => 0) : never) extends ((x: infer R) => 0)
-      ? R
+  type UnionToIntersection<T> = (T extends any ? ((x: T) => 0) : never) extends ((x: infer R) => 0)
+    ? R
+    : never
+
+  type Endpoints = {
+    [Route in keyof MirrorRouter]: MirrorRouter[Route] extends infer RouteContract
+      ? RouteContract extends [infer RoutePayload, infer RouteResponse]
+        ? RoutePayload extends null
+          ? MakeEndpoint<Route, Schema<RouteResponse>, undefined>
+          : MakeEndpoint<Route, Schema<RouteResponse>, Schema<RoutePayload>>
+        : MakeEndpoint<Route>
       : never
+  } extends infer Endpoints
+    ? UnionToIntersection<Endpoints[keyof Endpoints]>
+    : never
 
-    type Endpoints = {
-      [Route in keyof MirrorRouter]: MirrorRouter[Route] extends infer RouteContract
-        ? RouteContract extends [infer RoutePayload, infer RouteResponse]
-          ? RoutePayload extends null
-            ? MakeEndpoint<Route, Schema<RouteResponse>, undefined>
-            : MakeEndpoint<Route, Schema<RouteResponse>, Schema<RoutePayload>>
-          : MakeEndpoint<Route>
-        : never
-    } extends infer Endpoints
-      ? UnionToIntersection<Endpoints[keyof Endpoints]>
+  type StrongelyTypedTLO = TopLevelObject & Endpoints & {
+    [K in keyof MirrorDescriptions]: SchemaWithId<MirrorDescriptions[K]> extends infer Document
+      ? CollectionFunctions<Document> & Omit<TLOFunctions, keyof Functions>
       : never
+  }
 
-    type StrongelyTypedTLO = TopLevelObject & Endpoints & {
-      [K in keyof MirrorDescriptions]: SchemaWithId<MirrorDescriptions[TCollectionName]> extends infer Document
-        ? CollectionFunctions<Document> & Omit<TLOFunctions, keyof Functions>
-        : never
-    }
-
-    export const url: string
-    export const aeria: StrongelyTypedTLO
-  }\n
+  export const url: string
+  export const aeria: StrongelyTypedTLO
+}\n
   `
 }
 
