@@ -50,7 +50,7 @@ export const getComponent = (property: Property, customComponents: Record<string
     }
 
     switch( true ) {
-      case property.referencedCollection === 'file':
+      case nestedProp.referencedCollection === 'file':
         return 'file'
       case getReferenceProperty(property)?.inline:
         return 'form'

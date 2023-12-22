@@ -1,5 +1,13 @@
 # @waltz-ui/ui
 
+## 1.0.17
+
+### Patch Changes
+
+- 9820a9d: Fix ui bugs
+- Updated dependencies [9820a9d]
+  - @waltz-ui/web@1.0.6
+
 ## 1.0.16
 
 ### Patch Changes

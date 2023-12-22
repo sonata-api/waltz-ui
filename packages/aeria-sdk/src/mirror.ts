@@ -26,6 +26,14 @@ const mirrorDts = (mirrorObj: any) => {
 
   declare type MirrorRouter = ${JSON.stringify(mirrorObj.router, null, 2)}\n
 
+  declare global {
+    type Collections = {
+      [K in keyof MirrorDescriptions]: {
+        item: SchemaWithId<MirrorDescriptions[K]>
+      }
+    }
+  }
+
   declare module 'aeria-sdk' {
     import { TopLevelObject, TLOFunctions } from 'aeria-sdk'
 

@@ -23,12 +23,12 @@ export default defineConfig(async () => {
     },
     plugins: [
       waltzIcons({
-        tag: 'w-icon',
+        tag: 'aeria-icon',
         hash: true,
         libraries: instanceConfig.icons?.libraries || [],
         async preEmit() {
           const userIcons = require(process.cwd() + '/../api/node_modules/.sonata/icons')
-          const systemIcons = require(process.cwd() + '/../api/node_modules/@sonata-api/system/dist/icons')
+          const systemIcons = require('@sonata-api/system/icons')
 
           userIcons.icons.forEach((icon: string) => {
             icons.add(icon)

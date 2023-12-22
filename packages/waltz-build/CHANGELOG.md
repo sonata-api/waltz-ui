@@ -1,5 +1,11 @@
 # waltz-build
 
+## 0.1.2
+
+### Patch Changes
+
+- Fix build
+
 ## 0.1.1
 
 ### Patch Changes

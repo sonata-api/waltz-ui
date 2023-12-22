@@ -1,5 +1,11 @@
 # @waltz-ui/web
 
+## 1.0.6
+
+### Patch Changes
+
+- 9820a9d: Fix ui bugs
+
 ## 1.0.5
 
 ### Patch Changes
