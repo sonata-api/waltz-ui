@@ -1,5 +1,6 @@
 import type { Component } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
+import type { I18nConfig } from '@waltz-ui/i18n'
 import type { RouteMeta } from './router'
 
 export type MenuNodeBase = Partial<RouteMeta> & {
@@ -36,7 +37,7 @@ export type MenuSchema = (
 export type AppOptions = {
   component: Component
   dashboardComponent?: Component
-  i18n?: any
+  i18n?: I18nConfig
   menuSchema?: MenuSchema
   routes?: RouteRecordRaw[]
   setup?: () => void | Promise<void>

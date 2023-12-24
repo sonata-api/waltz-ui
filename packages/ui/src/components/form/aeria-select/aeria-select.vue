@@ -3,6 +3,7 @@ import type { Property, EnumProperty, BooleanProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
 import { ref, computed, watch } from 'vue'
 import { useBreakpoints } from '@waltz-ui/web'
+import { t } from '@waltz-ui/i18n'
 import AeriaIcon from '../../aeria-icon/aeria-icon.vue'
 
 type Props = FormFieldProps<any, Property & (EnumProperty | BooleanProperty)> & {
@@ -108,7 +109,7 @@ if( !!props.multiple ) {
         v-if="!props.multiple"
         value=""
       >
-        {{ $t('none') }}
+        {{ t('none') }}
       </option>
 
       <option
@@ -119,7 +120,7 @@ if( !!props.multiple ) {
       >
         {{
           property.translate
-            ? $t(option)
+            ? t(option)
             : option
         }}
       </option>

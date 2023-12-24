@@ -1,0 +1,22 @@
+{
+  "name": "@waltz-ui/i18n",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vue": "^3.3.13"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.13"
+  },
+  "peerDependencies": {
+    "@sonata-api/common": "*"
+  }
+}

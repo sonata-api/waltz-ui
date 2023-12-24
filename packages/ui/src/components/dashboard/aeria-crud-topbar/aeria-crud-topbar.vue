@@ -2,6 +2,7 @@
 import type { FiltersPreset } from '@sonata-api/types'
 import { computed, watch, type ComputedRef } from 'vue'
 import { useParentStore } from '@waltz-ui/state-management'
+import { t } from '@waltz-ui/i18n'
 import { AeriaAsync } from '../../utils'
 import AeriaTabs from '../../aeria-tabs/aeria-tabs.vue'
 import AeriaIcon from '../../aeria-icon/aeria-icon.vue'
@@ -89,10 +90,10 @@ watch(route, (currRoute) => {
           v-if="preset.icon"
           :icon="preset.icon"
         >
-          {{ preset.name || $tc(presetName, 2) }}
+          {{ preset.name || t(presetName, { plural: true }) }}
         </aeria-icon>
         <div v-else>
-          {{ preset.name || $tc(presetName, 2) }}
+          {{ preset.name || t(presetName, { plural: true }) }}
         </div>
 
         <aeria-badge v-if="preset.badgeFunction">

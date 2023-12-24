@@ -4,6 +4,7 @@ import { onUnmounted, computed, provide, inject, watch, isRef, type Ref } from '
 import { deepClone } from '@sonata-api/common'
 import { useAction, useDebounce, type ActionFilter, type ActionEvent } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
+import { t } from '@waltz-ui/i18n'
 
 import AeriaPagination from '../aeria-pagination/aeria-pagination.vue'
 import AeriaButton from '../aeria-button/aeria-button.vue'
@@ -348,7 +349,7 @@ provide('individualActions', individualActions)
 
             @click="call!(actionProps)({ _id: store.selected.map((item: any) => item._id) })"
           >
-            {{ $t(actionProps.name) }}
+            {{ t(actionProps.name) }}
           </aeria-icon>
         </template>
 
@@ -375,7 +376,7 @@ provide('individualActions', individualActions)
 
         @click="call!(actionProps)({ _id: store.selected.map((item: any) => item._id) })"
       >
-        {{ $t(actionProps.name) }}
+        {{ t(actionProps.name) }}
       </aeria-button>
 
       <slot

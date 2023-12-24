@@ -4,6 +4,7 @@ import { getReferenceProperty, convertConditionToQuery } from '@sonata-api/commo
 import { provide, inject, computed, ref, watch, onMounted } from 'vue'
 import { useDebounce } from '@waltz-ui/web'
 import { useStore, useParentStore, type Store } from '@waltz-ui/state-management'
+import { t } from '@waltz-ui/i18n'
 
 import AeriaPanel from '../../aeria-panel/aeria-panel.vue'
 import AeriaButton from '../../aeria-button/aeria-button.vue'
@@ -148,7 +149,7 @@ const save = () => {
     <aeria-panel
       float
       close-hint
-      :title="`Selecionar ${$t(propertyName)}`"
+      :title="`Selecionar ${t(propertyName)}`"
       :overlay-layer="65"
       v-model="selectPanel"
       @close="emit('panelClose')"
@@ -166,7 +167,7 @@ const save = () => {
               :key="`searchfield-${field}`"
               :value="field"
             >
-              {{ $t(field) }}
+              {{ t(field) }}
             </option>
           </aeria-select>
 

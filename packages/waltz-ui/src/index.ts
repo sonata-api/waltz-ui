@@ -17,5 +17,6 @@ export {
 
 } from '@waltz-ui/web'
 
+export { t, createI18n, setLocale, getLocale } from '@waltz-ui/i18n'
 export * from '@waltz-ui/state-management'
 export * from '@waltz-ui/ui'

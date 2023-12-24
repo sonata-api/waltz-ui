@@ -2,7 +2,7 @@ import type { defineOptions } from './options'
 import { createApp, App } from 'vue'
 import { Router } from 'vue-router'
 import { arraysIntersects } from '@sonata-api/common'
-import { createI18n } from 'vue-i18n'
+import { createI18n, t } from '@waltz-ui/i18n'
 import { routerInstance as createRouter } from './router'
 import { templateFunctions } from './templateFunctions'
 
@@ -26,7 +26,6 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
 
   const {
     component,
-    i18n: i18nConfig,
     menuSchema,
     routes
 
@@ -36,7 +35,9 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
   registerDirectives(app)
 
   const router = createRouter(routes || [], options.dashboardComponent)
-  const i18n = createI18n(i18nConfig)
+  if( options.i18n ) {
+    createI18n(options.i18n)
+  }
 
   if( options.setup ) {
     await options.setup()
@@ -46,12 +47,7 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
   const userStore = useUserStore()
 
   app.use(router)
-  app.use(i18n)
-
   app.provide('menuSchema', menuSchema)
-  app.provide('i18n', i18n)
-
-  app.provide('dashboardLayout', INSTANCE_VARS?.dashboardLayout || {})
 
   app.mixin({
     computed: {
@@ -67,7 +63,9 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
 
         return title.replace(
           '%viewTitle%',
-          I18N.global.tc(currentRoute.params?.collection || '', 2)
+          t(currentRoute.params?.collection as string, {
+            plural: true
+          })
         )
       },
       viewIcon: () => {
@@ -78,17 +76,6 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
     },
     methods: {
       ...templateFunctions,
-      getLayoutOption(optionName: keyof typeof INSTANCE_VARS['dashboardLayout']) {
-        const dashboardLayout = INSTANCE_VARS.dashboardLayout
-
-        if( !dashboardLayout ) {
-          return null
-        }
-
-        const role = userStore.$currentUser.roles?.find((role: string) => role in dashboardLayout) || 'default'
-
-        return dashboardLayout[role]?.[optionName]
-      },
       hasRoles(roles: string | string[]) {
         return arraysIntersects(roles, userStore.$currentUser.roles)
       },
@@ -100,7 +87,6 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
 
   Object.assign(window, {
     ROUTER: router,
-    I18N: i18n
   })
 
   if( userStore.signedIn || /^\/dashboard(\/|$)/.test(location.pathname) ) {

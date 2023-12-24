@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useStore } from '@waltz-ui/state-management'
+import { t } from '@waltz-ui/i18n'
 import AeriaBareButton from '../aeria-bare-button/aeria-bare-button.vue'
 import AeriaPanel from '../aeria-panel/aeria-panel.vue'
 import AeriaIcon from '../aeria-icon/aeria-icon.vue'
@@ -135,7 +136,7 @@ const position = computed(() => {
             >
               {{
                 action.translate
-                  ? $t(action.name)
+                  ? t(action.name)
                   : action.name
               }}
             </aeria-icon>

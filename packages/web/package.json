@@ -46,6 +46,7 @@
     "vue-router": "^4.2.1"
   },
   "peerDependencies": {
+    "@waltz-ui/i18n": "*",
     "@waltz-ui/state-management": "*"
   },
   "devDependencies": {

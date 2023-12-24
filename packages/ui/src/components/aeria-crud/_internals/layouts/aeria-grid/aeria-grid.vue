@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { LayoutOptions } from '@sonata-api/types'
 import { useParentStore } from '@waltz-ui/state-management'
+import { t } from '@waltz-ui/i18n'
 
 import AeriaContextMenu from '../../../../aeria-context-menu/aeria-context-menu.vue'
 import AeriaIcon from '../../../../aeria-icon/aeria-icon.vue'
@@ -50,7 +51,7 @@ const firstIfArray = (what: any) => {
         >
           {{
             layoutOptions.translateBadge
-              ? $t(badge)
+              ? t(badge)
               : badge
           }}
         </aeria-badge>
@@ -60,7 +61,7 @@ const firstIfArray = (what: any) => {
         <aeria-badge>
           {{
             layoutOptions.translateBadge
-              ? $t(item[layoutOptions.badge])
+              ? t(item[layoutOptions.badge])
               : item[layoutOptions[badge]]
           }}
         </aeria-badge>

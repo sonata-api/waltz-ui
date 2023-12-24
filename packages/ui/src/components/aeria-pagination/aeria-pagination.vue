@@ -2,6 +2,7 @@
 import { ref, computed, watch } from 'vue'
 import { PAGINATION_PER_PAGE_DEFAULTS } from '@waltz-ui/web'
 import { useParentStore } from '@waltz-ui/state-management'
+import { t } from '@waltz-ui/i18n'
 
 import AeriaBareButton from '../aeria-bare-button/aeria-bare-button.vue'
 import AeriaIcon from '../aeria-icon/aeria-icon.vue'
@@ -104,7 +105,7 @@ watch([page, limit], ([newPage]: [number, number]) => {
 
           @change="page = pageInput === 0 ? 0 : pageInput - 1; update()"
         ></aeria-input>
-        <span>{{ $t('of') }} {{ pageCount }}</span>
+        <span>{{ t('of') }} {{ pageCount }}</span>
       </div>
       <aeria-bare-button
         :disabled="store.loading.getAll || page >= pageCount - 1"

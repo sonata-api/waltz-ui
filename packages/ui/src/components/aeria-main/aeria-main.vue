@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { bootstrapRoutes } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
+import { t } from '@waltz-ui/i18n'
 import AeriaPanel from '../aeria-panel/aeria-panel.vue'
 import AeriaPrompt from '../dashboard/aeria-prompt/aeria-prompt.vue'
 import AeriaToast from '../dashboard/aeria-toast/aeria-toast.vue'
@@ -64,7 +65,7 @@ bootstrapRoutes()
         v-bind="toast"
         :key="`toast-${toast.itr}`"
       >
-        <div v-html="$t(toast.text)"></div>
+        <div v-html="t(toast.text)"></div>
       </aeria-toast>
     </div>
   </main>

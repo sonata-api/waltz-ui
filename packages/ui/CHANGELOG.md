@@ -1,5 +1,11 @@
 # @waltz-ui/ui
 
+## 1.0.18
+
+### Patch Changes
+
+- Fix file inputs
+
 ## 1.0.17
 
 ### Patch Changes

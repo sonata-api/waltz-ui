@@ -4,6 +4,7 @@ import { inject, computed, type Ref } from 'vue'
 import { evaluateCondition, getReferenceProperty } from '@sonata-api/common'
 import { useBreakpoints } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
+import { t } from '@waltz-ui/i18n'
 
 import AeriaBareButton from '../aeria-bare-button/aeria-bare-button.vue'
 import AeriaButton from '../aeria-button/aeria-button.vue'
@@ -120,7 +121,7 @@ const buttonStyle = (subject: any, action: any) => {
           :key="`header-${index}`"
           class="table__header"
         >
-          {{ property.description || $t(propertyName) }}
+          {{ property.description || t(propertyName) }}
         </th>
         <th
           v-if="actions?.length"
@@ -151,7 +152,7 @@ const buttonStyle = (subject: any, action: any) => {
           :key="`column-${row._id}-${cindex}`"
         >
           <div class="table__cell-mobile-label">
-            {{ property.description || $t(column) }}
+            {{ property.description || t(column) }}
           </div>
 
           <div
@@ -181,14 +182,14 @@ const buttonStyle = (subject: any, action: any) => {
                   icon="check"
                   icon-classes="aeria-blueish"
                 >
-                  {{ $t('yes') }}
+                  {{ t('yes') }}
                 </aeria-icon>
                 <aeria-icon
                   v-else
                   icon="times"
                   icon-classes="aeria-redish"
                 >
-                  {{ $t('no') }}
+                  {{ t('no') }}
                 </aeria-icon>
               </div>
 
@@ -269,7 +270,7 @@ const buttonStyle = (subject: any, action: any) => {
               :style="buttonStyle(row, action)"
               @click="action.click(row)"
             >
-              {{ $t(action.name) }}
+              {{ t(action.name) }}
             </aeria-button>
 
             <aeria-context-menu
@@ -307,7 +308,7 @@ const buttonStyle = (subject: any, action: any) => {
               @click="action.click(row)"
             >
               <aeria-icon :icon="action.icon || 'setting'">
-                {{ $t(action.name) }}
+                {{ t(action.name) }}
               </aeria-icon>
             </aeria-bare-button>
 

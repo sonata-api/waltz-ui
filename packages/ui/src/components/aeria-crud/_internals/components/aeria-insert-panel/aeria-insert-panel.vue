@@ -2,6 +2,7 @@
 import { inject, watch } from 'vue'
 import { isLeft } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
+import { t } from '@waltz-ui/i18n'
 
 import AeriaPanel from '../../../../aeria-panel/aeria-panel.vue'
 import AeriaForm from '../../../../form/aeria-form/aeria-form.vue'
@@ -54,16 +55,16 @@ watch(() => store.item._id, (_id) => {
         (() => {
           switch( isInsertVisible ) {
             case 'add':
-              return $t('action.add')
+              return t('action.add')
             case 'duplicate':
-              return $t('action.duplicate')
+              return t('action.duplicate')
             case 'edit':
             default:
-              return $t('action.edit')
+              return t('action.edit')
           }
         })() }}
       </span>
-      <span>&nbsp;{{ $t(metaStore.view.collection) }}</span>
+      <span>&nbsp;{{ t(metaStore.view.collection) }}</span>
     </template>
 
     <aeria-form
@@ -109,7 +110,7 @@ watch(() => store.item._id, (_id) => {
         variant="transparent"
         @click="cancel"
       >
-        {{ $t('action.cancel') }}
+        {{ t('action.cancel') }}
       </aeria-button>
       <aeria-button
         large
@@ -117,7 +118,7 @@ watch(() => store.item._id, (_id) => {
         :loading="store.loading.insert"
         @click="insert"
       >
-        {{ $t('action.insert') }}
+        {{ t('action.insert') }}
       </aeria-button>
     </template>
   </aeria-panel>

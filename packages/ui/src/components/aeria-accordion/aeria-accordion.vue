@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { t } from '@waltz-ui/i18n'
 import { ref } from 'vue'
 
 type Props = {
@@ -43,7 +44,7 @@ const getTitle = (header: Props['headers'][keyof Props['headers']]) => {
         {{
           headers[slotName]
             ? getTitle(headers[slotName])
-            : $t(slotName)
+            : t(slotName)
         }}
       </div>
       <div

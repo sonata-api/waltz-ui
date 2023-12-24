@@ -5,6 +5,7 @@ import { onBeforeMount, ref, computed, provide, inject, isRef, type Ref } from '
 import { evaluateCondition, deepClone, isRequired, getReferenceProperty } from '@sonata-api/common'
 import { useBreakpoints, isDocumentComplete } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
+import { t } from '@waltz-ui/i18n'
 
 import AeriaIcon from '../../aeria-icon/aeria-icon.vue'
 import AeriaButton from '../../aeria-button/aeria-button.vue'
@@ -277,7 +278,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
                 && !searchOnly
                 && (!required || isRequired(propertyName, required, modelValue))
           }">
-            {{ property.description || $t(propertyName) }}
+            {{ property.description || t(propertyName) }}
           </div>
           <div
             v-if="property.hint"
@@ -358,8 +359,8 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
                 ? true : value == 'false'
                 ? false : null
           }">
-            <option value="true">{{ $t('yes') }}</option>
-            <option value="false">{{ $t('no') }}</option>
+            <option value="true">{{ t('yes') }}</option>
+            <option value="false">{{ t('no') }}</option>
           </aeria-select>
         </div>
 
@@ -455,10 +456,10 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
           class="form__validation-error"
         >
           <span v-if="validationErrors[propertyName].type">
-            {{ $t(`validation_error.${validationErrors[propertyName].type}`) }}
+            {{ t(`validation_error.${validationErrors[propertyName].type}`) }}
           </span>
           <span v-if="validationErrors[propertyName].detail">
-            {{ $t(validationErrors[propertyName].detail) }}
+            {{ t(validationErrors[propertyName].detail) }}
           </span>
         </div>
       </div>
