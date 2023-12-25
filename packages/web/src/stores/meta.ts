@@ -4,6 +4,7 @@ import { Description } from '@sonata-api/types'
 import { reactive, computed } from 'vue'
 
 import { useStore, hasStore, registerStore } from '@waltz-ui/state-management'
+import { t } from '@waltz-ui/i18n'
 import { createCollectionStore } from '../state/collection'
 import { freshItem, freshFilters } from '../state/helpers'
 import { API_URL } from '../constants'
@@ -143,16 +144,16 @@ export const meta = () => registerStore(() => {
       body?: string
     }) {
       const answer = await useStore('meta').$actions.spawnPrompt({
-        body: I18N.global.tc(props.body || 'prompt.default'),
+        body: t(props.body || 'prompt.default'),
         actions: [
           {
             name: 'cancel',
-            title: I18N.global.tc('action.cancel'),
+            title: t('action.cancel'),
             variant: 'danger',
           },
           {
             name: 'confirm',
-            title: I18N.global.tc('action.confirm'),
+            title: t('action.confirm'),
           },
         ]
       })

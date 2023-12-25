@@ -2,6 +2,7 @@ import type { Property } from '@sonata-api/types'
 import type { CollectionStore } from './collection'
 import { formatValue, deepClone, isLeft, unwrapEither, isReference } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
+import { t } from '@waltz-ui/i18n'
 import { API_URL } from '../constants'
 import { request } from '../http'
 import { condenseItem } from './helpers'
@@ -156,8 +157,8 @@ export const useStoreActions = (store: CollectionStore) => {
       )
     },
 
-    getAll(_payload: ActionFilter, options?: CustomOptions)  {
-      const payload = Object.assign({}, _payload)
+    getAll(_payload?: ActionFilter, options?: CustomOptions)  {
+      const payload = Object.assign({}, _payload || {})
 
       if( typeof payload.limit !== 'number' ) {
         payload.limit = store.pagination.limit
@@ -284,7 +285,7 @@ export const useStoreActions = (store: CollectionStore) => {
       index?: string
     }) {
       const value = args.property.translate
-        ? I18N.global.tc(args.value||'')
+        ? t(args.value as string)
         : args.value
 
       if( args.key in store.transformers ) {

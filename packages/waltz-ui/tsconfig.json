@@ -15,6 +15,9 @@
       ],
       "@waltz-ui/web": [
         "../web/dist"
+      ],
+      "@waltz-ui/i18n": [
+        "../i18n/dist"
       ]
     }
   }

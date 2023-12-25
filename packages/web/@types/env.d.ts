@@ -15,7 +15,7 @@ declare module 'vue-router/auto' {
   }
 }
 
-var I18N: any
+var I18N: typeof import('@waltz-ui/i18n').I18nConfig
 var ROUTER: import('vue-router').Router
 var STORES: Record<string, import('@waltz-ui/state-management').Store>
 var INSTANCE_VARS: InstanceConfig['site']

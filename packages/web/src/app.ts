@@ -82,6 +82,7 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
       useStore(storeName?: string) {
         return useParentStore(storeName)
       },
+      t
     }
   })
 
