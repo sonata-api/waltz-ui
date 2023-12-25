@@ -37,6 +37,7 @@ export default defineConfig({
       external: [
         'vue',
         'vue-router',
+        'maska',
         /@waltz-ui\//,
         /@sonata-api\//,
       ]

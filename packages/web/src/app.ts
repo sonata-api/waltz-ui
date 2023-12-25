@@ -1,12 +1,9 @@
 import type { defineOptions } from './options'
 import { createApp, App } from 'vue'
 import { Router } from 'vue-router'
-import { arraysIntersects } from '@sonata-api/common'
 import { createI18n, t } from '@waltz-ui/i18n'
 import { routerInstance as createRouter } from './router'
 import { templateFunctions } from './templateFunctions'
-
-import { useParentStore } from '@waltz-ui/state-management'
 import { meta, user } from './stores'
 import registerDirectives from './directives'
 
@@ -74,16 +71,7 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
           || metaStore.descriptions[currentRoute.params?.collection as string]?.icon
       }
     },
-    methods: {
-      ...templateFunctions,
-      hasRoles(roles: string | string[]) {
-        return arraysIntersects(roles, userStore.$currentUser.roles)
-      },
-      useStore(storeName?: string) {
-        return useParentStore(storeName)
-      },
-      t
-    }
+    methods: templateFunctions
   })
 
   Object.assign(window, {

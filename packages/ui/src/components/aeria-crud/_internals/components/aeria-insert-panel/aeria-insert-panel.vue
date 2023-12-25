@@ -33,7 +33,7 @@ const cancel = () => {
       store.validationErrors = {}
       isInsertVisible.value = false
     },
-    body: I18N.global.tc('prompt.close_panel')
+    body: t('prompt.close_panel')
   })
 }
 

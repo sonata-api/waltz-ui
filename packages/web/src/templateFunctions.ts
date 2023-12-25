@@ -1,18 +1,25 @@
 import {
   capitalize,
   formatDateTime,
-  formatToString,
-  daysAgo,
-  getRelativeTimeFromNow
+  getRelativeTimeFromNow,
+  arraysIntersects
   
 } from '@sonata-api/common'
+
+import { useStore } from '@waltz-ui/state-management'
+import { t } from '@waltz-ui/i18n'
+
+const hasRoles = (roles: string | string[]) => {
+  const userStore = useStore('user')
+  return arraysIntersects(roles, userStore.$currentUser.roles)
+}
 
 export const templateFunctions = {
   capitalize,
   formatDateTime,
-  formatToString,
-  daysAgo,
-  getRelativeTimeFromNow
+  getRelativeTimeFromNow,
+  hasRoles,
+  t
 }
 
 export type TemplateFunctions = typeof templateFunctions
