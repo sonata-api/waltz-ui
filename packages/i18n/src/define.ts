@@ -1,5 +1,5 @@
 import { LocaleMessages } from './locale'
 
-export const defineLocaleMessages = (locale: LocaleMessages) => {
+export const defineLocale = (locale: LocaleMessages) => {
   return locale
 }
