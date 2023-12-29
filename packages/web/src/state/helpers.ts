@@ -37,9 +37,9 @@ export const condenseItem = (item?: Record<string, any>): any => {
 
 export const isNull = (value: any) => [undefined, null, ''].includes(value)
 
-export const removeEmpty = (item: any) => {
+export const removeEmpty = (item: Record<string, any>) => {
   const entries = Object.entries(item)
-    .filter(([_, value]: [unknown, any]) => !isNull(value))
+    .filter(([_, value]) => !isNull(value))
 
   return Object.fromEntries(entries)
 }

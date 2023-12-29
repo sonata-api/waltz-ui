@@ -1,7 +1,7 @@
 {
   "name": "@waltz-ui/i18n",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,10 +14,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "vue": "^3.3.13"
+  "publishConfig": {
+    "access": "public"
   },
-  "peerDependencies": {
+  "devDependencies": {
     "vue": "^3.3.13"
   },
   "peerDependencies": {

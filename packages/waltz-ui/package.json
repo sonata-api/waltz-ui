@@ -1,6 +1,6 @@
 {
   "name": "waltz-ui",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "type": "module",
   "scripts": {
@@ -20,6 +20,7 @@
     "dist"
   ],
   "peerDependencies": {
+    "@waltz-ui/i18n": "*",
     "@waltz-ui/state-management": "*",
     "@waltz-ui/ui": "*",
     "@waltz-ui/web": "*"

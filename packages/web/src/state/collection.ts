@@ -61,7 +61,7 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
       currentPage: 0
     },
 
-    transformers: {} as Record<Lowercase<string>, (value: any) => any>
+    transformers: {} as Record<string, (value: any) => any>
   })
 
   const getters = (state: typeof initialState, storeActions: Record<string, (...args: any[]) => any>) => {
@@ -85,9 +85,9 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
     })
 
     const $filters = computed(() => {
-      const sanitizedFilters = removeEmpty(deepClone(state.filters)) as Record<Lowercase<string>, any>
+      const sanitizedFilters = removeEmpty(deepClone(state.filters))
 
-      const expr = (key: Lowercase<string>, value: any) => {
+      const expr = (key: string, value: any) => {
         const property = properties.value[key]
         const getValue = (value: any) => {
           if( !property ) {
@@ -145,7 +145,7 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
 
         return [
           ...a,
-          [key, expr(key as Lowercase<string>, filter)]
+          [key, expr(key, filter)]
         ]
       }, [])
 
@@ -215,7 +215,7 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
         const isComplete = isDocumentComplete(
           state.item,
           properties.value,
-          description.value.required as Lowercase<string>[],
+          description.value.required,
           description.value
         )
 
@@ -232,7 +232,7 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
         }
 
         return Object.keys(normalizeFilters(description.value.filters)).reduce((a, k) => {
-          const property = properties.value[k as Lowercase<string>]
+          const property = properties.value[k]
 
           return {
             ...a,

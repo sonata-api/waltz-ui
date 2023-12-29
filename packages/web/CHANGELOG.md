@@ -1,5 +1,13 @@
 # @waltz-ui/web
 
+## 1.0.7
+
+### Patch Changes
+
+- I18n package
+- Updated dependencies
+  - @waltz-ui/i18n@1.0.1
+
 ## 1.0.6
 
 ### Patch Changes

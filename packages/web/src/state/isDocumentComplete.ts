@@ -3,7 +3,7 @@ import { getMissingProperties, checkForUndefined } from '@sonata-api/common'
 
 export const isDocumentComplete = <
   TItem extends Record<string, any>,
-  TProperties extends Record<Lowercase<string>, Property>
+  TProperties extends Record<string, Property>
 >(
   item: TItem,
   properties: TProperties,
@@ -23,7 +23,7 @@ export const isDocumentComplete = <
   const missingProps = description
     ? getMissingProperties(item, description, requiredKeys)
     : Array.isArray(requiredKeys)
-      ? requiredKeys.filter((key: any) => checkForUndefined(properties[key], key, item)) as Lowercase<string>[]
+      ? requiredKeys.filter((key: any) => checkForUndefined(properties[key], key, item))
       : []
 
   return missingProps.every((key) => {

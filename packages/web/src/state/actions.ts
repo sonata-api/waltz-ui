@@ -274,12 +274,12 @@ export const useStoreActions = (store: CollectionStore) => {
 
     usePropertiesExcept(properties: (keyof typeof store['properties'])[]) {
       return Object.fromEntries(Object.entries(store.properties)
-        .filter(([key]) => !properties.includes(key as Lowercase<string>)))
+        .filter(([key]) => !properties.includes(key)))
     },
 
     formatValue(args: {
       value: string | object | object[],
-      key: Lowercase<string>,
+      key: string,
       form?: boolean,
       property: Property,
       index?: string
@@ -320,7 +320,7 @@ export const useStoreActions = (store: CollectionStore) => {
 
     select(properties: (keyof typeof store['properties'])[], item: typeof store['items']) {
       return Object.entries(item || store.item).reduce((a, [key, value]) => {
-        if( !properties.includes(key as Lowercase<string>) ) {
+        if( !properties.includes(key) ) {
           return a
         }
 

@@ -1,5 +1,11 @@
 # waltz-build
 
+## 0.1.3
+
+### Patch Changes
+
+- I18n package
+
 ## 0.1.2
 
 ### Patch Changes
