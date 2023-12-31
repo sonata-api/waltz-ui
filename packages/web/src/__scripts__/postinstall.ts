@@ -6,12 +6,16 @@ const DTS_FILENAME = 'waltz-ui.d.ts'
 const dts = `// WARNING: this file will be overriden
 declare module 'waltz-ui' {
   export * from 'waltz-ui/dist'
-  type SystemCollections = typeof import('@sonata-api/system/collections')
-  type UserCollections = typeof import('../api/src').collections
 
-  type Collections = {
-    [K in keyof (SystemCollections & UserCollections)]: Awaited<ReturnType<(SystemCollections & UserCollections)[K]>>
-  }
+  type Collections = typeof import('../api/src').collections extends infer UserCollections
+    ? {
+      [K in keyof UserCollections]: UserCollections[K] extends infer CollCandidate
+        ? CollCandidate extends () => infer Coll
+          ? Coll
+          : CollCandidate
+        : never
+    }
+    : never
 
   type SystemStores = typeof import('@waltz-ui/web/stores')
   type UserStores = typeof import('./src/stores')
@@ -35,8 +39,11 @@ declare module '@vue/runtime-core' {
   import type { TemplateFunctions } from '@waltz-ui/web'
 
   interface ComponentCustomProperties extends TemplateFunctions {
-    instanceConfig: typeof import('waltz-build').InstanceConfig,
+    viewTitle: string
+    viewIcon: string
+    instanceConfig: typeof import('waltz-build').InstanceConfig
     currentUser: typeof import('@sonata-api/system/collections').User
+    t: typeof import('@waltz-ui/i18n').t
   }
 }
 

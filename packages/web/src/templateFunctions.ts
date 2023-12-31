@@ -1,5 +1,4 @@
 import {
-  capitalize,
   formatDateTime,
   getRelativeTimeFromNow,
   arraysIntersects
@@ -15,7 +14,6 @@ const hasRoles = (roles: string | string[]) => {
 }
 
 export const templateFunctions = {
-  capitalize,
   formatDateTime,
   getRelativeTimeFromNow,
   hasRoles,

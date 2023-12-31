@@ -14,6 +14,7 @@ export type I18nConfig = {
 
 export type TextOptions = {
   plural?: boolean
+  capitalize?: boolean
 }
 
 window.I18N = reactive<I18nConfig>({
@@ -56,8 +57,12 @@ export const t = (text?: string, options: TextOptions = {}) => {
     ? result
     : result.split('|').map((part) => part.trim())
 
-  return options.plural
+  const translated: string = options.plural
     ? parts[1]
     : parts[0]
+
+  return options.capitalize
+    ? translated[0].toUpperCase() + translated.slice(1)
+    : translated
 }
 

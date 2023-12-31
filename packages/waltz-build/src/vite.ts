@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig, type InlineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueRouter from 'unplugin-vue-router/vite'
 import vueComponents from 'unplugin-vue-components/vite'
@@ -14,7 +14,7 @@ import loadYaml from './plugins/load-yaml'
 
 export default defineConfig(async () => {
   const instanceConfig = await getInstanceConfig()
-  const config: ReturnType<typeof defineConfig> = {
+  const config: InlineConfig = {
     publicDir: 'static',
     resolve: {
       alias: {
@@ -93,10 +93,10 @@ export default defineConfig(async () => {
       include: [
         'bson',
         '@sonata-api/types',
-        '@sonata-api/common'
+        '@sonata-api/common',
       ],
       exclude: [
-        'vue-router'
+        'vue-router',
       ]
     },
     build: {

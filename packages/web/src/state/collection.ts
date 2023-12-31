@@ -16,11 +16,11 @@ import  {
 
 } from './helpers'
 
-export type CollectionStoreState<TItem extends CollectionStoreItem=any> =
+export type CollectionStoreState<TItem extends CollectionStoreItem = any> =
   ReturnType<typeof internalCreateCollectionStore<TItem>>['state']
   & UnRef<ReturnType<ReturnType<typeof internalCreateCollectionStore>['getters']>> 
 
-export type CollectionStore<TItem extends CollectionStoreItem=any> = CollectionStoreState<TItem> & {
+export type CollectionStore<TItem extends CollectionStoreItem = any> = CollectionStoreState<TItem> & {
   $id: string
   $functions: Record<string, any>
   $actions: ReturnType<typeof useStoreActions>

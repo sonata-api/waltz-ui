@@ -217,7 +217,13 @@ const unfilled = (value: any) => {
     || (value instanceof Object && !Object.keys(value).length)
 }
 
-const required = computed(() => props.required || store?.description.required)
+const required = computed(() => {
+  return props.required
+    ? props.required
+    : props.property && 'required' in props.property
+      ? props.property.required
+      : store?.description.required
+})
 
 const isInsertReady = computed(() => {
   if( !props.form ) {
@@ -245,7 +251,6 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
 
 <template>
   <form
-    v-if="modelValue"
     class="form"
     :style="`row-gap: ${omitFormHeader ? '.8rem' : 'var(--form-internal-gap, 1.6rem);'};`"
   >
