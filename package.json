@@ -3,8 +3,7 @@
   "private": true,
   "packageManager": "pnpm@8.7.6",
   "scripts": {
-    "build": "pnpm -r build",
-    "postinstall": "ln -s $(realpath packages/) node_modules/@waltz-ui; rm -rf packages/*/node_modules/@waltz-ui"
+    "postinstall": "husky install; ln -s $(realpath packages/) node_modules/@waltz-ui; rm -rf packages/*/node_modules/@waltz-ui"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.2",
