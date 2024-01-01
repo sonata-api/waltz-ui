@@ -18,19 +18,27 @@ type Props = Omit<FormFieldProps<any>, 'property' | 'propertyName'> & {
   property: SearchProperty
   propertyName: string
   selectOnly?: boolean
+  panel?: boolean
 }
-
-const props = defineProps<Props>()
-const refProperty = getReferenceProperty(props.property)!
 
 const DEFAULT_LIMIT = 10
 
+const props = withDefaults(defineProps<Props>(), {
+  panel: undefined
+})
+
+const refProperty = getReferenceProperty(props.property)!
+
+const panel = typeof props.panel === 'boolean'
+  ? computed(() => props.panel)
+  : ref(false)
+
 const emit = defineEmits<{
   (e: 'update:modelValue' | 'change', event: any): void
-  (e: 'panelClose'): void
+  (e: 'update:panel', event: boolean): void
 }>()
 
-const store = useStore(getReferenceProperty(props.property)!.referencedCollection!)
+const store = useStore(getReferenceProperty(props.property)!.$ref)
 
 const parentStoreId = inject<string>('storeId')
 const parentStore = parentStoreId
@@ -39,11 +47,10 @@ const parentStore = parentStoreId
 
 const indexes = refProperty.indexes!
 
-provide('storeId', getReferenceProperty(props.property)!.referencedCollection)
+provide('storeId', getReferenceProperty(props.property)!.$ref)
 provide('innerInputLabel', true)
 provide('omitInputLabels', true)
 
-const selectPanel = ref(!!props.selectOnly)
 const selected = ref(props.modelValue)
 
 const searchResponse = ref({
@@ -113,8 +120,21 @@ const lazySearch = () => {
 }
 
 const openSelectPanel = () => {
-  selectPanel.value = true
+  if( 'effect' in panel ) {
+    emit('update:panel', true)
+  } else {
+    panel.value = true
+  }
+
   search({ empty: true })
+}
+
+const closeSelectPanel = () => {
+  if( 'effect' in panel ) {
+    emit('update:panel', false)
+  } else {
+    panel.value = false
+  }
 }
 
 const isInputEmpty = computed(() => !Object.values(inputValue.value).some((value) => !!value))
@@ -139,8 +159,8 @@ const update = (newVal: typeof props.modelValue) => {
 }
 
 const save = () => {
+  closeSelectPanel()
   emit('update:modelValue', selected.value)
-  selectPanel.value = false
 }
 </script>
 
@@ -151,9 +171,9 @@ const save = () => {
       close-hint
       :title="`Selecionar ${t(propertyName)}`"
       :overlay-layer="65"
-      v-model="selectPanel"
-      @close="emit('panelClose')"
-      @overlay-click="selectPanel = false; emit('panelClose')"
+      :model-value="panel"
+      @close="closeSelectPanel"
+      @overlay-click="closeSelectPanel"
     >
       <div class="search__panel">
         <div class="search__input">

@@ -50,7 +50,7 @@ export const getComponent = (property: Property, customComponents: Record<string
     }
 
     switch( true ) {
-      case nestedProp.referencedCollection === 'file':
+      case nestedProp.isFile:
         return 'file'
       case getReferenceProperty(property)?.inline:
         return 'form'
@@ -78,8 +78,8 @@ export const pushToArray = (modelValue: any[], property: Property) => {
     ? property.items
     : property
 
-  if( property.isReference ) {
-    const helperStore = useStore(property.referencedCollection!)
+  if( '$ref' in property ) {
+    const helperStore = useStore(property.$ref)
     const newVal = deepClone(helperStore.$freshItem)
     return modelValue.push(newVal)
   }

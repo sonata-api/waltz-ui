@@ -193,27 +193,28 @@ const buttonStyle = (subject: any, action: any) => {
                 </aeria-icon>
               </div>
 
-              <div v-else>
-                <div v-if="property.isFile && row[column]">
-                  <aeria-picture
-                    expandable
-                    v-if="/^image/.test(row[column].mime)" 
-                    v-model="row[column].link"
-                    :meta="row[column]"
-                    class="table__picture"
-                  ></aeria-picture>
-                  <a
-                    v-else-if="row[column].link"
-                    :href="row[column].link"
-                    style="font-size: 10pt"
-                  >
-                    {{ row[column].filename }}
-                  </a>
-                  <div v-else>
-                    -
-                  </div>
+              <div v-else-if="property.isFile">
+                <div v-if="!row[column]">
+                  -
                 </div>
-                <span v-else-if="store">
+                <aeria-picture
+                  expandable
+                  v-else-if="/^image/.test(row[column].mime)" 
+                  v-model="row[column].link"
+                  :meta="row[column]"
+                  class="table__picture"
+                ></aeria-picture>
+                <a
+                  v-else-if="row[column].link"
+                  :href="row[column].link"
+                  style="font-size: 10pt"
+                >
+                  {{ row[column].filename }}
+                </a>
+              </div>
+
+              <div v-else>
+                <span v-if="store">
                   {{
                     store.$actions.formatValue({
                       value: row[column],
@@ -231,23 +232,21 @@ const buttonStyle = (subject: any, action: any) => {
                         : '-'
                   }}
                 </span>
-              </div>
-              <div v-if="
-                getReferenceProperty(property)?.indexes?.length! > 1
-                  && property.referencedCollection !== 'file'
-              ">
-                <div
-                  v-for="(subvalue, index) in getReferenceProperty(property)!.indexes!.slice(1, 2)"
-                  :key="`subvalue-${index}`"
-                >
-                  {{
-                    store!.$actions.formatValue({
-                      value: row[column],
-                      key: column,
-                      property,
-                      index: subvalue
-                    })
-                  }}
+
+                <div v-if="getReferenceProperty(property)?.indexes?.length! > 1">
+                  <div
+                    v-for="(subvalue, index) in getReferenceProperty(property)!.indexes!.slice(1, 2)"
+                    :key="`subvalue-${index}`"
+                  >
+                    {{
+                      store!.$actions.formatValue({
+                        value: row[column],
+                        key: column,
+                        property,
+                        index: subvalue
+                      })
+                    }}
+                  </div>
                 </div>
               </div>
             </div>

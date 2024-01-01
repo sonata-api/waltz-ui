@@ -72,7 +72,7 @@ onBeforeMount(() => {
 
 const refProperty = props.property && getReferenceProperty(props.property)
 const collectionName = refProperty
-    ? refProperty.referencedCollection
+    ? refProperty.$ref
     : props.collection || inject('storeId', null)
 
 const store = collectionName
@@ -372,7 +372,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
         <div
           v-else-if="
             'type' in property && property.type === 'array'
-              && (!(property.items.isReference && !getReferenceProperty(property.items)?.inline) || property.items.isFile)
+              && (!('$ref' in property.items && !getReferenceProperty(property.items)?.inline) || property.items.isFile)
           "
           style="display: grid; row-gap: .4rem"
         >

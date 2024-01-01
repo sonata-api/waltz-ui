@@ -8,7 +8,4 @@ export type FormFieldProps<TModelValue, TProperty = Property> = {
   parentCollection?: string
 }
 
-export type SearchProperty = (RefProperty | ArrayOfRefs) & NonNullable<Pick<Property,
-  | 'isReference'
-  | 'referencedCollection'
->>
+export type SearchProperty = RefProperty | ArrayOfRefs

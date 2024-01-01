@@ -1,5 +1,11 @@
 # @waltz-ui/ui
 
+## 1.0.22
+
+### Patch Changes
+
+- I18n and UI improvements
+
 ## 1.0.21
 
 ### Patch Changes
