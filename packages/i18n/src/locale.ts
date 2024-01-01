@@ -39,7 +39,7 @@ const capitalize = (text: string) => {
   return text[0].toUpperCase() + text.slice(1)
 }
 
-export const t = (originalText?: string, _options: TextOptions = {}): string | null  => {
+export const t = (originalText?: string, _options: TextOptions = {}): string => {
   const localeMemo = window.I18N
   if( !originalText ) {
     return ''
@@ -75,7 +75,7 @@ export const t = (originalText?: string, _options: TextOptions = {}): string | n
 
   if( !result ) {
     return options.noFallback
-      ? null
+      ? ''
       : options.capitalize
         ? capitalize(text)
         : text
