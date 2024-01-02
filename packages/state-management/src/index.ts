@@ -57,7 +57,7 @@ export const registerStore = <
   TStoreState extends StoreState,
   TStoreGetters extends Record<string, ComputedRef<any>>,
   TStoreActions extends Record<string, (...args: any[]) => any>,
-  Return=TStoreState & UnRef<TStoreGetters> & {
+  Return = TStoreState & UnRef<TStoreGetters> & {
     $id: TStoreId,
     $actions: TStoreActions
     $functions: Record<string, (...args: any[]) => any>

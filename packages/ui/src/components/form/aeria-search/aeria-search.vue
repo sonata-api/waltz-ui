@@ -18,7 +18,7 @@ type Props = Omit<FormFieldProps<any>, 'property' | 'propertyName'> & {
   property: SearchProperty
   propertyName: string
   selectOnly?: boolean
-  panel?: boolean
+  panel?: any
 }
 
 const DEFAULT_LIMIT = 10
@@ -29,7 +29,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const refProperty = getReferenceProperty(props.property)!
 
-const panel = typeof props.panel === 'boolean'
+const panel = props.panel !== undefined
   ? computed(() => props.panel)
   : ref(false)
 
@@ -40,7 +40,7 @@ const emit = defineEmits<{
 
 const store = useStore(getReferenceProperty(props.property)!.$ref)
 
-const parentStoreId = inject<string>('storeId')
+const parentStoreId = inject('storeId', null)
 const parentStore = parentStoreId
   ? useParentStore()
   : null

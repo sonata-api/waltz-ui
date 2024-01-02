@@ -54,7 +54,7 @@ export const getComponent = (property: Property, customComponents: Record<string
         return 'file'
       case getReferenceProperty(property)?.inline:
         return 'form'
-      case isReference(nestedProp):
+      case isReference(property):
         return 'search'
       case 'enum' in nestedProp:
         return 'select'

@@ -16,12 +16,17 @@ export type TextOptions = {
   plural?: boolean
   capitalize?: boolean
   noFallback?: boolean
+  context?: string
 }
 
 window.I18N = reactive<I18nConfig>({
   current: '',
   locales: {}
 })
+
+const wordsMemo = {} as Record<string, {
+  plural: boolean
+}>
 
 export const createI18n = (config: I18nConfig) => {
   Object.assign(window.I18N, config)
@@ -45,22 +50,26 @@ export const t = (originalText?: string, _options: TextOptions = {}): string => 
     return ''
   }
 
-  const text = originalText.toLowerCase()
+  const text = originalText[0].toLowerCase() + originalText.slice(1)
   const options = Object.assign({}, _options)
   options.capitalize ??= originalText[0] === originalText[0].toUpperCase()
 
-  if( text.endsWith('s') ) {
+  if( !options.context && text.endsWith('s') && wordsMemo[text]?.plural !== false ) {
     const offset = text.endsWith('es')
       ? -2
       : -1
 
     const result = t(text.slice(0, offset), Object.assign({
       plural: true,
-      noFallback:true
+      noFallback: true
     }, options))
 
     if( result ) {
       return result
+    }
+
+    wordsMemo[text] = {
+      plural: false
     }
   }
 
@@ -69,9 +78,13 @@ export const t = (originalText?: string, _options: TextOptions = {}): string => 
     return text
   }
 
-  const result: string = Array.isArray(locale)
-    ? getValueFromPath(locale.find((candidate) => getValueFromPath(candidate, text)), text)
-    : getValueFromPath(locale, text)
+  const fullPath = (text: string) => options.context
+    ? `${options.context}.${text}`
+    : text
+
+  const result: string | object = Array.isArray(locale)
+    ? getValueFromPath(locale.find((candidate) => getValueFromPath(candidate, fullPath(text))), fullPath(text))
+    : getValueFromPath(locale, fullPath(text))
 
   if( !result ) {
     return options.noFallback
@@ -81,9 +94,15 @@ export const t = (originalText?: string, _options: TextOptions = {}): string => 
         : text
   }
 
-  const parts = Array.isArray(result)
+  const resultText = typeof result === 'string' || Array.isArray(result)
     ? result
-    : result.split('|').map((part) => part.trim())
+    : '$' in result
+      ? result.$ as string
+      : text
+
+  const parts = Array.isArray(resultText)
+    ? resultText
+    : resultText.split('|').map((part) => part.trim())
 
   const translated: string = options.plural && parts.length > 1
     ? parts[1]

@@ -8,6 +8,7 @@ export const userRoutes = (component: Component | (() => Promise<Component>)): R
   children: [
     {
       path: 'invite/:id',
+      name: '/user/invite/:id',
       redirect: (to) => {
         return {
           path: '/user/signup',
@@ -19,6 +20,7 @@ export const userRoutes = (component: Component | (() => Promise<Component>)): R
     },
     {
       path: 'signin',
+      name: '/user/signin',
       component: () => import('./views/user/signin.vue'),
       meta: {
         title: 'Autenticação'
@@ -26,6 +28,7 @@ export const userRoutes = (component: Component | (() => Promise<Component>)): R
     },
     {
       path: 'signup',
+      name: '/user/signup',
       component: () => import('./views/user/signup.vue'),
       meta: {
         title: 'Registro'
@@ -33,6 +36,7 @@ export const userRoutes = (component: Component | (() => Promise<Component>)): R
     },
     {
       path: 'activation',
+      name: '/user/activation',
       component: () => import('./views/user/activation.vue'),
       meta: {
         title: 'Ativação'
