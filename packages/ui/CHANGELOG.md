@@ -1,5 +1,13 @@
 # @waltz-ui/ui
 
+## 1.0.24
+
+### Patch Changes
+
+- Fix backwards compatibility
+- Updated dependencies
+  - @waltz-ui/web@1.0.9
+
 ## 1.0.23
 
 ### Patch Changes

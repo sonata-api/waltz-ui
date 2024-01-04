@@ -1,6 +1,6 @@
 import type { Property } from '@sonata-api/types'
 import type { CollectionStore } from './collection'
-import { formatValue, deepClone, isLeft, unwrapEither, isReference } from '@sonata-api/common'
+import { formatValue, getReferenceProperty, deepClone, isLeft, unwrapEither, isReference } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
 import { API_URL } from '../constants'
@@ -295,7 +295,7 @@ export const useStoreActions = (store: CollectionStore) => {
       if( isReference(args.property) ) {
         const index = args.index || args.property.indexes?.[0]
 
-        const helperStore = useStore(args.property.referencedCollection!)
+        const helperStore = useStore(getReferenceProperty(args.property)!.$ref)
         const property = helperStore.description.properties![index!]
 
         if( property?.isReference ) {

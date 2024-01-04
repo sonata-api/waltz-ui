@@ -25,7 +25,7 @@ const hasIcon = 'icon' in property || ('inputType' in property && property.input
 
 const searchOnly = inject('searchOnly', false)
 const innerInputLabel = inject('innerInputLabel', false)
-const readOnly = !searchOnly && (property.readOnly || property.isGetter)
+const readOnly = !searchOnly && property.readOnly
 
 const copyToClipboard = useClipboard()
 

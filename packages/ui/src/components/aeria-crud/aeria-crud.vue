@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Layout } from '@sonata-api/types'
 import { onUnmounted, computed, provide, inject, watch, isRef, type Ref } from 'vue'
-import { deepClone } from '@sonata-api/common'
+import { deepClone, getReferenceProperty } from '@sonata-api/common'
 import { useAction, useDebounce, type ActionFilter, type ActionEvent } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
@@ -181,7 +181,7 @@ watch(() => actionEventBus.value, async (_event) => {
       }
 
       const unbound = (value: any) => {
-        if( property.isFile ) {
+        if( getReferenceProperty(property)?.$ref === 'file' ) {
           return {}
         }
         if( property.inline && value ) {

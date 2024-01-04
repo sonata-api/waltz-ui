@@ -1,5 +1,5 @@
 import type { Property } from '@sonata-api/types'
-import { isLeft } from '@sonata-api/common'
+import { getReferenceProperty, isLeft } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
 
 export const recurseInsertCandidate = async (obj: any, property: Property): Promise<any> => {
@@ -35,7 +35,7 @@ export const recurseInsertCandidate = async (obj: any, property: Property): Prom
   }
 
   if( 'inline' in property && property.inline ) {
-    const collection = property.referencedCollection!
+    const collection = getReferenceProperty(property)!.$ref
     const helperStore = useStore(collection)
 
     const result = await helperStore.$actions.deepInsert({

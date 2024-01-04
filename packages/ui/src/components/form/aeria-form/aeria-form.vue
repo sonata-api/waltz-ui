@@ -372,7 +372,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
         <div
           v-else-if="
             'type' in property && property.type === 'array'
-              && (!('$ref' in property.items && !getReferenceProperty(property.items)?.inline) || property.items.isFile)
+              && (getReferenceProperty(property)?.inline || getReferenceProperty(property)?.$ref === 'file')
           "
           style="display: grid; row-gap: .4rem"
         >
@@ -419,7 +419,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
                   modelValue[propertyName]?.length >= property.maxItems!
                   || unfilled(modelValue[propertyName]?.[modelValue[propertyName]?.length-1])
                   || (
-                    property.isFile
+                    getReferenceProperty(property)?.$ref === 'file'
                       && modelValue[propertyName]?.length > 0
                       && !modelValue[propertyName]?.[modelValue[propertyName]?.length-1]?._id
                   )

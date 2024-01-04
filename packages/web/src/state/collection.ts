@@ -1,7 +1,7 @@
 import type { Description, Layout, LayoutName } from '@sonata-api/types'
 import { computed, reactive, type ComputedRef } from 'vue'
 import { useStore, type StoreState, type UnRef } from '@waltz-ui/state-management'
-import { deepClone, deepMerge, isReference } from '@sonata-api/common'
+import { deepClone, deepMerge, isReference, getReferenceProperty } from '@sonata-api/common'
 import { PAGINATION_PER_PAGE_DEFAULT } from '../constants'
 import { deepDiff } from './deepDiff'
 import { isDocumentComplete } from './isDocumentComplete'
@@ -190,7 +190,7 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
             }
 
             if( isReference(property) && property.inline && store.$id !== grandParent ) {
-              const subject = property.referencedCollection!
+              const subject = getReferenceProperty(property)!.$ref
               const helperStore = useStore(subject)
 
               return {

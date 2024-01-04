@@ -193,7 +193,7 @@ const buttonStyle = (subject: any, action: any) => {
                 </aeria-icon>
               </div>
 
-              <div v-else-if="property.isFile">
+              <div v-else-if="getReferenceProperty(property)?.$ref === 'file'">
                 <div v-if="!row[column]">
                   -
                 </div>

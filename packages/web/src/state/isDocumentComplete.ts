@@ -1,5 +1,5 @@
 import type { Property, RequiredProperties, Description } from '@sonata-api/types'
-import { getMissingProperties, checkForUndefined } from '@sonata-api/common'
+import { getMissingProperties, getReferenceProperty, checkForUndefined } from '@sonata-api/common'
 
 export const isDocumentComplete = <
   TItem extends Record<string, any>,
@@ -31,7 +31,7 @@ export const isDocumentComplete = <
 
     return (
       description?.form && formIncludes(key)
-      || property.isReference
+      || getReferenceProperty(property)
     )
   })
 }

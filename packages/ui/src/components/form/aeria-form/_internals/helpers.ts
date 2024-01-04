@@ -49,19 +49,23 @@ export const getComponent = (property: Property, customComponents: Record<string
       }
     }
 
-    switch( true ) {
-      case nestedProp.isFile:
-        return 'file'
-      case getReferenceProperty(property)?.inline:
+    const ref = getReferenceProperty(property)
+    if( ref ) {
+      if( ref.inline ) {
         return 'form'
-      case isReference(property):
-        return 'search'
-      case 'enum' in nestedProp:
-        return 'select'
+      }
+      if( ref.$ref === 'file' ) {
+        return 'file'
+      }
 
-      default:
-        return 'input'
+      return 'search'
     }
+
+    if( 'enum' in nestedProp ) {
+      return 'select'
+    }
+
+    return 'input'
 
   })()
 
