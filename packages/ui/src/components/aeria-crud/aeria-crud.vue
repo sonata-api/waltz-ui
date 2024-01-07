@@ -98,7 +98,7 @@ const fetchItems = async (optPayload?: ActionFilter) => {
   }
 
   if( store.description.tableMeta ) {
-    payload.project!.push(...store.description.tableMeta)
+    payload.project = payload.project!.concat(store.description.tableMeta)
   }
 
   if( optPayload ) {
