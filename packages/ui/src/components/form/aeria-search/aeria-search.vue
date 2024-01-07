@@ -257,7 +257,7 @@ const save = () => {
         </div>
       </div>
 
-      <div>
+      <div class="search__summary">
         Mostrando {{ matchingItems.length }} of {{ pagination.recordsTotal }}
       </div>
 

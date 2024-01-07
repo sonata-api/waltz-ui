@@ -3,7 +3,7 @@
 .dark-theme(@brand-color, @background-color) {
   .theme-defaults();
   --theme-brand-color: @brand-color;
-  --theme-brand-color-shade-1: mix(green, lighten(@brand-color, 12%), 30%);
+  --theme-brand-color-shade-1: spin(@brand-color, 20%);
   --theme-brand-color-shade-2: darken(@brand-color, 8%);
   --theme-brand-color-shade-3: darken(@brand-color, 13%);
   --theme-brand-color-contrast: contrast(@brand-color);
@@ -16,6 +16,6 @@
   --theme-shadow-color: lighten(@background-color, 60%);
   --theme-body-background: @background-color;
   --theme-border-color: lighten(@background-color, 25%);
-  --theme-redish: lighten(mix(red, @brand-color, 95%), 40%);
-  --theme-blueish: lighten(mix(blue, @brand-color, 95%), 40%);
+  --theme-redish: lighten(red, 30%);
+  --theme-blueish: lighten(blue, 30%);
 }

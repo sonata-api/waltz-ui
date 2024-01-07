@@ -15,7 +15,7 @@ const emit = defineEmits<Emits>()
 
 const containerEl = ref<HTMLElement | null>(null)
 const reachedEnd = props.observeScroll
-  ? useScrollObserver(containerEl).reachedEnd
+  ? useScrollObserver(containerEl, { antecipate: 100 }).reachedEnd
   : null
 
 if( reachedEnd !== null ) {
