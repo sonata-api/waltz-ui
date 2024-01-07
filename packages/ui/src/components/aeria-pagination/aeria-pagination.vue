@@ -12,8 +12,12 @@ type Props = {
   pagination: Pagination
 }
 
+type Emits = {
+  (e: 'paginate', value: Pick<Pagination, 'offset' | 'limit'>): void
+}
+
 const props = defineProps<Props>()
-// const store = useParentStore(props.collection)
+const emit = defineEmits<Emits>()
 
 const page = computed<number>({
   get: () => Math.floor(props.pagination.offset / props.pagination.limit),
@@ -35,27 +39,17 @@ const pageCount = computed(
 )
 
 const paginate = (direction: 'previous' | 'next') => {
-  // window.scrollTo(0, 0)
   page.value = direction === 'previous'
     ? page.value - 1
     : page.value + 1
-
-  // update()
 }
-
-/*
-const update = () => {
-  return store.$actions.filter({
-    project: [
-      ...Object.keys(store.properties),
-      ...store.description.tableMeta||[]
-    ]
-  })
-}
-*/
 
 watch([page, limit], ([newPage]: [number, number]) => {
   pageInput.value = newPage + 1
+  emit('paginate', {
+    offset: page.value * limit.value,
+    limit: limit.value
+  })
 })
 </script>
 

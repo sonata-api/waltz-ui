@@ -2,7 +2,7 @@
 import type { Layout } from '@sonata-api/types'
 import { onUnmounted, ref, computed, provide, inject, watch, isRef, type Ref } from 'vue'
 import { deepClone, getReferenceProperty } from '@sonata-api/common'
-import { useAction, useBreakpoints, useDebounce, useScrollObserver, type ActionFilter, type ActionEvent } from '@waltz-ui/web'
+import { useAction, useBreakpoints, useDebounce, useScrollObserver, type ActionFilter, type ActionEvent, type Pagination } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
 
@@ -85,12 +85,11 @@ const MAX_BATCHES = 30
 const firstFetch = ref(false)
 
 const fetchItems = async (optPayload?: ActionFilter) => {
-  const payload: ActionFilter = {
-    limit: store.pagination.limit,
+  const payload: ActionFilter = Object.assign({
     project: store.preferredTableProperties?.length > 0
       ? store.preferredTableProperties
       : store.description.table || Object.keys(store.properties)
-  }
+  }, store.pagination)
 
   if( batch.value > 0 ) {
     payload.limit = 15
@@ -107,9 +106,10 @@ const fetchItems = async (optPayload?: ActionFilter) => {
 
   store.loading.getAll = true
   store.activeFilters = payload.filters
-  const { data, pagination } = await store.$functions.getAll(payload)
+  const { data, pagination } = await store.$actions.retrieveItems(payload)
 
-  store.pagination = pagination
+  store.pagination.recordsCount = pagination.recordsCount
+  store.pagination.recordsTotal = pagination.recordsTotal
 
   if( batch.value === 0 ) {
     store.items.splice(0)
@@ -118,6 +118,12 @@ const fetchItems = async (optPayload?: ActionFilter) => {
   store.items.push(...data)
   store.loading.getAll = false
   firstFetch.value = true
+}
+
+const paginate = (pagination: Pick<Pagination, 'offset' | 'limit'>) => {
+  store.pagination.offset = pagination.offset
+  store.pagination.limit = pagination.limit
+  fetchItems()
 }
 
 const emptyComponent = inject('emptyComponent')
@@ -491,7 +497,10 @@ provide('individualActions', individualActions)
     v-if="!store.loading.getAll && store.itemsCount > 0"
     class="crud__pagination"
   >
-    <aeria-pagination :pagination="store.pagination"></aeria-pagination>
+    <aeria-pagination
+      :pagination="store.pagination"
+      @paginate="paginate"
+    ></aeria-pagination>
   </div>
 
 </template>

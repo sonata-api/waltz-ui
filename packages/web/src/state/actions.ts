@@ -139,7 +139,7 @@ export const useStoreActions = (store: CollectionStore) => {
       return actions.custom('count', payload)
     },
 
-    get(payloadSource: ActionFilter|string, options?: CustomOptions) {
+    get(payloadSource: ActionFilter | string, options?: CustomOptions) {
       const payload = typeof payloadSource === 'string'
         ? { filters: { _id: payloadSource } }
         : payloadSource
@@ -157,7 +157,11 @@ export const useStoreActions = (store: CollectionStore) => {
       )
     },
 
-    getAll(_payload?: ActionFilter, options?: CustomOptions)  {
+    retrieveItems(payload?: ActionFilter) {
+      return actions.custom('getAll', payload)
+    },
+
+    async getAll(_payload?: ActionFilter)  {
       const payload = Object.assign({}, _payload || {})
 
       if( typeof payload.limit !== 'number' ) {
@@ -168,14 +172,12 @@ export const useStoreActions = (store: CollectionStore) => {
         payload.offset = store.pagination.offset
       }
 
-      return actions.customEffect(
-        'getAll', payload,
-        ({ data, pagination }) => {
-          actions.setItems(data)
-          Object.assign(store.pagination, pagination)
+      const response = await actions.retrieveItems(payload)
+      actions.setItems(response.data)
+      Object.assign(store.pagination, response.pagination)
 
-          return data
-        }, options)
+      return response.data
+
     },
 
     insert(payload?: { what: Partial<typeof store['item']> }, options?: CustomOptions) {
@@ -235,7 +237,7 @@ export const useStoreActions = (store: CollectionStore) => {
       )
     },
 
-    filter(props?: ActionFilter, options?: CustomOptions) {
+    filter(props?: ActionFilter) {
       store.activeFilters = props?.filters || store.$filters
 
       return actions.getAll({
@@ -245,7 +247,7 @@ export const useStoreActions = (store: CollectionStore) => {
         },
         limit: store.pagination.limit,
         ...props||{}
-      }, options)
+      })
     },
 
     updateItems() {
