@@ -1,6 +1,7 @@
 .accordion {
   color: var(--theme-foreground-color);
   background: var(--theme-background-color-shade-4);
+  border: 1px solid var(--theme-frame-color);
   border-radius: var(--theme-radius-large);
   overflow: hidden;
 
@@ -16,7 +17,7 @@
   }
 
   &--padded {
-    &__content {
+    .accordion__content {
       padding: 1rem;
     }
   }
