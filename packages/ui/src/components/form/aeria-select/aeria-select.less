@@ -1,13 +1,14 @@
 .select {
-  --background-color: var(--input-background-color, var(--theme-background-color-shade-3));
+  --background-color: var(--select-background-color, var(--theme-background-color-shade-3));
+  --border-color: var(--select-border-color, var(--theme-frame-color));
 
   display: flex;
   align-items: center;
   gap: .4rem;
 
   background: var(--background-color);
-  border: 1px solid transparent;
-  transition: border-color .15s ease;
+  border: 1px solid var(--border-color);
+  border-radius: var(--theme-radius-medium);
 
   &--outline {
     &:focus-within {

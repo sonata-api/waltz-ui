@@ -1,7 +1,7 @@
 @picture-size: 2rem;
 
 .cell-padding {
-  padding: .6rem .8rem;
+  padding: .5rem .8rem;
 }
 
 .table {
@@ -9,8 +9,9 @@
   border-spacing: 0;
   border-radius: var(--theme-radius-large);
 
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 768px) {
     overflow: hidden;
+    border: 1px solid var(--theme-frame-color);
   }
 
   :deep(thead) > tr {
@@ -20,7 +21,7 @@
       display: table-row;
     }
 
-    @media screen and (min-width: 600px) {
+    @media screen and (min-width: 768px) {
       height: 3rem;
       display: table-row;
       text-align: left;
@@ -38,14 +39,16 @@
   :deep(tfoot) > tr {
     height: 3rem;
     background: var(--theme-background-color-shade-2);
+    border: 1px solid var(--theme-frame-color);
 
-    @media screen and (min-width: 600px) {
+    @media screen and (min-width: 768px) {
+      border: 0;
       &:hover {
         background: var(--theme-background-color-shade-2);
       }
     }
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 768px) {
       display: flex;
       flex-direction: column;
       height: auto;
@@ -60,7 +63,7 @@
 
     &:not(:last-child) {
       &>td {
-        @media screen and (min-width: 600px) {
+        @media screen and (min-width: 768px) {
           border-bottom: 1px solid var(--theme-border-color);
         }
       }
@@ -74,14 +77,14 @@
 
   :deep(tfoot) > tr {
     &>td {
-      @media screen and (min-width: 600px) {
+      @media screen and (min-width: 768px) {
         border-top: 1px solid var(--theme-border-color);
       }
     }
   }
 
   &__cell-grid {
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 768px) {
       display: flex;
       flex-direction: column;
     }
@@ -91,7 +94,7 @@
     display: none;
     font-weight: 500;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 768px) {
       display: inherit;
     }
   }

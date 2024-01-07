@@ -12,7 +12,7 @@ export type CrudParameters = {
   filters: Record<string, any>
   limit: number
   offset: number
-  project?: string[]|Record<string, 1|-1>
+  project?: string[]
 }
 
 export type ActionFilter = Partial<CrudParameters>

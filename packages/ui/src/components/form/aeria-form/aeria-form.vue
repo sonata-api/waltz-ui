@@ -371,8 +371,10 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
 
         <div
           v-else-if="
-            'type' in property && property.type === 'array'
-              && (getReferenceProperty(property)?.inline || getReferenceProperty(property)?.$ref === 'file')
+            'items' in property && (
+              !('$ref' in property.items)
+              || (property.items.inline || property.items.$ref === 'file')
+            )
           "
           style="display: grid; row-gap: .4rem"
         >

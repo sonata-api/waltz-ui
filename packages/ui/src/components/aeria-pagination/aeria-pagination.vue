@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import { PAGINATION_PER_PAGE_DEFAULTS } from '@waltz-ui/web'
-import { useParentStore } from '@waltz-ui/state-management'
+import { PAGINATION_PER_PAGE_DEFAULTS, type Pagination } from '@waltz-ui/web'
 import { t } from '@waltz-ui/i18n'
 
 import AeriaBareButton from '../aeria-bare-button/aeria-bare-button.vue'
@@ -10,40 +9,41 @@ import AeriaInput from '../form/aeria-input/aeria-input.vue'
 import AeriaSelect from '../form/aeria-select/aeria-select.vue'
 
 type Props = {
-  collection: string
+  pagination: Pagination
 }
 
 const props = defineProps<Props>()
-const store = useParentStore(props.collection)
+// const store = useParentStore(props.collection)
 
 const page = computed<number>({
-  get: () => Math.floor(store.pagination.offset / store.pagination.limit),
+  get: () => Math.floor(props.pagination.offset / props.pagination.limit),
   set: (page: number) => {
-    store.pagination.offset = page * store.pagination.limit
+    props.pagination.offset = page * props.pagination.limit
   }
 })
 
 const limit = computed<number>({
-  get: () => store.pagination.limit,
+  get: () => props.pagination.limit,
   set: (value) => {
-    store.pagination.limit = Number(value)
+    props.pagination.limit = Number(value)
   }
 })
 
 const pageInput = ref(page.value ? page.value + 1 : 1)
 const pageCount = computed(
-  () => Math.ceil(store.pagination.recordsTotal / store.pagination.limit)
+  () => Math.ceil(props.pagination.recordsTotal / props.pagination.limit)
 )
 
-const paginate = (direction: 'previous'|'next') => {
-  window.scrollTo(0, 0)
+const paginate = (direction: 'previous' | 'next') => {
+  // window.scrollTo(0, 0)
   page.value = direction === 'previous'
     ? page.value - 1
     : page.value + 1
 
-  update()
+  // update()
 }
 
+/*
 const update = () => {
   return store.$actions.filter({
     project: [
@@ -52,6 +52,7 @@ const update = () => {
     ]
   })
 }
+*/
 
 watch([page, limit], ([newPage]: [number, number]) => {
   pageInput.value = newPage + 1
@@ -67,7 +68,6 @@ watch([page, limit], ([newPage]: [number, number]) => {
         icon: 'list-ul'
       }"
       class="pagination__control"
-      @change="update"
     >
       <option
         v-for="limit in PAGINATION_PER_PAGE_DEFAULTS"
@@ -79,14 +79,14 @@ watch([page, limit], ([newPage]: [number, number]) => {
     </aeria-select>
 
     <div class="pagination__control">
-      <aeria-bare-button @click="page = 0; update()">
+      <aeria-bare-button @click="page = 0">
         <aeria-icon
           reactive
           icon="angle-double-left"
         ></aeria-icon>
       </aeria-bare-button>
       <aeria-bare-button
-        :disabled="store.loading.getAll || page === 0"
+        :disabled="page === 0"
         @click="paginate('previous')"
       >
         <aeria-icon
@@ -103,12 +103,12 @@ watch([page, limit], ([newPage]: [number, number]) => {
             minimum: 1
           }"
 
-          @change="page = pageInput === 0 ? 0 : pageInput - 1; update()"
+          @change="page = pageInput === 0 ? 0 : pageInput - 1;"
         ></aeria-input>
         <span>{{ t('of') }} {{ pageCount }}</span>
       </div>
       <aeria-bare-button
-        :disabled="store.loading.getAll || page >= pageCount - 1"
+        :disabled="page === pageCount - 1"
         @click="paginate('next')"
       >
         <aeria-icon
@@ -116,7 +116,7 @@ watch([page, limit], ([newPage]: [number, number]) => {
           icon="angle-right"
         ></aeria-icon>
       </aeria-bare-button>
-      <aeria-bare-button @click="page = pageCount - 1; update()">
+      <aeria-bare-button @click="page = pageCount - 1">
         <aeria-icon
           reactive
           icon="angle-double-right"
@@ -127,3 +127,4 @@ watch([page, limit], ([newPage]: [number, number]) => {
 </template>
 
 <style scoped src="./aeria-pagination.less"></style>
+

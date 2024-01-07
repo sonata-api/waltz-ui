@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { watch, computed, ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useScrollObserver } from '@waltz-ui/web'
 import AeriaIcon from '../aeria-icon/aeria-icon.vue'
 
 // #region props
@@ -46,23 +47,8 @@ const emit = defineEmits<{
 const isFloating = computed(() => props.floating || props.float)
 const isCollapsed = ref(props.collapsed)
 
-const body = ref<Element & { offsetHeight: number }>()
-
-const reachedEnd = ref(true)
-
-const updateScroll = () => {
-  const { value: bodyElem } = body
-  reachedEnd.value = bodyElem
-    ? bodyElem.scrollTop + bodyElem.offsetHeight! >= bodyElem.scrollHeight
-    : true
-}
-
-watch(() => body.value, (bodyElem) => {
-  if( bodyElem ) {
-    const ob = new ResizeObserver(updateScroll)
-    ob.observe(bodyElem)
-  }
-})
+const body = ref<HTMLElement | null>(null)
+const { reachedEnd } = useScrollObserver(body)
 
 const close = () => {
   emit('update:modelValue', false)
@@ -163,7 +149,6 @@ const toggleCollapsed = (value: boolean) => {
           ${fill || 'panel__body--padded'}
       `"
         ref="body"
-        @scroll="updateScroll"
       >
         <slot></slot>
       </div>

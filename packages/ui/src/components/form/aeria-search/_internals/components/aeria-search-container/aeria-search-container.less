@@ -1,17 +1,16 @@
 .container {
   background: var(--theme-background-color-shade-3);
-  border-radius: var(--theme-radius-large);
-  overflow: hidden;
+  border-radius: var(--theme-radius-medium);
+  border: 1px solid var(--theme-frame-color);
 
   &__content {
     max-height: 20rem;
     overflow-x: hidden;
-    overflow-y: scroll;
-    transition: height 1s ease;
+    overflow-y: auto;
   }
 
   &__footer {
-    padding: .8rem;
+    padding: var(--theme-input-padding);
     font-size: .8rem;
     color: var(--theme-foreground-color);
   }

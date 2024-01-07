@@ -10,21 +10,17 @@
 
 .button {
   --border-color: var(--button-border-color, var(--theme-border-color));
-
   position: relative;
-  padding: .35em 1em;
 
   box-sizing: content-box;
   text-align: center;
-  border-radius: var(--theme-radius-large);
+  border-radius: var(--theme-radius-medium);
   outline: none;
+  font-weight: 700;
+  letter-spacing: 1px;
 
   border: 1px solid transparent;
   color: var(--theme-foreground-color);
-
-  :deep([data-component=icon]) {
-    height: .95rem;
-  }
 
   &--loading:before {
     display: block;
@@ -87,6 +83,5 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: .4rem;
   }
 }

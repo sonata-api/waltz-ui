@@ -23,7 +23,6 @@
 
 .input {
   --background-color: var(--input-background-color, var(--theme-background-color-shade-3));
-  --border-color: var(--input-border-color, var(--theme-background-color-shade-3));
 
   &__container {
     position: relative;
@@ -32,8 +31,7 @@
     &>.input__input,
     &>.input__textarea {
       background: var(--background-color);
-      border: 1px solid var(--border-color);
-      transition: border-color .15s ease;
+      border: 1px solid var(--theme-frame-color);
     }
 
     &--light {
@@ -54,17 +52,16 @@
     &--normal, &--bold {
       color: var(--theme-foreground-color);
       background: var(--background-color);
+      border-radius: var(--theme-radius-medium);
     }
 
     &--normal {
       padding: var(--theme-input-padding);
-      border-radius: var(--theme-radius-medium);
       font-size: 11pt;
     }
 
     &--bold {
       padding: var(--theme-input-padding-large);
-      border-radius: var(--theme-radius-large);
       font-size: 12.5pt;
     }
 
@@ -113,6 +110,8 @@
     display: flex;
     place-items: center;
     background: var(--background-color);
+    border: 1px solid var(--theme-frame-color);
+    border-width: 1px 1px 1px 0;
 
     padding: 0 .6em;
   }

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { Layout } from '@sonata-api/types'
-import { onUnmounted, computed, provide, inject, watch, isRef, type Ref } from 'vue'
+import { onUnmounted, ref, computed, provide, inject, watch, isRef, type Ref } from 'vue'
 import { deepClone, getReferenceProperty } from '@sonata-api/common'
-import { useAction, useDebounce, type ActionFilter, type ActionEvent } from '@waltz-ui/web'
+import { useAction, useBreakpoints, useDebounce, useScrollObserver, type ActionFilter, type ActionEvent } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
 
@@ -35,6 +35,7 @@ type Props = {
   layout?: Layout
   action?: Ref<ReturnType<typeof useAction>> | ReturnType<typeof useAction>
   componentProps?: Record<string, any>
+  scrollPagination?: boolean
 }
 
 type Emits = {
@@ -51,8 +52,24 @@ const debounce = useDebounce({
 })
 
 const metaStore = useStore('meta')
+const breakpoints = useBreakpoints()
+const { reachedEnd, detach: detachScrollListener } = useScrollObserver(null, {
+  antecipate: 600
+})
+
+const scrollPagination = !breakpoints.value.md || props.scrollPagination
+
+if( scrollPagination ) {
+  watch(reachedEnd, (value) => {
+    if( value && store.pagination.recordsTotal > store.items.length && batch.value < MAX_BATCHES ) {
+      batch.value += 1
+      fetchItems()
+    }
+  })
+}
 
 const store = useStore(props.collection)
+
 const action = props.action
   ? isRef(props.action)
     ? props.action.value
@@ -62,23 +79,45 @@ const action = props.action
 call.value = action[0]
 actionEventBus.value = action[1]
 
+const batch = ref(0)
+const MAX_BATCHES = 30
+
+const firstFetch = ref(false)
+
 const fetchItems = async (optPayload?: ActionFilter) => {
   const payload: ActionFilter = {
-    project: [
-      ...(
-        store.preferredTableProperties?.length > 0
-          ? store.preferredTableProperties
-          : store.description.table || Object.keys(store.properties)
-      ),
-      ...store.description.tableMeta||[]
-    ],
+    limit: store.pagination.limit,
+    project: store.preferredTableProperties?.length > 0
+      ? store.preferredTableProperties
+      : store.description.table || Object.keys(store.properties)
+  }
+
+  if( batch.value > 0 ) {
+    payload.limit = 15
+    payload.offset = batch.value * payload.limit
+  }
+
+  if( store.description.tableMeta ) {
+    payload.project!.push(...store.description.tableMeta)
   }
 
   if( optPayload ) {
     Object.assign(payload, optPayload)
   }
 
-  return store.$actions.filter(payload)
+  store.loading.getAll = true
+  store.activeFilters = payload.filters
+  const { data, pagination } = await store.$functions.getAll(payload)
+
+  store.pagination = pagination
+
+  if( batch.value === 0 ) {
+    store.items.splice(0)
+  }
+
+  store.items.push(...data)
+  store.loading.getAll = false
+  firstFetch.value = true
 }
 
 const emptyComponent = inject('emptyComponent')
@@ -100,6 +139,7 @@ watch(router.currentRoute, async (route) => {
 const [performLazySearch] = debounce((value: string) => {
   if( !value ) {
     store.filters = deepClone(store.freshFilters)
+    batch.value = 0
     return fetchItems()
   }
 
@@ -127,6 +167,7 @@ const toggleLayout = (store: any) => {
 
 onUnmounted(() => {
   store.$actions.clearFilters()
+  detachScrollListener()
 })
 
 watch(() => actionEventBus.value, async (_event) => {
@@ -387,10 +428,11 @@ provide('individualActions', individualActions)
 
   </div>
 
-  <div v-loading="store.loading.getAll">
+  <div v-loading="(!scrollPagination || batch === MAX_BATCHES) && store.loading.getAll">
     <div v-if="
       store.itemsCount === 0
       && !store.loading.getAll
+      && firstFetch
       && (emptyComponent || $slots.empty)
     ">
       <component
@@ -449,7 +491,7 @@ provide('individualActions', individualActions)
     v-if="!store.loading.getAll && store.itemsCount > 0"
     class="crud__pagination"
   >
-    <aeria-pagination :collection="collection"></aeria-pagination>
+    <aeria-pagination :pagination="store.pagination"></aeria-pagination>
   </div>
 
 </template>

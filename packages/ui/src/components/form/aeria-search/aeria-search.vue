@@ -2,7 +2,7 @@
 import type { FormFieldProps, SearchProperty } from '../types'
 import { getReferenceProperty, convertConditionToQuery } from '@sonata-api/common'
 import { provide, inject, computed, ref, watch, onMounted } from 'vue'
-import { useDebounce } from '@waltz-ui/web'
+import { useDebounce, type Pagination } from '@waltz-ui/web'
 import { useStore, useParentStore, type Store } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
 
@@ -55,11 +55,12 @@ const selected = ref(props.modelValue)
 
 const searchResponse = ref({
   data: [] as any[],
-  pagination: {}
+  pagination: {} as Pagination
 })
 
 const matchingItems = computed(() => searchResponse.value.data || [])
 const pagination = computed(() => searchResponse.value.pagination)
+const batch = ref(0)
 
 const searchField = ref(indexes[0])
 const isTyping = ref(false)
@@ -76,25 +77,25 @@ const defaultFilters = () => {
     : {}
 }
 
-const search = async (options?: { empty?: true }) => {
+const nextBatch = () => {
+  if( matchingItems.value.length < pagination.value.recordsTotal ) {
+    batch.value += 1
+    search()
+  }
+}
+
+const getSearchResults = async () => {
   if( Object.values(inputValue.value).every((v) => !(String(v).length > 0)) ) {
-    if( options?.empty ) {
-      searchResponse.value = await store.$actions.custom(
-        'getAll',
-        { limit: DEFAULT_LIMIT, filters: defaultFilters() },
-        { fullResponse: true }
-      )
-    }
-
-    return
+    return store.$actions.custom('getAll', {
+      limit: DEFAULT_LIMIT,
+      offset: batch.value * DEFAULT_LIMIT,
+      filters: defaultFilters()
+    })
   }
 
-  if( store.loading.getAll ) {
-    return
-  }
-
-  searchResponse.value = await store.$actions.custom('getAll', {
+  return store.$actions.custom('getAll', {
     limit: DEFAULT_LIMIT,
+    offset: batch.value * DEFAULT_LIMIT,
     filters: {
       ...defaultFilters(),
       $or: indexes?.filter((i) => inputValue.value[i]?.length > 0).map((i) => ({
@@ -106,10 +107,26 @@ const search = async (options?: { empty?: true }) => {
         }
       }))
     }
-  }, { fullResponse: true })
+  })
+}
+
+const search = async () => {
+  if( store.loading.getAll ) {
+    return
+  }
+
+  const response = await getSearchResults()
+  searchResponse.value.pagination = response.pagination
+
+  if( batch.value === 0 ) {
+    searchResponse.value.data.splice(0)
+  }
+
+  searchResponse.value.data.push(...response.data)
 }
 
 const [doLazySearch] = useDebounce({ delay: 800 })(() => {
+  batch.value = 0
   search()
   isTyping.value = false
 })
@@ -126,7 +143,7 @@ const openSelectPanel = () => {
     panel.value = true
   }
 
-  search({ empty: true })
+  search()
 }
 
 const closeSelectPanel = () => {
@@ -141,13 +158,13 @@ const isInputEmpty = computed(() => !Object.values(inputValue.value).some((value
 
 watch(isInputEmpty, (val, oldVal) => {
   if( val && !oldVal ) {
-    search({ empty: true })
+    search()
   }
 })
 
 onMounted(() => {
   if( props.selectOnly ) {
-    search({ empty: true })
+    search()
   }
 })
 
@@ -165,7 +182,10 @@ const save = () => {
 </script>
 
 <template>
-  <teleport to="main">
+  <teleport
+    to="main"
+    v-if="panel"
+  >
     <aeria-panel
       float
       close-hint
@@ -205,7 +225,11 @@ const save = () => {
           </div>
         </div>
 
-        <aeria-search-container v-if="matchingItems.length">
+        <aeria-search-container
+          v-if="matchingItems.length"
+          observe-scroll
+          @end-reached="nextBatch"
+        >
           <aeria-search-item
             v-model="selected"
             v-for="item in matchingItems"
@@ -231,6 +255,10 @@ const save = () => {
             Não há resultados
           </div>
         </div>
+      </div>
+
+      <div>
+        Mostrando {{ matchingItems.length }} of {{ pagination.recordsTotal }}
       </div>
 
       <template #footer>

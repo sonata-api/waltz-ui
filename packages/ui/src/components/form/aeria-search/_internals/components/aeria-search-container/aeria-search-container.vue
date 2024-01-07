@@ -1,6 +1,39 @@
+<script setup lang="ts">
+import { ref, watch } from 'vue'
+import { useScrollObserver } from '@waltz-ui/web'
+
+type Props = {
+  observeScroll?: boolean
+}
+
+type Emits = {
+  (e: 'endReached', value: boolean): void
+}
+
+const props = defineProps<Props>()
+const emit = defineEmits<Emits>()
+
+const containerEl = ref<HTMLElement | null>(null)
+const reachedEnd = props.observeScroll
+  ? useScrollObserver(containerEl).reachedEnd
+  : null
+
+if( reachedEnd !== null ) {
+  watch(reachedEnd, (value) => {
+    if( value ) {
+      emit('endReached', value)
+    }
+  })
+}
+</script>
+
 <template>
   <div class="container">
-    <div v-if="$slots.default" class="container__content">
+    <div
+      v-if="$slots.default"
+      ref="containerEl"
+      class="container__content"
+    >
       <slot></slot>
     </div>
 

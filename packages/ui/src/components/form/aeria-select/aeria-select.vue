@@ -131,10 +131,4 @@ if( !!props.multiple ) {
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  inheritAttrs: false
-}
-</script>
-
 <style scoped src="./aeria-select.less"></style>
