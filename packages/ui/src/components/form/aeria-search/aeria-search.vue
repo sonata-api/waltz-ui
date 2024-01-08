@@ -147,6 +147,9 @@ const openSelectPanel = () => {
 }
 
 const closeSelectPanel = () => {
+  batch.value = 0
+  searchResponse.value.data.splice(0)
+
   if( 'effect' in panel ) {
     emit('update:panel', false)
   } else {
