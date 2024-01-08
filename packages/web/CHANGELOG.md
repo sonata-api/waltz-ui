@@ -1,5 +1,11 @@
 # @waltz-ui/web
 
+## 1.0.10
+
+### Patch Changes
+
+- Fix bugs
+
 ## 1.0.9
 
 ### Patch Changes
