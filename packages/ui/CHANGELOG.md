@@ -1,5 +1,23 @@
 # @waltz-ui/ui
 
+## 1.0.30
+
+### Patch Changes
+
+- Fix aeria-options
+
+## 1.0.29
+
+### Patch Changes
+
+- Exports
+
+## 1.0.28
+
+### Patch Changes
+
+- Renderize checkboxes for uniqueItems
+
 ## 1.0.27
 
 ### Patch Changes

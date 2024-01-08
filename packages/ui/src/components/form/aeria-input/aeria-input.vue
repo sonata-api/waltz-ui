@@ -235,7 +235,7 @@ watch(() => props.modelValue, (value, oldValue) => {
           <aeria-icon
             v-clickable
             icon="clipboard"
-            @click="copyToClipboard(modelValue.toString())"
+            @click="copyToClipboard(String(modelValue || ''))"
           ></aeria-icon>
         </aeria-info>
       </div>

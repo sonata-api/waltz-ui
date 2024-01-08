@@ -371,7 +371,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
 
         <div
           v-else-if="
-            'items' in property && (
+            'items' in property && !property.uniqueItems && (
               !('$ref' in property.items)
               || (property.items.inline || property.items.$ref === 'file')
             )

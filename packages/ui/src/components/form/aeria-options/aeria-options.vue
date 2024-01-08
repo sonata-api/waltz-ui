@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { Property, EnumProperty } from '@sonata-api/types'
+import type { ArrayProperty, EnumProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
-import { computed } from 'vue'
+import { onBeforeMount } from 'vue'
 import AeriaCheckbox from '../aeria-checkbox/aeria-checkbox.vue'
 
 type Props = Omit<FormFieldProps<any>, 'property'> & {
-  property: Property & EnumProperty
+  property: EnumProperty | (ArrayProperty & { items: EnumProperty })
   columns?: number
 }
 
@@ -18,36 +18,47 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<Emits>()
-const modelValue = computed(() => props.modelValue)
+
+const options = 'items' in props.property
+  ? props.property.items.enum
+  : props.property.enum
 
 const updateValue = (value: any) => {
   emit('update:modelValue', value)
 }
+
+onBeforeMount(() => {
+  if( !props.modelValue ) {
+    emit(
+      'update:modelValue',
+      'items' in props.property
+        ? []
+        : ''
+    )
+  }
+})
 </script>
 
 <template>
   <div
     class="options"
     :style="`
-      --columns: ${columns||1};
+      --columns: ${columns};
       grid-template-columns: repeat(var(--columns), 1fr);
     `"
   >
     <div
-      v-for="(option, index) in property.enum"
-      :key="`option-${index}`"
-
-      :class="`
-        options__checkbox
-        ${modelValue && 'options__checkbox--selected'}
-    `">
+      v-for="option in options"
+      :key="`option-${option}`"
+      class="options__checkbox"
+    >
         <aeria-checkbox
-          :model-value="modelValue"
           v-bind="{
             value: option,
             property
           }"
 
+          :model-value="modelValue"
           @update:model-value="updateValue"
         ></aeria-checkbox>
       </div>
@@ -61,3 +72,4 @@ export default {
 </script>
 
 <style scoped src="./aeria-options.less"></style>
+

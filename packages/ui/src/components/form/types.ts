@@ -1,7 +1,7 @@
 import type { Property, RefProperty, ArrayOfRefs } from '@sonata-api/types'
 
 export type FormFieldProps<TModelValue, TProperty = Property> = {
-  modelValue: TModelValue
+  modelValue?: TModelValue
   property?: TProperty
   propertyName?: string
   parentPropertyName?: string

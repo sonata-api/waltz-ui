@@ -1,5 +1,5 @@
 import { Property } from '@sonata-api/types'
-import { deepClone, isReference, getReferenceProperty, freshItem } from '@sonata-api/common'
+import { deepClone, getReferenceProperty, freshItem } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
 
 import AeriaInput from '../../aeria-input/aeria-input.vue'
@@ -59,6 +59,12 @@ export const getComponent = (property: Property, customComponents: Record<string
       }
 
       return 'search'
+    }
+
+    if( 'items' in property ) {
+      if( property.uniqueItems ) {
+        return 'options'
+      }
     }
 
     if( 'enum' in nestedProp ) {

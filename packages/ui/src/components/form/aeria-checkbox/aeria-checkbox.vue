@@ -1,13 +1,8 @@
-<script lang="ts">
-export default {
-  inheritAttrs: false
-}
-</script>
-
 <script setup lang="ts">
 import type { ArrayProperty, EnumProperty, BooleanProperty, Property } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
-import { computed, ref } from 'vue'
+import { t } from '@waltz-ui/i18n'
+import { computed } from 'vue'
 
 type Props = FormFieldProps<any, (ArrayProperty | EnumProperty | BooleanProperty) & Property> & {
   value?: any
@@ -25,29 +20,19 @@ const emit = defineEmits<{
   (e: 'update:modelValue' | 'change', value: Props['modelValue']): void
 }>()
 
-const checkbox = ref<any>(null)
-
-const value = typeof props.value === 'object'
-  ? ((props.value as any)?._id || props.value)
-  : props.value||false
-
-const selectedValues = (values: Props['modelValue'][]): (string|boolean)[] => {
-  return values.map((v: any) => v._id || v)
-}
+const value = props.value || false
 
 const bindVal = computed({
   get: () => {
-    if( !props.modelValue ) {
-      return false
+    if( 'type' in property && property.type === 'boolean' ) {
+      return !!props.value
     }
 
-    if( !('items' in property) ) {
-      return props.modelValue === props.value
+    if( 'items' in property ) {
+      return props.modelValue?.includes(props.value)
     }
 
-    return Array.isArray(props.modelValue)
-      ? selectedValues(props.modelValue).includes(props.value as string)
-      : !!props.value
+    return props.modelValue === props.value
   },
 
   set: () => {
@@ -55,18 +40,19 @@ const bindVal = computed({
       return
     }
 
-    if( !('items' in property) ) {
+    if( 'type' in property && property.type === 'boolean' ) {
       emit('update:modelValue', !props.modelValue)
       return
     }
 
-    const values = props.modelValue
-      ? [props.modelValue]
-      : []
+    if( 'items' in property ) {
+      emit('update:modelValue', !props.modelValue?.includes(value)
+        ? [ ...props.modelValue || [], value ]
+        : props.modelValue.filter((v: any) => v !== value))
+      return
+    }
 
-    emit('update:modelValue', !selectedValues(values).includes(value)
-      ? [ ...values, value ]
-      : selectedValues(values).filter((v) => v !== value))
+    emit('update:modelValue', props.value)
   }
 })
 </script>
@@ -78,7 +64,6 @@ const bindVal = computed({
   `">
     <input
       v-model="bindVal"
-      ref="checkbox"
       v-bind="{
         type,
         readOnly: property.readOnly,
@@ -86,13 +71,14 @@ const bindVal = computed({
       }"
       class="checkbox__input"
     />
+
     <div
       v-clickable
       class="checkbox__text"
     >
       <div>
         <slot name="description" v-if="$slots.description"></slot>
-        <div v-else-if="value" v-html="value"></div>
+        <div v-else-if="value" v-html="property.translate ? t(value) : value"></div>
         <slot v-else></slot>
       </div>
       <div class="checkbox__hint">
@@ -102,5 +88,11 @@ const bindVal = computed({
     </div>
   </label>
 </template>
+
+<script lang="ts">
+export default {
+  inheritAttrs: false
+}
+</script>
 
 <style scoped src="./aeria-checkbox.less"></style>
