@@ -1,7 +1,10 @@
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     instanceVars: typeof import('waltz-build').InstanceConfig['site']
-    currentUser: typeof import('@sonata-api/system/collections').User
+    currentUser: {
+      _id: string
+      full_name: string
+    }
     formatDateTime: typeof import('@sonata-api/common').formatDateTime
   }
 }

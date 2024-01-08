@@ -42,7 +42,7 @@ declare module '@vue/runtime-core' {
     viewTitle: string
     viewIcon: string
     instanceConfig: typeof import('waltz-build').InstanceConfig
-    currentUser: typeof import('@sonata-api/system/collections').User
+    currentUser: typeof import('../api/src').collections.user
     t: typeof import('@waltz-ui/i18n').t
   }
 }
