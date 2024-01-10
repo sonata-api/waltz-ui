@@ -85,11 +85,17 @@ const MAX_BATCHES = 30
 const firstFetch = ref(false)
 
 const fetchItems = async (optPayload?: ActionFilter) => {
-  const payload: ActionFilter = Object.assign({
+  store.activeFilters = Object.assign({}, optPayload?.filters || store.$filters)
+  Object.assign(store.activeFilters, store.filtersPreset)
+
+  const payload: ActionFilter = {
+    filters: store.activeFilters,
+    limit: store.pagination.limit,
+    offset: store.pagination.offset,
     project: store.preferredTableProperties?.length > 0
       ? store.preferredTableProperties
       : store.description.table || Object.keys(store.properties)
-  }, store.pagination)
+  }
 
   if( batch.value > 0 ) {
     payload.limit = 15
@@ -105,7 +111,6 @@ const fetchItems = async (optPayload?: ActionFilter) => {
   }
 
   store.loading.getAll = true
-  store.activeFilters = payload.filters
   const { data, pagination } = await store.$actions.retrieveItems(payload)
 
   store.pagination.recordsCount = pagination.recordsCount

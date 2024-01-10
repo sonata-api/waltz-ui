@@ -1,5 +1,17 @@
 # waltz-build
 
+## 0.1.6
+
+### Patch Changes
+
+- Fixes in aeria-crud, i18n, and build
+
+## 0.1.5
+
+### Patch Changes
+
+- aeria-crud bug
+
 ## 0.1.4
 
 ### Patch Changes

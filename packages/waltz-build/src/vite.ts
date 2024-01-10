@@ -105,5 +105,9 @@ export default defineConfig(async () => {
     },
   }
 
+  if( instanceConfig.preserveSymlinks ) {
+    config.resolve!.preserveSymlinks = true
+  }
+
   return config
 })

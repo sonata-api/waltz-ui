@@ -239,15 +239,19 @@ export const useStoreActions = (store: CollectionStore) => {
 
     filter(props?: ActionFilter) {
       store.activeFilters = props?.filters || store.$filters
-
-      return actions.getAll({
+      const payload = {
         filters: {
           ...store.activeFilters,
           ...store.filtersPreset
         },
         limit: store.pagination.limit,
-        ...props||{}
-      })
+      }
+
+      if( props ) {
+        Object.assign(payload, props)
+      }
+
+      return actions.getAll(payload)
     },
 
     updateItems() {

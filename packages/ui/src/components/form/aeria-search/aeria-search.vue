@@ -261,7 +261,7 @@ const save = () => {
       </div>
 
       <div class="search__summary">
-        Mostrando {{ matchingItems.length }} of {{ pagination.recordsTotal }}
+        Mostrando {{ matchingItems.length }} {{ t('of') }} {{ pagination.recordsTotal }}
       </div>
 
       <template #footer>

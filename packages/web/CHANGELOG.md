@@ -1,5 +1,11 @@
 # @waltz-ui/web
 
+## 1.0.12
+
+### Patch Changes
+
+- Fixes in aeria-crud, i18n, and build
+
 ## 1.0.11
 
 ### Patch Changes

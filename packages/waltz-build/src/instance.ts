@@ -11,6 +11,7 @@ export type InstanceConfig = {
     libraries?: string[]
   }
   sourcemap?: boolean
+  preserveSymlinks?: boolean
 }
 
 export const getInstanceConfig = async () => {
