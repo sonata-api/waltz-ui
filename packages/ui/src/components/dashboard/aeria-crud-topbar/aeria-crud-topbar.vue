@@ -51,7 +51,7 @@ const togglePreset = (preset: FiltersPreset<any> | null) => {
   })(store)
 }
 
-watch(route, (currRoute) => {
+watch(() => route.value.query.section, (section) => {
   if( !store.value ) {
     return
   }
@@ -62,11 +62,20 @@ watch(route, (currRoute) => {
     }
 
     if( store.description.filtersPresets ) {
-      const currPreset = currRoute.query.section as string
+      const currPreset = section as string
         || Object.keys(store.description.filtersPresets)[0]
 
       togglePreset(store.description.filtersPresets[currPreset])
     }
+
+    const query = route.value.query
+    if( query.offset ) {
+      store.pagination.offset = +query.offset
+    }
+    if( query.limit ) {
+      store.pagination.limit = +query.limit
+    }
+
 
   })(store.value!)
 }, { immediate: true })

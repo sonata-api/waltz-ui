@@ -1,6 +1,6 @@
 export * from './actions'
 export * from './collection'
-export * from './collection'
+export * from './searchQuery'
 export * from './deepDiff'
 export * from './helpers'
 export * from './isDocumentComplete'

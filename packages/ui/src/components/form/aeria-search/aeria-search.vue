@@ -195,6 +195,10 @@ const save = () => {
       :title="`Selecionar ${t(propertyName)}`"
       :overlay-layer="65"
       :model-value="panel"
+
+      style="
+        --panel-max-width: 36rem;
+      "
       @close="closeSelectPanel"
       @overlay-click="closeSelectPanel"
     >

@@ -11,7 +11,7 @@
 
   @media screen and (min-width: 768px) {
     overflow: hidden;
-    border: 1px solid var(--theme-frame-color);
+    border: var(--theme-frame-border);
   }
 
   :deep(thead) > tr {
@@ -39,7 +39,7 @@
   :deep(tfoot) > tr {
     height: 3rem;
     background: var(--theme-background-color-shade-2);
-    border: 1px solid var(--theme-frame-color);
+    border: var(--theme-frame-border);
 
     @media screen and (min-width: 768px) {
       border: 0;
@@ -105,6 +105,10 @@
     align-items: center;
     column-gap: .8rem;
     margin-left: auto;
+  }
+
+  &__cell-subvalue {
+    font-weight: 300;
   }
 
   &__mobile-actions {

@@ -237,6 +237,7 @@ const buttonStyle = (subject: any, action: any) => {
                   <div
                     v-for="(subvalue, index) in getReferenceProperty(property)!.indexes!.slice(1, 2)"
                     :key="`subvalue-${index}`"
+                    class="table__cell-subvalue"
                   >
                     {{
                       store!.$actions.formatValue({

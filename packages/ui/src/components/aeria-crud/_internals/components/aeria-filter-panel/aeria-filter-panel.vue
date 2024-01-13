@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import type { CollectionStore  } from '@waltz-ui/web'
 import { useParentStore } from '@waltz-ui/state-management'
+import { convertToSearchQuery } from '@waltz-ui/web'
 import AeriaPanel from '../../../../aeria-panel/aeria-panel.vue'
 import AeriaForm from '../../../../form/aeria-form/aeria-form.vue'
 import AeriaButton from '../../../../aeria-button/aeria-button.vue'
@@ -10,12 +12,19 @@ type Emits = {
 }
 
 const emit = defineEmits<Emits>()
-const store = useParentStore()
+const store = useParentStore() as CollectionStore
+const router = ROUTER
 
 const filter = () => {
   store.pagination.offset = 0
   store.$actions.filter()
   emit('update:modelValue', false)
+
+  router.push({
+    query: convertToSearchQuery(store)
+  })
+
+  console.log(convertToSearchQuery(store))
 }
 </script>
 
@@ -31,9 +40,9 @@ const filter = () => {
     <aeria-form
       v-model="store.filters"
       v-bind="{
-        form: store.availableFilters,
         searchOnly: true,
-        layout: store.description.formLayout || {}
+        form: store.availableFilters,
+        layout: store.description.formLayout as any || {}
       }"
     ></aeria-form>
     <template #footer>
@@ -61,3 +70,4 @@ const filter = () => {
     </template>
   </aeria-panel>
 </template>
+

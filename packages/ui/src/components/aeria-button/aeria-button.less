@@ -35,10 +35,9 @@
     animation: progress 1s forwards;
   }
 
-  &--transparent {
-    border: 1px solid var(--border-color);
+  &--transparent,
+  &--alt {
     font-weight: 300;
-
     &:hover {
       background: var(--theme-background-color-shade-4);
     }
@@ -46,18 +45,18 @@
 
   &--alt,
   &--primary {
-    :deep(*) {
-      color: var(--theme-brand-color-contrast);
-      fill: var(--theme-brand-color-contrast);
+    :deep(svg) {
+      fill: currentcolor;
     }
   }
 
   &--alt {
-    background: var(--theme-brand-color-shade-3);
-    border-color: var(--theme-brand-color-shade-3);
+    color: var(--theme-brand-color-shade-3) !important;
+    border: 1px solid var(--theme-brand-color-shade-3);
   }
 
   &--primary {
+    color: var(--theme-brand-color-contrast);
     background: var(--theme-brand-color-shade-2);
     border-color: var(--theme-brand-color-shade-2);
   }

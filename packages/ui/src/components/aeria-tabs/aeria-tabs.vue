@@ -77,6 +77,9 @@ const change = (tab: string) => {
           v-clickable
           icon-right
           icon="angle-down"
+          style="
+            --icon-color: var(--theme-brand-color-shade-1);
+          "
           class="tabs__context-menu-icon"
         >
           <slot :name="currentTab"></slot>

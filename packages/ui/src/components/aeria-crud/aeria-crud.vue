@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import type { ActionFilter, ActionEvent, Pagination, CollectionStore  } from '@waltz-ui/web'
 import type { Layout } from '@sonata-api/types'
+import type { RouteRecordNormalized } from 'vue-router'
 import { onUnmounted, ref, computed, provide, inject, watch, isRef, type Ref } from 'vue'
 import { deepClone, getReferenceProperty } from '@sonata-api/common'
-import { useAction, useBreakpoints, useDebounce, useScrollObserver, type ActionFilter, type ActionEvent, type Pagination } from '@waltz-ui/web'
+import { useAction, useBreakpoints, useDebounce, useScrollObserver, convertFromSearchQuery } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
 
@@ -68,7 +70,7 @@ if( scrollPagination ) {
   })
 }
 
-const store = useStore(props.collection)
+const store = useStore(props.collection) as CollectionStore
 
 const action = props.action
   ? isRef(props.action)
@@ -94,7 +96,7 @@ const fetchItems = async (optPayload?: ActionFilter) => {
     offset: store.pagination.offset,
     project: store.preferredTableProperties?.length > 0
       ? store.preferredTableProperties
-      : store.description.table || Object.keys(store.properties)
+      : store.description.table as string[] || Object.keys(store.properties)
   }
 
   if( batch.value > 0 ) {
@@ -103,7 +105,7 @@ const fetchItems = async (optPayload?: ActionFilter) => {
   }
 
   if( store.description.tableMeta ) {
-    payload.project = payload.project!.concat(store.description.tableMeta)
+    payload.project = payload.project!.concat(store.description.tableMeta as string[])
   }
 
   if( optPayload ) {
@@ -112,7 +114,6 @@ const fetchItems = async (optPayload?: ActionFilter) => {
 
   store.loading.getAll = true
   const { data, pagination } = await store.$actions.retrieveItems(payload)
-
   store.pagination.recordsCount = pagination.recordsCount
   store.pagination.recordsTotal = pagination.recordsTotal
 
@@ -125,21 +126,37 @@ const fetchItems = async (optPayload?: ActionFilter) => {
   firstFetch.value = true
 }
 
-const paginate = (pagination: Pick<Pagination, 'offset' | 'limit'>) => {
+const paginate = async (pagination: Pick<Pagination, 'offset' | 'limit' | 'currentPage'>) => {
+  router.push({
+    query: {
+      ...router.currentRoute.value.query,
+      offset: pagination.offset,
+      limit: pagination.limit,
+    }
+  })
+
   store.pagination.offset = pagination.offset
   store.pagination.limit = pagination.limit
+
   fetchItems()
 }
 
 const emptyComponent = inject('emptyComponent')
 
-watch(router.currentRoute, async (route) => {
+watch(() => [router.currentRoute.value.path, router.currentRoute.value.query.section], async () => {
+  const route = router.currentRoute.value
   metaStore.view.title = props.collection
   metaStore.view.collection = props.collection
   isInsertReadonly.value = false
 
   if( !props.noFetch && !route.query._popstate ) {
     store.textQuery = ''
+
+    const filters = convertFromSearchQuery(store, route as unknown as RouteRecordNormalized)
+    if( Object.keys(filters).length > 0 ) {
+      Object.assign(store.filters, filters)
+    }
+
     await fetchItems()
   }
 }, {
@@ -224,7 +241,7 @@ watch(() => actionEventBus.value, async (_event) => {
   }
 
   else if( event.name === 'duplicate' ) {
-    await getPromise
+    await getPromise!
 
     const newItem = Object.entries(store.item).reduce((a, [key, value]) => {
       const property = store.properties[key]||{}
@@ -233,10 +250,16 @@ watch(() => actionEventBus.value, async (_event) => {
       }
 
       const unbound = (value: any) => {
-        if( getReferenceProperty(property)?.$ref === 'file' ) {
+        const refProperty = getReferenceProperty(property)
+        if( !refProperty ) {
+          return value
+        }
+
+        if( refProperty.$ref === 'file' ) {
           return {}
         }
-        if( property.inline && value ) {
+
+        if( refProperty.inline && value ) {
           const { _id, ...rest } = value
           return rest
         }
@@ -251,7 +274,7 @@ watch(() => actionEventBus.value, async (_event) => {
         ...a,
         [key]: value
       }
-    }, {} as Record<string, any>)
+    }, {})
 
     store.$actions.setItem(newItem)
     delete store.item._id
@@ -409,7 +432,7 @@ provide('individualActions', individualActions)
 
       <aeria-button
         v-else-if="Object.keys(store.availableFilters).length > 0"
-        variant="transparent"
+        variant="alt"
         icon="filter"
         @click="isFilterVisible = true"
       >

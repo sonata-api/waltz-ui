@@ -1,5 +1,11 @@
 # @waltz-ui/state-management
 
+## 0.1.3
+
+### Patch Changes
+
+- Release
+
 ## 0.1.2
 
 ### Patch Changes

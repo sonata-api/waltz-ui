@@ -8,6 +8,7 @@
 
 .panel {
   --min-width: var(--panel-min-width, 36rem);
+  --max-width: var(--panel-max-width, unset);
 
   &--fixed {
     position: absolute;
@@ -45,7 +46,7 @@
       .panel__header {
         padding: .6rem 1.4rem;
         box-sizing: content-box;
-        border-bottom: 1px solid var(--theme-frame-color);
+        border-bottom: var(--theme-frame-border);
 
         font-weight: 600;
         font-size: 14pt;
@@ -68,6 +69,7 @@
 
       @media screen and (min-width: 768px) {
         min-width: var(--min-width);
+        max-width: var(--max-width);
       }
     }
 
@@ -116,7 +118,7 @@
     }
 
     &:not(&--outer) {
-      background: var(--theme-background-color-shade-2);
+      background: var(--theme-background-color-shade-4);
     }
   }
 
