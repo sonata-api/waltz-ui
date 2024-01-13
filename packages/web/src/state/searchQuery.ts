@@ -55,8 +55,8 @@ export const convertToSearchQuery = (store: CollectionStore) => {
     }
 
     const queryKey = 'items' in property
-      ? `${store.$id}__${key}[]`
-      : `${store.$id}__${key}`
+      ? `${store.$id}.${key}[]`
+      : `${store.$id}.${key}`
 
     const queryValue = 'items' in property
       ? value.$in.reduce((a: any[], elem: any) => {
@@ -93,7 +93,7 @@ export const convertFromSearchQuery = (store: CollectionStore, route: RouteRecor
   }
 
   for( const [key, value] of Object.entries(route.query as Record<string, any>) ) {
-    const prefix = `${store.$id}__`
+    const prefix = `${store.$id}.`
     if( !key.startsWith(prefix) ) {
       continue
     }
