@@ -107,7 +107,6 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
           next
         }
       })
-
     }
 
   }

@@ -16,7 +16,7 @@ export const togglePreset = (preset: FiltersPreset<any> | null, store: Collectio
 
   store.filtersPreset = preset.filters || {}
   store.preferredTableProperties = preset.table
-    ? [...preset.table]
+    ? Array.from(preset.table)
     : []
 
     store.pagination.offset = 0
