@@ -12,7 +12,7 @@ import AeriaPicture from '../../../../aeria-picture/aeria-picture.vue'
 
 type Props = {
   individualActions: any
-  hasSelectionActions: boolean
+  hasSelectionActions?: boolean
   layoutOptions: LayoutOptions
   componentName: string
 }

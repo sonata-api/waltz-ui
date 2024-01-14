@@ -12,7 +12,6 @@
   --border-color: var(--button-border-color, var(--theme-border-color));
   position: relative;
 
-  box-sizing: content-box;
   text-align: center;
   border-radius: var(--theme-radius-medium);
   outline: none;
@@ -51,8 +50,7 @@
   }
 
   &--alt {
-    color: var(--theme-brand-color-shade-3) !important;
-    border: 1px solid var(--theme-brand-color-shade-3);
+    border: 1px solid var(--theme-border-color);
   }
 
   &--primary {
@@ -74,6 +72,7 @@
 
   &--large {
     padding: var(--theme-input-padding-large);
+    height: var(--theme-input-height-large);
     font-size: 11pt;
   }
 

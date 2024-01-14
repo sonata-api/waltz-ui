@@ -1,4 +1,5 @@
 import type { defineOptions } from './options'
+import { isLeft } from '@sonata-api/common'
 import { createApp, App } from 'vue'
 import { Router } from 'vue-router'
 import { createI18n, t } from '@waltz-ui/i18n'
@@ -79,15 +80,36 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
   })
 
   if( userStore.signedIn || /^\/dashboard(\/|$)/.test(location.pathname) ) {
+    let hasError = false
+
     try {
-      await metaStore.$actions.describe({
+      const resultEither = await metaStore.$actions.describe({
         roles: true,
         revalidate: true
       })
-    } catch( err ) {
-      localStorage.removeItem('auth:token')
-      router.push('/user/signin')
+
+      if( isLeft(resultEither) ) {
+        hasError = true
+      }
+    } catch( err: any ) {
+      hasError = true
     }
+
+    if( hasError ) {
+      const next = `${location.pathname}${location.search}`
+
+      localStorage.removeItem('auth:token')
+      localStorage.setItem('auth:next', next)
+
+      router.push({
+        name: '/user/signin',
+        query: {
+          next
+        }
+      })
+
+    }
+
   }
 
   resolve({

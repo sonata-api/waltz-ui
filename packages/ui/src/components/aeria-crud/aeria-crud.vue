@@ -7,6 +7,7 @@ import { deepClone, getReferenceProperty } from '@sonata-api/common'
 import { useAction, useBreakpoints, useDebounce, useScrollObserver, convertFromSearchQuery } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
+import { watchStore } from './_internals/helpers'
 
 import AeriaPagination from '../aeria-pagination/aeria-pagination.vue'
 import AeriaButton from '../aeria-button/aeria-button.vue'
@@ -38,6 +39,7 @@ type Props = {
   action?: Ref<ReturnType<typeof useAction>> | ReturnType<typeof useAction>
   componentProps?: Record<string, any>
   scrollPagination?: boolean
+  noQueryPersistence?: boolean
 }
 
 type Emits = {
@@ -71,6 +73,9 @@ if( scrollPagination ) {
 }
 
 const store = useStore(props.collection) as CollectionStore
+watchStore(store, {
+  persistInQuery: !props.noQueryPersistence
+})
 
 const action = props.action
   ? isRef(props.action)
@@ -126,7 +131,7 @@ const fetchItems = async (optPayload?: ActionFilter) => {
   firstFetch.value = true
 }
 
-const paginate = async (pagination: Pick<Pagination, 'offset' | 'limit' | 'currentPage'>) => {
+const paginate = async (pagination: Pick<Pagination, 'offset' | 'limit'>) => {
   router.push({
     query: {
       ...router.currentRoute.value.query,
@@ -143,15 +148,19 @@ const paginate = async (pagination: Pick<Pagination, 'offset' | 'limit' | 'curre
 
 const emptyComponent = inject('emptyComponent')
 
-watch(() => [router.currentRoute.value.path, router.currentRoute.value.query.section], async () => {
+watch(() => [router.currentRoute.value.path, router.currentRoute.value.query.section], async (newVal, oldVal) => {
+  if( oldVal ) {
+    if( oldVal[0] === newVal[0] && oldVal[1] === newVal[1] ) {
+      return
+    }
+  }
+
   const route = router.currentRoute.value
   metaStore.view.title = props.collection
   metaStore.view.collection = props.collection
   isInsertReadonly.value = false
 
   if( !props.noFetch && !route.query._popstate ) {
-    store.textQuery = ''
-
     const filters = convertFromSearchQuery(store, route as unknown as RouteRecordNormalized)
     if( Object.keys(filters).length > 0 ) {
       Object.assign(store.filters, filters)
@@ -178,6 +187,12 @@ const [performLazySearch] = debounce((value: string) => {
     }
   })
 
+  router.push({
+    query: {
+      search: value
+    }
+  })
+
   return fetchItems({
     offset: 0
   })
@@ -195,11 +210,12 @@ const toggleLayout = (store: any) => {
 
 onUnmounted(() => {
   store.$actions.clearFilters()
+  store.textQuery = ''
   detachScrollListener()
 })
 
 watch(() => actionEventBus.value, async (_event) => {
-  const event = deepClone(_event!)
+  const event = deepClone(_event)
   let getPromise: ReturnType<typeof store.$actions.get>
   if( !event ) {
     return
@@ -305,7 +321,7 @@ const individualActions = computed(() => {
 })
 
 const actionButtons = computed(() => {
-  return store.actions.filter((action: any) => !action.button)
+  return store.actions.filter((action) => !action?.button)
 })
 
 provide('storeId', computed(() => props.collection))
@@ -369,7 +385,7 @@ provide('individualActions', individualActions)
           )
       ">
         <aeria-button
-          variant="transparent"
+          variant="alt"
           icon="sliders-v"
         >
           <aeria-badge v-if="store.filtersCount">
@@ -419,10 +435,11 @@ provide('individualActions', individualActions)
           v-slot:[`action-${index}`]
         >
           <aeria-icon
+            v-if="actionProps"
             :icon="actionProps.icon || 'setting'"
             :disabled="store.selected.length === 0 && actionProps.selection"
 
-            @click="call!(actionProps)({ _id: store.selected.map((item: any) => item._id) })"
+            @click="call(actionProps)({ _id: store.selected.map((item) => item._id) })"
           >
             {{ t(actionProps.name) }}
           </aeria-icon>
@@ -449,7 +466,7 @@ provide('individualActions', individualActions)
         :icon="actionProps.icon"
         :disabled="store.selected.length === 0 && actionProps.selection"
 
-        @click="call!(actionProps)({ _id: store.selected.map((item: any) => item._id) })"
+        @click="call(actionProps)({ _id: store.selected.map((item) => item._id) })"
       >
         {{ t(actionProps.name) }}
       </aeria-button>
@@ -476,6 +493,15 @@ provide('individualActions', individualActions)
           collection: store.$id
         }"
       >
+      <aeria-button
+        v-if="store.filtersCount === 0 && store.description.actions && 'ui:spawnAdd' in store.description.actions"
+        icon="plus"
+        @click="call({
+          action: 'ui:spawnAdd'
+        })()"
+      >
+          Adicionar primeiro item
+        </aeria-button>
       </component>
 
       <slot
@@ -499,10 +525,10 @@ provide('individualActions', individualActions)
       v-else
       v-bind="{
         individualActions,
-        layoutOptions: layout?.options || store.layout.options,
+        layoutOptions: layout?.options || store.layout.options!,
         componentProps
       }"
-      :is="getLayout(layout?.name || store.$currentLayout)"
+      :is="getLayout(layout?.name || store.$currentLayout as any)"
       :component-name="layout?.name || store.$currentLayout"
     >
       <template
@@ -534,3 +560,4 @@ provide('individualActions', individualActions)
 </template>
 
 <style scoped src="./aeria-crud.less"></style>
+

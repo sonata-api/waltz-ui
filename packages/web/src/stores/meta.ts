@@ -1,5 +1,5 @@
 import type { PromptAction } from '../behavior'
-import { deepClone, deserialize } from '@sonata-api/common'
+import { deepClone, deserialize, isLeft } from '@sonata-api/common'
 import { Description } from '@sonata-api/types'
 import { reactive, computed } from 'vue'
 
@@ -82,7 +82,11 @@ export const meta = () => registerStore(() => {
     actions: {
       async describe(props?: { revalidate?: boolean, roles?: boolean }) {
         state.isLoading = true
-        const response = (await request(`${API_URL}/describe`, props))?.data
+        const { data: response } = await request(`${API_URL}/describe`, props)
+        if( isLeft(response) ) {
+          return response
+        }
+
         const deserialized = deserialize(response)
 
         const globalDescriptions: Record<CollectionName, Description> =
@@ -135,6 +139,7 @@ export const meta = () => registerStore(() => {
         }
 
         state.isLoading = false
+        return response
       },
 
     async ask(props: {

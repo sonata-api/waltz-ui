@@ -30,9 +30,19 @@ const currentTab = computed(() => {
 })
 
 const change = (tab: string) => {
+  if( source === 'query' ) {
+    router.push({
+      query: {
+        ...router.currentRoute.value.query,
+        [props.query!]: tab
+      }
+    })
+    return
+  }
+
   router.push({
-    [source]: {
-      [props.query || props.param!]: tab
+    params: {
+      [props.param!]: tab
     }
   })
 }

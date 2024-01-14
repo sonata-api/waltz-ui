@@ -24,9 +24,7 @@ window.I18N = reactive<I18nConfig>({
   locales: {}
 })
 
-const wordsMemo = {} as Record<string, {
-  plural: boolean
-}>
+const wordsMemo = {} as Record<string, Record<string, string>>
 
 export const createI18n = (config: I18nConfig) => {
   Object.assign(window.I18N, config)
@@ -44,7 +42,7 @@ const capitalize = (text: string) => {
   return text[0].toUpperCase() + text.slice(1)
 }
 
-export const t = (originalText?: string, _options: TextOptions = {}): string => {
+export const internalTranslate = (originalText: string, _options: TextOptions = {}): string => {
   const localeMemo = window.I18N
   if( !originalText ) {
     return ''
@@ -54,22 +52,31 @@ export const t = (originalText?: string, _options: TextOptions = {}): string => 
   const options = Object.assign({}, _options)
   options.capitalize ??= originalText[0] === originalText[0].toUpperCase()
 
-  if( !options.context && text.endsWith('s') && wordsMemo[text]?.plural !== false ) {
-    const offset = text.endsWith('es')
-      ? -2
-      : -1
+  if( !options.context ) {
+    if( text.endsWith('s') ) {
+      const offset = text.endsWith('ses')
+        ? -2
+        : -1
 
-    const result = t(text.slice(0, offset), Object.assign({
-      plural: true,
-      noFallback: true
-    }, options))
+      const result = internalTranslate(text.slice(0, offset), Object.assign({
+        plural: true,
+        noFallback: true
+      }, options))
 
-    if( result ) {
-      return result
+      if( result ) {
+        return result
+      }
     }
 
-    wordsMemo[text] = {
-      plural: false
+    if( ~text.indexOf('_') ) {
+      const camelCased = text.replace(/_(\w)/, (r) => r[1].toUpperCase())
+      const result = internalTranslate(camelCased, Object.assign({
+        noFallback: true
+      }, options))
+
+      if( result ) {
+        return result
+      }
     }
   }
 
@@ -111,5 +118,14 @@ export const t = (originalText?: string, _options: TextOptions = {}): string => 
   return options.capitalize
     ? capitalize(translated)
     : translated
+}
+
+export const t = (text: string, options: TextOptions = {}) => {
+  if( !text ) {
+    return ''
+  }
+
+  const result = internalTranslate(text, options)
+  return result
 }
 

@@ -1,6 +1,10 @@
 import type { CollectionActions, Description } from '@sonata-api/types'
 import { freshItem as _freshItem } from '@sonata-api/common'
 
+type NormalizedActions<TActions extends CollectionActions<any>> = (TActions[keyof TActions] & {
+  action: string
+})[]
+
 const isObject = (property: any) =>
   property.$ref
     || property.type === 'object'
@@ -47,23 +51,22 @@ export const removeEmpty = (item: Record<string, any>) => {
 
 export const normalizeActions = <const TActions extends CollectionActions<any>>(actions?: CollectionActions<any>) => {
   if( !actions ) {
-    return [] as TActions[]
+    return [] as NormalizedActions<TActions>
   }
 
-  return Object.entries(actions)
-    .reduce((a: object[], [key, value]) => {
-      if( !value || key.startsWith('_') ) {
-        return a
-      }
+  return Object.entries(actions).reduce((a: object[], [key, value]) => {
+    if( !value || key.startsWith('_') ) {
+      return a
+    }
 
-      return [
-        ...a,
-        {
-          action: key,
-          ...value
-        }
-    ]
-  }, []) as TActions[]
+    return [
+      ...a,
+      {
+        action: key,
+        ...value
+      }
+  ]
+  }, []) as NormalizedActions<TActions>
 }
 export const normalizeFilters = (filters: Description['filters']) => {
   return filters?.reduce((a, b) => {

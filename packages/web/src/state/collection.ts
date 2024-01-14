@@ -40,17 +40,16 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
     freshItem: {} as TItem,
 
     items: [] as TItem[],
-    filters: {},
+    filters: {} as Record<string, any>,
     freshFilters: {} as Record<string, any>,
     activeFilters: {} as Record<string, any>,
     filtersPreset: {} as Record<string, any>,
-    preferredTableProperties: [],
+    preferredTableProperties: [] as any[],
     selected: [] as TItem[] | string[],
     currentLayout: '',
 
     validationErrors: {} as any,
     loading: {} as Record<string, boolean>,
-    halt: false,
     textQuery: '',
 
     pagination: {
@@ -176,7 +175,7 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
       $filters,
       actions,
       individualActions: computed(() => normalizeActions(description.value.individualActions)),
-      hasSelectionActions: computed(() => actions.value.some((action) => !!action.selection)),
+      hasSelectionActions: computed(() => actions.value.some((action) => !!action?.selection)),
       condensedItem: computed(() => condenseItem(state.item)),
 
       $freshItem: computed(() => {

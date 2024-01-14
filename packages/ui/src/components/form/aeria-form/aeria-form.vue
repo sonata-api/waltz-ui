@@ -414,7 +414,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
           <div>
             <aeria-button
               small
-              variant="transparent"
+              variant="alt"
               icon="plus"
               :disabled="
                 !('inline' in property.items && property.items.inline) && (

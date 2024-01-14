@@ -1,5 +1,13 @@
 # @waltz-ui/ui
 
+## 1.0.34
+
+### Patch Changes
+
+- Bunch of fixes
+- Updated dependencies
+  - @waltz-ui/web@1.0.14
+
 ## 1.0.33
 
 ### Patch Changes

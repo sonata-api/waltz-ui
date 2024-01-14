@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import type { FiltersPreset } from '@sonata-api/types'
-import { computed, watch, type ComputedRef } from 'vue'
+import type { CollectionStore } from '@waltz-ui/web'
+import { computed } from 'vue'
 import { useParentStore } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
+import { togglePreset } from '../../aeria-crud/_internals/helpers'
 import { AeriaAsync } from '../../utils'
 import AeriaTabs from '../../aeria-tabs/aeria-tabs.vue'
 import AeriaIcon from '../../aeria-icon/aeria-icon.vue'
@@ -22,63 +24,11 @@ const store = computed(() => {
       ? props.collection
       : (route.value.meta?.collection || route.value.params?.collection) as string
 
-    return useParentStore(collection)
+    return useParentStore(collection) as CollectionStore
   } catch( e ) {
     return null
   }
 })
-
-const togglePreset = (preset: FiltersPreset<any> | null) => {
-  if( !store.value ) {
-    return
-  }
-
-  return (({ value: store }: ComputedRef<ReturnType<typeof useParentStore>|null>) => {
-    if( !store ) {
-      return
-    }
-
-    if( !preset ) {
-      store.filtersPreset = {}
-      store.preferredTableProperties = []
-      store.pagination.offset = 0
-      return
-    }
-
-    store.filtersPreset = preset.filters || {}
-    store.preferredTableProperties = preset.table || []
-    store.pagination.offset = 0
-  })(store)
-}
-
-watch(() => route.value.query.section, (section) => {
-  if( !store.value ) {
-    return
-  }
-
-  return ((store) => {
-    if( !store ) {
-      return
-    }
-
-    if( store.description.filtersPresets ) {
-      const currPreset = section as string
-        || Object.keys(store.description.filtersPresets)[0]
-
-      togglePreset(store.description.filtersPresets[currPreset])
-    }
-
-    const query = route.value.query
-    if( query.offset ) {
-      store.pagination.offset = +query.offset
-    }
-    if( query.limit ) {
-      store.pagination.limit = +query.limit
-    }
-
-
-  })(store.value!)
-}, { immediate: true })
 </script>
 
 <template>
@@ -93,7 +43,7 @@ watch(() => route.value.query.section, (section) => {
     >
       <div
         class="topbar__preset"
-        @click="togglePreset(preset)"
+        @click="togglePreset(preset, store)"
       >
         <aeria-icon
           v-if="preset.icon"
@@ -117,3 +67,4 @@ watch(() => route.value.query.section, (section) => {
 </template>
 
 <style scoped src="./aeria-crud-topbar.less"></style>
+

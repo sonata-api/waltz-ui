@@ -24,7 +24,7 @@ const getEffect = (store: any, effectName: keyof typeof STORE_EFFECTS) => {
   return store.$actions[effect]
 }
 
-export const useAction = <F extends { _id: string }>(
+export const useAction = <Filters extends { _id: string | string[] }>(
   store: Store,
   router: Router
 ) => {
@@ -34,14 +34,14 @@ export const useAction = <F extends { _id: string }>(
     params: {}
   })
 
-  const fn = (actionProps: CollectionAction<any> & { action: string }): (filters: F) => void => {
+  const fn = (actionProps: Omit<CollectionAction<any>, 'name'> & { action: string }): (filters?: Filters) => void => {
     const { action: actionName } = actionProps
     const actionEffect = actionProps.effect as keyof typeof STORE_EFFECTS | undefined
     const [scopeName, scopedAction] = actionName.split(':')
 
     if( scopedAction ) {
       if( scopeName === 'route' ) {
-        return async (filters: F) => {
+        return async (filters?: Filters) => {
           if( actionProps.setItem ) {
             store.$actions.setItem(filters)
           }
@@ -60,15 +60,19 @@ export const useAction = <F extends { _id: string }>(
 
           router.push({
             name: actionName.split('route:')[1],
-            params: Object.assign({ id: filters._id }, actionProps.params || {}),
+            params: filters
+              ? Object.assign({ id: filters._id }, actionProps.params || {})
+              : {},
             query: actionProps.query || {}
           })
         }
       }
 
       if( scopeName === 'ui' ) {
-        return (_filters: F) => {
-          const filters = deepClone(_filters)
+        return (_filters?: Filters) => {
+          const filters = _filters
+            ? deepClone(_filters)
+            : {}
           Object.assign(eventBus, {
             id: Math.random(),
             name: scopedAction,
@@ -78,7 +82,7 @@ export const useAction = <F extends { _id: string }>(
       }
     }
 
-    const prepareFilters = (filters: F) => {
+    const prepareFilters = (filters?: Filters) => {
       return actionProps.requires
         ? store.$actions.select(actionProps.requires, filters)
         : store.$actions.select(['_id'], filters)
@@ -107,13 +111,13 @@ export const useAction = <F extends { _id: string }>(
 
     if( actionProps.ask ) {
       const metaStore = useStore('meta')
-      return (filters: F) => metaStore.$actions.ask({
+      return (filters?: Filters) => metaStore.$actions.ask({
         action: storeAction,
         params: prepareFilters(filters)
       })
     }
 
-    return (filters: F) => storeAction(prepareFilters(filters))
+    return (filters?: Filters) => storeAction(prepareFilters(filters))
   }
 
   return <const>[

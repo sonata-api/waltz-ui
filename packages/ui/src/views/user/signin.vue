@@ -8,12 +8,19 @@ const router = ROUTER
 const userStore = user()()
 const metaStore = meta()()
 
-localStorage.clear()
+const goToTarget = () => {
+  const { next } = router.currentRoute.value.query
+  router.push(
+    next && localStorage.getItem('auth:next') === next
+      ? next
+      : '/dashboard'
+  )
+}
 
 const authenticate = async () => {
   const resultEither = await userStore.$actions.authenticate(userStore.credentials)
   if( isRight(resultEither) ) {
-    router.push('/dashboard')
+    goToTarget()
   }
 }
 </script>
@@ -72,9 +79,10 @@ const authenticate = async () => {
     <aeria-button
       v-if="userStore.$currentUser._id && !metaStore.isLoading"
       :disabled="userStore.loading.authenticate || metaStore.isLoading"
-      @click="router.push('/dashboard')"
+      @click="goToTarget"
     >
       Continuar como {{ userStore.$currentUser.full_name }}
     </aeria-button>
   </div>
 </template>
+

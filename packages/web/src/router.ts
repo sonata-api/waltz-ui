@@ -1,6 +1,6 @@
 import type { Component } from 'vue'
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router/auto'
-import { meta, user } from './stores'
+import { meta } from './stores'
 
 export type RouteMeta = {
   meta: {
@@ -40,18 +40,10 @@ export const routerInstance = (routes: RouteRecordRaw[], dashboardComponent?: Co
 
   router.beforeEach(async (to, from) => {
     const metaStore = meta()()
-    const userStore = user()()
-
     metaStore.menu.visible = false
     metaStore.view.title = to.meta?.title as string
 
     window.scrollTo(0, 0)
-
-    if( /^\/dashboard/.test(to.path) && !userStore.signedIn ) {
-      return {
-        name: '/user/signin'
-      }
-    }
 
     if( router.options.history.state.forward === from.fullPath ) {
       to.query._popstate = 'true'

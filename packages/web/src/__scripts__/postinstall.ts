@@ -42,7 +42,14 @@ declare module '@vue/runtime-core' {
     viewTitle: string
     viewIcon: string
     instanceConfig: typeof import('waltz-build').InstanceConfig
-    currentUser: typeof import('../api/src').collections.user
+    currentUser: (typeof import('../api/src').collections.user extends infer UserCollection
+      ? UserCollection extends (...args: any[]) => any
+        ? ReturnType<UserCollection>
+        : UserCollection
+      : never
+    ) extends infer Coll
+      ? Coll['item']
+      : never
     t: typeof import('@waltz-ui/i18n').t
   }
 }
