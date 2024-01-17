@@ -115,7 +115,7 @@ watch(() => store.item._id, (_id) => {
       </aeria-button>
       <aeria-button
         large
-        :disabled="!store.isInsertReady || isInsertReadOnly"
+        :disabled="!store.isInsertReady || isInsertReadOnly || store.loading.get"
         :loading="store.loading.insert"
         @click="insert"
       >
