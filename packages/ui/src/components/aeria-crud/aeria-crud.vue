@@ -228,10 +228,10 @@ watch(() => actionEventBus.value, async (_event) => {
       'duplicate',
     ].includes(event.name)
   ) {
-    getPromise = store.$actions.get({
+    getPromise = store.$functions.get({
       filters: {
         _id: event.params._id
-      }
+      },
     })
   }
 

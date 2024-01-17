@@ -47,6 +47,7 @@ watch(() => store.item._id, (_id) => {
 <template>
   <aeria-panel
     fixed-right
+    :loading="store.loading.get"
     v-model="isInsertVisible"
     @overlay-click="cancel"
   >

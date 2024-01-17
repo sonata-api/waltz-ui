@@ -265,7 +265,7 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
           ? storeActions.useProperties(preferredProperties)
           : properties.value
       }),
-      
+
       tableLayout: computed(() => description.value.tableLayout || {})
     }
   }

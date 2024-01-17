@@ -11,6 +11,7 @@ type Props = {
   float?: boolean
   fixedRight?: boolean
   floating?: boolean
+  loading?: boolean
   bordered?: boolean
   animate?: boolean
   overlay?: boolean
@@ -144,6 +145,7 @@ const toggleCollapsed = (value: boolean) => {
 
       <div
         v-if="!isCollapsed"
+        v-loading="loading"
         :class="`
           panel__body
           ${fill || 'panel__body--padded'}

@@ -33,7 +33,7 @@ const update = (el: HTMLElement, binding: DirectiveBinding) => {
     justify-content: center;
     padding-top: 1rem;
 
-    backdrop-filter: blur(30px);
+    backdrop-filter: blur(4px);
   `)
 
   const innerElem = document.createElement('div')
