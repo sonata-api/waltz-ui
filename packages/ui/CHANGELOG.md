@@ -1,5 +1,11 @@
 # @waltz-ui/ui
 
+## 1.0.35
+
+### Patch Changes
+
+- Fix aeria-crud
+
 ## 1.0.34
 
 ### Patch Changes

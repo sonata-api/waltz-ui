@@ -1,5 +1,11 @@
 # @waltz-ui/web
 
+## 1.0.15
+
+### Patch Changes
+
+- Fix spawnModal bug
+
 ## 1.0.14
 
 ### Patch Changes

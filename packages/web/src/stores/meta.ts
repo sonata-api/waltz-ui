@@ -29,7 +29,7 @@ export const meta = () => registerStore(() => {
     })
   }
 
-  const state = reactive({
+  const freshState = {
     descriptions: {} as Record<string, Description>,
     roles: [] as string[],
     isLoading: false,
@@ -59,8 +59,9 @@ export const meta = () => registerStore(() => {
       actions: [] as PromptAction[],
     },
     toasts: [] as Toast[],
-  })
-
+  }
+  
+  const state = reactive(deepClone(freshState))
 
   const getters = {
     $theme: computed((): string => {
@@ -197,6 +198,7 @@ export const meta = () => registerStore(() => {
       },
 
       spawnModal(props: Partial<Omit<typeof state.modal, 'visible'>>) {
+        Object.assign(state.modal, freshState.modal)
         Object.assign(state.modal, {
           ...props,
           visible: true

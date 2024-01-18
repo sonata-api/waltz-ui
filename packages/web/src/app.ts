@@ -97,15 +97,21 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
 
     if( hasError ) {
       const next = `${location.pathname}${location.search}`
-
       localStorage.removeItem('auth:token')
-      localStorage.setItem('auth:next', next)
+
+      if( router.currentRoute.value.path.startsWith('/user/signin') ) {
+        localStorage.setItem('auth:next', next)
+        router.push({
+          name: '/user/signin',
+          query: {
+            next
+          }
+        })
+        return
+      }
 
       router.push({
-        name: '/user/signin',
-        query: {
-          next
-        }
+        name: '/user/signin'
       })
     }
 
