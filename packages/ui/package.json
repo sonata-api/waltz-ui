@@ -1,7 +1,7 @@
 {
   "name": "@waltz-ui/ui",
   "type": "module",
-  "version": "1.0.35",
+  "version": "1.0.36",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

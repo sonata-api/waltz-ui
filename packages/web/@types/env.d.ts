@@ -1,3 +1,10 @@
+interface ImportMeta {
+  env: Record<
+    | 'VITE_AERIAUI_STORAGE_NAMESPACE'
+    | 'VITE_WALTZUI_API_URL'
+  , string>
+}
+
 declare module '@waltz-ui/ui' {
   export { default as routes } from '../ui/router'
 }

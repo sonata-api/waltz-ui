@@ -8,6 +8,7 @@ import { t } from '@waltz-ui/i18n'
 import { createCollectionStore } from '../state/collection'
 import { freshItem, freshFilters } from '../state/helpers'
 import { API_URL } from '../constants'
+import { STORAGE_NAMESPACE } from '../env'
 import { request } from '../http'
 import { user } from './user'
 
@@ -68,7 +69,7 @@ export const meta = () => registerStore(() => {
       const currTheme = state.themeOverride || state.theme
       if( !currTheme ) {
         const defaultTheme = 'default'
-        state.theme = localStorage.getItem('meta:theme') || defaultTheme
+        state.theme = localStorage.getItem(`${STORAGE_NAMESPACE}:meta:theme`) || defaultTheme
         return state.theme
       }
 
@@ -98,8 +99,7 @@ export const meta = () => registerStore(() => {
         }
 
         if( deserialized.auth ) {
-          localStorage.setItem('auth:token', deserialized.auth.token.content)
-          user()().$actions.setCurrentUser(deserialized.auth.user)
+          user()().$actions.setCurrentUser(deserialized.auth)
         }
 
         for ( const [collectionName, description] of Object.entries(globalDescriptions) ) {
@@ -239,7 +239,7 @@ export const meta = () => registerStore(() => {
           state.theme = theme
         }
 
-        localStorage.setItem('meta:theme', state.theme)
+        localStorage.setItem(`${STORAGE_NAMESPACE}:meta:theme`, state.theme)
       },
     },
   }

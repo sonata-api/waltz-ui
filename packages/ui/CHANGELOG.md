@@ -1,5 +1,13 @@
 # @waltz-ui/ui
 
+## 1.0.36
+
+### Patch Changes
+
+- Change authentication token storage
+- Updated dependencies
+  - @waltz-ui/web@1.0.16
+
 ## 1.0.35
 
 ### Patch Changes

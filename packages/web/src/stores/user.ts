@@ -3,12 +3,21 @@ import { registerStore } from '@waltz-ui/state-management'
 import { left, right, isLeft, unwrapEither } from '@sonata-api/common'
 import { reactive, computed } from 'vue'
 import { createCollectionStore } from '../state/collection'
+import { STORAGE_NAMESPACE } from '../env'
 import { meta } from '.'
 
 type User = {
   _id: string
   full_name: string
   roles: string[]
+}
+
+type AuthResult = {
+  token: {
+    type: 'bearer'
+    content: string
+  }
+  user: User
 }
 
 type Credentials = {
@@ -18,7 +27,6 @@ type Credentials = {
 
 export const user = () => registerStore(() => {
   const state = reactive({
-    token: '',
     currentUser: {} as Partial<User>,
     credentials: {
       email: '',
@@ -37,24 +45,29 @@ export const user = () => registerStore(() => {
 
   const $currentUser = computed(() => {
     if( !state.currentUser._id ) {
-      state.token = localStorage.getItem('auth:token')!
-      setCurrentUser(JSON.parse(localStorage.getItem('auth:currentUser')||'{}'))
+      const auth = localStorage.getItem(`${STORAGE_NAMESPACE}:auth`)
+      if( auth ) {
+        setCurrentUser(JSON.parse(auth))
+      }
     }
 
     return state.currentUser
   })
 
-  function setCurrentUser(user: User | {}) {
+  function setCurrentUser(auth: AuthResult | {}) {
     for( const key in state.currentUser ) {
       delete state.currentUser[key as keyof typeof state.currentUser]
     }
-    Object.assign(state.currentUser, user)
-    localStorage.setItem('auth:currentUser', JSON.stringify(state.currentUser))
+
+    if( 'user' in auth ) {
+      Object.assign(state.currentUser, auth.user)
+    }
+
+    localStorage.setItem(`${STORAGE_NAMESPACE}:auth`, JSON.stringify(auth))
   }
 
   function signout() {
-    localStorage.removeItem('auth:token')
-    localStorage.removeItem('auth:currentUser')
+    localStorage.removeItem(`${STORAGE_NAMESPACE}:auth`)
     setCurrentUser({})
   }
 
@@ -94,25 +107,14 @@ export const user = () => registerStore(() => {
             return left(error)
           }
 
-          const {
-            user,
-            token
-
-          } = unwrapEither(resultEither) as any
+          const auth = unwrapEither(resultEither) as any
 
           state.credentials = {
             email: '',
             password: ''
           }
 
-          const {
-            type: _tokenType,
-            content: tokenContent
-          } = token
-
-          setCurrentUser(user)
-          localStorage.setItem('auth:token', tokenContent)
-
+          setCurrentUser(auth)
           await metaStore.$actions.describe({
             roles: true
           })

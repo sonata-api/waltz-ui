@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useStore } from '@waltz-ui/state-management'
+import { STORAGE_NAMESPACE } from '@waltz-ui/web'
 
 import AeriaPanel from '../../../../components/aeria-panel/aeria-panel.vue'
 import AeriaForm from '../../../../components/form/aeria-form/aeria-form.vue'
@@ -18,7 +19,13 @@ userStore.$actions.setItem(userStore.$currentUser)
 
 const insert = async () => {
   await userStore.$actions.insert({ what: userStore.item })
-  localStorage.setItem('auth:currentUser', JSON.stringify(userStore.item))
+
+  const auth = localStorage.getItem(`${STORAGE_NAMESPACE}:auth`)
+  if( auth ) {
+    const authObj = JSON.parse(auth)
+    authObj.user = userStore.item
+    localStorage.setItem(`${STORAGE_NAMESPACE}:auth`, JSON.stringify(authObj))
+  }
 
   await metaStore.$actions.spawnModal({
     title: 'Feito!',

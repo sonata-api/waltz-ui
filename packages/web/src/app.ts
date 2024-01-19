@@ -6,6 +6,7 @@ import { createI18n, t } from '@waltz-ui/i18n'
 import { routerInstance as createRouter } from './router'
 import { templateFunctions } from './templateFunctions'
 import { meta, user } from './stores'
+import { STORAGE_NAMESPACE } from './env'
 import registerDirectives from './directives'
 
 export type * from './templateFunctions'
@@ -97,10 +98,10 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
 
     if( hasError ) {
       const next = `${location.pathname}${location.search}`
-      localStorage.removeItem('auth:token')
+      localStorage.removeItem(`${STORAGE_NAMESPACE}:auth`)
 
       if( router.currentRoute.value.path.startsWith('/user/signin') ) {
-        localStorage.setItem('auth:next', next)
+        localStorage.setItem(`${STORAGE_NAMESPACE}:auth:next`, next)
         router.push({
           name: '/user/signin',
           query: {

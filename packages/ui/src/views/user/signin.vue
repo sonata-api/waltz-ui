@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { user, meta } from '@waltz-ui/web'
+import { user, meta, STORAGE_NAMESPACE } from '@waltz-ui/web'
 import { isRight } from '@sonata-api/common'
 import AeriaForm from '../../components/form/aeria-form/aeria-form.vue'
 import AeriaButton from '../../components/aeria-button/aeria-button.vue'
@@ -11,7 +11,7 @@ const metaStore = meta()()
 const goToTarget = () => {
   const { next } = router.currentRoute.value.query
   router.push(
-    next && localStorage.getItem('auth:next') === next
+    next && localStorage.getItem(`${STORAGE_NAMESPACE}:auth:next`) === next
       ? next
       : '/dashboard'
   )
