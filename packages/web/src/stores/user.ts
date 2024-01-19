@@ -3,7 +3,7 @@ import { registerStore } from '@waltz-ui/state-management'
 import { left, right, isLeft, unwrapEither } from '@sonata-api/common'
 import { reactive, computed } from 'vue'
 import { createCollectionStore } from '../state/collection'
-import { STORAGE_NAMESPACE } from '../env'
+import { STORAGE_NAMESPACE } from '../constants'
 import { meta } from '.'
 
 type User = {

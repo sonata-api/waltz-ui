@@ -6,7 +6,7 @@ import { createI18n, t } from '@waltz-ui/i18n'
 import { routerInstance as createRouter } from './router'
 import { templateFunctions } from './templateFunctions'
 import { meta, user } from './stores'
-import { STORAGE_NAMESPACE } from './env'
+import { STORAGE_NAMESPACE } from './constants'
 import registerDirectives from './directives'
 
 export type * from './templateFunctions'

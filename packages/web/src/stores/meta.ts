@@ -8,7 +8,7 @@ import { t } from '@waltz-ui/i18n'
 import { createCollectionStore } from '../state/collection'
 import { freshItem, freshFilters } from '../state/helpers'
 import { API_URL } from '../constants'
-import { STORAGE_NAMESPACE } from '../env'
+import { STORAGE_NAMESPACE } from '../constants'
 import { request } from '../http'
 import { user } from './user'
 
