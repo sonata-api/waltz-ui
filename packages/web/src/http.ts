@@ -9,7 +9,6 @@ export const request = <Return = any>(url: string, payload?: any, _config?: Requ
     if( auth ) {
       const authObj = JSON.parse(auth)
 
-      console.log(authObj)
       const token = authObj
         ? authObj.token?.content
         : null
