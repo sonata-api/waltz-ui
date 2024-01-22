@@ -24,11 +24,11 @@ jobs:
         run: pnpm install
       - name: Build packages
         run: |
+          pnpm --filter='./packages/waltz-icons' build
           pnpm --filter='./packages/waltz-build' build
           pnpm --filter='./packages/state-management' build
           pnpm --filter='./packages/i18n' build
           pnpm --filter='./packages/web' build
-          pnpm --filter='./packages/waltz-icons' build
           pnpm --filter='./packages/ui' build
           pnpm --filter='./packages/create-waltz-app' build
           pnpm --filter='./packages/waltz-ui' build
