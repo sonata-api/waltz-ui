@@ -5,7 +5,9 @@ import aeriaIcons from '..'
 export default defineConfig({
   plugins: [
     vue(),
-    aeriaIcons()
+    aeriaIcons({
+      allIcons: true
+    })
   ],
   base: '/waltz-ui/icons',
   build: {
