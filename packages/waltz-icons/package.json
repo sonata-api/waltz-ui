@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc && (cd core; pnpm build)",
+    "build": "tsc && (cd core; pnpm build); node dist/__scripts__/bundleAllIcons.js",
     "prepublishOnly": "npm run build"
   },
   "exports": {

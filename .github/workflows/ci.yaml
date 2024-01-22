@@ -42,7 +42,9 @@ jobs:
           pnpm --filter='./packages/create-waltz-app' build
           pnpm --filter='./packages/waltz-ui' build
       - name: Build icons site
-        run: cd packages/waltz-icons/app && pnpm build
+        run: |
+          cd packages/waltz-icons/app
+          pnpm build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:

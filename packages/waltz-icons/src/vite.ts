@@ -1,6 +1,6 @@
 import type { Plugin, ResolvedConfig  } from 'vite'
 import path from 'path'
-import { mkdir, readFile, writeFile } from 'fs/promises'
+import { mkdir, readFile, writeFile, copyFile } from 'fs/promises'
 import {
   type Options,
   defaultOptions,
@@ -34,7 +34,7 @@ export const vitePlugin = (_options: Options = {}): Plugin => {
       })
     },
     async transform(source, id) {
-      if( /\.[cm]?((t|j)s(x|on)?|vue|svelte|html?)/.test(id) ) {
+      if( !options.allIcons && /\.[cm]?((t|j)s(x|on)?|vue|svelte|html?)/.test(id) ) {
         if( !/node_modules/.test(id) || options.libraries?.some((library) => new RegExp(`/${library}/`).test(id)) ) {
           const scrap = scrapper(
             options,
@@ -68,11 +68,18 @@ export const vitePlugin = (_options: Options = {}): Plugin => {
 
       await mkdir(path.join(config.build.outDir, 'assets'), { recursive: true })
 
-      const filename = options.hash
-        ? path.join(config.build.outDir, 'assets', `icons-${hash}.svg`)
-        : path.join(config.build.outDir, 'assets', `icons.svg`)
+      if( !options.allIcons ) {
+        const filename = options.hash
+          ? path.join(config.build.outDir, 'assets', `icons-${hash}.svg`)
+          : path.join(config.build.outDir, 'assets', `icons.svg`)
 
-      await writeFile(filename, svg)
+        await writeFile(filename, svg)
+      }
+
+      await copyFile(
+        path.join(__dirname, '..', 'dist', 'icons.svg'),
+        path.join(config.build.outDir, 'assets', 'icons.svg')
+      )
     }
   }
 }

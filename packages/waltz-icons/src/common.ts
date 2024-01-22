@@ -3,30 +3,12 @@ import { readFile } from 'fs/promises'
 import { DEFAULT_STYLE } from './constants'
 
 export type Options = {
-  /**
-   * HTML tag to be searched for.
-   */
   tag?: string
-  /**
-   * Ensure certain icons are always collected.
-   * Useful when icons can't be found with assets search.
-   */
   ensureList?: Array<string>
-  /**
-   * Will scrap DOM files in the specified libraries case set.
-   */
   libraries?: Array<string>
-  /**
-   * Lets user execute custom logic before emitting output.
-   * A common use case is to search for icons outside conventional files.
-   */
   preEmit?: () => Promise<void>
-  /**
-   * Case set to true will append a timestamp to icons filename to invalidate cache.
-   * Useful when you have cache policies configured in your webserver.
-   * @default false
-   */
   hash?: boolean
+  allIcons?: boolean
 }
 
 export const defaultOptions: Partial<Options> = {
