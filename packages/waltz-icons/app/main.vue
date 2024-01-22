@@ -19,7 +19,7 @@ const categories = new Set(catalog.reduce((a, icon) => [
 
 const currentStyle = ref('regular')
 const currentCategory = ref('')
-const color = ref('#0000ff')
+const color = ref('#00557f')
 const search = ref('')
 const batch = ref(1)
 
