@@ -386,7 +386,7 @@ provide('individualActions', individualActions)
       ">
         <aeria-button
           variant="alt"
-          icon="sliders-v"
+          icon="sliders"
         >
           <aeria-badge v-if="store.filtersCount">
             {{ store.filtersCount }}
@@ -399,7 +399,7 @@ provide('individualActions', individualActions)
         >
           <aeria-icon
             v-clickable
-            icon="filter"
+            icon="funnel"
             @click="isFilterVisible = true"
           >
             Filtros
@@ -429,14 +429,14 @@ provide('individualActions', individualActions)
           </aeria-icon>
         </template>
 
-        <!-- <aeria-icon icon="setting"></aeria-icon> -->
+        <!-- <aeria-icon icon="gear"></aeria-icon> -->
         <template
           v-for="(actionProps, index) in actionButtons"
           v-slot:[`action-${index}`]
         >
           <aeria-icon
             v-if="actionProps"
-            :icon="actionProps.icon || 'setting'"
+            :icon="actionProps.icon || 'gear'"
             :disabled="store.selected.length === 0 && actionProps.selection"
 
             @click="call(actionProps)({ _id: store.selected.map((item) => item._id) })"
@@ -450,7 +450,7 @@ provide('individualActions', individualActions)
       <aeria-button
         v-else-if="Object.keys(store.availableFilters).length > 0"
         variant="alt"
-        icon="filter"
+        icon="funnel"
         @click="isFilterVisible = true"
       >
         <div>Filtros</div>

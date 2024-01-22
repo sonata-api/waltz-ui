@@ -53,7 +53,7 @@ const authenticate = async () => {
       },
       password: {
         type: 'string',
-        icon: 'key-skeleton',
+        icon: 'lock',
         inputType: 'password'
       }
     }"

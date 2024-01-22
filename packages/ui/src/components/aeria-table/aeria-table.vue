@@ -186,7 +186,7 @@ const buttonStyle = (subject: any, action: any) => {
                 </aeria-icon>
                 <aeria-icon
                   v-else
-                  icon="times"
+                  icon="x"
                   icon-classes="aeria-redish"
                 >
                   {{ t('no') }}
@@ -282,7 +282,7 @@ const buttonStyle = (subject: any, action: any) => {
               <aeria-icon
                 v-clickable
                 reactive
-                icon="ellipsis-h"
+                icon="dots-three"
               ></aeria-icon>
             </aeria-context-menu>
 

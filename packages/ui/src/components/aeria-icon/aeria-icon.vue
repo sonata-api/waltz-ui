@@ -36,13 +36,13 @@ const reactive = typeof props.reactive === 'boolean'
       <svg
         width="24"
         height="24"
-        viewBox="0 0 24 24"
+        viewBox="0 0 256 256"
         data-component="icon"
         v-bind="{
           ...(fill ? { fill } : {})
         }"
       >
-        <use :href="`/assets/icons.svg#line:${icon}`"></use>
+        <use :href="`/assets/icons.svg#regular:${icon}`"></use>
       </svg>
     </div>
     <div

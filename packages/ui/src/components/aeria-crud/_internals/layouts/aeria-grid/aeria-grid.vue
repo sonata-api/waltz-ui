@@ -90,7 +90,7 @@ const firstIfArray = (what: any) => {
           <aeria-icon
             v-clickable
             reactive
-            icon="ellipsis-v"
+            icon="dots-three-vertical"
           ></aeria-icon>
         </aeria-context-menu>
       </template>

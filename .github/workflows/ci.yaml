@@ -11,6 +11,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          submodules: true
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
       - name: Setup node
@@ -26,6 +28,26 @@ jobs:
           pnpm --filter='./packages/state-management' build
           pnpm --filter='./packages/i18n' build
           pnpm --filter='./packages/web' build
+          pnpm --filter='./packages/waltz-icons' build
           pnpm --filter='./packages/ui' build
           pnpm --filter='./packages/create-waltz-app' build
           pnpm --filter='./packages/waltz-ui' build
+      - name: Build icons site
+        run: cd waltz-icons/app && vite build
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: waltz-icons/app/dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - name: Deploy to Github Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+

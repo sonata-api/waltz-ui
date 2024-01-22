@@ -75,7 +75,7 @@ const signout = async () => {
     <template #edit-profile>
       <aeria-icon
         v-clickable
-        icon="edit"
+        icon="pencil"
         @click="editPanel = true"
       >
         Editar perfil
@@ -85,7 +85,7 @@ const signout = async () => {
     <template #change-password>
       <aeria-icon
         v-clickable
-        icon="key-skeleton"
+        icon="key"
         @click="$router.push('/dashboard/user/changepass')"
       >
         Mudar senha
@@ -95,7 +95,7 @@ const signout = async () => {
     <template #signout>
       <aeria-icon
         v-clickable
-        icon="signout"
+        icon="sign-out"
         @click="signout"
       >
         Sair

@@ -76,7 +76,7 @@ watch([page, limit], ([newPage]: [number, number]) => {
       <aeria-bare-button @click="page = 0">
         <aeria-icon
           reactive
-          icon="angle-double-left"
+          icon="caret-double-left"
         ></aeria-icon>
       </aeria-bare-button>
       <aeria-bare-button
@@ -85,7 +85,7 @@ watch([page, limit], ([newPage]: [number, number]) => {
       >
         <aeria-icon
           reactive
-          icon="angle-left"
+          icon="caret-left"
         ></aeria-icon>
       </aeria-bare-button>
       <div class="pagination__page-input">
@@ -107,13 +107,13 @@ watch([page, limit], ([newPage]: [number, number]) => {
       >
         <aeria-icon
           reactive
-          icon="angle-right"
+          icon="caret-right"
         ></aeria-icon>
       </aeria-bare-button>
       <aeria-bare-button @click="page = pageCount - 1">
         <aeria-icon
           reactive
-          icon="angle-double-right"
+          icon="caret-double-right"
         ></aeria-icon>
       </aeria-bare-button>
     </div>

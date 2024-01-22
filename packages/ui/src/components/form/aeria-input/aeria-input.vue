@@ -220,7 +220,7 @@ watch(() => props.modelValue, (value, oldValue) => {
       />
       <aeria-icon 
         v-if="hasIcon"
-        :icon="property.icon || 'search-alt'"
+        :icon="property.icon || 'magnifying-glass'"
         :class="`
           input__icon
           input__icon--${variant}

@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import vueRouter from 'unplugin-vue-router/vite'
 import vueComponents from 'unplugin-vue-components/vite'
 import autoImport from 'unplugin-auto-import/vite'
-import waltzIcons from 'waltz-icons/vite'
+import waltzIcons from 'waltz-icons'
 import { icons } from 'waltz-icons/common'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
 

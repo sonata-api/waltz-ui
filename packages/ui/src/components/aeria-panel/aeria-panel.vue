@@ -138,7 +138,7 @@ const toggleCollapsed = (value: boolean) => {
           v-clickable
           v-else-if="closeHint"
           reactive
-          icon="multiply"
+          icon="x"
           @click="close"
         />
       </div>
