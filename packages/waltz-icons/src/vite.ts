@@ -1,6 +1,6 @@
 import type { Plugin, ResolvedConfig  } from 'vite'
 import path from 'path'
-import { readFile, writeFile } from 'fs/promises'
+import { mkdir, readFile, writeFile } from 'fs/promises'
 import {
   type Options,
   defaultOptions,
@@ -25,7 +25,7 @@ export const vitePlugin = (_options: Options = {}): Plugin => {
     configureServer(server) {
       server.middlewares.use('/assets/icons.svg', async (_req, res, next) => {
         try {
-          const content = await readFile(`${__dirname}/icons.svg`)
+          const content = await readFile(path.join(__dirname, 'icons.svg'))
           res.setHeader('content-type', 'image/svg+xml').end(content)
 
         } catch( e: any ) {
@@ -65,6 +65,8 @@ export const vitePlugin = (_options: Options = {}): Plugin => {
       }
 
       const svg = await packTogether([ ...icons ])
+
+      await mkdir(path.join(config.build.outDir, 'assets'), { recursive: true })
 
       const filename = options.hash
         ? path.join(config.build.outDir, 'assets', `icons-${hash}.svg`)
