@@ -19,7 +19,7 @@ const categories = new Set(catalog.reduce((a, icon) => [
 
 const currentStyle = ref('regular')
 const currentCategory = ref('')
-const color = ref('blue')
+const color = ref('#0000ff')
 const search = ref('')
 const batch = ref(1)
 
@@ -63,7 +63,7 @@ const clear = () => {
       Aeria Icons
     </div>
     <input v-model.lazy="search"/>
-    <input v-model.lazy="color"/>
+    <input v-model.lazy="color" type="color" />
     <div class="styles">
       <select v-model="currentStyle">
         <option
