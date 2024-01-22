@@ -68,7 +68,7 @@ export const vitePlugin = (_options: Options = {}): Plugin => {
 
       await mkdir(path.join(config.build.outDir, 'assets'), { recursive: true })
 
-      if( !options.allIcons ) {
+      if( options.allIcons ) {
         await copyFile(
           path.join(__dirname, '..', 'dist', 'icons.svg'),
           path.join(config.build.outDir, 'assets', 'icons.svg')
