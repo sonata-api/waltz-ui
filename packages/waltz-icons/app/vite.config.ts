@@ -6,5 +6,9 @@ export default defineConfig({
   plugins: [
     vue(),
     aeriaIcons()
-  ]
+  ],
+  base: '/waltz-ui/icons',
+  build: {
+    outDir: 'dist/icons'
+  }
 })
