@@ -33,11 +33,11 @@ jobs:
           pnpm --filter='./packages/create-waltz-app' build
           pnpm --filter='./packages/waltz-ui' build
       - name: Build icons site
-        run: cd waltz-icons/app && vite build
+        run: cd packages/waltz-icons/app && vite build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: waltz-icons/app/dist
+          path: packages/waltz-icons/app/dist
 
   deploy:
     environment:
