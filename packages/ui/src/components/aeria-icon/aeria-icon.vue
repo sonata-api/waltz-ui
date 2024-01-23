@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import type { PhosphorIcon } from '@phosphor-icons/core'
+import { type PhosphorIcon, IconStyle } from '@phosphor-icons/core'
 import { inject } from 'vue'
 
 type Props = {
   icon: PhosphorIcon['name']
+  variant?: IconStyle
   size?: string
   medium?: boolean
   reactive?: boolean|null
@@ -11,7 +12,9 @@ type Props = {
   fill?: string
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  variant: IconStyle.REGULAR
+})
 
 const reactive = typeof props.reactive === 'boolean'
   ? props.reactive
@@ -43,7 +46,7 @@ const reactive = typeof props.reactive === 'boolean'
           ...(fill ? { fill } : {})
         }"
       >
-        <use :href="`/assets/icons.svg#regular:${icon}`"></use>
+        <use :href="`/assets/icons.svg#${variant}:${icon}`"></use>
       </svg>
     </div>
     <div

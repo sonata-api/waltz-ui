@@ -1,16 +1,9 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import { icons as catalog } from '@phosphor-icons/core'
+import { icons as catalog, IconStyle } from '@phosphor-icons/core'
 import Icon from './components/icon.vue'
 
-const styles = new Set([
-  'thin',
-  'light',
-  'regular',
-  'bold',
-  'fill',
-  'duotone'
-])
+const styles = Object.values(IconStyle)
 
 const categories = new Set(catalog.reduce((a, icon) => [
   ...a,
