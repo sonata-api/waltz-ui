@@ -1,24 +1,24 @@
 .crud {
   &__controls {
     display: flex;
-    align-items: stretch;
     flex-wrap: wrap;
+    align-items: stretch;
     justify-content: flex-end;
     gap: 1rem;
   }
 
   &__search {
+    min-width: 90vw;
     flex: 1;
     order: 1;
-    min-width: 90vw;
 
     :deep(.input__container) {
       height: 100%;
     }
 
-    @media screen and (min-width: 600px) {
-      order: 0;
+    @media screen and (width >= 600px) {
       min-width: auto;
+      order: 0;
     }
   }
 

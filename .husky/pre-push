@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+pnpm lint-css
+
+if test -d playground/node_modules; then
+  pnpm i
+fi

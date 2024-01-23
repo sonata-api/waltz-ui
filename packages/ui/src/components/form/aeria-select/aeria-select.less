@@ -4,11 +4,10 @@
 
   display: flex;
   align-items: center;
-  gap: .4rem;
-
-  background: var(--background-color);
   border: 1px solid var(--border-color);
   border-radius: var(--theme-radius-medium);
+  background: var(--background-color);
+  gap: .4rem;
 
   &--outline {
     &:focus-within {
@@ -18,32 +17,31 @@
 
   &__select {
     width: 100%;
-    height: var(--theme-input-height);
     min-width: 5rem;
-    font-family: unset;
+    height: var(--theme-input-height);
     padding: var(--theme-input-padding);
-
     border-radius: 4px;
+
+    background: transparent;
+    color: var(--theme-foreground-color);
+    font-family: unset;
     line-height: 1.5rem;
 
     &:focus {
       outline: none;
     }
 
-    background: transparent;
-    color: var(--theme-foreground-color);
-
     :deep(option) {
-      background: var(--background-color);
       height: 100%;
+      background: var(--background-color);
     }
 
     &--multiple {
       padding: 0;
 
       :deep(option) {
-        padding: var(--theme-input-padding);
         height: var(--theme-input-height);
+        padding: var(--theme-input-padding);
 
         &[data-selected="true"] {
           background: var(--theme-brand-color);

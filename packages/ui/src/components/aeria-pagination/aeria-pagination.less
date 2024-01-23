@@ -1,9 +1,9 @@
 .pagination {
   display: flex;
-  column-gap: 2rem;
   box-sizing: content-box;
+  column-gap: 2rem;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (width <= 600px) {
     display: none;
   }
 
@@ -17,7 +17,7 @@
     align-items: center;
     gap: .6rem;
 
-    :deep([data-component=input]) {
+    :deep([data-component="input"]) {
       width: 2.8rem;
     }
   }

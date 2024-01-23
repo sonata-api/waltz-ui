@@ -1,12 +1,11 @@
 .barebutton {
   display: flex;
-  place-items: center;
-  column-gap: .2rem;
-  user-select: none;
-  outline: none;
-
-  background: transparent;
   border: none;
+  background: transparent;
+  column-gap: .2rem;
+  outline: none;
+  place-items: center;
+  user-select: none;
 
   &:active {
     text-decoration: underline;
@@ -17,7 +16,7 @@
   }
 
   &--enabled {
-    @media screen and (min-width: 600px) {
+    @media screen and (width >= 600px) {
       cursor: pointer;
     }
   }

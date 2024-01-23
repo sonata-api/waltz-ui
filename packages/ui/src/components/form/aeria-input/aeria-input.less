@@ -8,7 +8,7 @@
     }
 
     &__icon {
-      :deep([data-component=icon]) {
+      :deep([data-component="icon"]) {
         fill: var(--theme-brand-color);
       }
     }
@@ -30,8 +30,8 @@
 
     &>.input__input,
     &>.input__textarea {
-      background: var(--background-color);
       border: 1px solid var(--background-color);
+      background: var(--background-color);
     }
 
     &--light {
@@ -46,15 +46,14 @@
 
   &__input {
     width: 100%;
-    outline: none;
-    border: 0;
     height: var(--theme-input-height);
     border: 1px solid red;
+    outline: none;
 
     &--normal, &--bold {
-      color: var(--theme-foreground-color);
-      background: var(--background-color);
       border-radius: var(--theme-radius-medium);
+      background: var(--background-color);
+      color: var(--theme-foreground-color);
     }
 
     &--normal {
@@ -63,8 +62,8 @@
     }
 
     &--bold {
-      padding: var(--theme-input-padding-large);
       height: var(--theme-input-height-large);
+      padding: var(--theme-input-padding-large);
       font-size: 12.5pt;
     }
 
@@ -91,31 +90,30 @@
 
   &__icon {
     position: absolute;
-    width: 1.1em;
 
-    :deep([data-component=icon]) {
+    top: 50%;
+    left: .6em;
+    width: 1.1em;
+    transform: translateY(-50%);
+
+    :deep([data-component="icon"]) {
       fill: #bbb;
     }
 
     &--bold {
-      :deep([data-component=icon]) {
+      :deep([data-component="icon"]) {
         width: 1.2rem;
         height: 1.2rem;
       }
     }
-
-    top: 50%;
-    left: .6em;
-    transform: translateY(-50%);
   }
 
   &__clipboard {
     display: flex;
-    place-items: center;
-    background: var(--background-color);
+    padding: 0 .6em;
     border: var(--theme-frame-border);
     border-width: 1px 1px 1px 0;
-
-    padding: 0 .6em;
+    background: var(--background-color);
+    place-items: center;
   }
 }

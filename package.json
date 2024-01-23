@@ -3,15 +3,18 @@
   "private": true,
   "packageManager": "pnpm@8.7.6",
   "scripts": {
-    "postinstall": "husky install; ln -s $(realpath packages/) node_modules/@waltz-ui; rm -rf packages/*/node_modules/@waltz-ui"
+    "postinstall": "husky install; ln -s $(realpath packages/) node_modules/@waltz-ui; rm -rf packages/*/node_modules/@waltz-ui",
+    "lint-css": "stylelint 'packages/ui/**/*.less'",
+    "lint-css:fix": "stylelint --fix 'packages/ui/**/*.less'"
   },
   "devDependencies": {
     "@changesets/cli": "^2.26.2",
     "@commitlint/cli": "^17.7.1",
     "@commitlint/config-conventional": "^17.7.0",
     "husky": "^8.0.3",
+    "postcss-less": "^6.0.0",
     "stylelint": "^16.2.0",
-    "stylelint-config-standard": "^36.0.0",
+    "stylelint-config-idiomatic-order": "^10.0.0",
     "stylelint-less": "^3.0.1",
     "typescript": "^5.3.0-beta"
   }

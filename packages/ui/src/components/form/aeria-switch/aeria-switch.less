@@ -8,16 +8,13 @@
 
 .switch {
   display: flex;
-  border-radius: 1rem;
-  padding: 4px;
-
-  justify-content: flex-end;
   overflow: hidden;
-
+  width: 3rem;
+  justify-content: flex-end;
+  padding: 4px;
+  border-radius: 1rem;
   background: #ddd;
   transition: background .4s;
-
-  width: 3rem;
 
   &--active {
     background: var(--theme-brand-color-shade-3);
@@ -30,9 +27,8 @@
   &__slider {
     width: @slider-radius;
     height: @slider-radius;
-
-    background: #fff;
     border-radius: 50%;
+    background: #fff;
   }
 
   &__dummy {

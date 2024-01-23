@@ -1,14 +1,14 @@
 .icon {
   display: flex;
-  line-height: 100%;
   align-items: center;
+
+  fill: var(--icon-color, var(--theme-foreground-color));
+  line-height: 100%;
 
   svg {
     width: 100%;
     height: 100%;
   }
-
-  fill: var(--icon-color, var(--theme-foreground-color));
 
   &--reactive {
     padding: 8px;
@@ -34,13 +34,13 @@
 
   &__icon {
     display: grid;
+
+    width: var(--icon-size, 1em);
+    height: var(--icon-size, 1em);
     place-items: center;
 
     &--right {
       order: 1;
     }
-
-    width: var(--icon-size, 1em);
-    height: var(--icon-size, 1em);
   }
 }

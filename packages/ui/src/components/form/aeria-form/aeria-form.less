@@ -5,20 +5,19 @@
   &__footer {
     display: flex;
     align-items: center;
-    column-gap: .6rem;
     margin-top: -1rem;
+    column-gap: .6rem;
   }
 
   &__fieldset {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    align-items: flex-start;
     width: 100%;
-    gap: 1rem;
-
-    border: none;
+    align-items: flex-start;
     padding: 0;
+    border: none;
     margin: 0;
+    gap: 1rem;
+    grid-template-columns: repeat(6, 1fr);
   }
 
   &__field-label {
@@ -31,10 +30,10 @@
     font-size: .9rem;
   }
 
-  &__field-required-hint:after {
-    content: '*';
-    color: #ee2222;
+  &__field-required-hint::after {
     margin-left: .35rem;
+    color: #e22;
+    content: '*';
   }
 
   &__search-grid {
@@ -43,8 +42,8 @@
   }
 
   &__validation-error {
-    font-size: .9rem;
     padding: .4rem 0;
     color: red;
+    font-size: .9rem;
   }
 }

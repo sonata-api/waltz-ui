@@ -4,26 +4,22 @@
 }
 
 .toast {
-  width: 90vw;
-
-  display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  user-select: none;
-
-  border-radius: 5px;
   z-index: 70;
+  display: flex;
+  width: 90vw;
+  padding: 1rem;
+  border: 1px solid var(--theme-border-color);
+  border-radius: 5px;
   animation: blink .5s forwards;
   animation-delay: 2s;
   animation-play-state: paused;
-
-  color: var(--theme-foreground-color);
   background: var(--theme-background-color);
-  border: 1px solid var(--theme-border-color);
-
   box-shadow: 0 3px 3px var(--theme-shadow-color);
+  color: var(--theme-foreground-color);
+  gap: 1rem;
+  user-select: none;
 
-  @media screen and (min-width: 768px) {
+  @media screen and (width >= 768px) {
     width: 24rem;
   }
 

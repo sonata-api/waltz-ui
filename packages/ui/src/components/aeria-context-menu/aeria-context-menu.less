@@ -4,7 +4,7 @@
       border-bottom: 1px solid var(--theme-border-color);
     }
 
-    @media screen and (min-width: 600px) {
+    @media screen and (width >= 600px) {
       min-width: 12rem;
     }
   }
@@ -12,20 +12,19 @@
   &__item {
     display: flex;
     width: 100%;
-    font-weight: 400;
     color: var(--theme-foreground-color);
+    font-weight: 400;
 
     :deep(>*) {
       display: flex;
-      align-items: center;
-      gap: .4rem;
-
       width: 100%;
       height: 100%;
+      align-items: center;
       padding: 1.6rem !important;
       font-size: 11pt;
+      gap: .4rem;
 
-      @media screen and (min-width: 600px) {
+      @media screen and (width >= 600px) {
         justify-content: flex-start;
         padding: 1rem !important;
       }

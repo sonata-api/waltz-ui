@@ -1,20 +1,19 @@
 .menu {
-  padding: 0;
-  border-radius: var(--theme-radius-large);
-  align-self: center;
   min-width: 90vw;
-
-  color: var(--theme-foreground-color);
-  background: var(--theme-background-color-shade-2);
+  align-self: center;
+  padding: 0;
   border: 1px solid var(--theme-border-color);
+  border-radius: var(--theme-radius-large);
+  background: var(--theme-background-color-shade-2);
+  color: var(--theme-foreground-color);
 
-  @media screen and (min-width: 600px) {
+  @media screen and (width >= 600px) {
     min-width: 22rem;
   }
 
   &__entry {
-    font-size: 11pt;
     padding: 1rem;
+    font-size: 11pt;
 
     &:not(:last-child) {
       border-bottom: 1px solid var(--theme-border-color);

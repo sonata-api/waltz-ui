@@ -2,6 +2,7 @@
   from {
     width: 0;
   }
+
   to {
     width: 100%;
     opacity: 0;
@@ -10,33 +11,32 @@
 
 .button {
   --border-color: var(--button-border-color, var(--theme-border-color));
-  position: relative;
 
-  text-align: center;
+  position: relative;
+  border: 1px solid transparent;
   border-radius: var(--theme-radius-medium);
-  outline: none;
+  color: var(--theme-foreground-color);
   font-weight: 700;
   letter-spacing: .2pt;
+  outline: none;
+  text-align: center;
 
-  border: 1px solid transparent;
-  color: var(--theme-foreground-color);
-
-  &--loading:before {
-    display: block;
+  &--loading::before {
     position: absolute;
     left: 0;
-    content: ' ';
-    background: #000;
-    opacity: .4;
-    height: 100%;
+    display: block;
     width: 2rem;
-
+    height: 100%;
     animation: progress 1s forwards;
+    background: #000;
+    content: ' ';
+    opacity: .4;
   }
 
   &--transparent,
   &--alt {
     font-weight: 300;
+
     &:hover {
       background: var(--theme-background-color-shade-4);
     }
@@ -54,9 +54,9 @@
   }
 
   &--primary {
-    color: var(--theme-brand-color-contrast);
-    background: var(--theme-brand-color-shade-2);
     border-color: var(--theme-brand-color-shade-2);
+    background: var(--theme-brand-color-shade-2);
+    color: var(--theme-brand-color-contrast);
   }
 
   &--small {
@@ -65,20 +65,20 @@
   }
 
   &--medium {
-    padding: var(--theme-input-padding);
     height: var(--theme-input-height);
+    padding: var(--theme-input-padding);
     font-size: 10pt;
   }
 
   &--large {
-    padding: var(--theme-input-padding-large);
     height: var(--theme-input-height-large);
+    padding: var(--theme-input-padding-large);
     font-size: 11pt;
   }
 
   &__content {
-    width: 100%;
     display: flex;
+    width: 100%;
     align-items: center;
     justify-content: center;
     gap: .4rem;

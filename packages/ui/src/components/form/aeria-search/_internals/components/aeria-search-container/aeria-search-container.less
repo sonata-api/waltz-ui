@@ -1,22 +1,20 @@
 .container {
-  background: var(--theme-background-color-shade-3);
   border: var(--theme-frame-border);
   border-radius: var(--theme-radius-medium);
+  background: var(--theme-background-color-shade-3);
 
   &__content {
+    overflow: hidden auto;
     max-height: 20rem;
-    overflow-x: hidden;
-    overflow-y: auto;
   }
 
   &__footer {
-    font-size: .8rem;
-    color: var(--theme-foreground-color);
-    padding: var(--theme-input-padding);
-    height: var(--theme-input-height);
-
     display: flex;
+    height: var(--theme-input-height);
     flex-direction: column;
     justify-content: center;
+    padding: var(--theme-input-padding);
+    color: var(--theme-foreground-color);
+    font-size: .8rem;
   }
 }

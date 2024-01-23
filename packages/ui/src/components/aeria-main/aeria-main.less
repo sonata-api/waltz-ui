@@ -1,17 +1,15 @@
 .main {
   display: flex;
-  flex-direction: column;
   min-height: 100vh;
+  flex-direction: column;
 
   &__toasts {
     position: fixed;
-    bottom: 1.6rem;
+    z-index: 20;
     right: 1.6rem;
-
+    bottom: 1.6rem;
     display: flex;
     flex-direction: column;
     row-gap: .6rem;
-
-    z-index: 20;
   }
 }
