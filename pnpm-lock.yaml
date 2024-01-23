@@ -42,7 +42,7 @@ importers:
     dependencies:
       '@sonata-api/common':
         specifier: '*'
-        version: 0.1.16(@sonata-api/types@0.1.27)(bson@5.5.1)
+        version: 0.1.16(@sonata-api/types@0.1.28)(bson@5.5.1)
     devDependencies:
       vue:
         specifier: ^3.3.13
@@ -58,7 +58,7 @@ importers:
     dependencies:
       '@sonata-api/common':
         specifier: '*'
-        version: 0.1.16(@sonata-api/types@0.1.27)(bson@5.5.1)
+        version: 0.1.16(@sonata-api/types@0.1.28)(bson@5.5.1)
       '@waltz-ui/state-management':
         specifier: '*'
         version: link:../state-management
@@ -74,7 +74,7 @@ importers:
     devDependencies:
       '@sonata-api/types':
         specifier: '*'
-        version: 0.1.27
+        version: 0.1.28(@phosphor-icons/core@2.0.6)
       '@vitejs/plugin-vue':
         specifier: ^4.2.3
         version: 4.6.2(vite@4.5.2)(vue@3.4.15)
@@ -101,10 +101,10 @@ importers:
         version: 15.2.3
       '@sonata-api/common':
         specifier: '*'
-        version: 0.1.16(@sonata-api/types@0.1.27)(bson@6.2.0)
+        version: 0.1.16(@sonata-api/types@0.1.28)(bson@6.2.0)
       '@sonata-api/types':
         specifier: '*'
-        version: 0.1.27
+        version: 0.1.28(@phosphor-icons/core@2.0.6)
       '@vitejs/plugin-vue':
         specifier: ^4.1.0
         version: 4.6.2(vite@4.5.2)(vue@3.4.15)
@@ -181,10 +181,10 @@ importers:
     dependencies:
       '@sonata-api/common':
         specifier: '*'
-        version: 0.1.16(@sonata-api/types@0.1.27)(bson@5.5.1)
+        version: 0.1.16(@sonata-api/types@0.1.28)(bson@5.5.1)
       '@sonata-api/types':
         specifier: '*'
-        version: 0.1.27
+        version: 0.1.28(@phosphor-icons/core@2.0.6)
       '@waltz-ui/i18n':
         specifier: '*'
         version: link:../i18n
@@ -1134,6 +1134,9 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.16.0
 
+  /@phosphor-icons/core@2.0.6:
+    resolution: {integrity: sha512-iV0VHw6KCBcz5W++8VW9Bbb6ioxb3mPwMuV5ljHtrOh/fgEJlpbFXXaTS6OPHl6UszzbdK2MhckUvc25UOIq0w==}
+
   /@pkgjs/parseargs@0.11.0:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
@@ -1204,28 +1207,33 @@ packages:
       string-argv: 0.3.2
     dev: true
 
-  /@sonata-api/common@0.1.16(@sonata-api/types@0.1.27)(bson@5.5.1):
+  /@sonata-api/common@0.1.16(@sonata-api/types@0.1.28)(bson@5.5.1):
     resolution: {integrity: sha512-jdz/GvpdLFSTgq5ptlyoF4fKqoS/GalOQL34sIczSyIDynSchJDk/NMHIGEn/2y7tq0ZgB0ljhtrCiRw8NXRBQ==}
     peerDependencies:
       '@sonata-api/types': '*'
       bson: ^5.4.0
     dependencies:
-      '@sonata-api/types': 0.1.27
+      '@sonata-api/types': 0.1.28(@phosphor-icons/core@2.0.6)
       bson: 5.5.1
     dev: false
 
-  /@sonata-api/common@0.1.16(@sonata-api/types@0.1.27)(bson@6.2.0):
+  /@sonata-api/common@0.1.16(@sonata-api/types@0.1.28)(bson@6.2.0):
     resolution: {integrity: sha512-jdz/GvpdLFSTgq5ptlyoF4fKqoS/GalOQL34sIczSyIDynSchJDk/NMHIGEn/2y7tq0ZgB0ljhtrCiRw8NXRBQ==}
     peerDependencies:
       '@sonata-api/types': '*'
       bson: ^5.4.0
     dependencies:
-      '@sonata-api/types': 0.1.27
+      '@sonata-api/types': 0.1.28(@phosphor-icons/core@2.0.6)
       bson: 6.2.0
     dev: false
 
-  /@sonata-api/types@0.1.27:
-    resolution: {integrity: sha512-2t48D/FzmU3bLs4KBbRuFJY+S55ZU91kbKAqjT8TJDQqjEO/wr1DnxIsDTgb3g/iyKTkcuZRwZSkmWM/drbMSw==}
+  /@sonata-api/types@0.1.28(@phosphor-icons/core@2.0.6):
+    resolution: {integrity: sha512-eG9ef87AzvSY5D2OHw/hzZYvGz1/ksEkWnpSaREofNnzQYzqV4nut9SeCxZl3u4jW98PZdmxegv7jIvRJiNglg==}
+    peerDependencies:
+      '@phosphor-icons/core': ^2.0.6
+    dependencies:
+      '@phosphor-icons/core': 2.0.6
+      '@sonata-api/types': 'link:'
 
   /@tsconfig/node10@1.0.9:
     resolution: {integrity: sha512-jNsYVVxU8v5g43Erja32laIDHXeoNvFEpX33OK4d6hljo3jDhCBDhx5dhCCTMWUojscpAagGiRkBKxpdl9fxqA==}
