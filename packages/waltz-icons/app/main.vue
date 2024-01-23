@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import { icons as catalog } from '../core'
+import { icons as catalog } from '@phosphor-icons/core'
 import Icon from './components/icon.vue'
 
 const styles = new Set([
