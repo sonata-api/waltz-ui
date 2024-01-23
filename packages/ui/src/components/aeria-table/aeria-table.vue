@@ -307,7 +307,7 @@ const buttonStyle = (subject: any, action: any) => {
               class="table__mobile-actions-button"
               @click="action.click(row)"
             >
-              <aeria-icon :icon="action.icon || 'setting'">
+              <aeria-icon :icon="action.icon || 'gear'">
                 {{ t(action.name) }}
               </aeria-icon>
             </aeria-bare-button>
@@ -319,7 +319,7 @@ const buttonStyle = (subject: any, action: any) => {
                 actions: dropdownActions(row)
             }">
               <aeria-icon
-                icon="ellipsis-h"
+                icon="dots-three"
                 class="table__mobile-actions-button"
               ></aeria-icon>
             </aeria-context-menu>

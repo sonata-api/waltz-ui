@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { PhosphorIcon } from 'waltz-icons/core'
 import { inject } from 'vue'
 
 type Props = {
-  icon: string
+  icon: PhosphorIcon['name']
   size?: string
   medium?: boolean
   reactive?: boolean|null

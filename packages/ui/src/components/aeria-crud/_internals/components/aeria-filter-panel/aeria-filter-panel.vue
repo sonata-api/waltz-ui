@@ -61,7 +61,7 @@ const filter = () => {
       </aeria-button>
       <aeria-button
         large
-        icon="filter"
+        icon="funnel"
         :disabled="!store.hasActiveFilters"
         @click="filter"
       >

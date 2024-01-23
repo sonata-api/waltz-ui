@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { PhosphorIcon } from 'waltz-icons/core'
 import { useStore } from '@waltz-ui/state-management'
 import AeriaIcon from '../../aeria-icon/aeria-icon.vue'
 
@@ -6,7 +7,7 @@ type Props = {
   idx: number
   itr: number
   date: string
-  icon?: string
+  icon?: PhosphorIcon['name']
 }
 
 const props = defineProps<Props>()
@@ -27,7 +28,7 @@ const metaStore = useStore('meta')
       v-bind="
         icon
           ? { icon }
-          : { icon: 'exclamation-circle' }
+          : { icon: 'warning-circle' }
       "
       style="
         --icon-size: 4rem;

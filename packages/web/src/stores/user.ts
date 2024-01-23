@@ -32,7 +32,7 @@ export const user = () => registerStore(() => {
       email: '',
       password: ''
     },
-    description: {} as Description & {
+    description: {} as Omit<Description, 'properties'> & {
       properties: {
         roles: {
           items: {

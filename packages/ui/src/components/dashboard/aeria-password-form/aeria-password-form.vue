@@ -28,12 +28,12 @@ const passwordError = computed(() => {
     :form="{
       password: {
         type: 'string',
-        icon: 'key-skeleton',
+        icon: 'key',
         inputType: 'password'
       },
       confirmation: {
         type: 'string',
-        icon: 'key-skeleton',
+        icon: 'key',
         inputType: 'password'
       },
     }"

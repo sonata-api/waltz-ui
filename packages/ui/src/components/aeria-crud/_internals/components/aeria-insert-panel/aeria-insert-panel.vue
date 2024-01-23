@@ -102,7 +102,7 @@ watch(() => store.item._id, (_id) => {
           v-clickable
           v-if="store.item._id"
           reactive
-          icon="ellipsis-h"
+          icon="dots-three"
         ></aeria-icon>
       </aeria-context-menu>
     </template>

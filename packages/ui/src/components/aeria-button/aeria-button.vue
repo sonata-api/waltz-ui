@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { PhosphorIcon } from 'waltz-icons/core'
 import { inject } from 'vue'
 import AeriaBareButton from '../aeria-bare-button/aeria-bare-button.vue'
 import AeriaIcon from '../aeria-icon/aeria-icon.vue'
@@ -19,7 +20,7 @@ type Props = {
   variant?: Variant
   small?: boolean
   large?: boolean
-  icon?: string
+  icon?: PhosphorIcon['name']
   disabled?: boolean
   loading?: boolean
 }

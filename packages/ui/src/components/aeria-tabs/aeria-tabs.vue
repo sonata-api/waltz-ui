@@ -86,7 +86,7 @@ const change = (tab: string) => {
         <aeria-icon
           v-clickable
           icon-right
-          icon="angle-down"
+          icon="caret-down"
           style="
             --icon-color: var(--theme-brand-color-shade-1);
           "

@@ -20,6 +20,7 @@
   },
   "exports": {
     ".": "./dist/index.js",
+    "./core": "./core/dist/index.js",
     "./common": "./dist/common.js",
     "./vite": "./dist/vite.js"
   },

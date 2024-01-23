@@ -11,6 +11,9 @@
       ],
       "@waltz-ui/state-management": [
         "../state-management/dist"
+      ],
+      "waltz-icons/core": [
+        "../waltz-icons/core/dist"
       ]
     }
   },

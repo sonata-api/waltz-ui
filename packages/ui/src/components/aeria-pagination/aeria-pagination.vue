@@ -59,7 +59,7 @@ watch([page, limit], ([newPage]: [number, number]) => {
       v-model="limit"
       :property="{
         enum: [],
-        icon: 'list-ul'
+        icon: 'list'
       }"
       class="pagination__control"
     >
