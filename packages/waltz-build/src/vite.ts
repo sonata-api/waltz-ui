@@ -13,6 +13,8 @@ import transformIndexHtml from './plugins/transform-index-html'
 import loadYaml from './plugins/load-yaml'
 
 export default defineConfig(async () => {
+  delete VueRouterAutoImports['unplugin-vue-router/runtime']
+
   const instanceConfig = await getInstanceConfig()
   const config: InlineConfig = {
     publicDir: 'static',

@@ -24,8 +24,6 @@ window.I18N = reactive<I18nConfig>({
   locales: {}
 })
 
-const wordsMemo = {} as Record<string, Record<string, string>>
-
 export const createI18n = (config: I18nConfig) => {
   Object.assign(window.I18N, config)
 }

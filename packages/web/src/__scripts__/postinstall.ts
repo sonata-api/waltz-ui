@@ -54,6 +54,18 @@ declare module '@vue/runtime-core' {
   }
 }
 
+import type { RouteRecordRaw } from 'vue-router'
+import type { PhosphorIcon } from '@phosphor-icons/core'
+
+declare global {
+  const definePage: (page: Partial<RouteRecordRaw> & {
+    meta: {
+      title: string
+      icon: PhosphorIcon['name']
+    }
+  }) => void
+}
+
 export {}
 //`
 

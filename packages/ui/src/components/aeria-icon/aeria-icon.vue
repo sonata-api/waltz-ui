@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PhosphorIcon } from 'waltz-icons/core'
+import type { PhosphorIcon } from '@phosphor-icons/core'
 import { inject } from 'vue'
 
 type Props = {

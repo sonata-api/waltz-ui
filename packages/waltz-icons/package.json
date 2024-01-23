@@ -1,6 +1,6 @@
 {
   "name": "waltz-icons",
-  "version": "0.0.7",
+  "version": "0.0.12",
   "homepage": "https://sonata-api.github.io/waltz-icons",
   "description": "",
   "keywords": [],
@@ -8,19 +8,19 @@
   "license": "ISC",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
-    "dist",
-    "core/assets",
-    "core/dist"
+    "dist"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc && (cd core; pnpm build); node dist/__scripts__/bundleAllIcons.js",
+    "build": "tsc && node dist/__scripts__/bundleAllIcons.js",
     "prepublishOnly": "npm run build"
   },
   "exports": {
     ".": "./dist/index.js",
-    "./core": "./core/dist/index.js",
     "./common": "./dist/common.js",
     "./vite": "./dist/vite.js"
   },
@@ -39,6 +39,7 @@
     "vite": "4.2.0"
   },
   "dependencies": {
+    "@phosphor-icons/core": "^2.0.6",
     "glob": "^10.3.10"
   }
 }

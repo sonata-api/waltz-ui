@@ -1,5 +1,13 @@
 # waltz-build
 
+## 0.1.7
+
+### Patch Changes
+
+- Enforce typed icons
+- Updated dependencies
+  - waltz-icons@0.0.8
+
 ## 0.1.6
 
 ### Patch Changes

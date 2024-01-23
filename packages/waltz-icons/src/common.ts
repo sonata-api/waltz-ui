@@ -36,11 +36,7 @@ export const fileName = (iconName: string) => {
     return path.join(style, `${filename}.svg`)
 }
 
-export const scrapper = (
-  options: Options,
-  emitFn: (newPath: string, content: string|Buffer) => void,
-  errorCallback: (e: any) => void
-) => async (source: string) => {
+export const scrapper = (options: Options) => async (source: string) => {
   const shouldAdd = new Set<string>()
   const regexes = makeExpressions(options)
 
@@ -59,26 +55,6 @@ export const scrapper = (
       }
     }
   }
-
-  for( const iconName of shouldAdd ) {
-    icons.add(iconName)
-
-    try {
-      const newPath = path.join(
-        __dirname,
-        '..',
-        'core',
-        'assets',
-        fileName(iconName)
-      )
-
-      const content = await readFile(newPath)
-      emitFn(newPath, content)
-
-    } catch( e: any ) {
-      errorCallback(e)
-    }
-  }
 }
 
 export const packTogether = async (icons: Array<string>) => {
@@ -94,9 +70,9 @@ export const packTogether = async (icons: Array<string>) => {
 
     try {
       const newPath = path.join(
-        __dirname,
+        require.resolve('@phosphor-icons/core'),
         '..',
-        'core',
+        '..',
         'assets',
         fileName(iconName)
       )

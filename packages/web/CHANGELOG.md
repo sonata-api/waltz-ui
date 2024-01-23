@@ -1,5 +1,13 @@
 # @waltz-ui/web
 
+## 1.0.17
+
+### Patch Changes
+
+- Enforce typed icons
+- Updated dependencies
+  - @waltz-ui/i18n@1.0.7
+
 ## 1.0.16
 
 ### Patch Changes

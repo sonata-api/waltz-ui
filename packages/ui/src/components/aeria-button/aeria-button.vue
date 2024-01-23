@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PhosphorIcon } from 'waltz-icons/core'
+import type { PhosphorIcon } from '@phosphor-icons/core'
 import { inject } from 'vue'
 import AeriaBareButton from '../aeria-bare-button/aeria-bare-button.vue'
 import AeriaIcon from '../aeria-icon/aeria-icon.vue'

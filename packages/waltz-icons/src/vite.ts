@@ -36,12 +36,7 @@ export const vitePlugin = (_options: Options = {}): Plugin => {
     async transform(source, id) {
       if( !options.allIcons && /\.[cm]?((t|j)s(x|on)?|vue|svelte|html?)/.test(id) ) {
         if( !/node_modules/.test(id) || options.libraries?.some((library) => new RegExp(`/${library}/`).test(id)) ) {
-          const scrap = scrapper(
-            options,
-            () => null,
-            (error) => this.warn(error)
-          )
-
+          const scrap = scrapper(options)
           await scrap(source)
         }
 

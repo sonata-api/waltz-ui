@@ -1,16 +1,30 @@
 import path from 'path'
 import { writeFile } from 'fs/promises'
-import { globSync } from 'glob'
 import { packTogether } from '../common'
+import { icons } from '@phosphor-icons/core'
 
 const bundlePath = path.join(__dirname, '..', '..', 'dist', 'icons.svg')
 
-const bundle = async () => {
-  const fileList = globSync(path.join(__dirname, '..', '..', 'core', 'assets', '**', '*.svg')).map((path) => {
-    return path.split('/').slice(-2).join(':').replace(/\.svg$/, '')
-  })
+const styles = [
+  'thin',
+  'light',
+  'regular',
+  'bold',
+  'fill',
+  'duotone'
+]
 
-  const content = await packTogether(fileList)
+const bundle = async () => {
+  const iconNames = icons.reduce((a, icon) => [
+    ...a,
+    ...styles.map(
+      (style) => style === 'regular'
+        ? `${style}:${icon.name}`
+        : `${style}:${icon.name}-${style}`
+    )
+  ], [] as string[])
+
+  const content = await packTogether(iconNames)
   await writeFile(bundlePath, content)
 }
 
