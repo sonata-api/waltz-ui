@@ -102,7 +102,9 @@ const getDatetimeString = () => {
 const inputValue = ref(
   ['date', 'date-time'].includes(inputBind.type)
     ? getDatetimeString()
-    : props.modelValue || ''
+    : props.modelValue === null || props.modelValue === undefined
+      ? ''
+      : props.modelValue
 )
 
 const updateValue = (value: InputType) => {

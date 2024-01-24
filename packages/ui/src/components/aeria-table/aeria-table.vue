@@ -194,23 +194,33 @@ const buttonStyle = (subject: any, action: any) => {
               </div>
 
               <div v-else-if="getReferenceProperty(property)?.$ref === 'file'">
-                <div v-if="!row[column]">
-                  -
-                </div>
                 <aeria-picture
                   expandable
-                  v-else-if="/^image/.test(row[column].mime)" 
+                  v-if="/^image/.test(row[column][0]?.mime) && 'items' in property"
+                  v-model="row[column][0].link"
+                  :meta="row[column][0]"
+                  class="table__picture"
+                ></aeria-picture>
+
+                <aeria-picture
+                  expandable
+                  v-else-if="/^image/.test(row[column]?.mime)"
                   v-model="row[column].link"
                   :meta="row[column]"
                   class="table__picture"
                 ></aeria-picture>
+
                 <a
-                  v-else-if="row[column].link"
+                  v-else-if="row[column]?.link"
                   :href="row[column].link"
                   style="font-size: 10pt"
                 >
                   {{ row[column].filename }}
                 </a>
+
+                <div v-else>
+                  -
+                </div>
               </div>
 
               <div v-else>
