@@ -31,6 +31,11 @@ jobs:
           cache: pnpm
       - name: Install dependencies
         run: pnpm install
+
+      - name: Patch node_modules
+        run: |
+          ln -s $(realpath packages) node_modules/@waltz-ui
+          rm -rf packages/*/node_modules/@waltz-ui
       - name: Build packages
         run: |
           pnpm --filter='./packages/waltz-icons' build
