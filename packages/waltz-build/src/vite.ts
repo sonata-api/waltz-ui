@@ -25,7 +25,6 @@ export default defineConfig(async () => {
     },
     plugins: [
       waltzIcons({
-        tag: 'aeria-icon',
         hash: true,
         libraries: instanceConfig.icons?.libraries || [],
         async preEmit() {

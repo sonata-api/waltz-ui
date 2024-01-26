@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PhosphorIcon } from '@phosphor-icons/core'
+import type { Icon } from '@sonata-api/types'
 import { inject } from 'vue'
 import AeriaBareButton from '../aeria-bare-button/aeria-bare-button.vue'
 import AeriaIcon from '../aeria-icon/aeria-icon.vue'
@@ -20,7 +20,7 @@ type Props = {
   variant?: Variant
   small?: boolean
   large?: boolean
-  icon?: PhosphorIcon['name']
+  icon?: Icon
   disabled?: boolean
   loading?: boolean
 }

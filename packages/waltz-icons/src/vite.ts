@@ -3,7 +3,6 @@ import path from 'path'
 import { mkdir, readFile, writeFile, copyFile } from 'fs/promises'
 import {
   type Options,
-  defaultOptions,
   scrapper,
   icons,
   packTogether,
@@ -11,8 +10,7 @@ import {
 
 } from './common'
 
-export const vitePlugin = (_options: Options = {}): Plugin => {
-  const options = Object.assign(defaultOptions, _options)
+export const vitePlugin = (options: Options = {}): Plugin => {
   const hash = makeHash()
 
   let config: ResolvedConfig

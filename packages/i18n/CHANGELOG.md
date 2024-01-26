@@ -1,5 +1,11 @@
 # @waltz-ui/i18n
 
+## 1.0.8
+
+### Patch Changes
+
+- Releases
+
 ## 1.0.7
 
 ### Patch Changes

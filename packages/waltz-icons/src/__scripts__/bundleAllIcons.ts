@@ -8,11 +8,7 @@ const bundlePath = path.join(__dirname, '..', '..', 'dist', 'icons.svg')
 const bundle = async () => {
   const iconNames = icons.reduce((a, icon) => [
     ...a,
-    ...Object.values(IconStyle).map(
-      (style) => style === 'regular'
-        ? `${style}:${icon.name}`
-        : `${style}:${icon.name}-${style}`
-    )
+    ...Object.values(IconStyle).map((style) => `${style}:${icon.name}`)
   ], [] as string[])
 
   const content = await packTogether(iconNames)

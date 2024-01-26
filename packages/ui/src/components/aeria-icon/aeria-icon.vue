@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { type PhosphorIcon, IconStyle } from '@phosphor-icons/core'
-import { inject } from 'vue'
+import type { Icon } from '@sonata-api/types'
+import { inject, computed } from 'vue'
 
 type Props = {
-  icon: PhosphorIcon['name']
-  variant?: IconStyle
+  icon: Icon
   size?: string
   medium?: boolean
   reactive?: boolean|null
@@ -12,13 +11,17 @@ type Props = {
   fill?: string
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  variant: IconStyle.REGULAR
-})
+const props = defineProps<Props>()
 
 const reactive = typeof props.reactive === 'boolean'
   ? props.reactive
   : inject('iconReactive', false)
+
+const computedIcon = computed(() => {
+  return props.icon.includes(':')
+    ? props.icon
+    : `regular:${props.icon}`
+})
 </script>
 
 <template>
@@ -46,7 +49,7 @@ const reactive = typeof props.reactive === 'boolean'
           ...(fill ? { fill } : {})
         }"
       >
-        <use :href="`/assets/icons.svg#${variant}:${icon}`"></use>
+        <use :href="`/assets/icons.svg#${computedIcon}`"></use>
       </svg>
     </div>
     <div

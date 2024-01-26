@@ -1,5 +1,35 @@
 # @waltz-ui/ui
 
+## 1.0.40
+
+### Patch Changes
+
+- Fix icons
+- Updated dependencies
+  - @waltz-ui/web@1.0.20
+
+## 1.0.39
+
+### Patch Changes
+
+- UI fixes
+- Updated dependencies
+  - @waltz-ui/web@1.0.19
+
+## 1.0.38
+
+### Patch Changes
+
+- FIx less
+
+## 1.0.37
+
+### Patch Changes
+
+- Releases
+- Updated dependencies
+  - @waltz-ui/web@1.0.18
+
 ## 1.0.36
 
 ### Patch Changes

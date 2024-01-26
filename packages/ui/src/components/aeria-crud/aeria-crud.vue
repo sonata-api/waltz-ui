@@ -174,6 +174,12 @@ watch(() => [router.currentRoute.value.path, router.currentRoute.value.query.sec
 })
 
 const [performLazySearch] = debounce((value: string) => {
+  router.push({
+    query: {
+      search: value || undefined
+    }
+  })
+
   if( !value ) {
     store.filters = deepClone(store.freshFilters)
     batch.value = 0
@@ -184,12 +190,6 @@ const [performLazySearch] = debounce((value: string) => {
     $text: {
       $search: `"${value}"`,
       $caseSensitive: false
-    }
-  })
-
-  router.push({
-    query: {
-      search: value
     }
   })
 
@@ -349,7 +349,7 @@ provide('individualActions', individualActions)
 
   <div
     v-if="!noActions && (
-      store.description.search?.active
+      store.description.search
       || Object.keys(store.availableFilters).length > 0
       || (store?.actions.length > 0 || $slots.actions)
       || (
@@ -361,7 +361,7 @@ provide('individualActions', individualActions)
     class="crud__controls"
   >
     <div
-      v-if="store.description.search?.active"
+      v-if="store.description.search"
       class="crud__search"
     >
       <aeria-input

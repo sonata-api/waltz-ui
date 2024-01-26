@@ -1,5 +1,23 @@
 # waltz-icons
 
+## 0.0.15
+
+### Patch Changes
+
+- Fix icons
+
+## 0.0.14
+
+### Patch Changes
+
+- Icon scrapper bug
+
+## 0.0.13
+
+### Patch Changes
+
+- Releases
+
 ## 0.0.12
 
 ### Patch Changes

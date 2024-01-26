@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PhosphorIcon } from '@phosphor-icons/core'
+import type { Icon } from '@sonata-api/types'
 import { useStore } from '@waltz-ui/state-management'
 import AeriaIcon from '../../aeria-icon/aeria-icon.vue'
 
@@ -7,7 +7,7 @@ type Props = {
   idx: number
   itr: number
   date: string
-  icon?: PhosphorIcon['name']
+  icon?: Icon
 }
 
 const props = defineProps<Props>()

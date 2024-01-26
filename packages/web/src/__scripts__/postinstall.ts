@@ -55,13 +55,13 @@ declare module '@vue/runtime-core' {
 }
 
 import type { RouteRecordRaw } from 'vue-router'
-import type { PhosphorIcon } from '@phosphor-icons/core'
+import type { Icon } from '@sonata-api/types'
 
 declare global {
   const definePage: (page: Partial<RouteRecordRaw> & {
     meta: {
       title: string
-      icon: PhosphorIcon['name']
+      icon: Icon
     }
   }) => void
 }

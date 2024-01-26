@@ -3,21 +3,15 @@ import { readFile } from 'fs/promises'
 import { DEFAULT_STYLE } from './constants'
 
 export type Options = {
-  tag?: string
-  ensureList?: Array<string>
-  libraries?: Array<string>
+  ensureList?: string[]
+  libraries?: string[]
   preEmit?: () => Promise<void>
   hash?: boolean
   allIcons?: boolean
 }
 
-export const defaultOptions: Partial<Options> = {
-  tag: 'icon',
-}
-
-const makeExpressions = (options: Options) => {
+const makeExpressions = () => {
   const regexes = [
-    new RegExp(`<${options.tag}[^>]*[^:]icon="([^"]+)"`, 'mg'),
     /<[^>]*[^:]icon="([^"]+)"/mg,
     /icon: ?['"]([^'"]+)['"]/mg,
     /icon: ?([\w:-]+)$/mg,
@@ -29,35 +23,42 @@ const makeExpressions = (options: Options) => {
 export const icons = global.waltz__gatheredIcons = new Set<string>()
 
 export const fileName = (iconName: string) => {
-    const [style, filename] = iconName.includes(':')
-      ? iconName.split(':')
-      : [DEFAULT_STYLE, iconName]
+  const [style, filename] = iconName.includes(':')
+    ? iconName.split(':')
+    : [DEFAULT_STYLE, iconName]
 
-    return path.join(style, `${filename}.svg`)
+  return style === 'regular'
+    ? path.join(style, `${filename}.svg`)
+    : path.join(style, `${filename}-${style}.svg`)
 }
 
 export const scrapper = (options: Options) => async (source: string) => {
   const shouldAdd = new Set<string>()
-  const regexes = makeExpressions(options)
+  const regexes = makeExpressions()
 
   if( options.ensureList && !icons.size ) {
-    options.ensureList.forEach((iconName: string) => {
+    options.ensureList.forEach((iconName) => {
       shouldAdd.add(iconName)
     })
   }
 
   for( const regex of regexes ) {
-    let match: Array<string>|null
+    let match: string[] | null
     while( match = regex.exec(source) ) {
       const iconName = match[1]
+
       if( !icons.has(iconName) ) {
         shouldAdd.add(iconName)
       }
     }
   }
+
+  for( const iconName of shouldAdd ) {
+    icons.add(iconName)
+  }
 }
 
-export const packTogether = async (icons: Array<string>) => {
+export const packTogether = async (icons: string[]) => {
   const symbols = []
   for( const iconName of icons ) {
     if( !iconName ) {
