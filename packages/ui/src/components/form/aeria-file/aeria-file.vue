@@ -2,6 +2,7 @@
 import type { Property, FileProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
 import { inject, provide, ref, computed } from 'vue'
+import { request, API_URL } from '@waltz-ui/web'
 import { useParentStore } from '@waltz-ui/state-management'
 import AeriaPicture from '../../aeria-picture/aeria-picture.vue'
 import AeriaButton from '../../aeria-button/aeria-button.vue'
@@ -24,60 +25,55 @@ const store = parentStoreId
 
 provide('buttonSize', 'small')
 
-const preview = ref<({ type: string }&Blob)|null>(null)
+const fileRef = ref<File | null>(null)
 
-const previewFile = computed(() =>
-  preview.value
-    ? URL.createObjectURL(preview.value)
+const preview = computed(() =>
+  fileRef.value
+    ? URL.createObjectURL(fileRef.value)
     : props.modelValue?.link
 )
 
 const isImage = computed(() => 
-  (/^image\//.test(props.modelValue?.mime) && !preview.value?.type)
-    || /^image\//.test(preview.value?.type!)
+  (/^image\//.test(props.modelValue?.mime) && !fileRef.value?.type)
+    || /^image\//.test(fileRef.value?.type!)
 )
 
-const readFile = (file: any): Promise<any> => new Promise((resolve) => {
+const readFile = (file: File) => new Promise<string | ArrayBuffer | null>((resolve) => {
   const fr = new FileReader()
-
-  fr.onload = () => resolve({
-    filename: file.name,
-    content: fr.result,
-    last_modified: file.lastModified,
-    mime: file.type,
-    size: file.size,
-  })
-
-  fr.readAsDataURL(file)
+  fr.onload = () => resolve(fr.result)
+  fr.readAsArrayBuffer(file)
 })
 
 const changePreview = (event: Event) => {
-  preview.value = (event.target as HTMLInputElement).files![0]
+  fileRef.value = (event.target as HTMLInputElement).files![0]
 }
 
 const clearPreview = () => {
-  preview.value = null
+  fileRef.value = null
 }
 
 const insert = async () => {
-  const file = await readFile(preview.value)
+  if( !fileRef.value ) {
+    return
+  }
 
-  const result = store
-    ? await store.$functions.upload({
-      parentId: store.item._id,
-      propertyName: props.propertyName,
-      what: {
-        _id: props.modelValue?._id,
-        ...file
-      },
-      meta: props.meta
+  const file = fileRef.value
+  const content = await readFile(file)
+
+  if( store ) {
+    await request(`${API_URL}/${store.$id}/upload?ref=${props.propertyName}&filename=${file.name}`, content, {
+      params: {
+        method: 'POST',
+        headers: {
+          'content-type': file.type,
+          'x-stream-request': '1',
+        }
+      }
     })
-    : file
+  }
 
-  clearPreview()
-
-  emit('update:modelValue', result)
-  emit('change', result)
+  emit('update:modelValue', content)
+  emit('change', content)
 }
 
 const remove = async () => {
@@ -97,10 +93,10 @@ const remove = async () => {
 
 <template>
   <div class="file">
-    <div v-if="preview || modelValue?._id">
+    <div v-if="fileRef || modelValue?._id">
       <aeria-picture
         v-if="isImage"
-        v-model="previewFile"
+        v-model="preview"
         :class="`
           file__image
           ${(!store || modelValue?._id) || 'file__image--unsent'}
@@ -121,7 +117,7 @@ const remove = async () => {
         @change="changePreview"
       />
       <div
-        v-if="preview"
+        v-if="fileRef"
         class="file__buttons"
       >
         <aeria-button @click.prevent="insert">

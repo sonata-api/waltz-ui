@@ -1,5 +1,11 @@
 # @waltz-ui/ui
 
+## 1.0.41
+
+### Patch Changes
+
+- Fix bug caused when icon was empty
+
 ## 1.0.40
 
 ### Patch Changes

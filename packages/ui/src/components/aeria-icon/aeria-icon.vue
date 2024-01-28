@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Icon } from '@sonata-api/types'
+import type { IconStyle } from '@phosphor-icons/core'
 import { inject, computed } from 'vue'
 
 type Props = {
@@ -17,10 +18,14 @@ const reactive = typeof props.reactive === 'boolean'
   ? props.reactive
   : inject('iconReactive', false)
 
-const computedIcon = computed(() => {
+const computedIcon = computed((): Icon => {
+  if( !props.icon ) {
+    return 'file'
+  }
+
   return props.icon.includes(':')
     ? props.icon
-    : `regular:${props.icon}`
+    : `regular:${<Exclude<Icon, `${IconStyle}:${string}`>>props.icon}`
 })
 </script>
 
