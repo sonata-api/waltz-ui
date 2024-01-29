@@ -419,12 +419,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
               :disabled="
                 !('inline' in property.items && property.items.inline) && (
                   modelValue[propertyName]?.length >= property.maxItems!
-                  || unfilled(modelValue[propertyName]?.[modelValue[propertyName]?.length-1])
-                  || (
-                    getReferenceProperty(property)?.$ref === 'file'
-                      && modelValue[propertyName]?.length > 0
-                      && !modelValue[propertyName]?.[modelValue[propertyName]?.length-1]?._id
-                  )
+                  || unfilled(modelValue[propertyName]?.[modelValue[propertyName]?.length - 1])
                 )
               "
               @click.prevent="

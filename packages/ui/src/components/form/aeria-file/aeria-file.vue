@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Property, FileProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
-import { inject, provide, ref, computed } from 'vue'
+import { inject, ref, computed } from 'vue'
 import { request, API_URL } from '@waltz-ui/web'
 import { useParentStore } from '@waltz-ui/state-management'
 import AeriaPicture from '../../aeria-picture/aeria-picture.vue'
@@ -10,20 +10,25 @@ import AeriaButton from '../../aeria-button/aeria-button.vue'
 type Props = FormFieldProps<any, Property & FileProperty> & {
   meta?: Record<string, any>
   modelValue?: any
+  content?: any
 }
 
 const props = defineProps<Props>()
 
 const emit = defineEmits<{
-  (e: 'update:modelValue' | 'change', value: any): void
+  (
+    e:
+      | 'update:modelValue'
+      | 'update:content'
+      | 'change',
+   value: any
+  ): void
 }>()
 
 const parentStoreId = inject('storeId')
 const store = parentStoreId
   ? useParentStore()
   : null
-
-provide('buttonSize', 'small')
 
 const fileRef = ref<File | null>(null)
 
@@ -44,15 +49,13 @@ const readFile = (file: File) => new Promise<string | ArrayBuffer | null>((resol
   fr.readAsArrayBuffer(file)
 })
 
-const changePreview = (event: Event) => {
-  fileRef.value = (event.target as HTMLInputElement).files![0]
-}
-
 const clearPreview = () => {
   fileRef.value = null
 }
 
-const insert = async () => {
+const insert = async (event: Event) => {
+  fileRef.value = (event.target as HTMLInputElement).files![0]
+
   if( !fileRef.value ) {
     return
   }
@@ -61,33 +64,25 @@ const insert = async () => {
   const content = await readFile(file)
 
   if( store ) {
-    await request(`${API_URL}/${store.$id}/upload?ref=${props.propertyName}&filename=${file.name}`, content, {
+    const { data: result } = await request(`${API_URL}/${store.$id}/upload?filename=${file.name}`, content, {
       params: {
         method: 'POST',
         headers: {
-          'content-type': file.type,
+          'content-type': file.type || 'application/octet-stream',
           'x-stream-request': '1',
         }
       }
     })
+
+    emit('update:modelValue', result)
   }
 
-  emit('update:modelValue', content)
+  emit('update:content', content)
   emit('change', content)
 }
 
 const remove = async () => {
-  if( store ) {
-    await store.$functions.removeFile({
-      parentId: store.item._id,
-      propertyName: props.propertyName,
-      filters: {
-        _id: props.modelValue._id
-      }
-    })
-  }
-
-  emit('update:modelValue', {})
+  emit('update:modelValue', null)
 }
 </script>
 
@@ -114,16 +109,13 @@ const remove = async () => {
         type="file"
         ref="file"
         :accept="property?.accept?.join(',')"
-        @change="changePreview"
+        @change="insert"
       />
       <div
         v-if="fileRef"
         class="file__buttons"
       >
-        <aeria-button @click.prevent="insert">
-          Enviar
-        </aeria-button>
-        <aeria-button @click.prevent="clearPreview">
+        <aeria-button small @click.prevent="clearPreview">
           Limpar
         </aeria-button>
       </div>
@@ -131,7 +123,7 @@ const remove = async () => {
         v-else-if="modelValue?._id"
         class="file__buttons"
       >
-        <aeria-button @click.prevent="remove">
+        <aeria-button small @click.prevent="remove">
           Remover
         </aeria-button>
       </div>
