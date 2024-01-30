@@ -1,13 +1,8 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
-    "target": "esnext",
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "strict": true,
-    "declaration": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
+    "module": "esnext",
     "paths": {
       "@phosphor-icons/core": [
         "../../node_modules/@phosphor-icons/core/dist/index.d.ts"
