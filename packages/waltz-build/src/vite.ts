@@ -1,4 +1,5 @@
 import { defineConfig, type InlineConfig } from 'vite'
+import { createRequire } from 'module'
 import vue from '@vitejs/plugin-vue'
 import vueRouter from 'unplugin-vue-router/vite'
 import vueComponents from 'unplugin-vue-components/vite'
@@ -6,9 +7,9 @@ import autoImport from 'unplugin-auto-import/vite'
 import waltzIcons from 'waltz-icons'
 import { icons } from 'waltz-icons/common'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
-import { getInstanceConfig } from './instance'
-import transformIndexHtml from './plugins/transform-index-html'
-import loadYaml from './plugins/load-yaml'
+import { getInstanceConfig } from './instance.js'
+import transformIndexHtml from './plugins/transform-index-html.js'
+import loadYaml from './plugins/load-yaml.js'
 
 export default defineConfig(async () => {
   delete VueRouterAutoImports['unplugin-vue-router/runtime']
@@ -26,7 +27,9 @@ export default defineConfig(async () => {
         hash: true,
         libraries: instanceConfig.icons?.libraries || [],
         async preEmit() {
-          const userIcons = require(process.cwd() + '/../api/node_modules/.sonata/icons')
+          const require = createRequire(import.meta.url)
+
+          const userIcons = await import(process.cwd() + '/../api/node_modules/.sonata/icons.mjs')
           const systemIcons = require('@sonata-api/system/icons')
 
           userIcons.icons.forEach((icon: string) => {

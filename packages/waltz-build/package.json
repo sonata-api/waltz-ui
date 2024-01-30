@@ -28,8 +28,6 @@
   ],
   "dependencies": {
     "@rollup/plugin-node-resolve": "^15.0.1",
-    "@sonata-api/common": "*",
-    "@sonata-api/types": "*",
     "@vitejs/plugin-vue": "^4.1.0",
     "ejs": "^3.1.9",
     "js-yaml": "^4.1.0",
@@ -38,7 +36,6 @@
     "unplugin-vue-components": "^0.24.1",
     "unplugin-vue-router": "^0.5.5",
     "vite": "^5.0.12",
-    "vue": "^3.3.4",
     "waltz-icons": "*"
   },
   "devDependencies": {
@@ -47,6 +44,9 @@
     "@types/node": "^20.8.6"
   },
   "peerDependencies": {
-    "bson": "*"
+    "@sonata-api/common": "*",
+    "@sonata-api/types": "*",
+    "bson": "*",
+    "vue": "*"
   }
 }

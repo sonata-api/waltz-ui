@@ -22,6 +22,6 @@
     ".": "./dist/index.js"
   },
   "peerDependencies": {
-    "vue": "^3.3.4"
+    "vue": "*"
   }
 }

@@ -1,7 +1,7 @@
 import ejs from 'ejs'
 import type { Plugin } from 'vite'
-import type { getInstanceConfig } from '../instance'
-import { PLUGIN_PREFIX } from '../constants'
+import type { getInstanceConfig } from '../instance.js'
+import { PLUGIN_PREFIX } from '../constants.js'
 
 export default (instanceConfig: Awaited<ReturnType<typeof getInstanceConfig>>): Plugin => {
   return {

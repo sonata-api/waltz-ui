@@ -39,9 +39,9 @@
   "dependencies": {
     "@sonata-api/common": "*",
     "@sonata-api/types": "*",
-    "vue": "^3.3.4",
+    "vue": "^3.4.15",
     "vue-demi": "^0.13.6",
-    "vue-router": "^4.2.1"
+    "vue-router": "^4.2.5"
   },
   "peerDependencies": {
     "@waltz-ui/i18n": "*",

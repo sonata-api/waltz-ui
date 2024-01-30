@@ -1,6 +1,6 @@
 import { load } from 'js-yaml'
 import type { Plugin } from 'vite'
-import { PLUGIN_PREFIX } from '../constants'
+import { PLUGIN_PREFIX } from '../constants.js'
 
 export default (): Plugin => {
   return {

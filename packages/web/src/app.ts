@@ -34,6 +34,8 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
   registerDirectives(app)
 
   const router = createRouter(routes || [], options.dashboardComponent)
+  app.use(router)
+
   if( options.i18n ) {
     createI18n(options.i18n)
   }
@@ -45,7 +47,6 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
   const metaStore = useMetaStore()
   const userStore = useUserStore()
 
-  app.use(router)
   app.provide('menuSchema', menuSchema)
 
   app.mixin({
@@ -53,7 +54,7 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
       instanceVars: () => INSTANCE_VARS || {},
       currentUser: () => userStore.$currentUser,
       viewTitle: () => {
-        const currentRoute = router.currentRoute.value
+        const currentRoute = ROUTER.currentRoute.value
         const title = currentRoute.meta?.title as string
 
         if( !title ) {

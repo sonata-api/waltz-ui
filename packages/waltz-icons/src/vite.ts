@@ -23,10 +23,10 @@ export const vitePlugin = (options: Options = {}): Plugin => {
     configureServer(server) {
       server.middlewares.use(config.base + 'assets/icons.svg', async (_req, res, next) => {
         try {
-          const content = await readFile(path.join(__dirname, 'icons.svg'))
+          const content = await readFile(new URL(await import.meta.resolve!('./icons.svg')).pathname)
           res.setHeader('content-type', 'image/svg+xml').end(content)
 
-        } catch( e: any ) {
+        } catch( e ) {
           next()
         }
       })
