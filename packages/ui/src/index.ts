@@ -1,2 +1,2 @@
-export * from './components'
-export * from './routes'
+export * from './components/index.js'
+export * from './routes.js'

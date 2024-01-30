@@ -29,12 +29,6 @@ declare module 'waltz-ui' {
     : import('waltz-ui').CollectionStore<Collections[TStoreId]['item']>
 }
 
-declare module '*.vue' {
-  import type { DefineComponent } from 'vue'
-  const component: DefineComponent<{}, {}, any>
-  export default component
-}
-
 declare module '@vue/runtime-core' {
   import type { TemplateFunctions } from '@waltz-ui/web'
 

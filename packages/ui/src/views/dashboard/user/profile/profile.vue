@@ -50,9 +50,9 @@ const signout = async () => {
     }"
 
     bordered
-    :file-id="userStore.item.picture && typeof userStore.item.picture === 'object'
-      ? userStore.item.picture._id
-      : userStore.item.picture"
+    :file-id="userStore.item.picture_file && typeof userStore.item.picture_file === 'object'
+      ? userStore.item.picture_file._id
+      : userStore.item.picture_file"
     style="
       display: flex;
       flex-direction: column;
@@ -119,7 +119,7 @@ const signout = async () => {
           'name',
           'email',
           'phone',
-          'picture'
+          'picture_file'
         ]),
         layout: userStore.formLayout
       }"
