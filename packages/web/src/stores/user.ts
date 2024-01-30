@@ -8,7 +8,7 @@ import { meta } from '.'
 
 type User = {
   _id: string
-  full_name: string
+  name: string
   roles: string[]
 }
 

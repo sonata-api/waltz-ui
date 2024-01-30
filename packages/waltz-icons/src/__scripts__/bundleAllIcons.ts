@@ -1,6 +1,6 @@
 import path from 'path'
 import { writeFile } from 'fs/promises'
-import { packTogether } from '../common'
+import { packTogether } from '../common.js'
 import { icons, IconStyle } from '@phosphor-icons/core'
 
 const bundlePath = path.join(__dirname, '..', '..', 'dist', 'icons.svg')

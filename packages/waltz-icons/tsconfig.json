@@ -2,11 +2,17 @@
   "compilerOptions": {
     "outDir": "dist",
     "target": "esnext",
-    "module": "commonjs",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "strict": true,
     "declaration": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@phosphor-icons/core": [
+        "../../node_modules/@phosphor-icons/core/dist/index.d.ts"
+      ]
+    }
   },
   "include": [
     "src"

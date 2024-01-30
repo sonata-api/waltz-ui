@@ -15,7 +15,7 @@ type Props = {
     created_at: string
     updated_at: string
     owner: {
-      full_name: string
+      name: string
     }
   }
 }
@@ -63,7 +63,7 @@ const expand = ref(false)
           v-if="meta?.owner"
           class="picture__meta"
         >
-          Criado por {{ meta.owner.full_name }} em {{ formatDateTime(meta.created_at, { hours: true }) }}
+          Criado por {{ meta.owner.name }} em {{ formatDateTime(meta.created_at, { hours: true }) }}
         </div>
       </div>
     </teleport>

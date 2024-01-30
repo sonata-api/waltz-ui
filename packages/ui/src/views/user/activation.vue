@@ -25,7 +25,7 @@ const userInfo: any = unsafe(await userStore.$functions.getInfo({
 }))
 
 const password = ref({
-  full_name: userInfo.full_name,
+  name: userInfo.name,
   email: userInfo.email,
   password: '',
   confirmation: ''
@@ -53,7 +53,7 @@ const confirm = async () => {
     <aeria-form
       v-model="password"
       :form="{
-        full_name: {
+        name: {
           type: 'string',
           readOnly: true
         },

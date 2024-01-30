@@ -8,7 +8,7 @@ import {
   packTogether,
   makeHash
 
-} from './common'
+} from './common.js'
 
 export const vitePlugin = (options: Options = {}): Plugin => {
   const hash = makeHash()

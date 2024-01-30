@@ -69,7 +69,7 @@ const insert = async () => {
     v-bind="{
       collection: 'user',
       form: userStore.$actions.useProperties([
-        'full_name',
+        'name',
         'email',
         'phone'
       ])

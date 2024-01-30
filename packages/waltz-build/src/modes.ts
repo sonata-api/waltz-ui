@@ -1,11 +1,10 @@
 import { createServer, build as viteBuild } from 'vite'
 
 const projectRoot = process.cwd()
-const buildRoot = __dirname
 
 export const serve = async () => {
   const server = await createServer({
-    configFile: `${buildRoot}/vite.js`,
+    configFile: new URL(import.meta.resolve('./vite.js')).pathname,
     root: projectRoot,
     server: {
       port: 8080
@@ -17,7 +16,12 @@ export const serve = async () => {
 }
 
 export const build = async () => {
-  const { default: config } = await import(`${buildRoot}/vite.js`)
-  return viteBuild(await config())
+  const { default: config } = await import(import.meta.resolve('./vite.js'))
+
+  return viteBuild(
+    typeof config === 'function'
+      ? await config()
+      : config
+  )
 
 }

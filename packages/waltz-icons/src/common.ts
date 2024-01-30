@@ -1,6 +1,6 @@
 import path from 'path'
 import { readFile } from 'fs/promises'
-import { DEFAULT_STYLE } from './constants'
+import { DEFAULT_STYLE } from './constants.js'
 
 export type Options = {
   ensureList?: string[]

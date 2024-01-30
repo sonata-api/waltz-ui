@@ -61,7 +61,7 @@ const signout = async () => {
   >
     <template #caption>
       <div class="profile__user-name">
-        {{ userStore.item.full_name }}
+        {{ userStore.item.name }}
       </div>
     </template>
   </aeria-picture>
@@ -116,7 +116,7 @@ const signout = async () => {
       v-bind="{
         collection: 'user',
         form: userStore.$actions.useProperties([
-          'full_name',
+          'name',
           'email',
           'phone',
           'picture'

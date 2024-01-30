@@ -6,9 +6,7 @@ import autoImport from 'unplugin-auto-import/vite'
 import waltzIcons from 'waltz-icons'
 import { icons } from 'waltz-icons/common'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
-
 import { getInstanceConfig } from './instance'
-
 import transformIndexHtml from './plugins/transform-index-html'
 import loadYaml from './plugins/load-yaml'
 
@@ -20,7 +18,7 @@ export default defineConfig(async () => {
     publicDir: 'static',
     resolve: {
       alias: {
-        'bson': require.resolve('bson')
+        'bson': new URL(import.meta.resolve('bson')).pathname.replace('mjs', 'cjs')
       }
     },
     plugins: [
