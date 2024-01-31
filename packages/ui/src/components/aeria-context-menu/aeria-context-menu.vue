@@ -77,7 +77,10 @@ const position = computed(() => {
     </a>
   </div>
 
-  <teleport to="main">
+  <teleport
+    v-if="contextmenuVisible"
+    to="main"
+  >
     <aeria-panel
       animate
       fill

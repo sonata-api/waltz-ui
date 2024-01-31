@@ -146,7 +146,7 @@ const paginate = async (pagination: Pick<Pagination, 'offset' | 'limit'>) => {
   fetchItems()
 }
 
-const emptyComponent = inject('emptyComponent')
+const emptyComponent = inject('emptyComponent', null)
 
 watch(() => [router.currentRoute.value.path, router.currentRoute.value.query.section], async (newVal, oldVal) => {
   if( oldVal ) {

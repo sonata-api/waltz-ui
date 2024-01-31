@@ -1,7 +1,6 @@
 import type { defineOptions } from './options'
 import { isLeft } from '@sonata-api/common'
-import { createApp, App } from 'vue'
-import { Router } from 'vue-router'
+import { createApp } from 'vue'
 import { createI18n, t } from '@waltz-ui/i18n'
 import { routerInstance as createRouter } from './router'
 import { templateFunctions } from './templateFunctions'
@@ -11,11 +10,7 @@ import registerDirectives from './directives'
 
 export type * from './templateFunctions'
 
-export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promise<{
-  app: App
-  router: Router
-  mount: () => any
-}> => new Promise(async (resolve) => {
+export const useApp = async (optionsFn: ReturnType<typeof defineOptions>) => {
   const useMetaStore = meta()
   const useUserStore = user()
 
@@ -109,7 +104,7 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
             next
           }
         })
-        return
+        // return
       }
 
       router.push({
@@ -119,9 +114,9 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>): Promi
 
   }
 
-  resolve({
+  return {
     app,
     router,
     mount: () => app.mount('#app')
-  })
-})
+  }
+}

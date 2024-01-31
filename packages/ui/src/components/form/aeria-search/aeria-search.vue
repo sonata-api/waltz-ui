@@ -186,8 +186,8 @@ const save = () => {
 
 <template>
   <teleport
+    v-if="!panel"
     to="main"
-    v-if="panel"
   >
     <aeria-panel
       float

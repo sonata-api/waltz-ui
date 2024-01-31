@@ -29,20 +29,22 @@ const componentProps = computed(() => {
 </script>
 
 <template>
-  <slot v-if="$slots.inner" name="inner"></slot>
-  <aeria-table
-    v-if="store.properties"
-    v-bind="componentProps"
-    :key="store.$id"
-  >
-    <template
-      v-for="slotName in Object.keys($slots).filter(key => !['inner'].includes(key))"
-      v-slot:[slotName]="slotProps"
+  <div>
+    <slot v-if="$slots.inner" name="inner"></slot>
+    <aeria-table
+      v-if="store.properties"
+      v-bind="componentProps"
+      :key="store.$id"
     >
-      <slot
-        v-bind="slotProps"
-        :name="slotName"
-      ></slot>
-    </template>
-  </aeria-table>
+      <template
+        v-for="slotName in Object.keys($slots).filter(key => !['inner'].includes(key))"
+        v-slot:[slotName]="slotProps"
+      >
+        <slot
+          v-bind="slotProps"
+          :name="slotName"
+        ></slot>
+      </template>
+    </aeria-table>
+  </div>
 </template>

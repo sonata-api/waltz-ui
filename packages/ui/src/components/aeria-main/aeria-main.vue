@@ -30,6 +30,7 @@ bootstrapRoutes()
         </component>
       </router-view>
     </Suspense>
+
     <slot></slot>
 
     <aeria-panel
