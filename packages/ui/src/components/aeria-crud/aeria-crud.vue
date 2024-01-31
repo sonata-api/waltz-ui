@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { ActionFilter, ActionEvent, Pagination, CollectionStore  } from '@waltz-ui/web'
 import type { Layout } from '@sonata-api/types'
+import type { Component } from 'vue'
 import type { RouteRecordNormalized } from 'vue-router'
 import { onUnmounted, ref, computed, provide, inject, watch, isRef, type Ref } from 'vue'
 import { deepClone, getReferenceProperty } from '@sonata-api/common'
@@ -488,7 +489,7 @@ provide('individualActions', individualActions)
     ">
       <component
         v-if="emptyComponent"
-        :is="emptyComponent"
+        :is="emptyComponent as Component"
         v-bind="{
           collection: store.$id
         }"
