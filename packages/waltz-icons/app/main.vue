@@ -10,7 +10,7 @@ const categories = new Set(catalog.reduce((a, icon) => [
   ...icon.categories,
 ], []))
 
-const currentStyle = ref('regular')
+const currentStyle = ref(IconStyle.REGULAR)
 const currentCategory = ref('')
 const color = ref('#00557f')
 const search = ref('')
@@ -44,7 +44,7 @@ const icons = computed(() => {
 })
 
 const clear = () => {
-  currentStyle.value = 'regular'
+  currentStyle.value = IconStyle.REGULAR
   currentCategory.value = ''
   search.value = ''
 }
@@ -86,7 +86,7 @@ const clear = () => {
 
     <button @click="clear">clear</button>
     <a href="https://github.com/sonata-api/waltz-icons" target="_blank">
-      <icon name="github" width="32" height="32"></icon>
+      <icon name="github-logo" width="32" height="32"></icon>
     </a>
   </div>
 
@@ -110,5 +110,5 @@ const clear = () => {
   </div>
 </template>
 
-<style src="./main.css"></style>
+<style src="./main.less"></style>
 

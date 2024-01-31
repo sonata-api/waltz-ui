@@ -1,8 +1,12 @@
 <script setup lang="ts">
-defineProps<{
-  name: string
-  variant: string
-}>()
+import { type PhosphorIcon, IconStyle } from '@phosphor-icons/core'
+
+withDefaults(defineProps<{
+  name: PhosphorIcon['name']
+  variant: IconStyle
+}>(), {
+  variant: IconStyle.REGULAR
+})
 </script>
 
 <template>
