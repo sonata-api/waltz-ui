@@ -30,13 +30,13 @@ export default defineConfig(async () => {
           const require = createRequire(import.meta.url)
 
           const userIcons = await import(process.cwd() + '/../api/node_modules/.sonata/icons.mjs')
-          const systemIcons = require('@sonata-api/system/icons')
+          const builtinsIcons = require('@sonata-api/builtins/icons')
 
           userIcons.icons.forEach((icon: string) => {
             icons.add(icon)
           })
 
-          systemIcons.icons.forEach((icon: string) => {
+          builtinsIcons.icons.forEach((icon: string) => {
             icons.add(icon)
           })
         }
