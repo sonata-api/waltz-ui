@@ -1,6 +1,7 @@
 import type { Component } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import type { I18nConfig } from '@waltz-ui/i18n'
+import type { Icon } from '@sonata-api/types'
 import type { RouteMeta } from './router'
 
 export type MenuNodeBase = Partial<RouteMeta> & {
@@ -20,7 +21,7 @@ export type MenuNodeCollapsible = MenuNodeBase & {
   children: (string | MenuNode)[]
   meta: {
     title: string
-    icon?: string
+    icon?: Icon
   }
 }
 
@@ -46,3 +47,4 @@ export type AppOptions = {
 export const defineOptions = <TAppOptions extends AppOptions>(options: TAppOptions | (() => TAppOptions | Promise<TAppOptions>)) => {
   return options
 }
+

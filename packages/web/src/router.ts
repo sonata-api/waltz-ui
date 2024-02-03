@@ -1,11 +1,12 @@
 import type { Component } from 'vue'
+import type { Icon } from '@sonata-api/types'
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router/auto'
 import { meta } from './stores'
 
 export type RouteMeta = {
   meta: {
     title: string
-    icon?: string
+    icon?: Icon
     roles?: string[]
   }
 }

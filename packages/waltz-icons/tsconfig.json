@@ -2,12 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
-    "module": "esnext",
-    "paths": {
-      "@phosphor-icons/core": [
-        "../../node_modules/@phosphor-icons/core/dist/index.d.ts"
-      ]
-    }
+    "module": "esnext"
   },
   "include": [
     "src"
