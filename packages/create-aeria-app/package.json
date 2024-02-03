@@ -19,5 +19,8 @@
     "bin",
     "dist",
     "templates"
-  ]
+  ],
+  "dependencies": {
+    "semver": "^7.5.4"
+  }
 }
