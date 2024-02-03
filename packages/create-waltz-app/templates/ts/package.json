@@ -1,0 +1,27 @@
+{
+  "name": "quickstart",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "husky install; mv sonata-api.d.ts api; mv waltz-ui.d.ts web",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "dev": "dualist api web"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "api/",
+    "web/"
+  ],
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
+    "dualist": "latest",
+    "eslint-config-aeria": "latest",
+    "husky": "^8.0.3",
+    "typescript": "^5.2.2"
+  }
+}
