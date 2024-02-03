@@ -8,4 +8,4 @@
 *.js linguist-detectable=false
 
 # ignore templates
-packages/create-aeria-app/templates linguist-detectable=false
+packages/create-aeria-app/templates/**/* linguist-detectable=false
