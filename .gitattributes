@@ -2,7 +2,10 @@
 .husky/* linguist-detectable=false
 
 # ignore playground/index.html
-*.html linguist-generated
+*.html linguist-detectable=false
 
 # ignore bin/index.js
-*.js linguist-generated
+*.js linguist-detectable=false
+
+# ignore templates
+packages/create-aeria-app/templates linguist-detectable=false
