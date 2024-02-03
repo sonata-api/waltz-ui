@@ -1,10 +1,11 @@
 {
-  "name": "create-waltz-app",
-  "version": "0.1.1",
+  "name": "create-aeria-app",
+  "version": "0.0.0",
   "description": "",
   "license": "ISC",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc && rm -rf templates/*/node_modules",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [],
   "author": "",
@@ -12,7 +13,7 @@
     "access": "public"
   },
   "bin": {
-    "create-waltz-app": "bin/index.js"
+    "create-aeria": "bin/index.js"
   },
   "files": [
     "bin",
