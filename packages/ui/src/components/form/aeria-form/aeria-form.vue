@@ -433,7 +433,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
         </div>
 
         <component
-          v-else-if="modelValue"
+          v-else
           :is="getComponent(property, formComponents)"
           v-model="modelValue[propertyName]"
           v-bind="{
