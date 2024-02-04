@@ -1,19 +1,20 @@
 import path from 'path'
-import { execSync } from 'child_process'
-import { parseArgs } from 'util'
+import { parseArgs, promisify } from 'util'
 import semver from 'semver'
 import fs from 'fs'
+import readline from 'readline'
+import {
+  type Tuple,
+  error,
+  success,
+  isError,
+  unwrap,
+  $,
+  LogLevel,
+  log
+} from './util'
 
-type Tuple = string | string[] extends infer Value
-  ? [Value] | [undefined, Value]
-  : never
-
-const error = (value: string | string[]): Tuple => [value]
-const success = (value: string | string[]): Tuple => [,value]
-const isError = (tuple: Tuple) => !!tuple[0]
-const unwrap = (tuple: Tuple) => tuple[0] || tuple[1]
-
-const $ = (cmd: string) => execSync(cmd).toString().trim()
+import { printBanner } from './banner'
 
 const {
   positionals,
@@ -21,32 +22,19 @@ const {
 } = parseArgs({
   allowPositionals: true,
   options: {
-    batch: {
-      type: 'string',
-      short: 'y'
+    bare: {
+      type: 'boolean',
+      short: 'b'
     }
   }
 })
 
-const DEFAULTS = {
-  template: 'ts'
-}
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+})
 
-enum LogLevel {
-  Info = 'info',
-  Error = 'error',
-  Warning = 'warning',
-  Debug = 'debug'
-}
-
-const log = (level: LogLevel, value: any) => {
-  console.log(
-    `[${level}]`,
-    Array.isArray(value)
-      ? value.join('\n')
-      : value
-  )
-}
+const question = promisify(rl.question).bind(rl)
 
 const allChecksPass = async (checks: Promise<Tuple>[]) => {
   for( const check of checks ) {
@@ -67,7 +55,7 @@ const checkPackageVersion = async () => {
     version: packageVersion
   } = require('../package.json')
 
-  const remoteVersion = $(`npm view ${packageName} version`)
+  const remoteVersion = await $(`npm view ${packageName} version`)
 
   if( packageVersion !== remoteVersion ) {
     return error([
@@ -80,8 +68,8 @@ const checkPackageVersion = async () => {
 }
 
 const checkCompatibility = async () => {
-  const localNodeVersion = $('node -v')
-  const remoteNodeVersion = $('npm view aeria engine.node')
+  const localNodeVersion = await $('node -v')
+  const remoteNodeVersion = await $('npm view aeria engine.node')
 
   if( !semver.satisfies(localNodeVersion, remoteNodeVersion) ) {
     return error('local node version is outdated')
@@ -91,6 +79,8 @@ const checkCompatibility = async () => {
 }
 
 const main = async () => {
+  printBanner()
+
   const checksOk = await allChecksPass([
     checkPackageVersion(),
     checkCompatibility()
@@ -100,8 +90,16 @@ const main = async () => {
     return
   }
 
-  const cwd = process.cwd()
   const projectName = positionals[0]
+    ? positionals[0]
+    : await question("what's the project name? ")
+
+  if( !projectName ) {
+    log(LogLevel.Error, 'project name can not be empty')
+    return
+  }
+
+  const cwd = process.cwd()
   const projectPath = path.join(cwd, projectName)
 
   const templatePath = path.join(
@@ -111,8 +109,8 @@ const main = async () => {
     'ts'
   )
 
-  if( fs.existsSync(templatePath) ) {
-    log(LogLevel.Error, `path '${templatePath}' already exists`)
+  if( fs.existsSync(projectPath) ) {
+    log(LogLevel.Error, `path '${projectPath}' already exists`)
     return
   }
 
@@ -122,8 +120,22 @@ const main = async () => {
     { recursive: true }
   )
 
+  if( !opts.bare ) {
+    log(LogLevel.Info, 'installing dependencies')
+    await $([
+      `cd ${projectPath}`,
+      'npm i'
+    ])
+  }
+
   log(LogLevel.Info, `your project '${projectName}' was created, make good use of it`)
+  log(LogLevel.Info, `to serve your project, cd into it and run: npm run dev`)
 }
 
-main()
+const wrapper = async () => {
+  await main()
+  rl.close()
+}
+
+wrapper()
 
