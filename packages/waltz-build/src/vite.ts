@@ -99,6 +99,7 @@ export default defineConfig(async () => {
       ],
       exclude: [
         'vue-router',
+        'mongodb',
       ]
     },
     build: {

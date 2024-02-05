@@ -1,5 +1,11 @@
 # waltz-build
 
+## 0.1.11
+
+### Patch Changes
+
+- Exclude mongodb in bundle, fix ui bugs
+
 ## 0.1.10
 
 ### Patch Changes

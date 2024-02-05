@@ -1,5 +1,11 @@
 # @waltz-ui/ui
 
+## 1.0.43
+
+### Patch Changes
+
+- Exclude mongodb in bundle, fix ui bugs
+
 ## 1.0.42
 
 ### Patch Changes

@@ -185,143 +185,145 @@ const save = () => {
 </script>
 
 <template>
-  <teleport
-    v-if="panel"
-    to="main"
-  >
-    <aeria-panel
-      float
-      close-hint
-      :title="`Selecionar ${t(propertyName)}`"
-      :overlay-layer="65"
-      :model-value="panel"
-
-      style="
-        --panel-max-width: 36rem;
-      "
-      @close="closeSelectPanel"
-      @overlay-click="closeSelectPanel"
+  <div>
+    <teleport
+      v-if="panel"
+      to="main"
     >
-      <div class="search__panel">
-        <div class="search__input">
-          <aeria-select
-            v-if="indexes.length > 1"
-            v-model="searchField"
-            @change="inputValue = {}"
-          >
-            <option
-              v-for="field in indexes"
-              :key="`searchfield-${field}`"
-              :value="field"
-            >
-              {{ t(field) }}
-            </option>
-          </aeria-select>
+      <aeria-panel
+        float
+        close-hint
+        :title="`Selecionar ${t(propertyName)}`"
+        :overlay-layer="65"
+        :model-value="panel"
 
-          <div style="flex: 1">
-            <aeria-input
-              v-model="inputValue[searchField]"
-              :property="{
-                ...store.properties[searchField],
-                inputType: 'search'
+        style="
+          --panel-max-width: 36rem;
+        "
+        @close="closeSelectPanel"
+        @overlay-click="closeSelectPanel"
+      >
+        <div class="search__panel">
+          <div class="search__input">
+            <aeria-select
+              v-if="indexes.length > 1"
+              v-model="searchField"
+              @change="inputValue = {}"
+            >
+              <option
+                v-for="field in indexes"
+                :key="`searchfield-${field}`"
+                :value="field"
+              >
+                {{ t(field) }}
+              </option>
+            </aeria-select>
+
+            <div style="flex: 1">
+              <aeria-input
+                v-model="inputValue[searchField]"
+                :property="{
+                  ...store.properties[searchField],
+                  inputType: 'search'
+                }"
+
+                :key="`field-${searchField}`"
+                @input="lazySearch"
+              ></aeria-input>
+            </div>
+          </div>
+
+          <aeria-search-container
+            v-if="matchingItems.length"
+            observe-scroll
+            @end-reached="nextBatch"
+          >
+            <aeria-search-item
+              v-model="selected"
+              v-for="item in matchingItems"
+              v-bind="{
+                item,
+                indexes,
+                property,
               }"
 
-              :key="`field-${searchField}`"
-              @input="lazySearch"
-            ></aeria-input>
+              :key="`matching-${item._id}`"
+            ></aeria-search-item>
+          </aeria-search-container>
+
+          <div v-else>
+            <div v-if="isTyping">
+              Pesquisando...
+            </div>
+            <div v-else-if="
+              !store.loading.getAll
+                && Object.values(inputValue).filter((v) => !!v).length > 0
+                && !(('items' in property && modelValue?.length) || (!Array.isArray(modelValue) && modelValue?._id))
+            ">
+              Não há resultados
+            </div>
           </div>
         </div>
 
-        <aeria-search-container
-          v-if="matchingItems.length"
-          observe-scroll
-          @end-reached="nextBatch"
-        >
+        <div class="search__summary">
+          Mostrando {{ matchingItems.length }} {{ t('of') }} {{ pagination.recordsTotal }}
+        </div>
+
+        <template #footer>
+          <aeria-button
+            large
+            @click="save"
+          >
+            Salvar
+          </aeria-button>
+        </template>
+
+      </aeria-panel>
+    </teleport>
+
+    <div
+      v-if="!selectOnly"
+      class="search"
+    >
+      <aeria-search-container>
+        <div v-if="'items' in property">
           <aeria-search-item
-            v-model="selected"
-            v-for="item in matchingItems"
+            v-for="item in modelValue"
             v-bind="{
               item,
               indexes,
               property,
+              modelValue
             }"
 
-            :key="`matching-${item._id}`"
+            :key="`selected-${item._id}`"
+            @update:model-value="update"
           ></aeria-search-item>
-        </aeria-search-container>
-
-        <div v-else>
-          <div v-if="isTyping">
-            Pesquisando...
-          </div>
-          <div v-else-if="
-            !store.loading.getAll
-              && Object.values(inputValue).filter((v) => !!v).length > 0
-              && !(('items' in property && modelValue?.length) || (!Array.isArray(modelValue) && modelValue?._id))
-          ">
-            Não há resultados
-          </div>
         </div>
-      </div>
 
-      <div class="search__summary">
-        Mostrando {{ matchingItems.length }} {{ t('of') }} {{ pagination.recordsTotal }}
-      </div>
-
-      <template #footer>
-        <aeria-button
-          large
-          @click="save"
-        >
-          Salvar
-        </aeria-button>
-      </template>
-
-    </aeria-panel>
-  </teleport>
-
-  <div
-    v-if="!selectOnly"
-    class="search"
-  >
-    <aeria-search-container>
-      <div v-if="'items' in property">
         <aeria-search-item
-          v-for="item in modelValue"
+          v-else-if="modelValue?._id"
           v-bind="{
-            item,
+            item: modelValue,
             indexes,
-            property,
+            property: refProperty,
             modelValue
           }"
-
-          :key="`selected-${item._id}`"
           @update:model-value="update"
         ></aeria-search-item>
-      </div>
 
-      <aeria-search-item
-        v-else-if="modelValue?._id"
-        v-bind="{
-          item: modelValue,
-          indexes,
-          property: refProperty,
-          modelValue
-        }"
-        @update:model-value="update"
-      ></aeria-search-item>
+        <template #footer>
+          <aeria-icon
+            v-clickable
+            icon="plus"
+            @click="openSelectPanel"
+          >
+            Selecionar
+          </aeria-icon>
+        </template>
+      </aeria-search-container>
 
-      <template #footer>
-        <aeria-icon
-          v-clickable
-          icon="plus"
-          @click="openSelectPanel"
-        >
-          Selecionar
-        </aeria-icon>
-      </template>
-    </aeria-search-container>
-
+    </div>
   </div>
 </template>
 
