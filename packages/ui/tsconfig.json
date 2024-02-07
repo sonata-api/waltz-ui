@@ -18,6 +18,7 @@
     }
   },
   "types": [
+    "../web/vue.d.ts",
     "../web/@types/env.d.ts"
   ],
   "include": [

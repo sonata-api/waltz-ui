@@ -58,6 +58,11 @@ declare global {
       icon: Icon
     }
   }) => void
+
+  const I18N: typeof import('@waltz-ui/i18n').I18nConfig
+  const ROUTER: import('vue-router').Router
+  const STORES: Record<string, import('@waltz-ui/state-management').Store>
+  const INSTANCE_VARS: import('waltz-build').InstanceConfig['site']
 }
 
 export {}

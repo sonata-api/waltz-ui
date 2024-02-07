@@ -37,7 +37,6 @@ export const meta = () => registerStore(() => {
     globalIsLoading: false,
     theme: '',
     themeOverride: '',
-    availableThemes: INSTANCE_VARS?.themes || [],
     view: {
       title: '',
       layout: 'tabular',

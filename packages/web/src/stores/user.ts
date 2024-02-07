@@ -44,7 +44,7 @@ export const user = () => registerStore(() => {
   })
 
   const $currentUser = computed(() => {
-    if( !state.currentUser._id ) {
+    if( !('_id' in state.currentUser) ) {
       const auth = localStorage.getItem(`${STORAGE_NAMESPACE}:auth`)
       if( auth ) {
         setCurrentUser(JSON.parse(auth))
