@@ -60,7 +60,7 @@ const checkPackageVersion = async () => {
   if( packageVersion !== remoteVersion ) {
     return error([
       'local and remote versions of this package differ',
-      `run 'npm i -g --force ${packageName}@latest' to update your installation, then run this command again (you may need root privileges in order to install packages globally)`
+      `run 'npm i ${packageName}@latest' to update your installation, then run this command again (add the -g flag to install globally, but then you'll need root privileges)`
     ])
   }
 
