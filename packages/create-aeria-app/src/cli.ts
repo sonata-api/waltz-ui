@@ -120,6 +120,16 @@ const main = async () => {
     { recursive: true }
   )
 
+  await fs.promises.cp(
+    path.join(templatePath, 'sample.gitignore'),
+    path.join(projectPath, '.gitignore'),
+  )
+
+  await fs.promises.cp(
+    path.join(templatePath, 'api', 'sample.env'),
+    path.join(projectPath, 'api', '.env'),
+  )
+
   if( !opts.bare ) {
     log(LogLevel.Info, 'installing dependencies')
     await $([
