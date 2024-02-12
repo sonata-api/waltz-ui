@@ -1,5 +1,13 @@
 # waltz-build
 
+## 0.1.15
+
+### Patch Changes
+
+- Fix windows esm paths
+- Updated dependencies
+  - waltz-icons@0.0.18
+
 ## 0.1.14
 
 ### Patch Changes

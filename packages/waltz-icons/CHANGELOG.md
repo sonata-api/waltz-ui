@@ -1,5 +1,11 @@
 # waltz-icons
 
+## 0.0.18
+
+### Patch Changes
+
+- Fix windows esm paths
+
 ## 0.0.17
 
 ### Patch Changes

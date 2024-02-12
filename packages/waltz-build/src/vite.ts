@@ -20,7 +20,7 @@ export default defineConfig(async () => {
     publicDir: 'static',
     resolve: {
       alias: {
-        'bson': fileURLToPath(new URL(import.meta.resolve('bson'))).replace('.mjs', '.cjs'),
+        'bson': fileURLToPath(import.meta.resolve('bson')).replace('.mjs', '.cjs'),
       }
     },
     plugins: [
