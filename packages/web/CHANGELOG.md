@@ -1,5 +1,11 @@
 # @waltz-ui/web
 
+## 1.0.22
+
+### Patch Changes
+
+- web postinstall
+
 ## 1.0.21
 
 ### Patch Changes

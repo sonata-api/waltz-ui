@@ -4,18 +4,32 @@ import path from 'path'
 const DTS_FILENAME = 'waltz-ui.d.ts'
 
 const dts = `// WARNING: this file will be overriden
+declare global {
+  type UnpackCollections<TCollections> =  {
+    [P in keyof TCollections]: TCollections[P] extends infer Candidate
+      ? Candidate extends (...args: any[]) => infer Coll
+        ? Coll
+        : Candidate
+      : never
+  }
+
+  type Collections = typeof import('../api/src') extends infer EntrypointModule
+    ? 'collections' extends keyof EntrypointModule
+      ? UnpackCollections<EntrypointModule['collections']>
+      : 'default' extends keyof EntrypointModule
+        ? EntrypointModule['default'] extends infer Entrypoint
+          ? 'options' extends keyof Entrypoint
+            ? 'collections' extends keyof Entrypoint['options']
+              ? UnpackCollections<Entrypoint['options']['collections']>
+              : never
+            : never
+          : never
+        : never
+    : never
+}
+
 declare module 'waltz-ui' {
   export * from 'waltz-ui/dist'
-
-  type Collections = typeof import('../api/src').collections extends infer UserCollections
-    ? {
-      [K in keyof UserCollections]: UserCollections[K] extends infer CollCandidate
-        ? CollCandidate extends () => infer Coll
-          ? Coll
-          : CollCandidate
-        : never
-    }
-    : never
 
   type SystemStores = typeof import('@waltz-ui/web/stores')
   type UserStores = typeof import('./src/stores')
@@ -58,11 +72,6 @@ declare global {
       icon: Icon
     }
   }) => void
-
-  const I18N: typeof import('@waltz-ui/i18n').I18nConfig
-  const ROUTER: import('vue-router').Router
-  const STORES: Record<string, import('@waltz-ui/state-management').Store>
-  const INSTANCE_VARS: import('waltz-build').InstanceConfig['site']
 }
 
 export {}
