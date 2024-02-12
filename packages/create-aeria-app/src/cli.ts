@@ -120,12 +120,12 @@ const main = async () => {
     { recursive: true }
   )
 
-  await fs.promises.cp(
+  await fs.promises.rename(
     path.join(templatePath, 'sample.gitignore'),
     path.join(projectPath, '.gitignore'),
   )
 
-  await fs.promises.cp(
+  await fs.promises.rename(
     path.join(templatePath, 'api', 'sample.env'),
     path.join(projectPath, 'api', '.env'),
   )
@@ -133,7 +133,7 @@ const main = async () => {
   if( !opts.bare ) {
     log(LogLevel.Info, 'installing dependencies')
     await $([
-      `cd ${projectPath}`,
+      `cd ${projectPath.replace(/\\/g, '/')}`,
       'npm i'
     ])
   }
