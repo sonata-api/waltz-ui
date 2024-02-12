@@ -1,5 +1,6 @@
 import { defineConfig, type InlineConfig } from 'vite'
-import { createRequire } from 'module'
+import { createRequire } from 'node:module'
+import { fileURLToPath } from 'node:url'
 import vue from '@vitejs/plugin-vue'
 import vueRouter from 'unplugin-vue-router/vite'
 import vueComponents from 'unplugin-vue-components/vite'
@@ -19,7 +20,7 @@ export default defineConfig(async () => {
     publicDir: 'static',
     resolve: {
       alias: {
-        'bson': new URL(import.meta.resolve('bson')).pathname.replace('mjs', 'cjs')
+        'bson': fileURLToPath(new URL(import.meta.resolve('bson'))).replace('.mjs', '.cjs'),
       }
     },
     plugins: [

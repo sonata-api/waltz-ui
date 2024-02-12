@@ -1,4 +1,5 @@
 import path from 'path'
+import { fileURLToPath } from 'node:url'
 import { readFile } from 'fs/promises'
 import { DEFAULT_STYLE } from './constants.js'
 
@@ -71,7 +72,7 @@ export const packTogether = async (icons: string[]) => {
 
     try {
       const newPath = path.join(
-        new URL(await import.meta.resolve!('@phosphor-icons/core')).pathname,
+        fileURLToPath(new URL(await import.meta.resolve!('@phosphor-icons/core'))),
         '..',
         '..',
         'assets',

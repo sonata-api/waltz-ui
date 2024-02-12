@@ -1,8 +1,9 @@
 import { writeFile } from 'fs/promises'
+import { fileURLToPath } from 'node:url'
 import { packTogether } from '../common.js'
 import { icons, IconStyle } from '@phosphor-icons/core'
 
-const bundlePath = new URL(await import.meta.resolve!('../../dist/icons.svg')).pathname
+const bundlePath = fileURLToPath(new URL(await import.meta.resolve!('../../dist/icons.svg')))
 
 const bundle = async () => {
   const iconNames = icons.reduce((a, icon) => [
