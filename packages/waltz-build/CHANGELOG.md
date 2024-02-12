@@ -1,5 +1,17 @@
 # waltz-build
 
+## 0.1.13
+
+### Patch Changes
+
+- Template and waltz-build fixes
+
+## 0.1.12
+
+### Patch Changes
+
+- Fix vite ESM path
+
 ## 0.1.11
 
 ### Patch Changes
