@@ -3,7 +3,7 @@ declare module '@vue/runtime-core' {
     instanceVars: typeof import('waltz-build').InstanceConfig['site']
     currentUser: {
       _id: string
-      full_name: string
+      name: string
     }
     formatDateTime: typeof import('@sonata-api/common').formatDateTime
   }

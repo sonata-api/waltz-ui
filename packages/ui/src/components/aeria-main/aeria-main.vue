@@ -15,8 +15,8 @@ bootstrapRoutes()
     id="main"
     :class="`
       main
-      main--${metaStore.$theme}
-      ${metaStore.$theme === 'dark' && 'tw-dark'}
+      main--${metaStore.theme}
+      ${metaStore.theme === 'dark' && 'tw-dark'}
   `">
     <Suspense>
       <router-view v-slot="{ Component }">

@@ -43,16 +43,10 @@ export const user = () => registerStore(() => {
     }
   })
 
-  const $currentUser = computed(() => {
-    if( !('_id' in state.currentUser) ) {
-      const auth = localStorage.getItem(`${STORAGE_NAMESPACE}:auth`)
-      if( auth ) {
-        setCurrentUser(JSON.parse(auth))
-      }
-    }
-
-    return state.currentUser
-  })
+  const auth = localStorage.getItem(`${STORAGE_NAMESPACE}:auth`)
+  if( auth ) {
+    setCurrentUser(JSON.parse(auth))
+  }
 
   function setCurrentUser(auth: AuthResult | {}) {
     for( const key in state.currentUser ) {
@@ -75,7 +69,6 @@ export const user = () => registerStore(() => {
     $id: 'user',
     state,
     getters: (state) => ({
-      $currentUser,
       properties: computed(() => {
         const metaStore = meta()()
         const properties = state.description.properties!
@@ -86,7 +79,7 @@ export const user = () => registerStore(() => {
         properties.roles.items.enum = metaStore.roles
         return properties
       }),
-      signedIn: computed(() => !!$currentUser.value.roles?.length)
+      signedIn: computed(() => !!state.currentUser.roles?.length)
     }),
     actions: (state) => ({
       setCurrentUser,
@@ -113,6 +106,8 @@ export const user = () => registerStore(() => {
             email: '',
             password: ''
           }
+
+          console.log(auth)
 
           setCurrentUser(auth)
           await metaStore.$actions.describe({

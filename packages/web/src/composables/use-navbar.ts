@@ -70,12 +70,12 @@ export const useNavbar = async (props: Props) => {
 
       if( roles ) {
         if( typeof roles === 'function' ) {
-          if( !await roles(userStore.$currentUser.roles || []) ) {
+          if( !await roles(userStore.currentUser.roles || []) ) {
             return
           }
 
         }
-        else if( !arraysIntersects(userStore.$currentUser.roles, roles) ) {
+        else if( !arraysIntersects(userStore.currentUser.roles, roles) ) {
           return
         }
       }

@@ -15,7 +15,7 @@ const metaStore = useStore('meta')
 
 const editPanel = ref(false)
 
-userStore.$actions.setItem(userStore.$currentUser)
+userStore.$actions.setItem(userStore.currentUser)
 
 const insert = async () => {
   await userStore.$actions.insert({ what: userStore.item })

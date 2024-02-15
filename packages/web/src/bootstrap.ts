@@ -12,7 +12,7 @@ export const bootstrapRoutes = () => {
       const routeVisibility = description.route
       if(
         Array.isArray(routeVisibility)
-          && !arraysIntersects(userStore.$currentUser.roles, routeVisibility)
+          && !arraysIntersects(userStore.currentUser.roles, routeVisibility)
       ) {
         return
       }

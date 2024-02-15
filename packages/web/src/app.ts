@@ -47,7 +47,7 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>) => {
   app.mixin({
     computed: {
       instanceVars: () => INSTANCE_VARS || {},
-      currentUser: () => userStore.$currentUser,
+      currentUser: () => userStore.currentUser,
       viewTitle: () => {
         const currentRoute = ROUTER.currentRoute.value
         const title = currentRoute.meta?.title as string

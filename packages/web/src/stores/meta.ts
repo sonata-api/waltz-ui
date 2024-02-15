@@ -15,6 +15,8 @@ import { user } from './user'
 type CollectionName = string
 type PromptAnswer = { name: string }
 
+const DEFAULT_THEME = 'default'
+
 export type Toast = {
   text: string
   icon?: string
@@ -35,7 +37,7 @@ export const meta = () => registerStore(() => {
     roles: [] as string[],
     isLoading: false,
     globalIsLoading: false,
-    theme: '',
+    theme: localStorage.getItem(`${STORAGE_NAMESPACE}:meta:theme`) || DEFAULT_THEME,
     themeOverride: '',
     view: {
       title: '',
@@ -62,24 +64,10 @@ export const meta = () => registerStore(() => {
   }
   
   const state = reactive(deepClone(freshState))
-
-  const getters = {
-    $theme: computed((): string => {
-      const currTheme = state.themeOverride || state.theme
-      if( !currTheme ) {
-        const defaultTheme = 'default'
-        state.theme = localStorage.getItem(`${STORAGE_NAMESPACE}:meta:theme`) || defaultTheme
-        return state.theme
-      }
-
-      return currTheme
-    })
-  }
-
+  
   return {
     $id: 'meta',
     state,
-    getters,
     actions: {
       async describe(props?: { revalidate?: boolean, roles?: boolean }) {
         state.isLoading = true

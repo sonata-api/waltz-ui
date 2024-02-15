@@ -30,7 +30,7 @@ const contextmenuVisible = ref(false)
 const filterActions = (actions: any[]) => {
   return actions.filter((action: any) => {
     if( action.roles ) {
-      return action.roles.include(userStore.$currentUser.role)
+      return action.roles.include(userStore.currentUser.role)
     }
 
     return !!action.click

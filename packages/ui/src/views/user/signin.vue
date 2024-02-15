@@ -77,11 +77,11 @@ const authenticate = async () => {
     </aeria-button>
 
     <aeria-button
-      v-if="userStore.$currentUser._id && !metaStore.isLoading"
+      v-if="userStore.currentUser._id && !metaStore.isLoading"
       :disabled="userStore.loading.authenticate || metaStore.isLoading"
       @click="goToTarget"
     >
-      Continuar como {{ userStore.$currentUser.name }}
+      Continuar como {{ userStore.currentUser.name }}
     </aeria-button>
   </div>
 </template>

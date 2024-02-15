@@ -27,7 +27,6 @@ type LayoutConfig = {
 
 type Props = FormFieldProps<any> & {
   form?: Record<string, Property>
-  modelValue: Record<string, any>
   collection?: string | Ref<string>
   isReadOnly?: boolean
   searchOnly?: boolean

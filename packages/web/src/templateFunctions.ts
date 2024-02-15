@@ -10,7 +10,7 @@ import { t } from '@waltz-ui/i18n'
 
 const hasRoles = (roles: string | string[]) => {
   const userStore = useStore('user')
-  return arraysIntersects(roles, userStore.$currentUser.roles)
+  return arraysIntersects(roles, userStore.currentUser.roles)
 }
 
 export const templateFunctions = {
