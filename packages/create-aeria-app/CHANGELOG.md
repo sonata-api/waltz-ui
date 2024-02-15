@@ -1,5 +1,23 @@
 # create-waltz-app
 
+## 0.0.22
+
+### Patch Changes
+
+- Update template
+
+## 0.0.21
+
+### Patch Changes
+
+- Update template
+
+## 0.0.20
+
+### Patch Changes
+
+- Update template
+
 ## 0.0.19
 
 ### Patch Changes

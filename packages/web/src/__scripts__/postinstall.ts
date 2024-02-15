@@ -69,7 +69,7 @@ declare global {
   const definePage: (page: Partial<RouteRecordRaw> & {
     meta: {
       title: string
-      icon: Icon
+      icon?: Icon
     }
   }) => void
 }
