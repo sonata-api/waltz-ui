@@ -8,31 +8,41 @@ type Props = {
   schema: MenuSchema
 }
 
+const findRoute = (name: string, routes: Route[]) => {
+  const found = routes.find((route) => route.name === name)
+  if( found ) {
+    return {
+      ...found,
+      children: []
+    }
+  }
+}
+
+const getSchema = (schema: MenuSchema | Route[], routes: Route[]) => {
+  return schema.map((node) => {
+    if( typeof node === 'string' ) {
+      return findRoute(node, routes)
+    }
+
+    if( 'path' in node ) {
+      return node
+    }
+
+    return 'name' in node
+      ? {
+        ...node,
+        ...findRoute(node.name!.toString(), routes)
+      }
+      : node
+  })
+}
+
 export const useNavbar = async (props: Props) => {
   const { schema: menuSchema } = props
 
   const metaStore = useStore('meta')
   const userStore = useStore('user')
   const router = ROUTER
-
-  const getSchema = (schema: MenuSchema | Route[], routes: Route[]) => {
-    return schema.map((node) => {
-      if( typeof node === 'string' ) {
-        return routes.find((route) => route.name === node)
-      }
-
-      if( 'path' in node ) {
-        return node
-      }
-
-      return 'name' in node
-        ? {
-          ...node,
-          ...routes.find((route) => route.name === node.name)
-        }
-        : node
-    })
-  }
 
   const getRoutes = async (node?: MenuNode) => {
     const children = node && 'children' in node
