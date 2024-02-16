@@ -1,9 +1,9 @@
 import type { PromptAction } from '../behavior'
 import { deepClone, deserialize, isLeft } from '@sonata-api/common'
 import { Description } from '@sonata-api/types'
-import { reactive, computed } from 'vue'
+import { reactive } from 'vue'
 
-import { useStore, hasStore, registerStore } from '@waltz-ui/state-management'
+import { useStore, hasStore, registerStore, type GlobalStateManager } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
 import { createCollectionStore } from '../state/collection'
 import { freshItem, freshFilters } from '../state/helpers'
@@ -25,7 +25,7 @@ export type Toast = {
   date: Date
 }
 
-export const meta = () => registerStore(() => {
+export const meta = (instance: GlobalStateManager) => registerStore(instance, () => {
   if( !window.INSTANCE_VARS ) {
     Object.assign(window, {
       INSTANCE_VARS: {}
@@ -86,7 +86,7 @@ export const meta = () => registerStore(() => {
         }
 
         if( deserialized.auth ) {
-          user()().$actions.setCurrentUser(deserialized.auth)
+          user(instance)().$actions.setCurrentUser(deserialized.auth)
         }
 
         for ( const [collectionName, description] of Object.entries(globalDescriptions) ) {
@@ -101,8 +101,8 @@ export const meta = () => registerStore(() => {
             )
           }
 
-          if( hasStore(collectionName) ) {
-            const store = useStore(collectionName)
+          if( hasStore(collectionName, instance) ) {
+            const store = useStore(collectionName, instance)
             Object.assign(store, {
               item,
               filters,
@@ -113,7 +113,7 @@ export const meta = () => registerStore(() => {
             continue
           }
 
-          registerStore(() => createCollectionStore<any>()({
+          registerStore(instance, () => createCollectionStore<any>()({
             $id: collectionName,
             state: {
               item,
@@ -136,7 +136,7 @@ export const meta = () => registerStore(() => {
       title?: string
       body?: string
     }) {
-      const answer = await useStore('meta').$actions.spawnPrompt({
+      const answer = await useStore('meta', instance).$actions.spawnPrompt({
         body: t(props.body || 'prompt.default'),
         actions: [
           {

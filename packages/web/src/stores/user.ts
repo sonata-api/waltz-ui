@@ -1,5 +1,5 @@
 import type { Description } from '@sonata-api/types'
-import { registerStore } from '@waltz-ui/state-management'
+import { registerStore, type GlobalStateManager } from '@waltz-ui/state-management'
 import { left, right, isLeft, unwrapEither } from '@sonata-api/common'
 import { reactive, computed } from 'vue'
 import { createCollectionStore } from '../state/collection'
@@ -25,7 +25,7 @@ type Credentials = {
   password: string
 }
 
-export const user = () => registerStore(() => {
+export const user = (instance: GlobalStateManager) => registerStore(instance, () => {
   const state = reactive({
     currentUser: {} as Partial<User>,
     credentials: {
@@ -70,8 +70,8 @@ export const user = () => registerStore(() => {
     state,
     getters: (state) => ({
       properties: computed(() => {
-        const metaStore = meta()()
-        const properties = state.description.properties!
+        const metaStore = meta(instance)()
+        const properties = state.description.properties
         if( !properties ) {
           return {}
         }
@@ -86,7 +86,7 @@ export const user = () => registerStore(() => {
       signout,
 
       async authenticate(this: any, payload: Credentials | { revalidate: true }) {
-        const metaStore = meta()()
+        const metaStore = meta(instance)()
 
         try {
           const resultEither = await this.$functions.authenticate(payload)
@@ -106,8 +106,6 @@ export const user = () => registerStore(() => {
             email: '',
             password: ''
           }
-
-          console.log(auth)
 
           setCurrentUser(auth)
           await metaStore.$actions.describe({

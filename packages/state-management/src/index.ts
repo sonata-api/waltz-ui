@@ -5,7 +5,8 @@ import {
   isReactive,
   type Ref,
   type ComputedRef,
-  type UnwrapRef
+  type UnwrapRef,
+  type Plugin,
 
 } from 'vue'
 
@@ -17,22 +18,39 @@ export type Store = StoreState & {
   $functions: Record<string, (...args: any[]) => any>
 }
 
+export type GlobalState = Record<string, Store>
+export type GlobalStateManager = Plugin & {
+  __globalState: GlobalState
+}
+
 export type UnRef<TObj extends Record<string, ComputedRef<any>>> = {
   [P in keyof TObj]: UnwrapRef<TObj[P]>
 }
 
-window.STORES ??= {}
+const GLOBAL_STATE_KEY = '__globalState'
 
-export const useStore = (storeId: string) => {
-  if( !(storeId in STORES) ) {
+export const createGlobalStateManager = (): GlobalStateManager => {
+  const globalState: GlobalState = {}
+
+  return {
+    __globalState: globalState,
+    install(app) {
+      app.provide(GLOBAL_STATE_KEY, globalState)
+    }
+  }
+}
+
+export const useStore = (storeId: string, manager?: GlobalStateManager) => {
+  const globalState = manager?.__globalState || inject(GLOBAL_STATE_KEY, {} as GlobalState)
+  if( !(storeId in globalState) ) {
     throw new Error(`tried to invoke unregistered store "${storeId}"`)
   }
 
-  return STORES[storeId]
+  return globalState[storeId]
 }
 
-export const useParentStore = (fallback?: string) => {
-  let parentStoreId = inject<Ref<string>| string|null>('storeId', null)
+export const useParentStore = (fallback?: string, manager?: GlobalStateManager) => {
+  let parentStoreId = inject<Ref<string> | string | null>('storeId', null)
   if( !parentStoreId ) {
     if( !fallback ) {
       throw new Error('no parent store found')
@@ -44,12 +62,14 @@ export const useParentStore = (fallback?: string) => {
   return useStore(
     isRef(parentStoreId)
       ? parentStoreId.value
-      : parentStoreId
+      : parentStoreId,
+    manager
   )
 }
 
-export const hasStore = (storeId: string) => {
-  return storeId in STORES
+export const hasStore = (storeId: string, manager?: GlobalStateManager) => {
+  const globalState = manager?.__globalState || inject(GLOBAL_STATE_KEY, {} as GlobalState)
+  return storeId in globalState
 }
 
 export const registerStore = <
@@ -63,15 +83,20 @@ export const registerStore = <
     $functions: Record<string, (...args: any[]) => any>
   }
 
->(fn: () => {
-  $id: TStoreId
-  state: TStoreState
-  getters?: TStoreGetters,
-  actions?: TStoreActions
-}) => {
+>(
+  manager: GlobalStateManager,
+  fn: () => {
+    $id: TStoreId
+    state: TStoreState
+    getters?: TStoreGetters,
+    actions?: TStoreActions
+  }
+) => {
   const { $id, state, getters, actions } = fn()
-  if( hasStore($id) ) {
-    return () => STORES[$id] as Return
+  const globalState = manager.__globalState
+
+  if( hasStore($id, manager) ) {
+    return () => globalState[$id] as Return
   }
 
   const store = isReactive(state)
@@ -116,7 +141,7 @@ export const registerStore = <
     })
   }
 
-  STORES[$id] = store as Store
+  globalState[$id] = store as Store
   return () => store as Return
 }
 

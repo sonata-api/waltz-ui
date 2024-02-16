@@ -2,6 +2,7 @@ import type { defineOptions } from './options'
 import { isLeft } from '@sonata-api/common'
 import { createApp } from 'vue'
 import { createI18n, t } from '@waltz-ui/i18n'
+import { createGlobalStateManager } from '@waltz-ui/state-management'
 import { routerInstance as createRouter } from './router'
 import { templateFunctions } from './templateFunctions'
 import { meta, user } from './stores'
@@ -11,9 +12,6 @@ import registerDirectives from './directives'
 export type * from './templateFunctions'
 
 export const useApp = async (optionsFn: ReturnType<typeof defineOptions>) => {
-  const useMetaStore = meta()
-  const useUserStore = user()
-
   const options = typeof optionsFn === 'function'
     ? await optionsFn()
     : optionsFn
@@ -28,15 +26,24 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>) => {
   const app = createApp(component)
   registerDirectives(app)
 
-  const router = createRouter(routes || [], options.dashboardComponent)
+  const globalStateManager = createGlobalStateManager()
+  app.use(globalStateManager)
+
+  const router = createRouter(routes || [], globalStateManager, options.dashboardComponent)
   app.use(router)
+
+  const useMetaStore = meta(globalStateManager)
+  const useUserStore = user(globalStateManager)
 
   if( options.i18n ) {
     createI18n(options.i18n)
   }
 
   if( options.setup ) {
-    await options.setup()
+    await options.setup({
+      app,
+      globalStateManager,
+    })
   }
 
   const metaStore = useMetaStore()
@@ -104,7 +111,6 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>) => {
             next
           }
         })
-        // return
       }
 
       router.push({

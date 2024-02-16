@@ -1,6 +1,7 @@
-import type { Component } from 'vue'
+import type { App, Component } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import type { I18nConfig } from '@waltz-ui/i18n'
+import type { GlobalStateManager } from '@waltz-ui/state-management'
 import type { Icon } from '@sonata-api/types'
 import type { RouteMeta } from './router'
 
@@ -41,7 +42,10 @@ export type AppOptions = {
   i18n?: I18nConfig
   menuSchema?: MenuSchema
   routes?: RouteRecordRaw[]
-  setup?: () => void | Promise<void>
+  setup?: (config: {
+    app: App
+    globalStateManager: GlobalStateManager
+  }) => void | Promise<void>
 }
 
 export const defineOptions = <TAppOptions extends AppOptions>(options: TAppOptions | (() => TAppOptions | Promise<TAppOptions>)) => {

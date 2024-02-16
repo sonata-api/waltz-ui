@@ -1,5 +1,6 @@
 import type { Component } from 'vue'
 import type { Icon } from '@sonata-api/types'
+import type { GlobalStateManager } from '@waltz-ui/state-management'
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router/auto'
 import { meta } from './stores'
 
@@ -22,7 +23,11 @@ export type Route = RouteMeta & Omit<RouteRecordRaw, 'children'> & {
 export type RouterExtensionNode = Omit<Route, 'name'>[]
 export type RouterExtension = Record<string, RouterExtensionNode>
 
-export const routerInstance = (routes: RouteRecordRaw[], dashboardComponent?: Component) => {
+export const routerInstance = (
+  routes: RouteRecordRaw[],
+  instance: GlobalStateManager,
+  dashboardComponent?: Component,
+) => {
   const router = createRouter({
     history: createWebHistory(),
     extendRoutes: (fsRoutes) => {
@@ -40,7 +45,7 @@ export const routerInstance = (routes: RouteRecordRaw[], dashboardComponent?: Co
   })
 
   router.beforeEach(async (to, from) => {
-    const metaStore = meta()()
+    const metaStore = meta(instance)()
     metaStore.menu.visible = false
     metaStore.view.title = to.meta?.title as string
 
