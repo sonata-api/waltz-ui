@@ -1,7 +1,7 @@
 import type { FiltersPreset } from '@sonata-api/types'
 import type { CollectionStore } from '@waltz-ui/web'
 import { watch } from 'vue'
-import { useRouter } from 'vue-router/auto'
+import { useRouter } from 'vue-router'
 
 export const togglePreset = (preset: FiltersPreset<any> | null, store: CollectionStore) => {
   if( !store ) {

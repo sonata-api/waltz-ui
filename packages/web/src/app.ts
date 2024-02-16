@@ -1,7 +1,7 @@
 import type { defineOptions } from './options'
 import { isLeft } from '@sonata-api/common'
 import { createApp } from 'vue'
-import { useRouter } from 'vue-router/auto'
+import { useRouter } from 'vue-router'
 import { createI18n, t } from '@waltz-ui/i18n'
 import { createGlobalStateManager } from '@waltz-ui/state-management'
 import { routerInstance as createRouter } from './router'

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useSlots, computed } from 'vue'
-import { useRouter } from 'vue-router/auto'
+import { useRouter } from 'vue-router'
 import { useBreakpoints } from '@waltz-ui/web'
 import AeriaContextMenu from '../aeria-context-menu/aeria-context-menu.vue'
 import AeriaIcon from '../aeria-icon/aeria-icon.vue'

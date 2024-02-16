@@ -2,7 +2,7 @@
 import type { FiltersPreset } from '@sonata-api/types'
 import type { CollectionStore } from '@waltz-ui/web'
 import { computed } from 'vue'
-import { useRouter } from 'vue-router/auto'
+import { useRouter } from 'vue-router'
 import { useParentStore } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
 import { togglePreset } from '../../aeria-crud/_internals/helpers'

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router/auto'
+import { useRouter } from 'vue-router'
 import { useStore } from '@waltz-ui/state-management'
 import { isLeft, unwrapEither } from '@sonata-api/common'
 import AeriaForm from '../../components/form/aeria-form/aeria-form.vue'

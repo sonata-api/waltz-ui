@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router/auto'
+import { useRouter } from 'vue-router'
 import { useStore } from '@waltz-ui/state-management'
 
 import AeriaButton from '../../../../components/aeria-button/aeria-button.vue'

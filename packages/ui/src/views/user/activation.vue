@@ -2,7 +2,7 @@
 import { useStore } from '@waltz-ui/state-management'
 import { unsafe } from '@sonata-api/common'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router/auto'
+import { useRouter } from 'vue-router'
 
 import AeriaForm from '../../components/form/aeria-form/aeria-form.vue'
 import AeriaButton from '../../components/aeria-button/aeria-button.vue'

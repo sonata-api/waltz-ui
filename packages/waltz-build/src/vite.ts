@@ -2,19 +2,15 @@ import { defineConfig, type InlineConfig } from 'vite'
 import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import vue from '@vitejs/plugin-vue'
-import vueRouter from 'unplugin-vue-router/vite'
 import vueComponents from 'unplugin-vue-components/vite'
 import autoImport from 'unplugin-auto-import/vite'
 import waltzIcons from 'waltz-icons'
 import { icons } from 'waltz-icons/common'
-import { VueRouterAutoImports } from 'unplugin-vue-router'
 import { getInstanceConfig } from './instance.js'
 import transformIndexHtml from './plugins/transform-index-html.js'
 import loadYaml from './plugins/load-yaml.js'
 
 export default defineConfig(async () => {
-  delete VueRouterAutoImports['unplugin-vue-router/runtime']
-
   const instanceConfig = await getInstanceConfig()
   const config: InlineConfig = {
     publicDir: 'static',
@@ -50,7 +46,7 @@ export default defineConfig(async () => {
         ],
         imports: [
           'vue',
-          VueRouterAutoImports,
+          'vue-router',
           {
             'waltz-ui': [
               'useStore',
@@ -61,15 +57,6 @@ export default defineConfig(async () => {
               'useNavbar',
             ]
           }
-        ]
-      }),
-      vueRouter({
-        routesFolder: [
-          process.cwd() + '/pages',
-          process.cwd() + '/src/pages'
-        ],
-        exclude: [
-          '**/_*'
         ]
       }),
       vueComponents({
@@ -99,7 +86,6 @@ export default defineConfig(async () => {
         '@sonata-api/common',
       ],
       exclude: [
-        'vue-router',
         'mongodb',
       ]
     },

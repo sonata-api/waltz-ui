@@ -5,11 +5,6 @@ import dts from 'vite-plugin-dts'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 export default defineConfig({
-  resolve: {
-    alias: {
-      'vue-router/auto': 'vue-router'
-    }
-  },
   plugins: [
     vue(),
     dts({

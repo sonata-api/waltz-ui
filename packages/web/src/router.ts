@@ -1,7 +1,7 @@
 import type { Component } from 'vue'
 import type { Icon } from '@sonata-api/types'
 import type { GlobalStateManager } from '@waltz-ui/state-management'
-import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router/auto'
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { meta } from './stores'
 
 export type RouteMeta = {
@@ -30,18 +30,19 @@ export const routerInstance = (
 ) => {
   const router = createRouter({
     history: createWebHistory(),
-    extendRoutes: (fsRoutes) => {
-      const dashboardRoute = fsRoutes.find((route) => route.path === '/dashboard')!
+    routes,
+    // extendRoutes: (fsRoutes) => {
+    //   const dashboardRoute = fsRoutes.find((route) => route.path === '/dashboard')!
 
-      if( dashboardComponent ) {
-        dashboardRoute.component = dashboardComponent
-      }
+    //   if( dashboardComponent ) {
+    //     dashboardRoute.component = dashboardComponent
+    //   }
 
-      return [
-        ...routes,
-        ...fsRoutes
-      ]
-    }
+    //   return [
+    //     ...routes,
+    //     ...fsRoutes
+    //   ]
+    // }
   })
 
   router.beforeEach(async (to, from) => {

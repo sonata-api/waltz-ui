@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router'
 import { ref, watch } from 'vue'
-import { useRouter } from 'vue-router/auto'
+import { useRouter } from 'vue-router'
 import { arraysIntersects } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
 import { Route, MenuSchema, MenuNode } from '..'

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { STORAGE_NAMESPACE } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
-import { useRouter } from 'vue-router/auto'
+import { useRouter } from 'vue-router'
 import { isRight } from '@sonata-api/common'
 import AeriaForm from '../../components/form/aeria-form/aeria-form.vue'
 import AeriaButton from '../../components/aeria-button/aeria-button.vue'
@@ -15,7 +15,7 @@ const goToTarget = () => {
   router.push(
     next && localStorage.getItem(`${STORAGE_NAMESPACE}:auth:next`) === next
       ? next
-      : '/dashboard'
+      : '/dashboard/'
   )
 }
 

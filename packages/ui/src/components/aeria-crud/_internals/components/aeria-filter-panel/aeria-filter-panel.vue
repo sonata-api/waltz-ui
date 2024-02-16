@@ -2,7 +2,7 @@
 import type { CollectionStore  } from '@waltz-ui/web'
 import { useParentStore } from '@waltz-ui/state-management'
 import { convertToSearchQuery } from '@waltz-ui/web'
-import { useRouter } from 'vue-router/auto'
+import { useRouter } from 'vue-router'
 import AeriaPanel from '../../../../aeria-panel/aeria-panel.vue'
 import AeriaForm from '../../../../form/aeria-form/aeria-form.vue'
 import AeriaButton from '../../../../aeria-button/aeria-button.vue'

@@ -1,6 +1,6 @@
 import type { Description } from '@sonata-api/types'
 import { watch } from 'vue'
-import { useRouter } from 'vue-router/auto'
+import { useRouter } from 'vue-router'
 import { arraysIntersects } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
 
@@ -34,7 +34,7 @@ export const bootstrapRoutes = () => {
         }
       }
 
-      router.addRoute('dashboard', route)
+      router.addRoute('/dashboard/', route)
     })
 
   }, { immediate: true })
