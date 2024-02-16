@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router/auto'
 import { useStore } from '@waltz-ui/state-management'
 import { STORAGE_NAMESPACE } from '@waltz-ui/web'
 
@@ -37,7 +38,7 @@ const insert = async () => {
 
 const signout = async () => {
   await userStore.$actions.signout()
-  const router = ROUTER
+  const router = useRouter()
   router.push('/user/signin')
 }
 </script>

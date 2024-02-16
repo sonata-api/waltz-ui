@@ -1,5 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router'
-import {  ref, watch } from 'vue'
+import { ref, watch } from 'vue'
+import { useRouter } from 'vue-router/auto'
 import { arraysIntersects } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
 import { Route, MenuSchema, MenuNode } from '..'
@@ -40,9 +41,9 @@ const getSchema = (schema: MenuSchema | Route[], routes: Route[]) => {
 export const useNavbar = async (props: Props) => {
   const { schema: menuSchema } = props
 
+  const router = useRouter()
   const metaStore = useStore('meta')
   const userStore = useStore('user')
-  const router = ROUTER
 
   const getRoutes = async (node?: MenuNode) => {
     const children = node && 'children' in node

@@ -6,7 +6,14 @@ interface ImportMeta {
 }
 
 declare module 'vue-router/auto' {
-  import { createRouter as cr, createWebHistory, Router, RouteRecordRaw } from 'vue-router'
+  import {
+    createRouter as cr,
+    createWebHistory,
+    useRouter,
+    Router,
+    RouteRecordRaw
+  } from 'vue-router'
+
   export const createRouter: (config: Omit<Parameters<typeof cr>[0], 'routes'> & {
     extendRoutes: (routes: RouteRecordRaw[]) => RouteRecordRaw[]
   }) => Router
@@ -14,11 +21,11 @@ declare module 'vue-router/auto' {
   export {
     Router,
     RouteRecordRaw,
-    createWebHistory
+    createWebHistory,
+    useRouter,
   }
 }
 
 var I18N: typeof import('@waltz-ui/i18n').I18nConfig
-var ROUTER: import('vue-router').Router
 var INSTANCE_VARS: import('waltz-build').InstanceConfig['site']
 

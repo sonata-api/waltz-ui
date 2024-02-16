@@ -2,6 +2,7 @@
 import { useStore } from '@waltz-ui/state-management'
 import { unsafe } from '@sonata-api/common'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router/auto'
 
 import AeriaForm from '../../components/form/aeria-form/aeria-form.vue'
 import AeriaButton from '../../components/aeria-button/aeria-button.vue'
@@ -11,7 +12,7 @@ type Step =
   | 'success'
   | 'password'
 
-const router = ROUTER
+const router = useRouter()
 const userStore = useStore('user')
 const metaStore = useStore('meta')
 

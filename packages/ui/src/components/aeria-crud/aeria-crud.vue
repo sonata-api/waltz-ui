@@ -4,6 +4,7 @@ import type { Layout } from '@sonata-api/types'
 import type { Component } from 'vue'
 import type { RouteRecordNormalized } from 'vue-router'
 import { onUnmounted, ref, computed, provide, inject, watch, isRef, type Ref } from 'vue'
+import { useRouter } from 'vue-router/auto'
 import { deepClone, getReferenceProperty } from '@sonata-api/common'
 import { useAction, useBreakpoints, useDebounce, useScrollObserver, convertFromSearchQuery } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
@@ -50,7 +51,7 @@ type Emits = {
 const props = defineProps<Props>()
 
 const emit = defineEmits<Emits>()
-const router = ROUTER
+const router = useRouter()
 
 const debounce = useDebounce({
   delay: 600

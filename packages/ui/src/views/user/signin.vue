@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { STORAGE_NAMESPACE } from '@waltz-ui/web'
 import { useStore } from '@waltz-ui/state-management'
+import { useRouter } from 'vue-router/auto'
 import { isRight } from '@sonata-api/common'
 import AeriaForm from '../../components/form/aeria-form/aeria-form.vue'
 import AeriaButton from '../../components/aeria-button/aeria-button.vue'
 
-const router = ROUTER
+const router = useRouter()
 const userStore = useStore('user')
 const metaStore = useStore('meta')
 

@@ -1,6 +1,7 @@
 import type { defineOptions } from './options'
 import { isLeft } from '@sonata-api/common'
 import { createApp } from 'vue'
+import { useRouter } from 'vue-router/auto'
 import { createI18n, t } from '@waltz-ui/i18n'
 import { createGlobalStateManager } from '@waltz-ui/state-management'
 import { routerInstance as createRouter } from './router'
@@ -56,7 +57,7 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>) => {
       instanceVars: () => INSTANCE_VARS || {},
       currentUser: () => userStore.currentUser,
       viewTitle: () => {
-        const currentRoute = ROUTER.currentRoute.value
+        const currentRoute = useRouter().currentRoute.value
         const title = currentRoute.meta?.title as string
 
         if( !title ) {
@@ -79,9 +80,11 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>) => {
     methods: templateFunctions
   })
 
-  Object.assign(window, {
-    ROUTER: router,
-  })
+  if( typeof window !== 'undefined' ) {
+    Object.assign(window, {
+      ROUTER: router,
+    })
+  }
 
   if( userStore.signedIn || /^\/dashboard(\/|$)/.test(location.pathname) ) {
     let hasError = false

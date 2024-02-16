@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router/auto'
 import { useStore } from '@waltz-ui/state-management'
 import { isLeft, unwrapEither } from '@sonata-api/common'
 import AeriaForm from '../../components/form/aeria-form/aeria-form.vue'
@@ -8,7 +9,7 @@ import AeriaButton from '../../components/aeria-button/aeria-button.vue'
 import AeriaCheckbox from '../../components/form/aeria-checkbox/aeria-checkbox.vue'
 import AeriaPasswordForm from '../../components/dashboard/aeria-password-form/aeria-password-form.vue'
 
-const router = ROUTER
+const router = useRouter()
 const userStore = useStore('user')
 const metaStore = useStore('meta')
 

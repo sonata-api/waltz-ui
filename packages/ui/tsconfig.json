@@ -24,6 +24,7 @@
   "include": [
     "@types/*.d.ts",
     "vue.d.ts",
+    "router.d.ts",
     "src"
   ]
 }

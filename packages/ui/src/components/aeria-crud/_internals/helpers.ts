@@ -1,6 +1,7 @@
 import type { FiltersPreset } from '@sonata-api/types'
 import type { CollectionStore } from '@waltz-ui/web'
 import { watch } from 'vue'
+import { useRouter } from 'vue-router/auto'
 
 export const togglePreset = (preset: FiltersPreset<any> | null, store: CollectionStore) => {
   if( !store ) {
@@ -23,7 +24,7 @@ export const togglePreset = (preset: FiltersPreset<any> | null, store: Collectio
 }
 
 export const watchStore = (store: CollectionStore, options = { persistInQuery: true }) => {
-  const router = ROUTER
+  const router = useRouter()
   const route = router.currentRoute
 
   return watch(() => route.value.query.section, (section) => {

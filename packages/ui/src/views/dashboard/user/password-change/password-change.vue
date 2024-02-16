@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useRouter } from 'vue-router/auto'
 import { useStore } from '@waltz-ui/state-management'
 
 import AeriaButton from '../../../../components/aeria-button/aeria-button.vue'
 import AeriaPanel from '../../../../components/aeria-panel/aeria-panel.vue'
 import AeriaPasswordForm from '../../../../components/dashboard/aeria-password-form/aeria-password-form.vue'
 
-const router = ROUTER
+const router = useRouter()
 const userStore = useStore('user')
 const metaStore = useStore('meta')
 

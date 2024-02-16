@@ -1,9 +1,11 @@
-import { watch } from 'vue'
-import { arraysIntersects } from '@sonata-api/common'
 import type { Description } from '@sonata-api/types'
+import { watch } from 'vue'
+import { useRouter } from 'vue-router/auto'
+import { arraysIntersects } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
 
 export const bootstrapRoutes = () => {
+  const router = useRouter()
   const metaStore = useStore('meta')
   const userStore = useStore('user')
 
@@ -18,7 +20,7 @@ export const bootstrapRoutes = () => {
       }
 
       const routeName = `/dashboard/${description.$id}`
-      if( ROUTER.hasRoute(routeName) ) {
+      if( router.hasRoute(routeName) ) {
         return
       }
 
@@ -32,7 +34,7 @@ export const bootstrapRoutes = () => {
         }
       }
 
-      ROUTER.addRoute('dashboard', route)
+      router.addRoute('dashboard', route)
     })
 
   }, { immediate: true })

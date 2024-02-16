@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useSlots, computed } from 'vue'
+import { useRouter } from 'vue-router/auto'
 import { useBreakpoints } from '@waltz-ui/web'
 import AeriaContextMenu from '../aeria-context-menu/aeria-context-menu.vue'
 import AeriaIcon from '../aeria-icon/aeria-icon.vue'
@@ -12,7 +13,7 @@ type Props = {
 
 const props = defineProps<Props>()
 const slots = useSlots()
-const router = ROUTER
+const router = useRouter()
 
 const breakpoints = useBreakpoints()
 
