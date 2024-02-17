@@ -2,7 +2,6 @@ import type { App, Component } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import type { I18nConfig } from '@waltz-ui/i18n'
 import type { GlobalStateManager } from '@waltz-ui/state-management'
-import type { Icon } from '@sonata-api/types'
 import type { RouteMeta } from './router'
 
 export type MenuNodeBase = Partial<RouteMeta> & {
@@ -14,16 +13,13 @@ export type MenuNodeBase = Partial<RouteMeta> & {
 }
 
 export type MenuNodeNamed = MenuNodeBase & {
-  name?: string | Symbol
+  path?: string
 }
 
 export type MenuNodeCollapsible = MenuNodeBase & {
   collapsed: boolean | 'user'
   children: (string | MenuNode)[]
-  meta: {
-    title: string
-    icon?: Icon
-  }
+  meta: RouteMeta
 }
 
 export type MenuNode = 
@@ -38,7 +34,6 @@ export type MenuSchema = (
 
 export type AppOptions = {
   component: Component
-  dashboardComponent?: Component
   i18n?: I18nConfig
   menuSchema?: MenuSchema
   routes?: RouteRecordRaw[]

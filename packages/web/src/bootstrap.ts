@@ -1,13 +1,13 @@
 import type { Description } from '@sonata-api/types'
+import type { GlobalStateManager } from '@waltz-ui/state-management'
+import type { Router } from 'vue-router'
 import { watch } from 'vue'
-import { useRouter } from 'vue-router'
 import { arraysIntersects } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
 
-export const bootstrapRoutes = () => {
-  const router = useRouter()
-  const metaStore = useStore('meta')
-  const userStore = useStore('user')
+export const bootstrapRoutes = (router: Router, manager: GlobalStateManager) => {
+  const metaStore = useStore('meta', manager)
+  const userStore = useStore('user', manager)
 
   watch(() => metaStore.descriptions, (descriptions: Record<string, Description>) => {
     Object.values(descriptions).forEach((description) => {
@@ -34,7 +34,7 @@ export const bootstrapRoutes = () => {
         }
       }
 
-      router.addRoute('/dashboard/', route)
+      router.addRoute('/dashboard', route)
     })
 
   }, { immediate: true })

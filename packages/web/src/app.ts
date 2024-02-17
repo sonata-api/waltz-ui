@@ -8,6 +8,7 @@ import { routerInstance as createRouter } from './router'
 import { templateFunctions } from './templateFunctions'
 import { meta, user } from './stores'
 import { STORAGE_NAMESPACE } from './constants'
+import { bootstrapRoutes } from './bootstrap'
 import registerDirectives from './directives'
 
 export type * from './templateFunctions'
@@ -30,11 +31,13 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>) => {
   const globalStateManager = createGlobalStateManager()
   app.use(globalStateManager)
 
-  const router = createRouter(routes || [], globalStateManager, options.dashboardComponent)
+  const router = createRouter(routes || [], globalStateManager)
   app.use(router)
 
   const useMetaStore = meta(globalStateManager)
   const useUserStore = user(globalStateManager)
+
+  bootstrapRoutes(router, globalStateManager)
 
   if( options.i18n ) {
     createI18n(options.i18n)

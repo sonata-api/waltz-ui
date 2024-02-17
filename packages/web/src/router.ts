@@ -1,4 +1,3 @@
-import type { Component } from 'vue'
 import type { Icon } from '@sonata-api/types'
 import type { GlobalStateManager } from '@waltz-ui/state-management'
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
@@ -23,26 +22,10 @@ export type Route = RouteMeta & Omit<RouteRecordRaw, 'children'> & {
 export type RouterExtensionNode = Omit<Route, 'name'>[]
 export type RouterExtension = Record<string, RouterExtensionNode>
 
-export const routerInstance = (
-  routes: RouteRecordRaw[],
-  instance: GlobalStateManager,
-  dashboardComponent?: Component,
-) => {
+export const routerInstance = (routes: RouteRecordRaw[], instance: GlobalStateManager) => {
   const router = createRouter({
     history: createWebHistory(),
     routes,
-    // extendRoutes: (fsRoutes) => {
-    //   const dashboardRoute = fsRoutes.find((route) => route.path === '/dashboard')!
-
-    //   if( dashboardComponent ) {
-    //     dashboardRoute.component = dashboardComponent
-    //   }
-
-    //   return [
-    //     ...routes,
-    //     ...fsRoutes
-    //   ]
-    // }
   })
 
   router.beforeEach(async (to, from) => {

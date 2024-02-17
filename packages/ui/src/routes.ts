@@ -1,11 +1,11 @@
 import type { Component } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 
-export const userRoutes = (component: Component | (() => Promise<Component>)): RouteRecordRaw => ({
+export const userRoutes = (component: Component | (() => Promise<Component>), children: RouteRecordRaw[] = []): RouteRecordRaw => ({
   path: '/user',
   name: '/user',
   component,
-  children: [
+  children: children.concat([
     {
       path: 'invite/:id',
       name: '/user/invite/:id',
@@ -42,12 +42,12 @@ export const userRoutes = (component: Component | (() => Promise<Component>)): R
         title: 'Ativação'
       }
     },
-  ]
+  ])
 })
 
-export const dashboardRoutes = (component: Component | (() => Promise<Component>)): RouteRecordRaw => ({
+export const dashboardRoutes = (component: Component | (() => Promise<Component>), children: RouteRecordRaw[] = []): RouteRecordRaw => ({
   path: '/dashboard',
-  name: 'dashboard',
+  name: '/dashboard',
   component,
   redirect: {
     name: '/dashboard/'
@@ -55,10 +55,10 @@ export const dashboardRoutes = (component: Component | (() => Promise<Component>
   meta: {
     title: 'Dashboard'
   },
-  children: [
+  children: children.concat([
     {
       path: 'c/:collection?',
-      name: 'dashboard-crud',
+      name: '/dashboard/crud',
       props: true,
       components: {
         default: () => import('./views/dashboard/crud-view/crud-view.vue'),
@@ -70,17 +70,15 @@ export const dashboardRoutes = (component: Component | (() => Promise<Component>
     },
     {
       path: 'user',
-      name: 'dashboard-user-group',
+      name: '/dashboard/user',
       meta: {
-        title: 'user'
+        title: 'user',
+        icon: 'users',
       },
-      redirect: {
-        name: 'dashboard-user'
-      },
+      redirect: '/dashboard/c/user',
       children: [
         {
           path: 'profile',
-          name: '/dashboard/user/profile',
           component: () => import('./views/dashboard/user/profile/profile.vue'),
           meta: {
             title: 'Meu perfil',
@@ -89,7 +87,6 @@ export const dashboardRoutes = (component: Component | (() => Promise<Component>
         },
         {
           path: 'changepass',
-          name: '/dashboard/user/changepass',
           component: () => import('./views/dashboard/user/password-change/password-change.vue'),
           meta: {
             title: 'Mudar senha',
@@ -98,5 +95,5 @@ export const dashboardRoutes = (component: Component | (() => Promise<Component>
         }
       ]
     }
-  ]
+  ])
 })

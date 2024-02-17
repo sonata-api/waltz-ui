@@ -37,7 +37,7 @@ export const useAction = <Filters extends { _id: string | string[] }>(
   const fn = (actionProps: Omit<CollectionAction<any>, 'name'> & { action: string }): (filters?: Filters) => void => {
     const { action: actionName } = actionProps
     const actionEffect = actionProps.effect as keyof typeof STORE_EFFECTS | undefined
-    const [scopeName, scopedAction] = actionName.split(':')
+    const [scopeName, scopedAction] = actionName.split(/:(.*)/s)
 
     if( scopedAction ) {
       if( scopeName === 'route' ) {

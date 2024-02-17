@@ -1,38 +1,38 @@
-import type { RouteRecordRaw } from 'vue-router'
+import type { Router, RouteRecordRaw } from 'vue-router'
 import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import { arraysIntersects } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
+import { arraysIntersects } from '@sonata-api/common'
 import { Route, MenuSchema, MenuNode } from '..'
 
 type Props = {
   schema: MenuSchema
 }
 
-const findRoute = (name: string, routes: Route[]) => {
-  const found = routes.find((route) => route.name === name)
+const findRoute = (path: string, router: Router) => {
+  const found = router.resolve({
+    path
+  })
+
   if( found ) {
     return {
       ...found,
+      meta: <MenuNode['meta']>found.meta,
       children: []
     }
   }
 }
 
-const getSchema = (schema: MenuSchema | Route[], routes: Route[]) => {
+const getSchema = (schema: MenuSchema | Route[], router: Router) => {
   return schema.map((node) => {
     if( typeof node === 'string' ) {
-      return findRoute(node, routes)
+      return findRoute(node, router)
     }
 
-    if( 'path' in node ) {
-      return node
-    }
-
-    return 'name' in node
+    return 'path' in node
       ? {
         ...node,
-        ...findRoute(node.name!.toString(), routes)
+        ...findRoute(node.path!.toString(), router)
       }
       : node
   })
@@ -50,9 +50,7 @@ export const useNavbar = async (props: Props) => {
       ? node.children
       : null
 
-    const routes = router.getRoutes().filter((route) => !!route.meta)
-
-    const schema = getSchema(children || menuSchema, routes as unknown as Route[])
+    const schema = getSchema(children || menuSchema, router)
     const entries: Record<string, Route | MenuNode> = {}
 
     await Promise.all(Object.entries(schema).map(async ([key, node]) => {
@@ -101,7 +99,7 @@ export const useNavbar = async (props: Props) => {
         return
       }
 
-      entries[key] = route
+      entries[key] = route as any
 
       if( children ) {
         entries[key].children = await getRoutes(node as MenuNode)
@@ -118,8 +116,7 @@ export const useNavbar = async (props: Props) => {
       ? subroute.redirect === route.path
       : subroute.path === (route.redirectedFrom?.path || route.path)?.split(/\/home$/)[0]
 
-    const nameMatches = subroute.name === (route.redirectedFrom?.name || route.name)
-    return pathMatches || nameMatches
+    return pathMatches
   }
 
   const routes = ref(await getRoutes())
@@ -130,6 +127,7 @@ export const useNavbar = async (props: Props) => {
 
   return {
     routes,
+    router,
     isCurrent
   }
 }
