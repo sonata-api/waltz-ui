@@ -25,7 +25,8 @@
   },
   "files": [
     "dist",
-    "themes"
+    "themes",
+    "vue.d.ts"
   ],
   "dependencies": {
     "maska": "^2.1.10"
