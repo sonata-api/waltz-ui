@@ -1,5 +1,19 @@
 # @waltz-ui/web
 
+## 1.0.25
+
+### Patch Changes
+
+- Routes
+
+## 1.0.24
+
+### Patch Changes
+
+- Update deps
+- Updated dependencies
+  - @waltz-ui/state-management@0.1.4
+
 ## 1.0.23
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "waltz-build",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "type": "module",
   "description": "",
   "scripts": {
@@ -44,6 +44,7 @@
     "@types/node": "^20.8.6"
   },
   "peerDependencies": {
+    "@sonata-api/builtins-icons": "*",
     "@sonata-api/common": "*",
     "@sonata-api/types": "*",
     "bson": "*",

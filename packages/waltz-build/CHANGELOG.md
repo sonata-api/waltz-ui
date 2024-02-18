@@ -1,5 +1,11 @@
 # waltz-build
 
+## 0.1.17
+
+### Patch Changes
+
+- Update deps
+
 ## 0.1.16
 
 ### Patch Changes

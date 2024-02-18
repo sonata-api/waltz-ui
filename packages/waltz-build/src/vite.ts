@@ -1,5 +1,4 @@
 import { defineConfig, type InlineConfig } from 'vite'
-import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import vue from '@vitejs/plugin-vue'
 import vueComponents from 'unplugin-vue-components/vite'
@@ -24,10 +23,8 @@ export default defineConfig(async () => {
         hash: true,
         libraries: instanceConfig.icons?.libraries || [],
         async preEmit() {
-          const require = createRequire(import.meta.url)
-
           const userIcons = await import(process.cwd() + '/../api/node_modules/.sonata/icons.mjs')
-          const builtinsIcons = require('@sonata-api/builtins/icons')
+          const builtinsIcons = await import('@sonata-api/builtins-icons')
 
           userIcons.icons.forEach((icon: string) => {
             icons.add(icon)
