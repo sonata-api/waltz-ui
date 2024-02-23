@@ -148,7 +148,10 @@ const has = (propertyName: string) => {
     return true
   }
 
-  const formProperties = store?.description?.form
+  const formProperties = props.property && 'properties' in props.property
+    ? props.property.form
+    : store?.description?.form
+
   return !formProperties || formProperties.includes(propertyName)
 }
 

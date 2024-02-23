@@ -59,7 +59,7 @@ export const useAction = <Filters extends { _id: string | string[] }>(
           }
 
           router.push({
-            path: actionName.split('route:')[1],
+            name: actionName.split('route:')[1],
             params: filters
               ? Object.assign({ id: filters._id }, actionProps.params || {})
               : {},

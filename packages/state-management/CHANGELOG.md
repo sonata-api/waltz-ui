@@ -1,5 +1,11 @@
 # @waltz-ui/state-management
 
+## 0.1.5
+
+### Patch Changes
+
+- New registerStore
+
 ## 0.1.4
 
 ### Patch Changes

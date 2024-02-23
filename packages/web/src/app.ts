@@ -34,8 +34,8 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>) => {
   const router = createRouter(routes || [], globalStateManager)
   app.use(router)
 
-  const useMetaStore = meta(globalStateManager)
-  const useUserStore = user(globalStateManager)
+  const metaStore = meta(globalStateManager)
+  const userStore = user(globalStateManager)
 
   bootstrapRoutes(router, globalStateManager)
 
@@ -49,9 +49,6 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>) => {
       globalStateManager,
     })
   }
-
-  const metaStore = useMetaStore()
-  const userStore = useUserStore()
 
   app.provide('menuSchema', menuSchema)
 
@@ -117,11 +114,11 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>) => {
             next
           }
         })
+      } else {
+        router.push({
+          name: '/user/signin'
+        })
       }
-
-      router.push({
-        name: '/user/signin'
-      })
     }
 
   }
@@ -132,3 +129,4 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>) => {
     mount: () => app.mount('#app')
   }
 }
+

@@ -1,5 +1,25 @@
 # @waltz-ui/web
 
+## 1.0.28
+
+### Patch Changes
+
+- New registerStore
+- Updated dependencies
+  - @waltz-ui/state-management@0.1.5
+
+## 1.0.27
+
+### Patch Changes
+
+- Update ui
+
+## 1.0.26
+
+### Patch Changes
+
+- Fix form bug
+
 ## 1.0.25
 
 ### Patch Changes

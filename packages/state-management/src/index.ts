@@ -72,7 +72,7 @@ export const hasStore = (storeId: string, manager?: GlobalStateManager) => {
   return storeId in globalState
 }
 
-export const registerStore = <
+export const internalRegisterStore = <
   const TStoreId extends string,
   TStoreState extends StoreState,
   TStoreGetters extends Record<string, ComputedRef<any>>,
@@ -85,23 +85,23 @@ export const registerStore = <
 
 >(
   manager: GlobalStateManager,
-  fn: () => {
+  fn: (manager: GlobalStateManager) => {
     $id: TStoreId
     state: TStoreState
     getters?: TStoreGetters,
     actions?: TStoreActions
   }
 ) => {
-  const { $id, state, getters, actions } = fn()
+  const { $id, state, getters, actions } = fn(manager)
   const globalState = manager.__globalState
 
   if( hasStore($id, manager) ) {
-    return () => globalState[$id] as Return
+    return globalState[$id]
   }
 
   const store = isReactive(state)
-    ? state
-    : reactive(state) 
+    ? <Store>state
+    : reactive(<Store>state) 
 
   Object.assign(store, {
     $id
@@ -141,7 +141,25 @@ export const registerStore = <
     })
   }
 
-  globalState[$id] = store as Store
-  return () => store as Return
+  globalState[$id] = store
+  return <Return>store
+}
+
+export const registerStore = <
+  const TStoreId extends string,
+  TStoreState extends StoreState,
+  TStoreGetters extends Record<string, ComputedRef<any>>,
+  TStoreActions extends Record<string, (...args: any[]) => any>,
+>(
+  fn: (manager: GlobalStateManager) => {
+    $id: TStoreId
+    state: TStoreState
+    getters?: TStoreGetters,
+    actions?: TStoreActions
+  }
+) => {
+  return (manager: GlobalStateManager) => {
+    return internalRegisterStore(manager, fn)
+  }
 }
 

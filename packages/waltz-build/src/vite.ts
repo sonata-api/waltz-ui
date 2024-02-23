@@ -84,6 +84,7 @@ export default defineConfig(async () => {
       ],
       exclude: [
         'mongodb',
+        'aeria-sdk',
       ]
     },
     build: {

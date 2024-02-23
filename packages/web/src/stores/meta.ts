@@ -3,7 +3,7 @@ import { deepClone, deserialize, isLeft } from '@sonata-api/common'
 import { Description } from '@sonata-api/types'
 import { reactive } from 'vue'
 
-import { useStore, hasStore, registerStore, type GlobalStateManager } from '@waltz-ui/state-management'
+import { useStore, hasStore, registerStore } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
 import { createCollectionStore } from '../state/collection'
 import { freshItem, freshFilters } from '../state/helpers'
@@ -25,7 +25,7 @@ export type Toast = {
   date: Date
 }
 
-export const meta = (instance: GlobalStateManager) => registerStore(instance, () => {
+export const meta = registerStore((manager) => {
   if( !window.INSTANCE_VARS ) {
     Object.assign(window, {
       INSTANCE_VARS: {}
@@ -86,7 +86,7 @@ export const meta = (instance: GlobalStateManager) => registerStore(instance, ()
         }
 
         if( deserialized.auth ) {
-          user(instance)().$actions.setCurrentUser(deserialized.auth)
+          user(manager).$actions.setCurrentUser(deserialized.auth)
         }
 
         for ( const [collectionName, description] of Object.entries(globalDescriptions) ) {
@@ -101,8 +101,8 @@ export const meta = (instance: GlobalStateManager) => registerStore(instance, ()
             )
           }
 
-          if( hasStore(collectionName, instance) ) {
-            const store = useStore(collectionName, instance)
+          if( hasStore(collectionName, manager) ) {
+            const store = useStore(collectionName, manager)
             Object.assign(store, {
               item,
               filters,
@@ -113,7 +113,7 @@ export const meta = (instance: GlobalStateManager) => registerStore(instance, ()
             continue
           }
 
-          registerStore(instance, () => createCollectionStore<any>()({
+          registerStore(() => createCollectionStore<any>()({
             $id: collectionName,
             state: {
               item,
@@ -122,7 +122,7 @@ export const meta = (instance: GlobalStateManager) => registerStore(instance, ()
               freshFilters: deepClone(filters),
               rawDescription
             }
-          }))
+          }))(manager)
 
         }
 
@@ -136,7 +136,7 @@ export const meta = (instance: GlobalStateManager) => registerStore(instance, ()
       title?: string
       body?: string
     }) {
-      const answer = await useStore('meta', instance).$actions.spawnPrompt({
+      const answer = await useStore('meta', manager).$actions.spawnPrompt({
         body: t(props.body || 'prompt.default'),
         actions: [
           {

@@ -121,12 +121,12 @@ const main = async () => {
   )
 
   await fs.promises.rename(
-    path.join(templatePath, 'sample.gitignore'),
+    path.join(projectPath, 'sample.gitignore'),
     path.join(projectPath, '.gitignore'),
   )
 
   await fs.promises.rename(
-    path.join(templatePath, 'api', 'sample.env'),
+    path.join(projectPath, 'api', 'sample.env'),
     path.join(projectPath, 'api', '.env'),
   )
 

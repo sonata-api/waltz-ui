@@ -38,7 +38,10 @@ declare module 'waltz-ui' {
     [P in keyof (SystemStores & UserStores)]: ReturnType<ReturnType<(SystemStores & UserStores)[P]>>
   }
 
-  export const useStore: <TStoreId extends keyof Stores | keyof Collections>(storeId: TStoreId) => TStoreId extends keyof Stores
+  export const useStore: <TStoreId extends keyof Stores | keyof Collections>(
+    storeId: TStoreId,
+    manager?: import('@waltz-ui/state-management').GlobalStateManager
+  ) => TStoreId extends keyof Stores
     ? Stores[TStoreId]
     : import('waltz-ui').CollectionStore<Collections[TStoreId]['item']>
 }

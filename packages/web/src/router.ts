@@ -22,14 +22,14 @@ export type Route = RouteMeta & Omit<RouteRecordRaw, 'children'> & {
 export type RouterExtensionNode = Omit<Route, 'name'>[]
 export type RouterExtension = Record<string, RouterExtensionNode>
 
-export const routerInstance = (routes: RouteRecordRaw[], instance: GlobalStateManager) => {
+export const routerInstance = (routes: RouteRecordRaw[], manager: GlobalStateManager) => {
   const router = createRouter({
     history: createWebHistory(),
     routes,
   })
 
   router.beforeEach(async (to, from) => {
-    const metaStore = meta(instance)()
+    const metaStore = meta(manager)
     metaStore.menu.visible = false
     metaStore.view.title = to.meta?.title as string
 
