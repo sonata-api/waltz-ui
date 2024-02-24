@@ -6,5 +6,4 @@ pnpm lint-css
 
 if test -d playground/node_modules; then
   pnpm i
-  unlink packages/packages 2>/dev/null || true
 fi

@@ -3,3 +3,5 @@
 
 pnpm lint:fix
 pnpm lint-css:fix
+
+unlink packages/packages 2>/dev/null || true
