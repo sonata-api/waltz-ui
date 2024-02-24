@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { LayoutOptions } from '@sonata-api/types'
+import { type LayoutOptions } from '@sonata-api/types'
 import { useParentStore } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
 
@@ -41,9 +41,12 @@ const firstIfArray = (what: any) => {
         expandable
         :url="firstIfArray(item[layoutOptions.picture!])?.link"
         :meta="firstIfArray(item[layoutOptions.picture!])"
-      ></aeria-picture>
+      />
 
-      <template #badge v-if="layoutOptions.badge && Array.isArray(item[layoutOptions.badge])">
+      <template
+        v-if="layoutOptions.badge && Array.isArray(item[layoutOptions.badge])"
+        #badge
+      >
         <aeria-badge
           v-for="badge in item[layoutOptions.badge]"
           :key="`${item._id}-${badge}`"
@@ -57,7 +60,10 @@ const firstIfArray = (what: any) => {
         </aeria-badge>
       </template>
 
-      <template #badge v-else="layoutOptions.badge">
+      <template
+        v-else-if="layoutOptions.badge"
+        #badge
+      >
         <aeria-badge>
           {{
             layoutOptions.translateBadge
@@ -86,16 +92,16 @@ const firstIfArray = (what: any) => {
           v-bind="{
             subject: item,
             actions: individualActions
-        }">
+          }"
+        >
           <aeria-icon
             v-clickable
             reactive
             icon="dots-three-vertical"
-          ></aeria-icon>
+          />
         </aeria-context-menu>
       </template>
     </aeria-card>
-
   </aeria-grid>
 </template>
 

@@ -30,7 +30,7 @@ export const user = registerStore((manager) => {
     currentUser: {} as Partial<User>,
     credentials: {
       email: '',
-      password: ''
+      password: '',
     },
     description: {} as Omit<Description, 'properties'> & {
       properties: {
@@ -40,7 +40,7 @@ export const user = registerStore((manager) => {
           }
         }
       }
-    }
+    },
   })
 
   const auth = localStorage.getItem(`${STORAGE_NAMESPACE}:auth`)
@@ -79,7 +79,7 @@ export const user = registerStore((manager) => {
         properties.roles.items.enum = metaStore.roles
         return properties
       }),
-      signedIn: computed(() => !!state.currentUser.roles?.length)
+      signedIn: computed(() => !!state.currentUser.roles?.length),
     }),
     actions: (state) => ({
       setCurrentUser,
@@ -94,7 +94,7 @@ export const user = registerStore((manager) => {
             const error = unwrapEither(resultEither)
             metaStore.$actions.spawnModal({
               title: 'Erro!',
-              body: error as string
+              body: error as string,
             })
 
             return left(error)
@@ -104,12 +104,12 @@ export const user = registerStore((manager) => {
 
           state.credentials = {
             email: '',
-            password: ''
+            password: '',
           }
 
           setCurrentUser(auth)
           await metaStore.$actions.describe({
-            roles: true
+            roles: true,
           })
 
           return right('ok')

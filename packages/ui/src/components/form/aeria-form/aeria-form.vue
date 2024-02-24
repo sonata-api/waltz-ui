@@ -39,7 +39,7 @@ type Props = FormFieldProps<any> & {
   omitFormHeader?: boolean
   omitInputLabels?: boolean
   innerInputLabel?: boolean
-  validationErrors?: Record<string, any>|null
+  validationErrors?: Record<string, any> | null
   highlightRequired?: boolean
   focus?: boolean
 }
@@ -48,11 +48,11 @@ const props = withDefaults(defineProps<Props>(), {
   isReadOnly: false,
   searchony: false,
   validationErrors: null,
-  highlightRequired: true
+  highlightRequired: true,
 })
 
 const emit = defineEmits<{
-  (e: 
+  (e:
     | 'update:modelValue'
     | 'input'
     | 'change',
@@ -64,8 +64,7 @@ onBeforeMount(() => {
   if( !props.modelValue ) {
     emit('update:modelValue', props.property && 'items' in props.property
       ? []
-      : {}
-    )
+      : {})
   }
 })
 
@@ -77,14 +76,12 @@ const collectionName = refProperty
 const store = collectionName
   ? useStore(isRef(collectionName)
     ? collectionName.value
-    : collectionName!)
+    : collectionName)
   : null
 
 if( !collectionName && process.env.NODE_ENV !== 'production' ) {
-  console.warn(
-    `aeria-form was used without providing storeId or specifying
-    collection prop, some features may not work as intended`
-  )
+  console.warn(`aeria-form was used without providing storeId or specifying
+    collection prop, some features may not work as intended`)
 }
 
 const alreadyFocused = ref(false)
@@ -130,18 +127,19 @@ if( collectionName ) {
 
 provide('searchOnly', props.searchOnly)
 
-const filterProperties = (condition: (f: [string, Property]) => boolean) => {
+const filterProperties = (condition: (f: [string, Property])=> boolean) => {
   if( !form.value ) {
     return null
   }
 
   return Object.entries(form.value).filter(([key, property]) => {
-    return property
-      && !property.noForm
-      && (!condition || condition([key, property]))
+    return !property.noForm
+      && condition([
+        key,
+        property,
+      ])
   })
 }
-
 
 const has = (propertyName: string) => {
   if( props.searchOnly || !collectionName ) {
@@ -173,7 +171,7 @@ const fieldStyle = (key: string, property: any) => {
   if( layout?.if && !props.searchOnly ) {
     const result = evaluateCondition(
       props.modelValue,
-      layout.if
+      layout.if,
     )
 
     if( !result.satisfied ) {
@@ -183,21 +181,26 @@ const fieldStyle = (key: string, property: any) => {
             ? deepClone(store.$freshItem[key])
             : store.$freshItem[key]
         } else {
-          props.modelValue[key] = ![undefined, null].includes(props.modelValue[key])
+          props.modelValue[key] = ![
+            undefined,
+            null,
+          ].includes(props.modelValue[key])
             ? props.modelValue[key].constructor()
             : null
         }
       }
 
-      style.push(`display: none;`)
+      style.push('display: none;')
     }
 
     conditionMemo[key] = result.satisfied
   }
 
   style.push(`
-    --field-span: ${breakpoints.value.md ? layout?.span || 6 : 6};
-    grid-column: span var(--field-span) / span var(--field-span);
+    --field-span: ${breakpoints.value.md
+      ? layout?.span || 6
+      : 6};
+          grid-column: span var(--field-span) / span var(--field-span);
   `)
 
   if( !layout ) {
@@ -236,7 +239,7 @@ const isInsertReady = computed(() => {
     props.modelValue,
     props.form,
     required.value,
-    store?.description
+    store?.description,
   )
 })
 
@@ -256,71 +259,78 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
     class="form"
     :style="`row-gap: ${omitFormHeader ? '.8rem' : 'var(--form-internal-gap, 1.6rem);'};`"
   >
-    <header v-if="$slots.header && !omitFormHeader" class="form__header">
-      <slot name="header"></slot>
+    <header
+      v-if="$slots.header && !omitFormHeader"
+      class="form__header"
+    >
+      <slot name="header" />
     </header>
 
-    <slot></slot>
+    <slot />
 
     <fieldset
       v-if="!isReadOnly"
       class="form__fieldset"
     >
       <div
-        v-for="([propertyName, property]) in properties"
-        :key="`field-${propertyName}`"
-        :style="fieldStyle(propertyName, property)"
+        v-for="([fieldPropertyName, fieldProperty]) in properties"
+        :key="`field-${fieldPropertyName}`"
+        :style="fieldStyle(fieldPropertyName, fieldProperty)"
         class="form__field"
       >
-        <label v-if="
-          (!('type' in property) || property.type !== 'boolean' || searchOnly)
-            && !property.noLabel
-            && !omitInputLabels
-            && !innerInputLabel
-        ">
-          <div :class="{
-            'form__field-label': true,
-            'form__field-required-hint':
-              highlightRequired
+        <label
+          v-if="
+            (!('type' in fieldProperty) || fieldProperty.type !== 'boolean' || searchOnly)
+              && !fieldProperty.noLabel
+              && !omitInputLabels
+              && !innerInputLabel
+          "
+        >
+          <div
+            :class="{
+              'form__field-label': true,
+              'form__field-required-hint':
+                highlightRequired
                 && !searchOnly
-                && (!required || isRequired(propertyName, required, modelValue))
-          }">
-            {{ property.description || t(propertyName) }}
+                && (!required || isRequired(fieldPropertyName, required, modelValue))
+            }"
+          >
+            {{ fieldProperty.description || t(fieldPropertyName) }}
           </div>
           <div
-            v-if="property.hint"
-            v-html="property.hint"
-          ></div>
+            v-if="fieldProperty.hint"
+            v-html="fieldProperty.hint"
+          />
         </label>
 
         <slot
-          v-if="$slots[`field-${propertyName}`]"
+          v-if="$slots[`field-${fieldPropertyName}`]"
           v-bind="{
-            property,
-            propertyName,
+            propery: fieldProperty,
+            properyName: fieldPropertyName,
             modelValue,
           }"
-          :name="`field-${propertyName}`"
-        ></slot>
+          :name="`field-${fieldPropertyName}`"
+        />
 
         <component
-          v-else-if="layout?.fields?.[propertyName]?.component && propertyComponents[layout.fields[propertyName].component!.name]"
-          :is="propertyComponents[layout.fields[propertyName].component!.name]"
-          v-model="modelValue[propertyName]"
+          :is="propertyComponents[layout.fields[fieldPropertyName].component!.name]"
+          v-else-if="layout?.fields?.[fieldPropertyName]?.component && propertyComponents[layout.fields[fieldPropertyName].component!.name]"
+          v-model="modelValue[fieldPropertyName]"
           v-bind="{
-            property,
-            propertyName,
-            ...layout.fields[propertyName].component!.props||{},
+            property: fieldProperty,
+            propertyName: fieldPropertyName,
+            ...layout.fields[fieldPropertyName].component!.props||{},
           }"
 
-          @input="emit('input', propertyName)"
+          @input="emit('input', fieldPropertyName)"
           @change="emit('change', $event)"
         />
 
         <div
           v-else-if="
-            'format' in property
-              && ['date', 'date-time'].includes(property.format!)
+            'format' in fieldProperty
+              && ['date', 'date-time'].includes(fieldProperty.format!)
               && searchOnly
           "
           style="
@@ -328,89 +338,96 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
             grid-template-columns: repeat(2, 1fr);
             column-gap: 1rem;
           "
-          @input="emit('input', propertyName)"
+          @input="emit('input', fieldPropertyName)"
           @change="emit('change', $event)"
         >
           <aeria-input
-            v-model="modelValue[propertyName].$gte"
+            v-model="modelValue[fieldPropertyName].$gte"
             v-bind="{
-              property,
-              propertyName 
+              property: fieldProperty,
+              propertyName: fieldPropertyName
             }"
-          ></aeria-input>
+          />
           <aeria-input
-            v-model="modelValue[propertyName].$lte"
+            v-model="modelValue[fieldPropertyName].$lte"
             v-bind="{
-              property,
-              propertyName 
+              property: fieldProperty,
+              propertyName: fieldPropertyName
             }"
-          ></aeria-input>
+          />
         </div>
 
-        <div v-else-if="
-          'type' in property
-            && property.type === 'boolean'
-            && searchOnly
-        ">
+        <div
+          v-else-if="
+            'type' in fieldProperty
+              && fieldProperty.type === 'boolean'
+              && searchOnly
+          "
+        >
           <aeria-select
             v-bind="{
-              property: property as BooleanProperty,
-              propertyName
+              property: fieldProperty as BooleanProperty,
+              propertyName,
             }"
             boolean-ref
-            :model-value="modelValue[propertyName]"
+            :model-value="modelValue[fieldPropertyName]"
 
             @change="emit('change', $event)"
             @update:model-value="(value) => {
-              modelValue[propertyName] = value == 'true'
+              modelValue[fieldPropertyName] = value == 'true'
                 ? true : value == 'false'
-                ? false : null
-          }">
-            <option value="true">{{ t('yes') }}</option>
-            <option value="false">{{ t('no') }}</option>
+                  ? false : null
+            }"
+          >
+            <option value="true">
+              {{ t('yes') }}
+            </option>
+            <option value="false">
+              {{ t('no') }}
+            </option>
           </aeria-select>
         </div>
 
         <div
           v-else-if="
-            modelValue && 'items' in property && !property.uniqueItems && (
-              !('$ref' in property.items)
-              || (property.items.inline || property.items.$ref === 'file')
+            modelValue && 'items' in fieldProperty && !fieldProperty.uniqueItems && (
+              !('$ref' in fieldProperty.items)
+              || (fieldProperty.items.inline || fieldProperty.items.$ref === 'file')
             )
           "
           style="display: grid; row-gap: .4rem"
         >
           <div
-            v-for="(_, listIndex) in modelValue[propertyName]"
-            :key="`rep-${propertyName}-${listIndex}`"
+            v-for="(_, listIndex) in modelValue[fieldPropertyName]"
+            :key="`rep-${fieldPropertyName}-${listIndex}`"
             style="display: flex; column-gap: .6rem; align-items: center"
           >
             <div style="flex-grow: 1">
               <component
-                :is="getComponent(property, formComponents)"
-                v-model="modelValue[propertyName][listIndex]"
+                :is="getComponent(fieldProperty, formComponents)"
+                v-model="modelValue[fieldPropertyName][listIndex]"
                 v-bind="{
-                  property: property.items,
+                  property: fieldProperty.items,
                   propertyName,
                   parentCollection: collectionName,
                   parentPropertyName,
-                  columns: layout?.fields?.[propertyName]?.optionsColumns
+                  columns: layout?.fields?.[fieldPropertyName]?.optionsColumns
                     || layout?.fields?.$default?.optionsColumns,
-                  validationErrors: getNestedValidationError(propertyName, listIndex),
-                  ...(property.componentProps || {})
+                  validationErrors: getNestedValidationError(fieldPropertyName, listIndex),
+                  ...(fieldProperty.componentProps || {})
                 }"
 
-                @input="emit('input', propertyName)"
+                @input="emit('input', fieldPropertyName)"
                 @change="emit('change', $event)"
-              ></component>
+              />
             </div>
 
             <aeria-icon
               v-clickable
               reactive
               icon="trash"
-              @click="spliceFromArray(modelValue[propertyName], listIndex)"
-            ></aeria-icon>
+              @click="spliceFromArray(modelValue[fieldPropertyName], listIndex)"
+            />
           </div>
 
           <div>
@@ -419,14 +436,14 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
               variant="alt"
               icon="plus"
               :disabled="
-                !('inline' in property.items && property.items.inline) && (
-                  modelValue[propertyName]?.length >= property.maxItems!
-                  || unfilled(modelValue[propertyName]?.[modelValue[propertyName]?.length - 1])
+                !('inline' in fieldProperty.items && fieldProperty.items.inline) && (
+                  modelValue[fieldPropertyName]?.length >= fieldProperty.maxItems!
+                  || unfilled(modelValue[fieldPropertyName]?.[modelValue[fieldPropertyName]?.length - 1])
                 )
               "
               @click.prevent="
-                if(!modelValue[propertyName]) modelValue[propertyName] = [];
-                pushToArray(modelValue[propertyName], property)
+                if(!modelValue[fieldPropertyName]) modelValue[fieldPropertyName] = [];
+                pushToArray(modelValue[fieldPropertyName], fieldProperty)
               "
             >
               Adicionar
@@ -435,49 +452,55 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
         </div>
 
         <component
+          :is="getComponent(fieldProperty, formComponents)"
           v-else-if="modelValue"
-          :is="getComponent(property, formComponents)"
-          v-model="modelValue[propertyName]"
+          v-model="modelValue[fieldPropertyName]"
           v-bind="{
             property,
             propertyName,
             parentPropertyName,
             parentCollection: collectionName,
-            columns: layout?.fields?.[propertyName]?.optionsColumns
+            columns: layout?.fields?.[fieldPropertyName]?.optionsColumns
               || layout?.fields?.$default?.optionsColumns,
-            ...(property.componentProps || {}),
-            validationErrors: getNestedValidationError(propertyName)
+            ...(fieldProperty.componentProps || {}),
+            validationErrors: getNestedValidationError(fieldPropertyName)
           }"
 
           v-focus="!alreadyFocused && (alreadyFocused = !!focus)"
 
-          @input="emit('input', propertyName)"
+          @input="emit('input', fieldPropertyName)"
           @change="emit('change', $event)"
-        ></component>
+        />
 
         <div
-          v-if="validationErrors?.[propertyName]"
+          v-if="validationErrors?.[fieldPropertyName]"
           class="form__validation-error"
         >
-          <span v-if="validationErrors[propertyName].type">
-            {{ t(`validation_error.${validationErrors[propertyName].type}`) }}
+          <span v-if="validationErrors[fieldPropertyName].type">
+            {{ t(`validation_error.${validationErrors[fieldPropertyName].type}`) }}
           </span>
-          <span v-if="validationErrors[propertyName].detail">
-            {{ t(validationErrors[propertyName].detail) }}
+          <span v-if="validationErrors[fieldPropertyName].detail">
+            {{ t(validationErrors[fieldPropertyName].detail) }}
           </span>
         </div>
       </div>
     </fieldset>
 
-    <slot v-if="$slots.after" name="after"></slot>
+    <slot
+      v-if="$slots.after"
+      name="after"
+    />
 
-    <div v-if="$slots.footer" class="form__footer">
+    <div
+      v-if="$slots.footer"
+      class="form__footer"
+    >
       <slot
         name="footer"
         v-bind="{
           isInsertReady
         }"
-      ></slot>
+      />
     </div>
   </form>
 </template>

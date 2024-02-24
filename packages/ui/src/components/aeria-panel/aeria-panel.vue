@@ -84,7 +84,8 @@ const toggleCollapsed = (value: boolean) => {
     :class="`
       panel
       ${fixedRight && 'panel--fixed'}
-  `">
+  `"
+  >
     <component
       :is="
         isFloating
@@ -113,30 +114,36 @@ const toggleCollapsed = (value: boolean) => {
           panel__header
           ${isCollapsed && 'panel__header--collapsed'}
           ${outerHeader && 'panel__header--outer'}
-      `">
+      `"
+      >
         <div class="panel__header-left">
-          <slot v-if="$slots.header" name="header"></slot>
-          <div v-else-if="title">{{ title }}</div>
+          <slot
+            v-if="$slots.header"
+            name="header"
+          />
+          <div v-else-if="title">
+            {{ title }}
+          </div>
           <div
             v-if="$slots.extra"
             style="margin-left: auto"
           >
-            <slot name="extra"></slot>
+            <slot name="extra" />
           </div>
         </div>
 
         <!-- <aeria-icon icon="minus"></aeria-icon> -->
         <!-- <aeria-icon icon="plus"></aeria-icon> -->
         <aeria-icon
-          v-clickable
           v-if="collapsible"
+          v-clickable
           reactive
           :icon="!isCollapsed ? 'minus' : 'plus'"
           @click="toggleCollapsed(!isCollapsed)"
         />
         <aeria-icon
-          v-clickable
           v-else-if="closeHint"
+          v-clickable
           reactive
           icon="x"
           @click="close"
@@ -145,14 +152,14 @@ const toggleCollapsed = (value: boolean) => {
 
       <div
         v-if="!isCollapsed"
+        ref="body"
         v-loading="loading"
         :class="`
           panel__body
           ${fill || 'panel__body--padded'}
       `"
-        ref="body"
       >
-        <slot></slot>
+        <slot />
       </div>
 
       <div
@@ -163,7 +170,7 @@ const toggleCollapsed = (value: boolean) => {
           ${reachedEnd || 'panel__footer--shadowed'}
         `"
       >
-        <slot name="footer"></slot>
+        <slot name="footer" />
       </div>
     </component>
   </div>

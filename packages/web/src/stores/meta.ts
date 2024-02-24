@@ -1,6 +1,6 @@
 import type { PromptAction } from '../behavior'
 import { deepClone, deserialize, isLeft } from '@sonata-api/common'
-import { Description } from '@sonata-api/types'
+import { type Description } from '@sonata-api/types'
 import { reactive } from 'vue'
 
 import { useStore, hasStore, registerStore } from '@waltz-ui/state-management'
@@ -28,7 +28,7 @@ export type Toast = {
 export const meta = registerStore((manager) => {
   if( !window.INSTANCE_VARS ) {
     Object.assign(window, {
-      INSTANCE_VARS: {}
+      INSTANCE_VARS: {},
     })
   }
 
@@ -45,14 +45,14 @@ export const meta = registerStore((manager) => {
       collection: '',
     },
     menu: {
-      visible: false
+      visible: false,
     },
     modal: {
       visible: false,
       title: '',
       body: '',
       component: '',
-      details: {}
+      details: {},
     },
     prompt: {
       visible: false,
@@ -62,9 +62,9 @@ export const meta = registerStore((manager) => {
     },
     toasts: [] as Toast[],
   }
-  
+
   const state = reactive(deepClone(freshState))
-  
+
   return {
     $id: 'meta',
     state,
@@ -96,9 +96,7 @@ export const meta = registerStore((manager) => {
           const filters = freshFilters(description)
 
           if( !description.properties ) {
-            throw new Error(
-              `collection ${collectionName} has no properties`
-            )
+            throw new Error(`collection ${collectionName} has no properties`)
           }
 
           if( hasStore(collectionName, manager) ) {
@@ -108,7 +106,7 @@ export const meta = registerStore((manager) => {
               filters,
               freshItem: deepClone(item),
               freshFilters: deepClone(filters),
-              rawDescription
+              rawDescription,
             })
             continue
           }
@@ -120,8 +118,8 @@ export const meta = registerStore((manager) => {
               filters,
               freshItem: deepClone(item),
               freshFilters: deepClone(filters),
-              rawDescription
-            }
+              rawDescription,
+            },
           }))(manager)
 
         }
@@ -130,32 +128,32 @@ export const meta = registerStore((manager) => {
         return response
       },
 
-    async ask(props: {
-      action: (params: any) => unknown,
-      params?: any
-      title?: string
-      body?: string
-    }) {
-      const answer = await useStore('meta', manager).$actions.spawnPrompt({
-        body: t(props.body || 'prompt.default'),
-        actions: [
-          {
-            name: 'cancel',
-            title: t('action.cancel'),
-            variant: 'danger',
-          },
-          {
-            name: 'confirm',
-            title: t('action.confirm'),
-          },
-        ]
-      })
+      async ask(props: {
+        action: (params: any)=> unknown,
+        params?: any
+        title?: string
+        body?: string
+      }) {
+        const answer = await useStore('meta', manager).$actions.spawnPrompt({
+          body: t(props.body || 'prompt.default'),
+          actions: [
+            {
+              name: 'cancel',
+              title: t('action.cancel'),
+              variant: 'danger',
+            },
+            {
+              name: 'confirm',
+              title: t('action.confirm'),
+            },
+          ],
+        })
 
-      if( answer.name === 'confirm' ) {
-        const { action, params } = props
-        return action(params)
-      }
-    },
+        if( answer.name === 'confirm' ) {
+          const { action, params } = props
+          return action(params)
+        }
+      },
 
       spawnPrompt(props: {
         title?: string
@@ -164,7 +162,7 @@ export const meta = registerStore((manager) => {
       }): Promise<PromptAnswer> {
         Object.assign(state.prompt, {
           ...props,
-          visible: true
+          visible: true,
         })
 
         return new Promise((resolve) => {
@@ -180,7 +178,9 @@ export const meta = registerStore((manager) => {
 
       fulfillPrompt(answer: PromptAnswer) {
         window.dispatchEvent(new CustomEvent('__prompt', {
-          detail: { option: answer }
+          detail: {
+            option: answer,
+          },
         }))
       },
 
@@ -188,7 +188,7 @@ export const meta = registerStore((manager) => {
         Object.assign(state.modal, freshState.modal)
         Object.assign(state.modal, {
           ...props,
-          visible: true
+          visible: true,
         })
       },
 
@@ -197,7 +197,7 @@ export const meta = registerStore((manager) => {
         props: {
           text: string
           icon?: string
-        }
+        },
       ) {
         if( state.toasts.length >= 3 ) {
           state.toasts.splice(-1)
@@ -207,7 +207,7 @@ export const meta = registerStore((manager) => {
           ...props,
           itr: Math.random(),
           idx: state.toasts.length,
-          date: new Date()
+          date: new Date(),
         })
       },
 

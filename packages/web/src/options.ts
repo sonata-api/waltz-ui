@@ -5,9 +5,9 @@ import type { GlobalStateManager } from '@waltz-ui/state-management'
 import type { RouteMeta } from './router'
 
 export type MenuNodeBase = Partial<RouteMeta> & {
-  roles?: string[] | ((role: string[]) => boolean | Promise<boolean>)
+  roles?: string[] | ((role: string[])=> boolean | Promise<boolean>)
   children?: (string | MenuNode)[]
-  badge?: () => string | number extends infer ReturnType
+  badge?: ()=> string | number extends infer ReturnType
     ? ReturnType | Promise<ReturnType>
     : never
 }
@@ -22,7 +22,7 @@ export type MenuNodeCollapsible = MenuNodeBase & {
   meta: RouteMeta
 }
 
-export type MenuNode = 
+export type MenuNode =
   | MenuNodeNamed
   | MenuNodeCollapsible
 
@@ -40,10 +40,10 @@ export type AppOptions = {
   setup?: (config: {
     app: App
     globalStateManager: GlobalStateManager
-  }) => void | Promise<void>
+  })=> void | Promise<void>
 }
 
-export const defineOptions = <TAppOptions extends AppOptions>(options: TAppOptions | (() => TAppOptions | Promise<TAppOptions>)) => {
+export const defineOptions = <TAppOptions extends AppOptions>(options: TAppOptions | (()=> TAppOptions | Promise<TAppOptions>)) => {
   return options
 }
 

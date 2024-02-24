@@ -19,7 +19,9 @@ const editPanel = ref(false)
 userStore.$actions.setItem(userStore.currentUser)
 
 const insert = async () => {
-  await userStore.$actions.insert({ what: userStore.item })
+  await userStore.$actions.insert({
+ what: userStore.item,
+})
 
   const auth = localStorage.getItem(`${STORAGE_NAMESPACE}:auth`)
   if( auth ) {
@@ -30,7 +32,7 @@ const insert = async () => {
 
   await metaStore.$actions.spawnModal({
     title: 'Feito!',
-    body: 'Suas informações foram salvas'
+    body: 'Suas informações foram salvas',
   })
 
   editPanel.value = false
@@ -70,7 +72,7 @@ const signout = async () => {
   <slot
     v-if="$slots['user-profile']"
     name="user-profile"
-  ></slot>
+  />
 
   <aeria-menu>
     <template #edit-profile>
@@ -102,14 +104,13 @@ const signout = async () => {
         Sair
       </aeria-icon>
     </template>
-
   </aeria-menu>
 
   <aeria-panel
+    v-model="editPanel"
     float
     close-hint
     title="Editar perfil"
-    v-model="editPanel"
     @overlay-click="editPanel = false"
   >
     <aeria-form
@@ -124,7 +125,7 @@ const signout = async () => {
         ]),
         layout: userStore.formLayout
       }"
-    ></aeria-form>
+    />
 
     <template #footer>
       <aeria-button

@@ -2,7 +2,6 @@
 import type { Property, EnumProperty, BooleanProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
 import { ref, computed, watch } from 'vue'
-import { useBreakpoints } from '@waltz-ui/web'
 import { t } from '@waltz-ui/i18n'
 import AeriaIcon from '../../aeria-icon/aeria-icon.vue'
 
@@ -14,10 +13,9 @@ type Props = FormFieldProps<any, Property & (EnumProperty | BooleanProperty)> & 
 
 const props = defineProps<Props>()
 const emit = defineEmits<{
-  (e: 'update:modelValue'|'change', value: any): void
+  (e: 'update:modelValue' | 'change', value: any): void
 }>()
 
-const breakpoints = useBreakpoints()
 const select = ref<HTMLSelectElement | null>(null)
 
 const property = props.property || {} as NonNullable<typeof props.property>
@@ -33,17 +31,19 @@ const update = (value: any) => {
 const modelValue = !props.booleanRef
   ? computed({
     get: () => props.modelValue,
-    set: update
+    set: update,
   })
   : (() => {
     const value = ref(props.modelValue)
     const comp = computed({
       get: () => value.value === 'true'
-        ? true : value.value === 'false'
-        ? false : null,
+        ? true
+: value.value === 'false'
+        ? false
+: null,
       set: (newVal) => {
         value.value = newVal
-      }
+      },
     })
 
     return comp
@@ -81,17 +81,18 @@ if( !!props.multiple ) {
 </script>
 
 <template>
-  <div :class="{
-    'select': true,
-    'select--outline': !noOutline
-  }">
+  <div
+    :class="{
+      'select': true,
+      'select--outline': !noOutline
+    }"
+  >
     <select
       ref="select"
       :value="modelValue"
       v-bind="{
         size: multiple
       }"
-
 
       :class="{
         'select__select': true,
@@ -100,10 +101,10 @@ if( !!props.multiple ) {
 
       @change="update(($event.target as any).value)"
     >
-      <aeria-icon 
+      <aeria-icon
         v-if="property.icon"
         :icon="property.icon"
-      ></aeria-icon>
+      />
 
       <option
         v-if="!props.multiple"
@@ -125,9 +126,8 @@ if( !!props.multiple ) {
         }}
       </option>
 
-      <slot></slot>
+      <slot />
     </select>
-
   </div>
 </template>
 

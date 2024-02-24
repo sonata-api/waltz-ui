@@ -12,7 +12,10 @@ type Props = FormFieldProps<any, (ArrayProperty | EnumProperty | BooleanProperty
 const props = defineProps<Props>()
 const property = props.property || {} as NonNullable<typeof props.property>
 
-const type = !('enum' in property) && ['array', 'boolean'].includes(property.type)
+const type = !('enum' in property) && [
+'array',
+'boolean',
+].includes(property.type)
   ? 'checkbox'
   : 'radio'
 
@@ -47,21 +50,26 @@ const bindVal = computed({
 
     if( 'items' in property ) {
       emit('update:modelValue', !props.modelValue?.includes(value)
-        ? [ ...props.modelValue || [], value ]
+        ? [
+ ...props.modelValue || [],
+value,
+]
         : props.modelValue.filter((v: any) => v !== value))
       return
     }
 
     emit('update:modelValue', props.value)
-  }
+  },
 })
 </script>
 
 <template>
-  <label :class="`
+  <label
+    :class="`
     checkbox
     ${property.readOnly && 'checkbox--readOnly'}
-  `">
+  `"
+  >
     <input
       v-model="bindVal"
       v-bind="{
@@ -70,20 +78,32 @@ const bindVal = computed({
         checked: bindVal
       }"
       class="checkbox__input"
-    />
+    >
 
     <div
       v-clickable
       class="checkbox__text"
     >
       <div>
-        <slot name="description" v-if="$slots.description"></slot>
-        <div v-else-if="value" v-html="property.translate ? t(value) : value"></div>
-        <slot v-else></slot>
+        <slot
+          v-if="$slots.description"
+          name="description"
+        />
+        <div
+          v-else-if="value"
+          v-html="property.translate ? t(value) : value"
+        />
+        <slot v-else />
       </div>
       <div class="checkbox__hint">
-        <slot name="hint" v-if="$slots.hint"></slot>
-        <div v-else-if="property.hint" v-html="property.hint"></div>
+        <slot
+          v-if="$slots.hint"
+          name="hint"
+        />
+        <div
+          v-else-if="property.hint"
+          v-html="property.hint"
+        />
       </div>
     </div>
   </label>
@@ -91,7 +111,7 @@ const bindVal = computed({
 
 <script lang="ts">
 export default {
-  inheritAttrs: false
+  inheritAttrs: false,
 }
 </script>
 

@@ -16,8 +16,7 @@ type Props = FormFieldProps<any, Property & FileProperty> & {
 const props = defineProps<Props>()
 
 const emit = defineEmits<{
-  (
-    e:
+  (e:
       | 'update:modelValue'
       | 'update:content'
       | 'change',
@@ -35,13 +34,11 @@ const fileRef = ref<File | null>(null)
 const preview = computed(() =>
   fileRef.value
     ? URL.createObjectURL(fileRef.value)
-    : props.modelValue?.link
-)
+    : props.modelValue?.link)
 
-const isImage = computed(() => 
+const isImage = computed(() =>
   (/^image\//.test(props.modelValue?.mime) && !fileRef.value?.type)
-    || /^image\//.test(fileRef.value?.type!)
-)
+    || /^image\//.test(fileRef.value?.type!))
 
 const readFile = (file: File) => new Promise<string | ArrayBuffer | null>((resolve) => {
   const fr = new FileReader()
@@ -56,10 +53,6 @@ const clearPreview = () => {
 const insert = async (event: Event) => {
   fileRef.value = (event.target as HTMLInputElement).files![0]
 
-  if( !fileRef.value ) {
-    return
-  }
-
   const file = fileRef.value
   const content = await readFile(file)
 
@@ -70,8 +63,8 @@ const insert = async (event: Event) => {
         headers: {
           'content-type': file.type || 'application/octet-stream',
           'x-stream-request': '1',
-        }
-      }
+        },
+      },
     })
 
     emit('update:modelValue', result)
@@ -96,7 +89,7 @@ const remove = async () => {
           file__image
           ${(!store || modelValue?._id) || 'file__image--unsent'}
         `"
-      ></aeria-picture>
+      />
       <a
         v-if="modelValue?._id"
         :href="modelValue.download_link"
@@ -106,16 +99,19 @@ const remove = async () => {
     </div>
     <div class="file__actions">
       <input
-        type="file"
         ref="file"
+        type="file"
         :accept="property?.accept?.join(',')"
         @change="insert"
-      />
+      >
       <div
         v-if="fileRef"
         class="file__buttons"
       >
-        <aeria-button small @click.prevent="clearPreview">
+        <aeria-button
+          small
+          @click.prevent="clearPreview"
+        >
           Limpar
         </aeria-button>
       </div>
@@ -123,7 +119,10 @@ const remove = async () => {
         v-else-if="modelValue?._id"
         class="file__buttons"
       >
-        <aeria-button small @click.prevent="remove">
+        <aeria-button
+          small
+          @click.prevent="remove"
+        >
           Remover
         </aeria-button>
       </div>

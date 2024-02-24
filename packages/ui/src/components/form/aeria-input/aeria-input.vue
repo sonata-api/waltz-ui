@@ -8,7 +8,7 @@ import { useClipboard } from '@waltz-ui/web'
 import AeriaInfo from '../../aeria-info/aeria-info.vue'
 import AeriaIcon from '../../aeria-icon/aeria-icon.vue'
 
-type InputType = string | number | Date
+type InputType = string | number | Date | null | undefined
 
 type InputVariant =
   | 'normal'
@@ -23,8 +23,8 @@ const props = defineProps<Props>()
 const property = props.property || {} as NonNullable<typeof props.property>
 const hasIcon = 'icon' in property || ('inputType' in property && property.inputType === 'search')
 
-const searchOnly = inject('searchOnly', false)
-const innerInputLabel = inject('innerInputLabel', false)
+const searchOnly = inject<boolean>('searchOnly', false)
+const innerInputLabel = inject<boolean>('innerInputLabel', false)
 const readOnly = !searchOnly && property.readOnly
 
 const copyToClipboard = useClipboard()
@@ -34,7 +34,7 @@ const emit = defineEmits<{
   (e: 'change', value: any): void
 }>()
 
-const variant = inject('inputVariant', props.variant) || 'normal'
+const variant = inject<InputVariant | undefined>('inputVariant', props.variant) || 'normal'
 
 const inputBind: {
   type: string
@@ -65,7 +65,7 @@ const inputBind: {
   })(),
   placeholder: innerInputLabel
     ? property.description || props.propertyName
-    : property.placeholder
+    : property.placeholder,
 }
 
 if( 'type' in property ) {
@@ -77,7 +77,10 @@ if( 'type' in property ) {
   inputBind.name = props.propertyName
   inputBind.readonly = readOnly
 
-  if( property.type === 'string' && ['date', 'date-time'].includes(property.format!) ) {
+  if( property.type === 'string' && [
+'date',
+'date-time',
+].includes(property.format!) ) {
     inputBind.type = !searchOnly && property.format === 'date-time'
       ? 'datetime-local'
       : 'date'
@@ -99,13 +102,14 @@ const getDatetimeString = () => {
   }
 }
 
-const inputValue = ref(
-  ['date', 'date-time'].includes(inputBind.type)
+const inputValue = ref([
+'date',
+'date-time',
+].includes(inputBind.type)
     ? getDatetimeString()
     : props.modelValue === null || props.modelValue === undefined
       ? ''
-      : props.modelValue
-)
+      : props.modelValue)
 
 const updateValue = (value: InputType) => {
   const newVal = (() => {
@@ -120,9 +124,9 @@ const updateValue = (value: InputType) => {
     switch( property.format ) {
       case 'date':
       case 'date-time': {
-        return new Date(value)
+        return new Date(value as string)
       }
-        
+
       default: return value
     }
   })()
@@ -135,16 +139,16 @@ const onInput = (
   event: CustomEvent<MaskaDetail> | Event,
   options?: {
     masked?: true
-  }
+  },
 ) => {
   const { masked } = options || {}
 
   const value = inputValue.value = (event.target as HTMLInputElement).value
   const newValue = masked
-    ? (<CustomEvent<MaskaDetail>>event).detail?.unmasked
+    ? (<CustomEvent<MaskaDetail>>event).detail.unmasked
     : value
-    
-  updateValue(newValue!)
+
+  updateValue(newValue)
 }
 
 watch(() => props.modelValue, (value, oldValue) => {
@@ -154,9 +158,7 @@ watch(() => props.modelValue, (value, oldValue) => {
 
   if( oldValue && !value ) {
     inputValue.value = undefined
-  }
-
-  else if( value && oldValue === undefined ) {
+  } else if( value && oldValue === undefined ) {
     inputValue.value = value
   }
 })
@@ -164,12 +166,21 @@ watch(() => props.modelValue, (value, oldValue) => {
 
 <template>
   <label class="input">
-    <div v-if="!innerInputLabel" class="input__label">
-      <slot v-if="$slots.default"></slot>
-      <slot v-else name="description"></slot>
+    <div
+      v-if="!innerInputLabel"
+      class="input__label"
+    >
+      <slot v-if="$slots.default" />
+      <slot
+        v-else
+        name="description"
+      />
     </div>
-    <div v-if="$slots.hint" class="input__hint">
-      <slot name="hint"></slot>
+    <div
+      v-if="$slots.hint"
+      class="input__hint"
+    >
+      <slot name="hint" />
     </div>
 
     <div
@@ -177,19 +188,20 @@ watch(() => props.modelValue, (value, oldValue) => {
       :class="`
         input__container
         input__container--${variant}
-    `">
+    `"
+    >
       <textarea
         v-focus="property.focus"
         :placeholder="inputBind.placeholder"
         :readonly="inputBind.readonly"
         :value="modelValue as string"
-        @input="onInput"
-
         :class="`
           input__textarea
           input__input--${variant}
         `"
-      ></textarea>
+
+        @input="onInput"
+      />
     </div>
 
     <div
@@ -197,11 +209,12 @@ watch(() => props.modelValue, (value, oldValue) => {
       :class="`
         input__container
         input__container--${variant}
-    `">
+    `"
+    >
       <input
         v-maska
-        v-bind="inputBind"
         v-focus="property.focus"
+        v-bind="inputBind"
         :value="inputValue"
         data-component="input"
         :data-maska="
@@ -219,14 +232,15 @@ watch(() => props.modelValue, (value, oldValue) => {
 
         @maska="onInput($event, { masked: true })"
         @change="emit('change', $event)"
-      />
-      <aeria-icon 
+      >
+      <aeria-icon
         v-if="hasIcon"
         :icon="property.icon || 'magnifying-glass'"
         :class="`
           input__icon
           input__icon--${variant}
-      `"></aeria-icon>
+      `"
+      />
 
       <div
         v-if="readOnly"
@@ -238,7 +252,7 @@ watch(() => props.modelValue, (value, oldValue) => {
             v-clickable
             icon="clipboard"
             @click="copyToClipboard(String(modelValue || ''))"
-          ></aeria-icon>
+          />
         </aeria-info>
       </div>
     </div>

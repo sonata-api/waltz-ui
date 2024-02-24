@@ -23,7 +23,7 @@ const store = computed(() => {
   try {
     const collection = props.collection
       ? props.collection
-      : (route.value.meta?.collection || route.value.params?.collection) as string
+      : (route.value.meta.collection || route.value.params.collection) as string
 
     return useParentStore(collection) as CollectionStore
   } catch( e ) {
@@ -40,7 +40,8 @@ const store = computed(() => {
   >
     <template
       v-for="([presetName, preset]) in Object.entries(store.description.filtersPresets as Record<string, FiltersPreset<any>>)"
-      v-slot:[presetName]
+      :key="presetName"
+      #[presetName]
     >
       <div
         class="topbar__preset"
@@ -58,9 +59,9 @@ const store = computed(() => {
 
         <aeria-badge v-if="preset.badgeFunction">
           <aeria-async
-            :initial-value="0"
+            initial-value="0"
             :promise="store.$functions[preset.badgeFunction]({ filters: preset.filters })"
-          ></aeria-async>
+          />
         </aeria-badge>
       </div>
     </template>

@@ -4,31 +4,35 @@ type Props = {
   horizontal?: boolean
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
 </script>
 
 <template>
-  <div :class="`
+  <div
+    :class="`
     card
     ${inactive && 'card--inactive'}
     ${horizontal && 'card--horizontal'}
-  `">
+  `"
+  >
     <div class="card__picture">
-      <slot></slot>
+      <slot />
     </div>
 
     <div class="card__footer">
       <div class="card__footer-upper">
         <div>
-          <slot name="footer"></slot>
+          <slot name="footer" />
         </div>
-        <slot v-if="$slots.actions" name="actions"></slot>
+        <slot
+          v-if="$slots.actions"
+          name="actions"
+        />
       </div>
 
       <div class="card__badge">
-        <slot name="badge"></slot>
+        <slot name="badge" />
       </div>
-
     </div>
   </div>
 </template>

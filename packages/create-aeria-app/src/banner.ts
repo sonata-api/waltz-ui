@@ -1,5 +1,5 @@
 export const BANNER = [
-  `ÆRIA`,
+  'ÆRIA',
   'Visit https://aeria.land/ for documentation',
 ].join('\n')
 

@@ -23,23 +23,25 @@ const where = props.where || 'top'
     v-if="breakpoints.md"
     class="info"
     @mouseleave="visible = false
-  ">
+    "
+  >
     <div
       v-if="visible"
       :class="`
         info__bubble
         info__bubble--${where}
-    `">
+    `"
+    >
       <div class="info__content">
-        <slot name="text"></slot>
+        <slot name="text" />
       </div>
     </div>
     <div @mouseover="visible = true">
-      <slot></slot>
+      <slot />
     </div>
   </div>
 
-  <slot v-else></slot>
+  <slot v-else />
 </template>
 
 <style scoped src="./aeria-info.less"></style>

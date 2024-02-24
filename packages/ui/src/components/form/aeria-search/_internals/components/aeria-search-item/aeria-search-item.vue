@@ -26,11 +26,10 @@ const store = useParentStore()
 const isAlreadySelected = computed(() => {
   if( Array.isArray(props.modelValue) ) {
     return Array.isArray(props.modelValue)
-      && Object.values(props.modelValue).some(({ _id }) => props.item._id === _id)
+      && Object.values(props.modelValue).some(({ _id: itemId }) => props.item._id === itemId)
   }
 
   return props.modelValue
-    && props.item
     && props.modelValue._id === props.item._id
 })
 
@@ -39,24 +38,31 @@ const select = () => {
     return
   }
 
-  const filterEmpties = (array: any[]) => array.filter(e => !!e?._id)
+  const filterEmpties = (array: any[]) => array.filter((e) => !!e?._id)
   const modelValue = 'items' in property
-    ? filterEmpties(Array.isArray(props.modelValue) ? props.modelValue : [props.modelValue])
+    ? filterEmpties(Array.isArray(props.modelValue)
+? props.modelValue
+: [props.modelValue])
     : props.modelValue
 
   emit('update:modelValue', Array.isArray(modelValue)
-    ? [ ...modelValue, props.item ]
-    : props.item
-  )
+    ? [
+ ...modelValue,
+props.item,
+]
+    : props.item)
 
   emit('change', props.item)
 }
 
-
 const deselect = async (options?: { purge?: true }) => {
   if( refProperty.purge && options?.purge ) {
-    const { _id } = props.item
-    await store.$actions.remove({ filters: { _id } })
+    const { _id: itemId } = props.item
+    await store.$actions.remove({
+ filters: {
+ _id: itemId,
+},
+})
   }
 
   const deleteFirst = () => {
@@ -69,8 +75,7 @@ const deselect = async (options?: { purge?: true }) => {
 
   emit('update:modelValue', 'items' in property
     ? deleteFirst()
-    : null
-  )
+    : null)
 }
 </script>
 
@@ -86,7 +91,7 @@ const deselect = async (options?: { purge?: true }) => {
       ? deselect()
       : select()"
   >
-    <slot></slot>
+    <slot />
 
     <div class="item__values">
       <div
@@ -97,7 +102,6 @@ const deselect = async (options?: { purge?: true }) => {
         {{ item[index] }}
       </div>
     </div>
-
   </div>
 </template>
 

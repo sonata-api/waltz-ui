@@ -4,16 +4,18 @@ type Props = {
   alt?: boolean
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
 </script>
 
 <template>
-  <div :class="`
+  <div
+    :class="`
     badge
     ${large && 'badge--large'}
     ${alt && 'badge--alt'}
-  `">
-    <slot></slot>
+  `"
+  >
+    <slot />
   </div>
 </template>
 

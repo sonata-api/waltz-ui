@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { inject, computed } from 'vue'
-import { LayoutOptions } from '@sonata-api/types'
+import { type LayoutOptions } from '@sonata-api/types'
 import { useParentStore } from '@waltz-ui/state-management'
 import AeriaTable from '../../../../aeria-table/aeria-table.vue'
 
@@ -21,7 +21,7 @@ const componentProps = computed(() => {
     columns: store.tableProperties,
     rows: store.items,
     actions: props.individualActions,
-    layout: store.tableLayout
+    layout: store.tableLayout,
   }
 
   return Object.assign(original, props.componentProps)
@@ -30,7 +30,10 @@ const componentProps = computed(() => {
 
 <template>
   <div>
-    <slot v-if="$slots.inner" name="inner"></slot>
+    <slot
+      v-if="$slots.inner"
+      name="inner"
+    />
     <aeria-table
       v-if="store.properties"
       v-bind="componentProps"
@@ -38,12 +41,12 @@ const componentProps = computed(() => {
     >
       <template
         v-for="slotName in Object.keys($slots).filter(key => !['inner'].includes(key))"
-        v-slot:[slotName]="slotProps"
+        #[slotName]="slotProps"
       >
         <slot
           v-bind="slotProps"
           :name="slotName"
-        ></slot>
+        />
       </template>
     </aeria-table>
   </div>

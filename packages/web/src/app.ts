@@ -21,7 +21,7 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>) => {
   const {
     component,
     menuSchema,
-    routes
+    routes,
 
   } = options
 
@@ -67,17 +67,17 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>) => {
         return title.replace(
           '%viewTitle%',
           t(currentRoute.params?.collection as string, {
-            plural: true
-          })
+            plural: true,
+          }),
         )
       },
       viewIcon: () => {
         const currentRoute = router.currentRoute.value
         return currentRoute.meta.icon
           || metaStore.descriptions[currentRoute.params?.collection as string]?.icon
-      }
+      },
     },
-    methods: templateFunctions
+    methods: templateFunctions,
   })
 
   if( typeof window !== 'undefined' ) {
@@ -92,7 +92,7 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>) => {
     try {
       const resultEither = await metaStore.$actions.describe({
         roles: true,
-        revalidate: true
+        revalidate: true,
       })
 
       if( isLeft(resultEither) ) {
@@ -111,12 +111,12 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>) => {
         router.push({
           name: '/user/signin',
           query: {
-            next
-          }
+            next,
+          },
         })
       } else {
         router.push({
-          name: '/user/signin'
+          name: '/user/signin',
         })
       }
     }
@@ -126,7 +126,7 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>) => {
   return {
     app,
     router,
-    mount: () => app.mount('#app')
+    mount: () => app.mount('#app'),
   }
 }
 

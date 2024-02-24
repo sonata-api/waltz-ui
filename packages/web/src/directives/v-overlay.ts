@@ -3,7 +3,7 @@ import type { Directive } from 'vue'
 type OverlayOptions = {
   condition: boolean
   layer?: number
-  click?: (...args: any[]) => any
+  click?: (...args: any[])=> any
 }
 
 const overlay: Directive = {
@@ -48,7 +48,7 @@ const overlay: Directive = {
       overlayElem.onclick = value.click
     }
 
-    el.style.zIndex = `${layer+10}`
+    el.style.zIndex = `${layer + 10}`
     el.parentNode.insertBefore(overlayElem, el)
   },
 
@@ -59,7 +59,7 @@ const overlay: Directive = {
     }
 
     el.previousElementSibling?.remove()
-  }
+  },
 }
 
 export default overlay

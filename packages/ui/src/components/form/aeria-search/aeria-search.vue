@@ -24,7 +24,7 @@ type Props = Omit<FormFieldProps<any>, 'property' | 'propertyName'> & {
 const DEFAULT_LIMIT = 10
 
 const props = withDefaults(defineProps<Props>(), {
-  panel: undefined
+  panel: undefined,
 })
 
 const refProperty = getReferenceProperty(props.property)!
@@ -40,7 +40,7 @@ const emit = defineEmits<{
 
 const store = useStore(getReferenceProperty(props.property)!.$ref)
 
-const parentStoreId = inject('storeId', null)
+const parentStoreId = inject<string | null>('storeId', null)
 const parentStore = parentStoreId
   ? useParentStore()
   : null
@@ -55,10 +55,10 @@ const selected = ref(props.modelValue)
 
 const searchResponse = ref({
   data: [] as any[],
-  pagination: {} as Pagination
+  pagination: {} as Pagination,
 })
 
-const matchingItems = computed(() => searchResponse.value.data || [])
+const matchingItems = computed(() => searchResponse.value.data)
 const pagination = computed(() => searchResponse.value.pagination)
 const batch = ref(0)
 
@@ -89,7 +89,7 @@ const getSearchResults = async () => {
     return store.$actions.custom('getAll', {
       limit: DEFAULT_LIMIT,
       offset: batch.value * DEFAULT_LIMIT,
-      filters: defaultFilters()
+      filters: defaultFilters(),
     })
   }
 
@@ -98,15 +98,15 @@ const getSearchResults = async () => {
     offset: batch.value * DEFAULT_LIMIT,
     filters: {
       ...defaultFilters(),
-      $or: indexes?.filter((i) => inputValue.value[i]?.length > 0).map((i) => ({
+      $or: indexes.filter((i) => inputValue.value[i]?.length > 0).map((i) => ({
         [i]: {
           $regex: inputValue.value[i].trim()
             .replace('(', '\\(')
             .replace(')', '\\)'),
-          $options: 'i'
-        }
-      }))
-    }
+          $options: 'i',
+        },
+      })),
+    },
   })
 }
 
@@ -125,7 +125,9 @@ const search = async () => {
   searchResponse.value.data.push(...response.data)
 }
 
-const [doLazySearch] = useDebounce({ delay: 800 })(() => {
+const [doLazySearch] = useDebounce({
+ delay: 800,
+})(() => {
   batch.value = 0
   search()
   isTyping.value = false
@@ -221,15 +223,15 @@ const save = () => {
 
             <div style="flex: 1">
               <aeria-input
+                :key="`field-${searchField}`"
                 v-model="inputValue[searchField]"
+
                 :property="{
                   ...store.properties[searchField],
                   inputType: 'search'
                 }"
-
-                :key="`field-${searchField}`"
                 @input="lazySearch"
-              ></aeria-input>
+              />
             </div>
           </div>
 
@@ -239,27 +241,29 @@ const save = () => {
             @end-reached="nextBatch"
           >
             <aeria-search-item
-              v-model="selected"
               v-for="item in matchingItems"
               v-bind="{
                 item,
                 indexes,
                 property,
               }"
-
               :key="`matching-${item._id}`"
-            ></aeria-search-item>
+
+              v-model="selected"
+            />
           </aeria-search-container>
 
           <div v-else>
             <div v-if="isTyping">
               Pesquisando...
             </div>
-            <div v-else-if="
-              !store.loading.getAll
-                && Object.values(inputValue).filter((v) => !!v).length > 0
-                && !(('items' in property && modelValue?.length) || (!Array.isArray(modelValue) && modelValue?._id))
-            ">
+            <div
+              v-else-if="
+                !store.loading.getAll
+                  && Object.values(inputValue).filter((v) => !!v).length > 0
+                  && !(('items' in property && modelValue?.length) || (!Array.isArray(modelValue) && modelValue?._id))
+              "
+            >
               Não há resultados
             </div>
           </div>
@@ -277,7 +281,6 @@ const save = () => {
             Salvar
           </aeria-button>
         </template>
-
       </aeria-panel>
     </teleport>
 
@@ -298,7 +301,7 @@ const save = () => {
 
             :key="`selected-${item._id}`"
             @update:model-value="update"
-          ></aeria-search-item>
+          />
         </div>
 
         <aeria-search-item
@@ -310,7 +313,7 @@ const save = () => {
             modelValue
           }"
           @update:model-value="update"
-        ></aeria-search-item>
+        />
 
         <template #footer>
           <aeria-icon
@@ -322,7 +325,6 @@ const save = () => {
           </aeria-icon>
         </template>
       </aeria-search-container>
-
     </div>
   </div>
 </template>

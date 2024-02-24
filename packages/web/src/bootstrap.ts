@@ -31,11 +31,13 @@ export const bootstrapRoutes = (router: Router, manager: GlobalStateManager) => 
         meta: {
           title: description.$id,
           icon: description.icon,
-        }
+        },
       }
 
       router.addRoute('/dashboard', route)
     })
 
-  }, { immediate: true })
+  }, {
+    immediate: true,
+  })
 }

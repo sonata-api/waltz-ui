@@ -11,27 +11,27 @@ import {
   unwrap,
   $,
   LogLevel,
-  log
+  log,
 } from './util'
 
 import { printBanner } from './banner'
 
 const {
   positionals,
-  values: opts
+  values: opts,
 } = parseArgs({
   allowPositionals: true,
   options: {
     bare: {
       type: 'boolean',
-      short: 'b'
-    }
-  }
+      short: 'b',
+    },
+  },
 })
 
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 })
 
 const question = promisify(rl.question).bind(rl)
@@ -39,7 +39,9 @@ const question = promisify(rl.question).bind(rl)
 const allChecksPass = async (checks: Promise<Tuple>[]) => {
   for( const check of checks ) {
     const result = await check
-    log(isError(result) ? LogLevel.Error : LogLevel.Info, unwrap(result))
+    log(isError(result)
+      ? LogLevel.Error
+      : LogLevel.Info, unwrap(result))
 
     if( isError(result) ) {
       return
@@ -52,7 +54,7 @@ const allChecksPass = async (checks: Promise<Tuple>[]) => {
 const checkPackageVersion = async () => {
   const {
     name: packageName,
-    version: packageVersion
+    version: packageVersion,
   } = require('../package.json')
 
   const remoteVersion = await $(`npm view ${packageName} version`)
@@ -60,7 +62,7 @@ const checkPackageVersion = async () => {
   if( packageVersion !== remoteVersion ) {
     return error([
       'local and remote versions of this package differ',
-      `run 'npm i ${packageName}@latest' to update your installation, then run this command again (add the -g flag to install globally, but then you'll need root privileges)`
+      `run 'npm i ${packageName}@latest' to update your installation, then run this command again (add the -g flag to install globally, but then you'll need root privileges)`,
     ])
   }
 
@@ -83,7 +85,7 @@ const main = async () => {
 
   const checksOk = await allChecksPass([
     checkPackageVersion(),
-    checkCompatibility()
+    checkCompatibility(),
   ])
 
   if( !checksOk ) {
@@ -92,7 +94,7 @@ const main = async () => {
 
   const projectName = positionals[0]
     ? positionals[0]
-    : await question("what's the project name? ")
+    : await question('what\'s the project name? ')
 
   if( !projectName ) {
     log(LogLevel.Error, 'project name can not be empty')
@@ -106,7 +108,7 @@ const main = async () => {
     __dirname,
     '..',
     'templates',
-    'ts'
+    'ts',
   )
 
   if( fs.existsSync(projectPath) ) {
@@ -117,7 +119,9 @@ const main = async () => {
   await fs.promises.cp(
     templatePath,
     projectPath,
-    { recursive: true }
+    {
+      recursive: true,
+    },
   )
 
   await fs.promises.rename(
@@ -134,12 +138,12 @@ const main = async () => {
     log(LogLevel.Info, 'installing dependencies')
     await $([
       `cd ${projectPath.replace(/\\/g, '/')}`,
-      'npm i'
+      'npm i',
     ])
   }
 
   log(LogLevel.Info, `your project '${projectName}' was created, make good use of it`)
-  log(LogLevel.Info, `to serve your project, cd into it and run: npm run dev`)
+  log(LogLevel.Info, 'to serve your project, cd into it and run: npm run dev')
 }
 
 const wrapper = async () => {

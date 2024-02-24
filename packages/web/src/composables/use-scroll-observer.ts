@@ -5,9 +5,7 @@ type ScrollObserverOptions = {
 }
 
 export const useScrollObserver = (element?: Ref<HTMLElement | null> | null, options?: ScrollObserverOptions) => {
-  const {
-    antecipate = 0
-  } = options || {}
+  const { antecipate = 0 } = options || {}
 
   const reachedEnd = ref(true)
   const updateScroll = () => {
@@ -32,7 +30,9 @@ export const useScrollObserver = (element?: Ref<HTMLElement | null> | null, opti
         })
       }
 
-    }, { immediate: true })
+    }, {
+      immediate: true,
+    })
   } else {
     window.addEventListener('scroll', windowScroll)
   }
@@ -41,6 +41,6 @@ export const useScrollObserver = (element?: Ref<HTMLElement | null> | null, opti
     reachedEnd,
     detach: () => {
       window.removeEventListener('scroll', windowScroll)
-    }
+    },
   }
 }

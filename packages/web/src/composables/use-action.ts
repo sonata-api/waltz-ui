@@ -26,15 +26,15 @@ const getEffect = (store: any, effectName: keyof typeof STORE_EFFECTS) => {
 
 export const useAction = <Filters extends { _id: string | string[] }>(
   store: Store,
-  router: Router
+  router: Router,
 ) => {
   const eventBus = reactive<ActionEvent>({
     id: -1,
     name: '',
-    params: {}
+    params: {},
   })
 
-  const fn = (actionProps: Omit<CollectionAction<any>, 'name'> & { action: string }): (filters?: Filters) => void => {
+  const fn = (actionProps: Omit<CollectionAction<any>, 'name'> & { action: string }): (filters?: Filters)=> void => {
     const { action: actionName } = actionProps
     const actionEffect = actionProps.effect as keyof typeof STORE_EFFECTS | undefined
     const [scopeName, scopedAction] = actionName.split(/:(.*)/s)
@@ -53,17 +53,19 @@ export const useAction = <Filters extends { _id: string | string[] }>(
           if( actionProps.fetchItem && filters?._id ) {
             await store.$actions.get({
               filters: {
-                _id: filters._id 
-              }
+                _id: filters._id,
+              },
             })
           }
 
           router.push({
             name: actionName.split('route:')[1],
             params: filters
-              ? Object.assign({ id: filters._id }, actionProps.params || {})
+              ? Object.assign({
+                id: filters._id,
+              }, actionProps.params || {})
               : {},
-            query: actionProps.query || {}
+            query: actionProps.query || {},
           })
         }
       }
@@ -76,7 +78,7 @@ export const useAction = <Filters extends { _id: string | string[] }>(
           Object.assign(eventBus, {
             id: Math.random(),
             name: scopedAction,
-            params: filters
+            params: filters,
           })
         }
       }
@@ -113,7 +115,7 @@ export const useAction = <Filters extends { _id: string | string[] }>(
       const metaStore = useStore('meta')
       return (filters?: Filters) => metaStore.$actions.ask({
         action: storeAction,
-        params: prepareFilters(filters)
+        params: prepareFilters(filters),
       })
     }
 
@@ -122,6 +124,6 @@ export const useAction = <Filters extends { _id: string | string[] }>(
 
   return <const>[
     fn,
-    eventBus
+    eventBus,
   ]
 }

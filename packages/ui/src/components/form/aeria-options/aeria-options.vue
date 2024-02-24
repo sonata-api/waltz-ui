@@ -14,7 +14,7 @@ type Emits = {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  columns: 1
+  columns: 1,
 })
 
 const emit = defineEmits<Emits>()
@@ -33,7 +33,7 @@ onBeforeMount(() => {
       'update:modelValue',
       'items' in props.property
         ? []
-        : ''
+        : '',
     )
   }
 })
@@ -52,22 +52,22 @@ onBeforeMount(() => {
       :key="`option-${option}`"
       class="options__checkbox"
     >
-        <aeria-checkbox
-          v-bind="{
-            value: option,
-            property
-          }"
+      <aeria-checkbox
+        v-bind="{
+          value: option,
+          property
+        }"
 
-          :model-value="modelValue"
-          @update:model-value="updateValue"
-        ></aeria-checkbox>
-      </div>
+        :model-value="modelValue"
+        @update:model-value="updateValue"
+      />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 export default {
-  inheritAttrs: false
+  inheritAttrs: false,
 }
 </script>
 

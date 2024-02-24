@@ -7,7 +7,7 @@
     >
       <slot
         :name="slotName"
-      ></slot>
+      />
     </div>
   </menu>
 </template>

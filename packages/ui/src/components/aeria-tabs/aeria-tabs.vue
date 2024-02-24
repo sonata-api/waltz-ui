@@ -35,16 +35,16 @@ const change = (tab: string) => {
     router.push({
       query: {
         ...router.currentRoute.value.query,
-        [props.query!]: tab
-      }
+        [props.query!]: tab,
+      },
     })
     return
   }
 
   router.push({
     params: {
-      [props.param!]: tab
-    }
+      [props.param!]: tab,
+    },
   })
 }
 </script>
@@ -62,7 +62,7 @@ const change = (tab: string) => {
           tabs__tab--info
         "
       >
-        <slot></slot>
+        <slot />
       </div>
 
       <div
@@ -75,7 +75,7 @@ const change = (tab: string) => {
         }"
         @click="change(slotName)"
       >
-        <slot :name="slotName"></slot>
+        <slot :name="slotName" />
       </div>
     </div>
 
@@ -93,22 +93,21 @@ const change = (tab: string) => {
           "
           class="tabs__context-menu-icon"
         >
-          <slot :name="currentTab"></slot>
+          <slot :name="currentTab" />
         </aeria-icon>
 
         <template
           v-for="slotName in Object.keys($slots).filter((slotName) => slotName !== 'default')"
-          v-slot:[slotName]
+          :key="slotName"
+          #[slotName]
         >
           <div @click="change(slotName)">
-            <slot :name="slotName"></slot>
+            <slot :name="slotName" />
           </div>
         </template>
       </aeria-context-menu>
     </div>
-
   </div>
-
 </template>
 
 <style scoped src="./aeria-tabs.less"></style>

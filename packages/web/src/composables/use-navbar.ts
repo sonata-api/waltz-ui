@@ -3,7 +3,7 @@ import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from '@waltz-ui/state-management'
 import { arraysIntersects } from '@sonata-api/common'
-import { Route, MenuSchema, MenuNode } from '..'
+import { type Route, type MenuSchema, type MenuNode } from '..'
 
 type Props = {
   schema: MenuSchema
@@ -11,14 +11,14 @@ type Props = {
 
 const findRoute = (path: string, router: Router) => {
   const found = router.resolve({
-    path
+    path,
   })
 
   if( found ) {
     return {
       ...found,
       meta: <MenuNode['meta']>found.meta,
-      children: []
+      children: [],
     }
   }
 }
@@ -32,7 +32,7 @@ const getSchema = (schema: MenuSchema | Route[], router: Router) => {
     return 'path' in node
       ? {
         ...node,
-        ...findRoute(node.path!.toString(), router)
+        ...findRoute(node.path!.toString(), router),
       }
       : node
   })
@@ -61,8 +61,8 @@ export const useNavbar = async (props: Props) => {
       if( Array.isArray(node) ) {
         entries[key] = {
           children: await getRoutes({
-            children: node
-          })
+            children: node,
+          }),
         }
         return
       }
@@ -73,7 +73,7 @@ export const useNavbar = async (props: Props) => {
 
       } = node
 
-      const roles = route?.meta?.roles || ('roles' in node
+      const roles = route.meta?.roles || ('roles' in node
         ? node.roles
         : null)
 
@@ -83,17 +83,15 @@ export const useNavbar = async (props: Props) => {
             return
           }
 
-        }
-        else if( !arraysIntersects(userStore.currentUser.roles, roles) ) {
+        } else if( !arraysIntersects(userStore.currentUser.roles, roles) ) {
           return
         }
       }
 
-
-      if( 'collapsed' in node  ) {
+      if( 'collapsed' in node ) {
         entries[key] = {
           ...node,
-          children: await getRoutes(node)
+          children: await getRoutes(node),
         }
 
         return
@@ -128,6 +126,6 @@ export const useNavbar = async (props: Props) => {
   return {
     routes,
     router,
-    isCurrent
+    isCurrent,
   }
 }

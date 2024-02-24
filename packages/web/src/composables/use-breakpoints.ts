@@ -15,16 +15,16 @@ const breakpoints = computed(() => ({
   xl: widthMatches('1280px'),
 }))
 
-let __listenerAttached = false
+let listenerAttached = false
 
 export const useBreakpoints = () => {
-  if( !__listenerAttached ) {
+  if( !listenerAttached ) {
     window.addEventListener('resize', () => {
       viewport.value.width = window.innerWidth
       viewport.value.height = window.innerHeight
     })
 
-    __listenerAttached = true
+    listenerAttached = true
   }
 
   return breakpoints

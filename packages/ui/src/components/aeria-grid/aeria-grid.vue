@@ -3,15 +3,17 @@ type Props = {
   list?: boolean
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
 </script>
 
 <template>
-  <div :class="`
+  <div
+    :class="`
     grid
     ${list && 'grid--list'}
-  `">
-    <slot></slot>
+  `"
+  >
+    <slot />
   </div>
 </template>
 

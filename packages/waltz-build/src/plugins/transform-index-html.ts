@@ -7,7 +7,9 @@ export default (instanceConfig: Awaited<ReturnType<typeof getInstanceConfig>>): 
   return {
     name: `${PLUGIN_PREFIX}:transform-index-html`,
     transformIndexHtml(html) {
-      return ejs.render(html, { instanceConfig })
-    }
+      return ejs.render(html, {
+        instanceConfig,
+      })
+    },
   }
 }

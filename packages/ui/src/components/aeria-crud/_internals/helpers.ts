@@ -3,7 +3,7 @@ import type { CollectionStore } from '@waltz-ui/web'
 import { watch } from 'vue'
 import { useRouter } from 'vue-router'
 
-export const togglePreset = (preset: FiltersPreset<any> | null, store: CollectionStore) => {
+export const togglePreset = (preset: FiltersPreset<any> | null, store: CollectionStore | undefined) => {
   if( !store ) {
     return
   }
@@ -23,7 +23,9 @@ export const togglePreset = (preset: FiltersPreset<any> | null, store: Collectio
     store.pagination.offset = 0
 }
 
-export const watchStore = (store: CollectionStore, options = { persistInQuery: true }) => {
+export const watchStore = (store: CollectionStore | undefined, options = {
+ persistInQuery: true,
+}) => {
   const router = useRouter()
   const route = router.currentRoute
 
@@ -51,11 +53,13 @@ export const watchStore = (store: CollectionStore, options = { persistInQuery: t
         store.textQuery = query.search as string
         store.filters.$text = {
           $search: `"${query.search}"`,
-          $caseSensitive: false
+          $caseSensitive: false,
         }
       }
     }
 
-  }, { immediate: true })
+  }, {
+ immediate: true,
+})
 
 }

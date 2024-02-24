@@ -24,7 +24,7 @@ const onClick = (event: any) => {
     `"
     @click="onClick"
   >
-    <slot></slot>
+    <slot />
   </button>
 </template>
 

@@ -33,7 +33,7 @@ const cancel = () => {
       store.validationErrors = {}
       isInsertVisible.value = false
     },
-    body: t('prompt.close_panel')
+    body: t('prompt.close_panel'),
   })
 }
 
@@ -46,22 +46,22 @@ watch(() => store.item._id, (_id) => {
 
 <template>
   <aeria-panel
+    v-model="isInsertVisible"
     fixed-right
     :loading="store.loading.get"
-    v-model="isInsertVisible"
     @overlay-click="cancel"
   >
     <template #header>
       <span>{{
         (() => {
           switch( isInsertVisible ) {
-            case 'add':
-              return t('action.add')
-            case 'duplicate':
-              return t('action.duplicate')
-            case 'edit':
-            default:
-              return t('action.edit')
+          case 'add':
+            return t('action.add')
+          case 'duplicate':
+            return t('action.duplicate')
+          case 'edit':
+          default:
+            return t('action.edit')
           }
         })() }}
       </span>
@@ -81,12 +81,12 @@ watch(() => store.item._id, (_id) => {
     >
       <template
         v-for="slotName in Object.keys($slots).filter(key => key.startsWith('field-'))"
-        v-slot:[slotName]="slotProps"
+        #[slotName]="slotProps"
       >
         <slot
           v-bind="slotProps"
           :name="slotName"
-        ></slot>
+        />
       </template>
     </aeria-form>
     <template #extra>
@@ -99,11 +99,11 @@ watch(() => store.item._id, (_id) => {
         @action-click="isInsertVisible = false"
       >
         <aeria-icon
-          v-clickable
           v-if="store.item._id"
+          v-clickable
           reactive
           icon="dots-three"
-        ></aeria-icon>
+        />
       </aeria-context-menu>
     </template>
     <template #footer>

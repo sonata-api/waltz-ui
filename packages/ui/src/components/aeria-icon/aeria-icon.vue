@@ -7,7 +7,7 @@ type Props = {
   icon: Icon
   size?: string
   medium?: boolean
-  reactive?: boolean|null
+  reactive?: boolean | null
   iconRight?: boolean
   fill?: string
 }
@@ -19,10 +19,6 @@ const reactive = typeof props.reactive === 'boolean'
   : inject('iconReactive', false)
 
 const computedIcon = computed((): Icon => {
-  if( !props.icon ) {
-    return 'file'
-  }
-
   return props.icon.includes(':')
     ? props.icon
     : `regular:${<Exclude<Icon, `${IconStyle}:${string}`>>props.icon}`
@@ -35,16 +31,19 @@ const computedIcon = computed((): Icon => {
       icon
       ${reactive && 'icon--reactive'}
       ${
-        $slots.default
+      $slots.default
         ? 'icon--centered'
         : 'icon--standalone'
-      }
-  `">
-    <div :class="`
+    }
+  `"
+  >
+    <div
+      :class="`
       icon__icon
       ${ size && `icon__icon--${size}` }
       ${ iconRight && 'icon__icon--right' }
-    `">
+    `"
+    >
       <svg
         width="24"
         height="24"
@@ -54,14 +53,14 @@ const computedIcon = computed((): Icon => {
           ...(fill ? { fill } : {})
         }"
       >
-        <use :href="`/assets/icons.svg#${computedIcon}`"></use>
+        <use :href="`/assets/icons.svg#${computedIcon}`" />
       </svg>
     </div>
     <div
       v-if="$slots.default"
       data-component="icon-label"
     >
-      <slot></slot>
+      <slot />
     </div>
   </a>
 </template>

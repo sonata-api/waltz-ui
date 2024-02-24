@@ -16,7 +16,7 @@ export default defineConfig(async () => {
     resolve: {
       alias: {
         'bson': fileURLToPath(new URL('bson.cjs', import.meta.resolve('bson'))),
-      }
+      },
     },
     plugins: [
       waltzIcons({
@@ -33,7 +33,7 @@ export default defineConfig(async () => {
           builtinsIcons.icons.forEach((icon: string) => {
             icons.add(icon)
           })
-        }
+        },
       }),
       autoImport({
         exclude: [
@@ -52,29 +52,29 @@ export default defineConfig(async () => {
               'useBreakpoints',
               'useAction',
               'useNavbar',
-            ]
-          }
-        ]
+            ],
+          },
+        ],
       }),
       vueComponents({
         dirs: [
           process.cwd() + '/components',
-          process.cwd() + '/src/components'
+          process.cwd() + '/src/components',
         ],
         resolvers: [
           (componentName) => {
             if( /^Aeria[A-Z]/.test(componentName) ) {
               return {
                 name: componentName,
-                from: '@waltz-ui/ui'
+                from: '@waltz-ui/ui',
               }
             }
-          }
-        ]
+          },
+        ],
       }),
       vue(),
       transformIndexHtml(instanceConfig),
-      loadYaml()
+      loadYaml(),
     ],
     optimizeDeps: {
       include: [
@@ -85,11 +85,11 @@ export default defineConfig(async () => {
       exclude: [
         'mongodb',
         'aeria-sdk',
-      ]
+      ],
     },
     build: {
       target: 'esnext',
-      sourcemap: !!instanceConfig.sourcemap
+      sourcemap: !!instanceConfig.sourcemap,
     },
   }
 

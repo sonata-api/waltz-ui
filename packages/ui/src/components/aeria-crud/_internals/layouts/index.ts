@@ -9,5 +9,5 @@ export const getLayout = (layoutName: LayoutName) => {
     list: AeriaGrid,
   }
 
-  return defaultLayouts[layoutName] || defaultLayouts.tabular
+  return defaultLayouts[layoutName]
 }

@@ -3,12 +3,12 @@ import { getMissingProperties, getReferenceProperty, checkForUndefined } from '@
 
 export const isDocumentComplete = <
   TItem extends Record<string, any>,
-  TProperties extends Record<string, Property>
+  TProperties extends Record<string, Property>,
 >(
   item: TItem,
   properties: TProperties,
   required?: RequiredProperties<any>,
-  description?: Description
+  description?: Description,
 
 ) => {
   const formIncludes = (key: string) => {

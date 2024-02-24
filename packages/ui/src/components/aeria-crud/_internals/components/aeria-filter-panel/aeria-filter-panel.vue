@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CollectionStore  } from '@waltz-ui/web'
+import type { CollectionStore } from '@waltz-ui/web'
 import { useParentStore } from '@waltz-ui/state-management'
 import { convertToSearchQuery } from '@waltz-ui/web'
 import { useRouter } from 'vue-router'
@@ -22,7 +22,7 @@ const filter = () => {
   emit('update:modelValue', false)
 
   router.push({
-    query: convertToSearchQuery(store)
+    query: convertToSearchQuery(store),
   })
 
   console.log(convertToSearchQuery(store))
@@ -45,7 +45,7 @@ const filter = () => {
         form: store.availableFilters,
         layout: store.description.formLayout as any || {}
       }"
-    ></aeria-form>
+    />
     <template #footer>
       <aeria-button
         v-if="store.filtersCount > 0"
@@ -54,7 +54,8 @@ const filter = () => {
           store.$actions.clearFilters();
           filter();
           emit('update:modelValue', false)
-      ">
+        "
+      >
         Limpar
         <aeria-badge>
           {{ store.filtersCount }}

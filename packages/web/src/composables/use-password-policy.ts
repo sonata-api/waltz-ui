@@ -5,7 +5,9 @@ type Options = {
   includeCapital?: boolean
 }
 
-export const usePasswordPolicy = (options: Options = { minimumLength: 8 }) => (
+export const usePasswordPolicy = (options: Options = {
+  minimumLength: 8,
+}) => (
   password: string,
   confirmation: string,
 ) => {

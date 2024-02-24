@@ -5,7 +5,7 @@ import AeriaBareButton from '../aeria-bare-button/aeria-bare-button.vue'
 import AeriaIcon from '../aeria-icon/aeria-icon.vue'
 
 // #region props
-type Size = 
+type Size =
   | 'small'
   | 'medium'
   | 'large'
@@ -54,7 +54,7 @@ const size = (() => {
       :icon="icon"
     >
       <div class="button__content">
-        <slot></slot>
+        <slot />
       </div>
     </aeria-icon>
 
@@ -62,7 +62,7 @@ const size = (() => {
       v-else
       class="button__content"
     >
-      <slot></slot>
+      <slot />
     </div>
   </aeria-bare-button>
 </template>

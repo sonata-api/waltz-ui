@@ -13,20 +13,20 @@ const metaStore = useStore('meta')
 
 const password = ref({
   password: '',
-  confirmation: ''
+  confirmation: '',
 })
 
 const insert = async () => {
   await userStore.$actions.insert({
     what: {
       _id: userStore.item._id,
-      password: password.value.password
-    }
+      password: password.value.password,
+    },
   })
 
   await metaStore.$actions.spawnModal({
     title: 'Feito!',
-    body: 'A senha foi atualizada'
+    body: 'A senha foi atualizada',
   })
 
   router.back()
@@ -35,7 +35,10 @@ const insert = async () => {
 
 <template>
   <aeria-panel style="max-width: 40rem;">
-    <aeria-password-form v-model="password" v-slot="{ passwordError }">
+    <aeria-password-form
+      v-slot="{ passwordError }"
+      v-model="password"
+    >
       <aeria-button
         class="passchange__save-button"
         :disabled="!!passwordError"

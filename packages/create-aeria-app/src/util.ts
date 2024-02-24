@@ -14,13 +14,13 @@ export const $ = async (
   options: {
     stdout?: boolean
     stderr?: boolean
-  } = {}
+  } = {},
 ) => {
   const result = spawn('sh', [
     '-c',
     Array.isArray(cmd)
       ? cmd.join(';')
-      : cmd
+      : cmd,
   ])
 
   if( options.stdout ) {
@@ -43,7 +43,7 @@ export enum LogLevel {
   Info = 'info',
   Error = 'error',
   Warning = 'warning',
-  Debug = 'debug'
+  Debug = 'debug',
 }
 
 export const log = (level: LogLevel, value: any) => {
@@ -51,7 +51,7 @@ export const log = (level: LogLevel, value: any) => {
     `[${level}]`,
     Array.isArray(value)
       ? value.join('\n')
-      : value
+      : value,
   )
 }
 

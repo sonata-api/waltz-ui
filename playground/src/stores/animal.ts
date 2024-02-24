@@ -15,11 +15,11 @@ export const animal = () => registerStore(() => {
       deep: {
         dog: {
           name: 'thor',
-        }
-      }
+        },
+      },
     },
     getters: (state) => ({
-      computedName: computed(() => `doguinho: ${state.deep.dog.name}`)
+      computedName: computed(() => `doguinho: ${state.deep.dog.name}`),
     }),
     actions: (state) => ({
       inc() {
@@ -27,8 +27,8 @@ export const animal = () => registerStore(() => {
       },
       bobby() {
         state.deep.dog.name = 'thor bobby'
-      }
-    })
+      },
+    }),
   })
 })
 

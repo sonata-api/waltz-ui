@@ -1,8 +1,8 @@
 import {
   formatDateTime,
   getRelativeTimeFromNow,
-  arraysIntersects
-  
+  arraysIntersects,
+
 } from '@sonata-api/common'
 
 import { useStore } from '@waltz-ui/state-management'
@@ -17,7 +17,7 @@ export const templateFunctions = {
   formatDateTime,
   getRelativeTimeFromNow,
   hasRoles,
-  t
+  t,
 }
 
 export type TemplateFunctions = typeof templateFunctions

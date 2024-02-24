@@ -7,7 +7,7 @@ const update = (el: HTMLElement, binding: DirectiveBinding) => {
     if( el.ariaBusy ) {
       el.removeAttribute('aria-busy')
       el.removeAttribute('style')
-      el.children[el.children.length-1].remove()
+      el.children[el.children.length - 1].remove()
     }
     return
   }
@@ -53,7 +53,7 @@ const update = (el: HTMLElement, binding: DirectiveBinding) => {
 
 const loading: Directive = {
   mounted: update,
-  updated: update
+  updated: update,
 
 }
 

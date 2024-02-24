@@ -42,7 +42,7 @@ export const useStoreActions = (store: CollectionStore) => {
 
       store.referenceItem = deepClone({
         ...store.freshItem,
-        ...item
+        ...item,
       })
 
       return item
@@ -76,7 +76,7 @@ export const useStoreActions = (store: CollectionStore) => {
     removeItem(subject: typeof store['item']) {
       store.items = store.items.filter(({ _id }) => {
         if( Array.isArray(subject) ) {
-          return !subject.find(sub => sub._id === _id)
+          return !subject.find((sub) => sub._id === _id)
         }
 
         return subject._id !== _id
@@ -124,7 +124,7 @@ export const useStoreActions = (store: CollectionStore) => {
       return data
     },
 
-    async customEffect(verb: string|null, payload: any, fn: (payload: any) => any, options?: CustomOptions) {
+    async customEffect(verb: string | null, payload: any, fn: (payload: any)=> any, options?: CustomOptions) {
       const result = await actions.custom(verb, payload, options)
       if( options?.skipEffect ) {
         return result
@@ -141,7 +141,11 @@ export const useStoreActions = (store: CollectionStore) => {
 
     get(payloadSource: ActionFilter | string, options?: CustomOptions) {
       const payload = typeof payloadSource === 'string'
-        ? { filters: { _id: payloadSource } }
+        ? {
+          filters: {
+            _id: payloadSource,
+          },
+        }
         : payloadSource
 
       return actions.customEffect(
@@ -153,7 +157,7 @@ export const useStoreActions = (store: CollectionStore) => {
 
           return result
         },
-        options
+        options,
       )
     },
 
@@ -161,7 +165,7 @@ export const useStoreActions = (store: CollectionStore) => {
       return actions.custom('getAll', payload)
     },
 
-    async getAll(_payload?: ActionFilter)  {
+    async getAll(_payload?: ActionFilter) {
       const payload = Object.assign({}, _payload || {})
 
       if( typeof payload.limit !== 'number' ) {
@@ -182,11 +186,17 @@ export const useStoreActions = (store: CollectionStore) => {
 
     insert(payload?: { what: Partial<typeof store['item']> }, options?: CustomOptions) {
       return actions.customEffect(
-        'insert', { ...payload, what: payload?.what||store.item },
+        'insert', {
+          ...payload,
+          what: payload?.what || store.item,
+        },
         (resultEither) => {
           if( isLeft(resultEither) ) {
             const error: any = unwrapEither(resultEither)
-            if( ['INVALID_PROPERTIES', 'MISSING_PROPERTIES'].includes(error.code) ) {
+            if( [
+              'INVALID_PROPERTIES',
+              'MISSING_PROPERTIES',
+            ].includes(error.code) ) {
               store.validationErrors = error.errors
             }
 
@@ -196,7 +206,7 @@ export const useStoreActions = (store: CollectionStore) => {
           const result = unwrapEither(resultEither)
           return actions.insertItem(result)
         },
-        options
+        options,
       )
     },
 
@@ -209,7 +219,7 @@ export const useStoreActions = (store: CollectionStore) => {
       }
 
       return actions.insert({
-        what: condenseItem(newItem)
+        what: condenseItem(newItem),
       }, options)
     },
 
@@ -217,11 +227,11 @@ export const useStoreActions = (store: CollectionStore) => {
       return actions.customEffect(
         'remove', {
           filters: {
-            _id: payload?._id
-          }
+            _id: payload?._id,
+          },
         },
         actions.removeItem,
-        options
+        options,
       )
     },
 
@@ -229,11 +239,11 @@ export const useStoreActions = (store: CollectionStore) => {
       return actions.customEffect(
         'removeAll', {
           filters: {
-            _id: payload?._id
-          }
+            _id: payload?._id,
+          },
         },
         actions.removeItem,
-        options
+        options,
       )
     },
 
@@ -242,7 +252,7 @@ export const useStoreActions = (store: CollectionStore) => {
       const payload = {
         filters: {
           ...store.activeFilters,
-          ...store.filtersPreset
+          ...store.filtersPreset,
         },
         limit: store.pagination.limit,
       }
@@ -272,7 +282,7 @@ export const useStoreActions = (store: CollectionStore) => {
 
         return {
           ...a,
-          [property]: store.properties[property]
+          [property]: store.properties[property],
         }
 
       }, {})
@@ -311,7 +321,7 @@ export const useStoreActions = (store: CollectionStore) => {
             index,
             value: Array.isArray(args.value)
               ? args.value.map((value) => value[index!])
-              : (args.value as Record<string, any>)?.[index!]
+              : (args.value as Record<string, any>)[index!],
           })
         }
       }
@@ -320,7 +330,7 @@ export const useStoreActions = (store: CollectionStore) => {
         value,
         args.key,
         args.property,
-        args.index
+        args.index,
       )
     },
 
@@ -332,7 +342,7 @@ export const useStoreActions = (store: CollectionStore) => {
 
         return {
           ...a,
-          [key]: value
+          [key]: value,
         }
       }, {})
     },
@@ -349,7 +359,7 @@ export const useStoreActions = (store: CollectionStore) => {
       store.selected = state
         ? store.items.map((item) => item._id!)
         : []
-      
+
       return store.items
     },
   }

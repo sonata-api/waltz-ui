@@ -16,7 +16,7 @@ const metaStore = useStore('meta')
 if( !metaStore.descriptions.user ) {
   await metaStore.$actions.describe({
     collections: ['user'],
-    roles: true
+    roles: true,
   })
 }
 
@@ -25,31 +25,33 @@ const tosAccepted = ref(false)
 const newUser = ref({})
 const password = ref({
   password: '',
-  confirmation: ''
+  confirmation: '',
 })
 
 const insert = async () => {
   userStore.item.password = password.value.password
   const userEither = await userStore.$functions.createAccount({
     ...newUser.value,
-    password: password.value.password
+    password: password.value.password,
   })
 
   if( isLeft(userEither) ) {
     const error = unwrapEither(userEither)
     await metaStore.$actions.spawnModal({
       title: 'Erro',
-      body: error
+      body: error,
     })
     return
   }
 
   await metaStore.$actions.spawnModal({
     title: 'Conta registrada',
-    body: 'Verifique o link de confirmação no seu email'
+    body: 'Verifique o link de confirmação no seu email',
   })
 
- router.push({ path: '/user/signin' })
+ router.push({
+ path: '/user/signin',
+})
 }
 </script>
 
@@ -78,15 +80,17 @@ const insert = async () => {
   >
     <template #after>
       <aeria-password-form
-        v-model="password"
         v-slot="{ passwordError }"
+        v-model="password"
       >
-        <div style="
+        <div
+          style="
           display: flex;
           flex-direction: column;
           align-items: start;
           gap: 2rem
-        ">
+        "
+        >
           <aeria-checkbox
             v-model="tosAccepted"
             :property="{
@@ -96,7 +100,6 @@ const insert = async () => {
           >
             Declaro que li e aceito os termos de uso
           </aeria-checkbox>
-
         </div>
 
         <aeria-button
@@ -108,6 +111,4 @@ const insert = async () => {
       </aeria-password-form>
     </template>
   </aeria-form>
-
-
 </template>

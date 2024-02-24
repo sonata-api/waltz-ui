@@ -13,10 +13,12 @@ export {
   useNavbar,
   useApp,
   request,
-  API_URL
+  API_URL,
 
 } from '@waltz-ui/web'
 
-export { t, createI18n, setLocale, getLocale, defineLocale } from '@waltz-ui/i18n'
+export {
+  t, createI18n, setLocale, getLocale, defineLocale,
+} from '@waltz-ui/i18n'
 export * from '@waltz-ui/state-management'
 export * from '@waltz-ui/ui'

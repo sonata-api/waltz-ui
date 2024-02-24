@@ -4,13 +4,13 @@ import { useStore } from '@waltz-ui/state-management'
 import AeriaPanel from '../../aeria-panel/aeria-panel.vue'
 import AeriaBareButton from '../../aeria-bare-button/aeria-bare-button.vue'
 
-
 type Props = {
   title?: string
   actions: PromptAction[]
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
+
 const metaStore = useStore('meta')
 
 const onClick = (answer: PromptAction) => {
@@ -26,10 +26,13 @@ const onClick = (answer: PromptAction) => {
     style="--panel-min-width: 32rem;"
   >
     <div class="prompt">
-      <slot></slot>
+      <slot />
     </div>
 
-    <template #title v-if="title">
+    <template
+      v-if="title"
+      #title
+    >
       {{ title }}
     </template>
 

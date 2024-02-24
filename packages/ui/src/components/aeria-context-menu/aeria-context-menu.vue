@@ -13,18 +13,19 @@ type Props = {
 }
 
 type Action = {
-  click: (subject: any) => void
+  click: (subject: any)=> void
 }
 
 type Emits = {
   (e: 'actionClick', event: { action: Action, subject: any }): void
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
+
 const emit = defineEmits<Emits>()
 
 const userStore = useStore('user')
-const contextmenu = ref<HTMLDivElement|null>(null)
+const contextmenu = ref<HTMLDivElement | null>(null)
 const contextmenuVisible = ref(false)
 
 const filterActions = (actions: any[]) => {
@@ -39,7 +40,10 @@ const filterActions = (actions: any[]) => {
 
 const onClick = (action: Action, subject: any) => {
   action.click(subject)
-  emit('actionClick', { action, subject })
+  emit('actionClick', {
+ action,
+subject,
+})
 
   contextmenuVisible.value = false
 }
@@ -48,7 +52,7 @@ const position = computed(() => {
   if( !contextmenu.value ) {
     return {
       x: 0,
-      y: 0
+      y: 0,
     }
   }
   const rectTop = contextmenu.value.getBoundingClientRect().top
@@ -73,7 +77,7 @@ const position = computed(() => {
       class="contextmenu__trigger"
       @click="contextmenuVisible = true"
     >
-      <slot></slot>
+      <slot />
     </a>
   </div>
 
@@ -82,8 +86,6 @@ const position = computed(() => {
     to="main"
   >
     <aeria-panel
-      animate
-      fill
       v-model="contextmenuVisible"
       v-overlay.invisibleOnLarge="{
         layer: overlayLayer,
@@ -91,6 +93,8 @@ const position = computed(() => {
           contextmenuVisible = false
         }
       }"
+      animate
+      fill
 
       class="content"
     >
@@ -99,7 +103,7 @@ const position = computed(() => {
           v-if="$slots.header"
           class="content__section"
         >
-          <slot name="header"></slot>
+          <slot name="header" />
         </div>
 
         <div
@@ -115,7 +119,7 @@ const position = computed(() => {
               content__item--reactive
             "
           >
-            <slot :name="slotName"></slot>
+            <slot :name="slotName" />
           </aeria-bare-button>
         </div>
 
@@ -155,12 +159,10 @@ const position = computed(() => {
             <slot
               v-if="$slots.extra"
               name="extra"
-            ></slot>
+            />
           </div>
         </div>
-
       </div>
-
     </aeria-panel>
   </teleport>
 </template>

@@ -1,4 +1,4 @@
-import { Directive } from 'vue'
+import { type Directive } from 'vue'
 import { useStore } from '@waltz-ui/state-management'
 
 const theme: Directive = {
@@ -7,7 +7,7 @@ const theme: Directive = {
   },
   unmounted() {
     useStore('meta').themeOverride = ''
-  }
+  },
 }
 
 export default theme

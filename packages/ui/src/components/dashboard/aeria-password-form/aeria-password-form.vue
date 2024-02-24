@@ -13,6 +13,10 @@ type Props = {
 const props = defineProps<Props>()
 provide('storeId', null)
 
+defineEmits<{
+  (e: 'update:modelValue', value: Props['modelValue']): void
+}>()
+
 const passwordPolicy = usePasswordPolicy()
 
 const passwordError = computed(() => {
@@ -41,13 +45,13 @@ const passwordError = computed(() => {
 
       :model-value="modelValue"
       @update:model-value="$emit('update:modelValue', $event)"
-    ></aeria-form>
+    />
 
     <div>
       {{ passwordError || 'Senhas conferem' }}
     </div>
 
-    <slot v-bind="{ passwordError }"></slot>
+    <slot v-bind="{ passwordError }" />
   </div>
 </template>
 

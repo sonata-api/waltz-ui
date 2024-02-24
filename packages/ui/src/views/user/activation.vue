@@ -8,7 +8,7 @@ import AeriaForm from '../../components/form/aeria-form/aeria-form.vue'
 import AeriaButton from '../../components/aeria-button/aeria-button.vue'
 import AeriaPasswordForm from '../../components/dashboard/aeria-password-form/aeria-password-form.vue'
 
-type Step = 
+type Step =
   | 'success'
   | 'password'
 
@@ -16,32 +16,32 @@ const router = useRouter()
 const userStore = useStore('user')
 const metaStore = useStore('meta')
 
-const step = router.currentRoute.value.query.step as Step || 'success'
+const step = router.currentRoute.value.query.step as Step | undefined || 'success'
 const userId = router.currentRoute.value.query.u
 const token = router.currentRoute.value.query.t
 
 const userInfo: any = unsafe(await userStore.$functions.getInfo({
   userId,
-  token
+  token,
 }))
 
 const password = ref({
   name: userInfo.name,
   email: userInfo.email,
   password: '',
-  confirmation: ''
+  confirmation: '',
 })
 
 const confirm = async () => {
   await userStore.$actions.custom(`activate?u=${userId}&t=${token}`, {
-    password: password.value.password
+    password: password.value.password,
   })
 
   userStore.credentials.email = password.value.email
 
   await metaStore.$actions.spawnModal({
     title: 'Sucesso!',
-    body: 'Sua conta foi ativada com sucesso. Experimente fazer login com o seu email e senha.'
+    body: 'Sua conta foi ativada com sucesso. Experimente fazer login com o seu email e senha.',
   })
 
   router.push('/user/signin')
@@ -49,7 +49,10 @@ const confirm = async () => {
 </script>
 
 <template>
-  <div v-if="step === 'password'" style="display: grid; gap: 1rem;">
+  <div
+    v-if="step === 'password'"
+    style="display: grid; gap: 1rem;"
+  >
     <h1>Cadastre uma senha</h1>
     <aeria-form
       v-model="password"
@@ -63,9 +66,12 @@ const confirm = async () => {
           readOnly: true
         },
       }"
-    ></aeria-form>
+    />
 
-    <aeria-password-form v-model="password" v-slot="{ passwordError }">
+    <aeria-password-form
+      v-slot="{ passwordError }"
+      v-model="password"
+    >
       <aeria-button
         :disabled="!!passwordError"
         @click="confirm"
@@ -75,7 +81,10 @@ const confirm = async () => {
     </aeria-password-form>
   </div>
 
-  <div v-else style="display: grid; gap: 1rem;">
+  <div
+    v-else
+    style="display: grid; gap: 1rem;"
+  >
     <h1>Conta ativada com sucesso!</h1>
 
     <aeria-button @click="router.push('/user/signin')">

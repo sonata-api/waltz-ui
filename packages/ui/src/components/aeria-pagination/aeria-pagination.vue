@@ -23,20 +23,20 @@ const page = computed<number>({
   get: () => Math.floor(props.pagination.offset / props.pagination.limit),
   set: (page: number) => {
     props.pagination.offset = page * props.pagination.limit
-  }
+  },
 })
 
 const limit = computed<number>({
   get: () => props.pagination.limit,
   set: (value) => {
     props.pagination.limit = Number(value)
-  }
+  },
 })
 
-const pageInput = ref(page.value ? page.value + 1 : 1)
-const pageCount = computed(
-  () => Math.ceil(props.pagination.recordsTotal / props.pagination.limit)
-)
+const pageInput = ref(page.value
+? page.value + 1
+: 1)
+const pageCount = computed(() => Math.ceil(props.pagination.recordsTotal / props.pagination.limit))
 
 const paginate = (direction: 'previous' | 'next') => {
   page.value = direction === 'previous'
@@ -44,11 +44,14 @@ const paginate = (direction: 'previous' | 'next') => {
     : page.value + 1
 }
 
-watch([page, limit], ([newPage]: [number, number]) => {
+watch([
+page,
+limit,
+], ([newPage]: [number, number]) => {
   pageInput.value = newPage + 1
   emit('paginate', {
     offset: page.value * limit.value,
-    limit: limit.value
+    limit: limit.value,
   })
 })
 </script>
@@ -64,11 +67,11 @@ watch([page, limit], ([newPage]: [number, number]) => {
       class="pagination__control"
     >
       <option
-        v-for="limit in PAGINATION_PER_PAGE_DEFAULTS"
-        :key="`limit-${limit}`"
-        :value="limit"
+        v-for="limitOption in PAGINATION_PER_PAGE_DEFAULTS"
+        :key="`limit-${limitOption}`"
+        :value="limitOption"
       >
-        {{ limit }}
+        {{ limitOption }}
       </option>
     </aeria-select>
 
@@ -77,7 +80,7 @@ watch([page, limit], ([newPage]: [number, number]) => {
         <aeria-icon
           reactive
           icon="caret-double-left"
-        ></aeria-icon>
+        />
       </aeria-bare-button>
       <aeria-bare-button
         :disabled="page === 0"
@@ -86,19 +89,19 @@ watch([page, limit], ([newPage]: [number, number]) => {
         <aeria-icon
           reactive
           icon="caret-left"
-        ></aeria-icon>
+        />
       </aeria-bare-button>
       <div class="pagination__page-input">
         <aeria-input
-          v-model="pageInput"
           :key="page"
+          v-model="pageInput"
           :property="{
             type: 'number',
             minimum: 1
           }"
 
           @change="page = pageInput === 0 ? 0 : pageInput - 1;"
-        ></aeria-input>
+        />
         <span>{{ t('of') }} {{ pageCount }}</span>
       </div>
       <aeria-bare-button
@@ -108,13 +111,13 @@ watch([page, limit], ([newPage]: [number, number]) => {
         <aeria-icon
           reactive
           icon="caret-right"
-        ></aeria-icon>
+        />
       </aeria-bare-button>
       <aeria-bare-button @click="page = pageCount - 1">
         <aeria-icon
           reactive
           icon="caret-double-right"
-        ></aeria-icon>
+        />
       </aeria-bare-button>
     </div>
   </div>

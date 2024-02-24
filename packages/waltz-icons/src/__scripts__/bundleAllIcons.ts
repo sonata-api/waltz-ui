@@ -8,7 +8,7 @@ const bundlePath = fileURLToPath(await import.meta.resolve!('../../dist/icons.sv
 const bundle = async () => {
   const iconNames = icons.reduce((a, icon) => [
     ...a,
-    ...Object.values(IconStyle).map((style) => `${style}:${icon.name}`)
+    ...Object.values(IconStyle).map((style) => `${style}:${icon.name}`),
   ], [] as string[])
 
   const content = await packTogether(iconNames)

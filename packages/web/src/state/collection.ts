@@ -7,18 +7,18 @@ import { deepDiff } from './deepDiff'
 import { isDocumentComplete } from './isDocumentComplete'
 import { useStoreActions } from './actions'
 
-import  {
+import {
   condenseItem,
   isNull,
   removeEmpty,
   normalizeFilters,
-  normalizeActions
+  normalizeActions,
 
 } from './helpers'
 
 export type CollectionStoreState<TItem extends CollectionStoreItem = any> =
   ReturnType<typeof internalCreateCollectionStore<TItem>>['state']
-  & UnRef<ReturnType<ReturnType<typeof internalCreateCollectionStore>['getters']>> 
+  & UnRef<ReturnType<ReturnType<typeof internalCreateCollectionStore>['getters']>>
 
 export type CollectionStore<TItem extends CollectionStoreItem = any> = CollectionStoreState<TItem> & {
   $id: string
@@ -57,13 +57,13 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
       limit: PAGINATION_PER_PAGE_DEFAULT,
       recordsCount: 0,
       recordsTotal: 0,
-      currentPage: 0
+      currentPage: 0,
     },
 
-    transformers: {} as Record<string, (value: any) => any>
+    transformers: {} as Record<string, (value: any)=> any>,
   })
 
-  const getters = (state: typeof initialState, storeActions: Record<string, (...args: any[]) => any>) => {
+  const getters = (state: typeof initialState, storeActions: Record<string, (...args: any[])=> any>) => {
     const description = computed((): Description => {
       if( state.rawDescription.preferred ) {
         const userStore = useStore('user')
@@ -76,7 +76,9 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
           }
         })
 
-        Object.assign(description, deepMerge(description, toMerge, { arrays: false }))
+        Object.assign(description, deepMerge(description, toMerge, {
+          arrays: false,
+        }))
         return description
       }
 
@@ -96,7 +98,7 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
           if( 'type' in property ) {
             if( property.type === 'boolean' && value === false ) {
               return {
-                $ne: true
+                $ne: true,
               }
             }
 
@@ -105,17 +107,17 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
                 $regex: String(value)
                   .replace('(', '\\(')
                   .replace(')', '\\)'),
-                $options: 'i'
+                $options: 'i',
               }
             }
           }
 
-          return value?._id||value
+          return value?._id || value
         }
 
         if( Array.isArray(value) ) {
           return {
-            $in: value.map(v => getValue(v))
+            $in: value.map((v) => getValue(v)),
           }
         }
 
@@ -126,7 +128,10 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
         if( key.startsWith('$') ) {
           return [
             ...a,
-            [key, filter]
+            [
+              key,
+              filter,
+            ],
           ]
         }
 
@@ -144,10 +149,12 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
 
         return [
           ...a,
-          [key, expr(key, filter)]
+          [
+            key,
+            expr(key, filter),
+          ],
         ]
       }, [])
-
 
       return Object.fromEntries(entries)
 
@@ -159,13 +166,20 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
     const diffedItem = computed(() => {
       const freshItem = state.rawDescription.freshItem
       const referenceItem = freshItem
-        ? Object.fromEntries(Object.entries(state.referenceItem).map(([key, value]) => [key, key in freshItem ? null : value]))
+        ? Object.fromEntries(Object.entries(state.referenceItem).map(([key, value]) => [
+          key,
+          key in freshItem
+            ? null
+            : value,
+        ]))
         : state.referenceItem
 
       return deepDiff(
         referenceItem,
         state.item,
-        { preserveIds: true }
+        {
+          preserveIds: true,
+        },
       )
     })
 
@@ -184,7 +198,7 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
             if( 'items' in property ) {
               return {
                 ...a,
-                [key]: []
+                [key]: [],
               }
             }
 
@@ -194,13 +208,13 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
 
               return {
                 ...a,
-                [key]: recurse(helperStore, store.$id, parent)
+                [key]: recurse(helperStore, store.$id, parent),
               }
             }
 
             return {
               ...a,
-              [key]: store.freshItem[key]
+              [key]: store.freshItem[key],
             }
           }, {} as TItem)
         }
@@ -215,7 +229,7 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
           state.item,
           properties.value,
           description.value.required,
-          description.value
+          description.value,
         )
 
         return state.item._id
@@ -235,7 +249,11 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
 
           return {
             ...a,
-            ...(property ? { [k]: property } : {})
+            ...(property
+              ? {
+                [k]: property,
+              }
+              : {}),
           }
         }, {})
       }),
@@ -251,10 +269,10 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
 
       layout: computed(() => description.value.layout || <Layout>({
         name: 'tabular',
-        options: {}
+        options: {},
       })),
 
-      $currentLayout: computed(() => state.currentLayout || (description.value.layout?.name||'tabular') as LayoutName),
+      $currentLayout: computed(() => state.currentLayout || (description.value.layout?.name || 'tabular') as LayoutName),
 
       tableProperties: computed(() => {
         const preferredProperties = state.preferredTableProperties.length > 0
@@ -266,13 +284,13 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
           : properties.value
       }),
 
-      tableLayout: computed(() => description.value.tableLayout || {})
+      tableLayout: computed(() => description.value.tableLayout || {}),
     }
   }
 
   return {
     state: initialState,
-    getters
+    getters,
   }
 }
 
@@ -280,25 +298,25 @@ export const createCollectionStore = <TItem extends CollectionStoreItem>() => <
   TStoreId extends string,
   TStoreState extends StoreState = any,
   TStoreGetters extends Record<string, ComputedRef<any>> = {},
-  TStoreActions extends Record<string, (...args: any[]) => any>={}
+  TStoreActions extends Record<string, (...args: any[])=> any>={},
 >(newer: {
   $id: TStoreId
   state?: TStoreState
   getters?: (
     state: CollectionStoreState & TStoreState,
     actions: ReturnType<typeof useStoreActions> & TStoreActions
-  ) => TStoreGetters
+  )=> TStoreGetters
   actions?: (
     state: CollectionStoreState & TStoreState,
     actions: ReturnType<typeof useStoreActions>
-  ) => TStoreActions
+  )=> TStoreActions
 
 }) => {
   const initial = internalCreateCollectionStore<TItem>()
   const state: any = initial.state
 
   const actions = useStoreActions(state)
-  if( newer?.actions ) {
+  if( newer.actions ) {
     Object.assign(actions, newer.actions(state, actions))
   }
 
@@ -308,16 +326,16 @@ export const createCollectionStore = <TItem extends CollectionStoreItem>() => <
 
   Object.assign(
     state,
-    initial.getters(state, actions)
+    initial.getters(state, actions),
   )
 
   return {
-    $id: newer?.$id as TStoreId,
-    state: state as typeof initial.state & TStoreState,
+    $id: newer.$id,
+    state: state,
     getters: newer.getters?.(state, actions as any) as TStoreGetters,
     actions: actions as TStoreActions extends {}
       ? typeof actions & TStoreActions
-      : never
+      : never,
   }
 }
 

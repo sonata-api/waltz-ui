@@ -1,4 +1,4 @@
-import { Property } from '@sonata-api/types'
+import { type Property } from '@sonata-api/types'
 import { deepClone, getReferenceProperty, freshItem } from '@sonata-api/common'
 import { useStore } from '@waltz-ui/state-management'
 
@@ -23,14 +23,10 @@ export const getComponent = (property: Property, customComponents: Record<string
     file: AeriaFile,
     search: AeriaSearch,
     input: AeriaInput,
-    form: AeriaForm
+    form: AeriaForm,
   }
 
   const mappedComponentType = (() => {
-    if( !nestedProp ) {
-      return 'input'
-    }
-
     if( 'type' in nestedProp ) {
       if( nestedProp.type === 'object' ) {
         return 'form'
@@ -75,14 +71,14 @@ export const getComponent = (property: Property, customComponents: Record<string
 
   })()
 
-  if( customComponents?.[mappedComponentType] ) {
+  if( customComponents[mappedComponentType] ) {
     return customComponents[mappedComponentType]
   }
 
-  return defaultComponents[mappedComponentType] || defaultComponents.input
+  return defaultComponents[mappedComponentType]
 }
 
-export const pushToArray = (modelValue: any[], property: Property) => {
+export const pushToArray = (modelValue: any[] | undefined, property: Property) => {
   modelValue ??= []
   const nestedProp = 'items' in property
     ? property.items

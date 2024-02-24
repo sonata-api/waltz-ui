@@ -1,4 +1,4 @@
-import type { Plugin, ResolvedConfig  } from 'vite'
+import type { Plugin, ResolvedConfig } from 'vite'
 import path from 'path'
 import { fileURLToPath } from 'node:url'
 import { mkdir, readFile, writeFile, copyFile } from 'fs/promises'
@@ -7,7 +7,7 @@ import {
   scrapper,
   icons,
   packTogether,
-  makeHash
+  makeHash,
 
 } from './common.js'
 
@@ -43,14 +43,14 @@ export const vitePlugin = (options: Options = {}): Plugin => {
           const newSource = source.replace('icons.svg', `icons-${hash}.svg`)
           return {
             code: newSource,
-            map: null
+            map: null,
           }
         }
       }
 
       return {
         code: source,
-        map: null
+        map: null,
       }
     },
     async generateBundle() {
@@ -60,22 +60,24 @@ export const vitePlugin = (options: Options = {}): Plugin => {
 
       const svg = await packTogether([ ...icons ])
 
-      await mkdir(path.join(config.build.outDir, 'assets'), { recursive: true })
+      await mkdir(path.join(config.build.outDir, 'assets'), {
+        recursive: true,
+      })
 
       if( options.allIcons ) {
         await copyFile(
           path.join(__dirname, '..', 'dist', 'icons.svg'),
-          path.join(config.build.outDir, 'assets', 'icons.svg')
+          path.join(config.build.outDir, 'assets', 'icons.svg'),
         )
         return
       }
 
       const filename = options.hash
         ? path.join(config.build.outDir, 'assets', `icons-${hash}.svg`)
-        : path.join(config.build.outDir, 'assets', `icons.svg`)
+        : path.join(config.build.outDir, 'assets', 'icons.svg')
 
       await writeFile(filename, svg)
-    }
+    },
   }
 }
 

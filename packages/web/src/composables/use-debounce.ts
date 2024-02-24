@@ -3,7 +3,7 @@ export type DebounceConfig = {
   immediate?: boolean
 }
 
-export const useDebounce = (config: DebounceConfig) => (fn: (...args: any[]) => any) => {
+export const useDebounce = (config: DebounceConfig) => (fn: (...args: any[])=> any) => {
   let timer: ReturnType<typeof setTimeout>
   let firstCall = true
 
@@ -21,6 +21,6 @@ export const useDebounce = (config: DebounceConfig) => (fn: (...args: any[]) => 
 
   return [
     call,
-    cancel
+    cancel,
   ]
 }

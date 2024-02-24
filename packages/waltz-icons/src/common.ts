@@ -6,7 +6,7 @@ import { DEFAULT_STYLE } from './constants.js'
 export type Options = {
   ensureList?: string[]
   libraries?: string[]
-  preEmit?: () => Promise<void>
+  preEmit?: ()=> Promise<void>
   hash?: boolean
   allIcons?: boolean
 }
@@ -26,7 +26,10 @@ export const icons = global.waltz__gatheredIcons = new Set<string>()
 export const fileName = (iconName: string) => {
   const [style, filename] = iconName.includes(':')
     ? iconName.split(':')
-    : [DEFAULT_STYLE, iconName]
+    : [
+      DEFAULT_STYLE,
+      iconName,
+    ]
 
   return style === 'regular'
     ? path.join(style, `${filename}.svg`)
@@ -68,7 +71,10 @@ export const packTogether = async (icons: string[]) => {
 
     const [style, filename] = iconName.includes(':')
       ? iconName.split(':')
-      : [DEFAULT_STYLE, iconName]
+      : [
+        DEFAULT_STYLE,
+        iconName,
+      ]
 
     try {
       const newPath = path.join(
@@ -76,7 +82,7 @@ export const packTogether = async (icons: string[]) => {
         '..',
         '..',
         'assets',
-        fileName(iconName)
+        fileName(iconName),
       )
 
       const content = await readFile(newPath)

@@ -15,7 +15,9 @@ const emit = defineEmits<Emits>()
 
 const containerEl = ref<HTMLElement | null>(null)
 const reachedEnd = props.observeScroll
-  ? useScrollObserver(containerEl, { antecipate: 100 }).reachedEnd
+  ? useScrollObserver(containerEl, {
+ antecipate: 100,
+}).reachedEnd
   : null
 
 if( reachedEnd !== null ) {
@@ -34,11 +36,14 @@ if( reachedEnd !== null ) {
       ref="containerEl"
       class="container__content"
     >
-      <slot></slot>
+      <slot />
     </div>
 
-    <div v-if="$slots.footer" class="container__footer">
-      <slot name="footer"></slot>
+    <div
+      v-if="$slots.footer"
+      class="container__footer"
+    >
+      <slot name="footer" />
     </div>
   </div>
 </template>

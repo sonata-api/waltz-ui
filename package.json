@@ -4,6 +4,8 @@
   "packageManager": "pnpm@8.7.6",
   "scripts": {
     "postinstall": "husky install; ln -s $(realpath packages) node_modules/@waltz-ui; rm -rf packages/*/node_modules/@waltz-ui",
+    "lint": "eslint . --ignore-pattern packages/ui",
+    "lint:fix": "eslint . --ignore-pattern packages/ui --fix",
     "lint-css": "stylelint 'packages/ui/**/*.less'",
     "lint-css:fix": "stylelint --fix 'packages/ui/**/*.less'"
   },
@@ -11,6 +13,9 @@
     "@changesets/cli": "^2.26.2",
     "@commitlint/cli": "^17.7.1",
     "@commitlint/config-conventional": "^17.7.0",
+    "eslint": "^8.57.0",
+    "eslint-config-aeria": "^0.0.27",
+    "eslint-config-aeriaui": "latest",
     "husky": "^8.0.3",
     "postcss-less": "^6.0.0",
     "stylelint": "^16.2.0",

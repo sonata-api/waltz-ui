@@ -8,8 +8,8 @@ export const serve = async () => {
     configFile: fileURLToPath(new URL('./vite.js', import.meta.url)),
     root: projectRoot,
     server: {
-      port: 8080
-    }
+      port: 8080,
+    },
   })
 
   await server.listen()
@@ -19,10 +19,8 @@ export const serve = async () => {
 export const build = async () => {
   const { default: config } = await import(fileURLToPath(new URL('./vite.js', import.meta.url)))
 
-  return viteBuild(
-    typeof config === 'function'
-      ? await config()
-      : config
-  )
+  return viteBuild(typeof config === 'function'
+    ? await config()
+    : config)
 
 }

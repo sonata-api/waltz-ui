@@ -1,13 +1,12 @@
 <script lang="ts">
 export default {
-  inheritAttrs: false
+  inheritAttrs: false,
 }
 </script>
 
 <script setup lang="ts">
 import type { Property, BooleanProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
-import { computed } from 'vue'
 
 type Props = FormFieldProps<any, Property & BooleanProperty>
 
@@ -42,14 +41,16 @@ const toggle = () => {
       `"
       @click.stop="toggle"
     >
-      <div class="switch__slider"></div>
-      <div :class="`
+      <div class="switch__slider" />
+      <div
+        :class="`
         switch__dummy
         ${!modelValue && 'switch__dummy--flex'}
-      `"></div>
+      `"
+      />
     </a>
 
-    <slot v-if="$slots.default"></slot>
+    <slot v-if="$slots.default" />
 
     <div v-else>
       {{ property.description || propertyName }}

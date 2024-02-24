@@ -15,40 +15,41 @@ const metaStore = useStore('meta')
       main
       main--${metaStore.theme}
       ${metaStore.theme === 'dark' && 'tw-dark'}
-  `">
+  `"
+  >
     <Suspense>
       <router-view v-slot="{ Component }">
         <component :is="Component">
           <template
             v-for="slotName in Object.keys($slots)"
-            v-slot:[slotName]
+            #[slotName]
           >
-            <slot :name="slotName"></slot>
+            <slot :name="slotName" />
           </template>
         </component>
       </router-view>
     </Suspense>
 
-    <slot></slot>
+    <slot />
 
     <aeria-panel
+      v-model="metaStore.modal.visible"
       float
       close-hint
-      v-model="metaStore.modal.visible"
       v-bind="metaStore.modal"
       :overlay-layer="70"
       @overlay-click="metaStore.modal.visible = false"
     >
       <div
         v-if="metaStore.modal.body"
-        v-html="metaStore.modal.body"
         style="white-space: pre-wrap"
-      ></div>
+        v-html="metaStore.modal.body"
+      />
 
       <component
-        v-if="metaStore.modal.component"
         :is="metaStore.modal.component"
-      ></component>
+        v-if="metaStore.modal.component"
+      />
     </aeria-panel>
 
     <aeria-prompt
@@ -64,7 +65,7 @@ const metaStore = useStore('meta')
         v-bind="toast"
         :key="`toast-${toast.itr}`"
       >
-        <div v-html="t(toast.text)"></div>
+        <div v-html="t(toast.text)" />
       </aeria-toast>
     </div>
   </main>

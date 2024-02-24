@@ -11,8 +11,9 @@ type Props = {
   }>
 }
 
-const props = defineProps<Props>()
-const currentSlot = ref<string|null>(null)
+defineProps<Props>()
+
+const currentSlot = ref<string | null>(null)
 
 const getTitle = (header: Props['headers'][keyof Props['headers']]) => {
   return typeof header === 'string'
@@ -22,10 +23,12 @@ const getTitle = (header: Props['headers'][keyof Props['headers']]) => {
 </script>
 
 <template>
-  <div :class="{
-    'accordion': true,
-    'accordion--padded': !noPadding
-  }">
+  <div
+    :class="{
+      'accordion': true,
+      'accordion--padded': !noPadding
+    }"
+  >
     <div
       v-for="(slotName, index) in Object.keys($slots).filter((slotName) => slotName !== 'default')"
       :key="slotName"
@@ -51,11 +54,10 @@ const getTitle = (header: Props['headers'][keyof Props['headers']]) => {
         v-if="currentSlot === slotName"
         class="accordion__content"
       >
-        <slot :name="slotName"></slot>
+        <slot :name="slotName" />
       </div>
     </div>
   </div>
-
 </template>
 
 <style scoped src="./aeria-accordion.less"></style>

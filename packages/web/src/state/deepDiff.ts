@@ -2,14 +2,15 @@ export type DiffOptions = {
   preserveIds?: boolean
 }
 export const deepDiff = <T extends Record<string, any>>(origin: T, target: T, options?: DiffOptions) => {
-  const {
-    preserveIds
-  } = options || {}
+  const { preserveIds } = options || {}
 
   const equals = (left: any, right: any) => {
     const toStr = (obj: any) => {
       const sortedObj = obj && obj.constructor === Object
-        ? Object.fromEntries(Object.keys(obj).sort().map((key) => [key, obj[key]]))
+        ? Object.fromEntries(Object.keys(obj).sort().map((key) => [
+          key,
+          obj[key],
+        ]))
         : obj
 
       return JSON.stringify(sortedObj)
@@ -38,7 +39,7 @@ export const deepDiff = <T extends Record<string, any>>(origin: T, target: T, op
           if( !value._id ) {
             return {
               ...a,
-              [key]: value
+              [key]: value,
             }
           }
 
@@ -58,13 +59,13 @@ export const deepDiff = <T extends Record<string, any>>(origin: T, target: T, op
 
           return {
             ...a,
-            [key]: res
+            [key]: res,
           }
         }
 
         return {
           ...a,
-          [key]: value
+          [key]: value,
         }
       }
 

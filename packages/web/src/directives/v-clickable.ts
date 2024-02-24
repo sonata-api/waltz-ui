@@ -10,7 +10,7 @@ const clickable: Directive = {
       el.style.cursor = cursor
       el.style['user-select'] = 'none'
     }
-  }
+  },
 }
 
 export default clickable

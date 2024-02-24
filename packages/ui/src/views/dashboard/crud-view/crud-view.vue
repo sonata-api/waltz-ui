@@ -5,17 +5,20 @@ type Props = {
   collection: string
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
 </script>
 
 <template>
   <aeria-crud
     v-if="collection"
-    :collection="collection"
     :key="collection"
+    :collection="collection"
   >
-    <template #empty v-if="$slots['crud-empty']">
-      <slot name="crud-empty"></slot>
+    <template
+      v-if="$slots['crud-empty']"
+      #empty
+    >
+      <slot name="crud-empty" />
     </template>
   </aeria-crud>
 </template>

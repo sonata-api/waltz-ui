@@ -5,9 +5,9 @@ const { values: opts } = parseArgs({
   options: {
     mode: {
       type: 'string',
-      short: 'm'
-    }
-  }
+      short: 'm',
+    },
+  },
 })
 
 function main() {
@@ -19,9 +19,7 @@ function main() {
       return serve()
 
     default:
-      throw new Error(
-        `mode ${opts.mode} not found`
-      )
+      throw new Error(`mode ${opts.mode} not found`)
   }
 }
 

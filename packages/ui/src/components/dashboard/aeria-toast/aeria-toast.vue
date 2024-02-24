@@ -10,7 +10,8 @@ type Props = {
   icon?: Icon
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
+
 const metaStore = useStore('meta')
 </script>
 
@@ -34,10 +35,10 @@ const metaStore = useStore('meta')
         --icon-size: 4rem;
         --icon-color: var(--theme-brand-color-shade-3);
       "
-    ></aeria-icon>
+    />
 
     <div class="toast__content">
-      <slot></slot>
+      <slot />
 
       <div class="toast__time">
         {{ formatDateTime(date, { hoursOnly: true }) }}

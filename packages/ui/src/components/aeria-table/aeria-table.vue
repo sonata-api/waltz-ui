@@ -19,22 +19,29 @@ type Props = {
   checkbox?: boolean
   actions?: (CollectionAction<any> & {
     action: string
-    click: (...args: any[]) => void
+    click: (...args: any[])=> void
   })[]
   layout?: any
 }
 
+type Emits = {
+  (e: 'itemClick', value: any): void
+}
+
 const props = defineProps<Props>()
+const emit = defineEmits<Emits>()
 const breakpoints = useBreakpoints()
 
-const collectionName = props.collection || inject<Ref<string>|string>('storeId', '')
+const collectionName = props.collection || inject<Ref<string> | string>('storeId', '')
 const store = collectionName
-  ? useStore(typeof collectionName === 'string' ? collectionName : collectionName.value)
+  ? useStore(typeof collectionName === 'string'
+? collectionName
+: collectionName.value)
   : null
 
 const selected = computed({
   get: () => store?.selected,
-  set: (items: any[]) => store?.$actions.selectManyItems(items, true)
+  set: (items: any[]) => store?.$actions.selectManyItems(items, true),
 })
 
 const isActionButton = (layout: TableLayout<any>['actions'][string], subject: any) => {
@@ -83,11 +90,11 @@ const buttonStyle = (subject: any, action: any) => {
   if( layout?.if ) {
     const result = evaluateCondition(
       subject,
-      layout.if
+      layout.if,
     )
 
     if( !result.satisfied ) {
-      style.push(`display: none;`)
+      style.push('display: none;')
     }
   }
 
@@ -103,8 +110,8 @@ const buttonStyle = (subject: any, action: any) => {
       aeria-surface
     "
   >
-    <thead v-if=$slots.thead>
-      <slot name="thead"></slot>
+    <thead v-if="$slots.thead">
+      <slot name="thead" />
     </thead>
 
     <thead v-else>
@@ -114,7 +121,7 @@ const buttonStyle = (subject: any, action: any) => {
             type="checkbox"
             :checked="store.selected.length > 0 && store.selected.length === store.itemsCount"
             @change="store.$actions.selectAllItems(($event.target as HTMLInputElement).checked)"
-          />
+          >
         </th>
         <th
           v-for="([propertyName, property], index) in Object.entries(columns!)"
@@ -126,26 +133,26 @@ const buttonStyle = (subject: any, action: any) => {
         <th
           v-if="actions?.length"
           style="text-align: right;"
-         ></th>
+        />
       </tr>
     </thead>
 
     <tbody v-if="$slots.tbody">
-      <slot name="tbody"></slot>
+      <slot name="tbody" />
     </tbody>
 
     <tbody v-else>
       <tr
         v-for="row in rows"
         :key="row._id"
-        @click="$emit('itemClick', row)"
+        @click="emit('itemClick', row)"
       >
         <td v-if="store && checkbox && breakpoints.md">
           <input
-            type="checkbox"
             v-model="selected"
+            type="checkbox"
             :value="row._id"
-          />
+          >
         </td>
         <td
           v-for="([column, property], cindex) in Object.entries(columns!)"
@@ -168,8 +175,7 @@ const buttonStyle = (subject: any, action: any) => {
               }"
 
               :name="`row-${column}`"
-            >
-            </slot>
+            />
           </div>
           <div
             v-else
@@ -195,20 +201,20 @@ const buttonStyle = (subject: any, action: any) => {
 
               <div v-else-if="getReferenceProperty(property)?.$ref === 'file'">
                 <aeria-picture
-                  expandable
                   v-if="/^image/.test(row[column][0]?.mime) && 'items' in property"
                   v-model="row[column][0].link"
+                  expandable
                   :meta="row[column][0]"
                   class="table__picture"
-                ></aeria-picture>
+                />
 
                 <aeria-picture
-                  expandable
                   v-else-if="/^image/.test(row[column]?.mime)"
                   v-model="row[column].link"
+                  expandable
                   :meta="row[column]"
                   class="table__picture"
-                ></aeria-picture>
+                />
 
                 <a
                   v-else-if="row[column]?.link"
@@ -262,7 +268,6 @@ const buttonStyle = (subject: any, action: any) => {
               </div>
             </div>
           </div>
-
         </td>
         <td
           v-if="actions?.length && breakpoints.md"
@@ -288,19 +293,19 @@ const buttonStyle = (subject: any, action: any) => {
               v-bind="{
                 subject: row,
                 actions: dropdownActions(row)
-            }">
+              }"
+            >
               <aeria-icon
                 v-clickable
                 reactive
                 icon="dots-three"
-              ></aeria-icon>
+              />
             </aeria-context-menu>
-
           </div>
         </td>
 
         <td
-          v-else="actions?.length"
+          v-else-if="actions?.length"
           class="
             no-print
             table__mobile-actions
@@ -327,25 +332,24 @@ const buttonStyle = (subject: any, action: any) => {
               v-bind="{
                 subject: row,
                 actions: dropdownActions(row)
-            }">
+              }"
+            >
               <aeria-icon
                 icon="dots-three"
                 class="table__mobile-actions-button"
-              ></aeria-icon>
+              />
             </aeria-context-menu>
-
           </div>
         </td>
 
-
-        <div :id="`dropdown-${row._id}`"></div>
+        <div :id="`dropdown-${row._id}`" />
       </tr>
     </tbody>
     <tfoot>
       <slot
-        name="tfoot"
         v-if="$slots.tfoot"
-      ></slot>
+        name="tfoot"
+      />
 
       <tr v-else-if="columns && !rows?.length && !store?.loading.getAll">
         <td :colspan="10">

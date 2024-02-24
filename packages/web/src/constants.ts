@@ -3,7 +3,7 @@ export const PAGINATION_PER_PAGE_DEFAULTS = [
   10,
   35,
   100,
-  150
+  150,
 ]
 
 export const PAGINATION_PER_PAGE_DEFAULT = 10

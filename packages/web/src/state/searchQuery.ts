@@ -29,7 +29,7 @@ const buildValue = (value: any, property: Property) => {
     return {
       $in: Array.isArray(value)
         ? value
-        : [value]
+        : [value],
     }
   }
 
@@ -60,29 +60,29 @@ export const convertToSearchQuery = (store: CollectionStore) => {
       ? `${store.$id}.${key}[]`
       : `${store.$id}.${key}`
 
-      const queryValue = 'items' in property
-        ? value.$in.reduce((a: any[], elem: any) => {
-          const val = extractValue(elem, property.items)
+    const queryValue = 'items' in property
+      ? value.$in.reduce((a: any[], elem: any) => {
+        const val = extractValue(elem, property.items)
 
-          if( !val ) {
-            return a
-          }
+        if( !val ) {
+          return a
+        }
 
-          return [
-            ...a,
-            val
-          ]
-        }, [])
-          : extractValue(value, property)
+        return [
+          ...a,
+          val,
+        ]
+      }, [])
+      : extractValue(value, property)
 
-          if( !queryValue ) {
-            continue
-          }
+    if( !queryValue ) {
+      continue
+    }
 
-          entries.push([
-            queryKey,
-            queryValue
-          ])
+    entries.push([
+      queryKey,
+      queryValue,
+    ])
   }
 
   return Object.fromEntries(entries)
@@ -104,15 +104,15 @@ export const convertFromSearchQuery = (store: CollectionStore, route: RouteRecor
       ? key.slice(prefix.length, -2)
       : key.slice(prefix.length)
 
-      const property = store.properties[propName]
-      if( !property ) {
-        continue
-      }
+    const property = store.properties[propName]
+    if( !property ) {
+      continue
+    }
 
-      entries.push([
-        propName,
-        buildValue(value, property)
-      ])
+    entries.push([
+      propName,
+      buildValue(value, property),
+    ])
   }
 
   return Object.fromEntries(entries)

@@ -12,11 +12,9 @@ const metaStore = useStore('meta')
 
 const goToTarget = () => {
   const { next } = router.currentRoute.value.query
-  router.push(
-    next && localStorage.getItem(`${STORAGE_NAMESPACE}:auth:next`) === next
+  router.push(next && localStorage.getItem(`${STORAGE_NAMESPACE}:auth:next`) === next
       ? next
-      : '/dashboard/'
-  )
+      : '/dashboard/')
 }
 
 const authenticate = async () => {
@@ -31,12 +29,12 @@ const authenticate = async () => {
   <div style="text-align: center">
     <h1
       v-if="instanceVars.signinText"
-      v-html="instanceVars.signinText"
       style="font-size: 2.4rem; margin-bottom: .8rem"
-    ></h1>
+      v-html="instanceVars.signinText"
+    />
     <div v-if="instanceVars.signupForm">
       <span>Não possui uma conta?</span>
-      <span 
+      <span
         v-clickable
         style="color: #2d96fa"
         @click="router.push('/user/signup')"
@@ -59,20 +57,22 @@ const authenticate = async () => {
         inputType: 'password'
       }
     }"
-  ></aeria-form>
+  />
 
-  <div style="
+  <div
+    style="
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-  ">
+  "
+  >
     <aeria-button
       :loading="userStore.loading.authenticate"
 
       :disabled="
         !userStore.credentials.email
-        || !userStore.credentials.password"
+          || !userStore.credentials.password"
       @click="authenticate"
     >
       Entrar

@@ -4,5 +4,5 @@ export type PromptAction = {
   variant?:
     | 'primary'
     | 'danger'
-  click?: (answer: PromptAction) => void
+  click?: (answer: PromptAction)=> void
 }

@@ -2,8 +2,8 @@ import { defineComponent, h, ref } from 'vue'
 
 export const AeriaAsync = defineComponent({
   props: {
-    initialValue: '' as any,
-    promise: Promise
+    initialValue: String,
+    promise: Promise<string>,
   },
   setup(props) {
     const result = ref(props.initialValue)
@@ -14,5 +14,5 @@ export const AeriaAsync = defineComponent({
     }
 
     return () => h('div', result.value)
-  }
+  },
 })

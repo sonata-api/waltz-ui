@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ActionFilter, ActionEvent, Pagination, CollectionStore  } from '@waltz-ui/web'
+import type { ActionFilter, ActionEvent, Pagination, CollectionStore } from '@waltz-ui/web'
 import type { Layout } from '@sonata-api/types'
 import type { Component } from 'vue'
 import type { RouteRecordNormalized } from 'vue-router'
@@ -27,7 +27,7 @@ import {
   isInsertReadonly,
   isFilterVisible,
   call,
-  actionEventBus
+  actionEventBus,
 
 } from './_internals/store'
 
@@ -54,13 +54,13 @@ const emit = defineEmits<Emits>()
 const router = useRouter()
 
 const debounce = useDebounce({
-  delay: 600
+  delay: 600,
 })
 
 const metaStore = useStore('meta')
 const breakpoints = useBreakpoints()
 const { reachedEnd, detach: detachScrollListener } = useScrollObserver(null, {
-  antecipate: 600
+  antecipate: 600,
 })
 
 const scrollPagination = !breakpoints.value.md || props.scrollPagination
@@ -76,7 +76,7 @@ if( scrollPagination ) {
 
 const store = useStore(props.collection) as CollectionStore
 watchStore(store, {
-  persistInQuery: !props.noQueryPersistence
+  persistInQuery: !props.noQueryPersistence,
 })
 
 const action = props.action
@@ -101,9 +101,9 @@ const fetchItems = async (optPayload?: ActionFilter) => {
     filters: store.activeFilters,
     limit: store.pagination.limit,
     offset: store.pagination.offset,
-    project: store.preferredTableProperties?.length > 0
+    project: store.preferredTableProperties.length > 0
       ? store.preferredTableProperties
-      : store.description.table as string[] || Object.keys(store.properties)
+      : store.description.table as string[] | undefined || Object.keys(store.properties),
   }
 
   if( batch.value > 0 ) {
@@ -139,7 +139,7 @@ const paginate = async (pagination: Pick<Pagination, 'offset' | 'limit'>) => {
       ...router.currentRoute.value.query,
       offset: pagination.offset,
       limit: pagination.limit,
-    }
+    },
   })
 
   store.pagination.offset = pagination.offset
@@ -150,7 +150,10 @@ const paginate = async (pagination: Pick<Pagination, 'offset' | 'limit'>) => {
 
 const emptyComponent = inject('emptyComponent', null)
 
-watch(() => [router.currentRoute.value.path, router.currentRoute.value.query.section], async (newVal, oldVal) => {
+watch(() => [
+router.currentRoute.value.path,
+router.currentRoute.value.query.section,
+], async (newVal, oldVal) => {
   if( oldVal ) {
     if( oldVal[0] === newVal[0] && oldVal[1] === newVal[1] ) {
       return
@@ -172,14 +175,14 @@ watch(() => [router.currentRoute.value.path, router.currentRoute.value.query.sec
   }
 }, {
   immediate: true,
-  flush: 'post'
+  flush: 'post',
 })
 
 const [performLazySearch] = debounce((value: string) => {
   router.push({
     query: {
-      search: value || undefined
-    }
+      search: value || undefined,
+    },
   })
 
   if( !value ) {
@@ -191,12 +194,12 @@ const [performLazySearch] = debounce((value: string) => {
   store.filters = Object.assign(deepClone(store.freshFilters), {
     $text: {
       $search: `"${value}"`,
-      $caseSensitive: false
-    }
+      $caseSensitive: false,
+    },
   })
 
   return fetchItems({
-    offset: 0
+    offset: 0,
   })
 })
 
@@ -232,7 +235,7 @@ watch(() => actionEventBus.value, async (_event) => {
   ) {
     getPromise = store.$actions.get({
       filters: {
-        _id: event.params._id
+        _id: event.params._id,
       },
     })
   }
@@ -246,23 +249,24 @@ watch(() => actionEventBus.value, async (_event) => {
       })
     }
     isInsertVisible.value = 'add'
-  }
-
-  else if( event.name === 'spawnEdit' ) {
+  } else if( event.name === 'spawnEdit' ) {
     store.$actions.setItem(event.params)
     isInsertVisible.value = 'edit'
-  }
-
-  else if( event.name === 'spawnView' ) {
+  } else if( event.name === 'spawnView' ) {
     isInsertReadonly.value = true
     isInsertVisible.value = 'view'
-  }
-
-  else if( event.name === 'duplicate' ) {
+  } else if( event.name === 'duplicate' ) {
     await getPromise!
 
     const newItem = Object.entries(store.item).reduce((a, [key, value]) => {
-      const property = store.properties[key]||{}
+      if( !(key in store.properties) ) {
+        return {
+          ...a,
+          [key]: value,
+        }
+      }
+
+      const property = store.properties[key]
       if( property.readOnly ) {
         return a
       }
@@ -278,7 +282,7 @@ watch(() => actionEventBus.value, async (_event) => {
         }
 
         if( refProperty.inline && value ) {
-          const { _id, ...rest } = value
+          const { _id: itemId, ...rest } = value
           return rest
         }
         return value
@@ -290,7 +294,7 @@ watch(() => actionEventBus.value, async (_event) => {
 
       return {
         ...a,
-        [key]: value
+        [key]: value,
       }
     }, {})
 
@@ -299,14 +303,13 @@ watch(() => actionEventBus.value, async (_event) => {
 
     store.referenceItem = {}
     isInsertVisible.value = 'duplicate'
-  }
-
-  else {
+  } else {
     emit('uiEvent', event)
   }
 
-}, { deep: true })
-
+}, {
+ deep: true,
+})
 
 watch(() => isInsertVisible, (value) => {
   if( value.value === false ) {
@@ -317,13 +320,13 @@ watch(() => isInsertVisible, (value) => {
 
 const individualActions = computed(() => {
   return store.individualActions.map((action: any) => ({
-    click: call.value!(action),
-    ...action
+    click: call.value(action),
+    ...action,
   }))
 })
 
 const actionButtons = computed(() => {
-  return store.actions.filter((action) => !action?.button)
+  return store.actions.filter((action) => !action.button)
 })
 
 provide('storeId', computed(() => props.collection))
@@ -333,19 +336,19 @@ provide('individualActions', individualActions)
 <template>
   <aeria-filter-panel
     v-if="isFilterVisible"
-    v-model="isFilterVisible"
     :key="store.$id"
-  ></aeria-filter-panel>
+    v-model="isFilterVisible"
+  />
 
   <aeria-insert-panel v-if="isInsertVisible">
     <template
       v-for="slotName in Object.keys($slots).filter(key => key.startsWith('field-'))"
-      v-slot:[slotName]="slotProps"
+      #[slotName]="slotProps"
     >
       <slot
         v-bind="slotProps"
         :name="slotName"
-      ></slot>
+      />
     </template>
   </aeria-insert-panel>
 
@@ -358,7 +361,7 @@ provide('individualActions', individualActions)
         !noLayoutToggle
         && store.description.layout
         && store.description.layout?.name !== 'tabular'
-    )
+      )
     )"
     class="crud__controls"
   >
@@ -375,17 +378,19 @@ provide('individualActions', individualActions)
             inputType: 'search'
           }
         }"
-      ></aeria-input>
+      />
     </div>
 
     <div class="crud__actions">
-      <aeria-context-menu v-if="
-        actionButtons.length > 0
-          || (!noLayoutToggle
-            && store.description.layout
-            && store.description.layout?.name !== 'tabular'
-          )
-      ">
+      <aeria-context-menu
+        v-if="
+          actionButtons.length > 0
+            || (!noLayoutToggle
+              && store.description.layout
+              && store.description.layout?.name !== 'tabular'
+            )
+        "
+      >
         <aeria-button
           variant="alt"
           icon="sliders"
@@ -396,8 +401,8 @@ provide('individualActions', individualActions)
         </aeria-button>
 
         <template
-          #filter
           v-if="Object.keys(store.availableFilters).length > 0"
+          #filter
         >
           <aeria-icon
             v-clickable
@@ -415,12 +420,12 @@ provide('individualActions', individualActions)
         </template>
 
         <template
-          #layout-toggle
           v-if="
             !noLayoutToggle
               && store.description.layout
               && store.description.layout?.name !== 'tabular'
           "
+          #layout-toggle
         >
           <aeria-icon
             v-clickable
@@ -434,7 +439,8 @@ provide('individualActions', individualActions)
         <!-- <aeria-icon icon="gear"></aeria-icon> -->
         <template
           v-for="(actionProps, index) in actionButtons"
-          v-slot:[`action-${index}`]
+          :key="actionProps.name"
+          #[`action-${index}`]
         >
           <aeria-icon
             v-if="actionProps"
@@ -446,7 +452,6 @@ provide('individualActions', individualActions)
             {{ t(actionProps.name) }}
           </aeria-icon>
         </template>
-
       </aeria-context-menu>
 
       <aeria-button
@@ -476,32 +481,33 @@ provide('individualActions', individualActions)
       <slot
         v-if="$slots.actions"
         name="actions"
-      ></slot>
+      />
     </div>
-
   </div>
 
   <div v-loading="(!scrollPagination || batch === MAX_BATCHES) && store.loading.getAll">
-    <div v-if="
-      store.itemsCount === 0
-      && !store.loading.getAll
-      && firstFetch
-      && (emptyComponent || $slots.empty)
-    ">
+    <div
+      v-if="
+        store.itemsCount === 0
+          && !store.loading.getAll
+          && firstFetch
+          && (emptyComponent || $slots.empty)
+      "
+    >
       <component
-        v-if="emptyComponent"
         :is="emptyComponent as Component"
+        v-if="emptyComponent"
         v-bind="{
           collection: store.$id
         }"
       >
-      <aeria-button
-        v-if="store.filtersCount === 0 && store.description.actions && 'ui:spawnAdd' in store.description.actions"
-        icon="plus"
-        @click="call({
-          action: 'ui:spawnAdd'
-        })()"
-      >
+        <aeria-button
+          v-if="store.filtersCount === 0 && store.description.actions && 'ui:spawnAdd' in store.description.actions"
+          icon="plus"
+          @click="call({
+            action: 'ui:spawnAdd'
+          })()"
+        >
           Adicionar primeiro item
         </aeria-button>
       </component>
@@ -512,7 +518,7 @@ provide('individualActions', individualActions)
           collection: store.$id
         }"
         name="empty"
-      ></slot>
+      />
     </div>
 
     <slot
@@ -521,30 +527,33 @@ provide('individualActions', individualActions)
         store
       }"
       name="component"
-    ></slot>
+    />
 
     <component
-      v-else
       v-bind="{
         individualActions,
         layoutOptions: layout?.options || store.layout.options!,
         componentProps
       }"
       :is="getLayout(layout?.name || store.$currentLayout as any)"
+      v-else
       :component-name="layout?.name || store.$currentLayout"
     >
       <template
         v-for="slotName in Object.keys($slots).filter(key => key.startsWith('row-'))"
-        v-slot:[slotName]="slotProps"
+        #[slotName]="slotProps"
       >
         <slot
           v-bind="slotProps"
           :name="slotName"
-        ></slot>
+        />
       </template>
 
-      <template #tfoot v-if="$slots.tfoot">
-        <slot name="tfoot"></slot>
+      <template
+        v-if="$slots.tfoot"
+        #tfoot
+      >
+        <slot name="tfoot" />
       </template>
     </component>
   </div>
@@ -556,9 +565,8 @@ provide('individualActions', individualActions)
     <aeria-pagination
       :pagination="store.pagination"
       @paginate="paginate"
-    ></aeria-pagination>
+    />
   </div>
-
 </template>
 
 <style scoped src="./aeria-crud.less"></style>

@@ -21,7 +21,7 @@ export type TextOptions = {
 
 window.I18N = reactive<I18nConfig>({
   current: '',
-  locales: {}
+  locales: {},
 })
 
 export const createI18n = (config: I18nConfig) => {
@@ -58,7 +58,7 @@ export const internalTranslate = (originalText: string, _options: TextOptions = 
 
       const result = internalTranslate(text.slice(0, offset), Object.assign({
         plural: true,
-        noFallback: true
+        noFallback: true,
       }, options))
 
       if( result ) {
@@ -69,7 +69,7 @@ export const internalTranslate = (originalText: string, _options: TextOptions = 
     if( ~text.indexOf('_') ) {
       const camelCased = text.replace(/_(\w)/, (r) => r[1].toUpperCase())
       const result = internalTranslate(camelCased, Object.assign({
-        noFallback: true
+        noFallback: true,
       }, options))
 
       if( result ) {

@@ -1,1 +1,3 @@
-export { vitePlugin as default } from './vite.js'
+export {
+  vitePlugin as default,
+} from './vite.js'

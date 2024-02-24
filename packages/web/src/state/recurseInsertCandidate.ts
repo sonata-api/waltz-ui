@@ -15,7 +15,10 @@ export const recurseInsertCandidate = async (obj: any, property: Property): Prom
         return result
       }
 
-      entries.push([key, result])
+      entries.push([
+        key,
+        result,
+      ])
     }
 
     return Object.fromEntries(entries)
@@ -39,7 +42,7 @@ export const recurseInsertCandidate = async (obj: any, property: Property): Prom
     const helperStore = useStore(collection)
 
     const result = await helperStore.$actions.deepInsert({
-      what: obj
+      what: obj,
     })
 
     return isLeft(result)

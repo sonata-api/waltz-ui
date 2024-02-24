@@ -60,7 +60,7 @@ const expand = ref(false)
           `"
 
           @click="expand = true"
-        />
+        >
 
         <div
           v-if="meta?.owner"
@@ -90,14 +90,17 @@ const expand = ref(false)
           expand = true
         }
       }"
-    />
+    >
 
-    <slot v-else-if="$slots.fallback" name="fallback"></slot>
-    <slot v-else-if="$slots.default"></slot>
+    <slot
+      v-else-if="$slots.fallback"
+      name="fallback"
+    />
+    <slot v-else-if="$slots.default" />
     <svg
       v-else
       class="picture__background"
-      xmlns="https://www.w3.org/2000/svg"
+      xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 200 200"
       preserveAspectRatio="none"
       :style="`
@@ -109,12 +112,26 @@ const expand = ref(false)
         ${bordered && 'picture__image--bordered'}
       `"
     >
-      <line x1="0" y1="0" x2="200" y2="200" stroke="#000" vector-effect="non-scaling-stroke"></line>
-      <line x1="200" y1="0" x2="0" y2="200" stroke="#000" vector-effect="non-scaling-stroke"></line>
+      <line
+        x1="0"
+        y1="0"
+        x2="200"
+        y2="200"
+        stroke="#000"
+        vector-effect="non-scaling-stroke"
+      />
+      <line
+        x1="200"
+        y1="0"
+        x2="0"
+        y2="200"
+        stroke="#000"
+        vector-effect="non-scaling-stroke"
+      />
     </svg>
 
     <figcaption v-if="$slots.caption">
-      <slot name="caption"></slot>
+      <slot name="caption" />
     </figcaption>
   </figure>
 </template>

@@ -14,8 +14,8 @@ export type StoreState = Record<string, any>
 
 export type Store = StoreState & {
   $id: string
-  $actions: Record<string, (...args: any[]) => any>
-  $functions: Record<string, (...args: any[]) => any>
+  $actions: Record<string, (...args: any[])=> any>
+  $functions: Record<string, (...args: any[])=> any>
 }
 
 export type GlobalState = Record<string, Store>
@@ -36,7 +36,7 @@ export const createGlobalStateManager = (): GlobalStateManager => {
     __globalState: globalState,
     install(app) {
       app.provide(GLOBAL_STATE_KEY, globalState)
-    }
+    },
   }
 }
 
@@ -63,7 +63,7 @@ export const useParentStore = (fallback?: string, manager?: GlobalStateManager) 
     isRef(parentStoreId)
       ? parentStoreId.value
       : parentStoreId,
-    manager
+    manager,
   )
 }
 
@@ -76,15 +76,15 @@ export const internalRegisterStore = <
   const TStoreId extends string,
   TStoreState extends StoreState,
   TStoreGetters extends Record<string, ComputedRef<any>>,
-  TStoreActions extends Record<string, (...args: any[]) => any>,
+  TStoreActions extends Record<string, (...args: any[])=> any>,
 >(
   manager: GlobalStateManager,
-  fn: (manager: GlobalStateManager) => {
+  fn: (manager: GlobalStateManager)=> {
     $id: TStoreId
     state: TStoreState
     getters?: TStoreGetters,
     actions?: TStoreActions
-  }
+  },
 ) => {
   const { $id, state, getters, actions } = fn(manager)
   const globalState = manager.__globalState
@@ -95,10 +95,10 @@ export const internalRegisterStore = <
 
   const store = isReactive(state)
     ? <Store>state
-    : reactive(<Store>state) 
+    : reactive(<Store>state)
 
   Object.assign(store, {
-    $id
+    $id,
   })
 
   if( getters ) {
@@ -109,7 +109,7 @@ export const internalRegisterStore = <
     const functions = new Proxy({}, {
       get: (_target, verb: string) => {
         return (...args: any[]) => actions.custom(verb, ...args)
-      }
+      },
     })
 
     const proxiedActions = new Proxy(actions, {
@@ -119,19 +119,19 @@ export const internalRegisterStore = <
         }
         return target[key].bind({
           ...actions,
-          $functions: functions
+          $functions: functions,
         })
-      }
+      },
     })
 
     Object.defineProperty(store, '$actions', {
       value: proxiedActions,
-      writable: true
+      writable: true,
     })
 
     Object.defineProperty(store, '$functions', {
       value: functions,
-      writable: true
+      writable: true,
     })
   }
 
@@ -143,23 +143,23 @@ export const registerStore = <
   const TStoreId extends string,
   TStoreState extends StoreState,
   TStoreGetters extends Record<string, ComputedRef<any>>,
-  TStoreActions extends Record<string, (...args: any[]) => any>,
+  TStoreActions extends Record<string, (...args: any[])=> any>,
   Getters = string extends keyof TStoreGetters
     ? {}
     : UnRef<TStoreGetters>,
   Return = TStoreState & Getters & {
     $id: TStoreId,
     $actions: TStoreActions
-    $functions: Record<string, (...args: any[]) => any>
-  }
+    $functions: Record<string, (...args: any[])=> any>
+  },
 
 >(
-  fn: (manager: GlobalStateManager) => {
+  fn: (manager: GlobalStateManager)=> {
     $id: TStoreId
     state: TStoreState
     getters?: TStoreGetters,
     actions?: TStoreActions
-  }
+  },
 ) => {
   return (manager: GlobalStateManager) => {
     return internalRegisterStore(manager, fn) as Return
