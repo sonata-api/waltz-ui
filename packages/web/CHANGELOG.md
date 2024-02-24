@@ -1,5 +1,13 @@
 # @waltz-ui/web
 
+## 1.0.29
+
+### Patch Changes
+
+- Fix web types
+- Updated dependencies
+  - @waltz-ui/state-management@0.1.7
+
 ## 1.0.28
 
 ### Patch Changes

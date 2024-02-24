@@ -1,5 +1,11 @@
 # @waltz-ui/ui
 
+## 1.0.49
+
+### Patch Changes
+
+- Fix exports
+
 ## 1.0.48
 
 ### Patch Changes

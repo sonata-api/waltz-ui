@@ -35,7 +35,7 @@ declare module 'waltz-ui' {
   type UserStores = typeof import('./src/stores')
 
   type Stores = {
-    [P in keyof (SystemStores & UserStores)]: ReturnType<ReturnType<(SystemStores & UserStores)[P]>>
+    [P in keyof (SystemStores & UserStores)]: ReturnType<(SystemStores & UserStores)[P]>
   }
 
   export const useStore: <TStoreId extends keyof Stores | keyof Collections>(
@@ -43,7 +43,15 @@ declare module 'waltz-ui' {
     manager?: import('@waltz-ui/state-management').GlobalStateManager
   ) => TStoreId extends keyof Stores
     ? Stores[TStoreId]
-    : import('waltz-ui').CollectionStore<Collections[TStoreId]['item']>
+    : TStoreId extends keyof Collections
+      ? 'item' extends keyof Collections[TStoreId]
+        ? Collections[TStoreId]['item'] extends infer Item
+          ? Item extends { _id: any }
+            ? import('waltz-ui').CollectionStore<Item>
+            : never
+          : never
+        : never
+      : never
 }
 
 declare module '@vue/runtime-core' {

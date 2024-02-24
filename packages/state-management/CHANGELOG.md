@@ -1,5 +1,24 @@
 # @waltz-ui/state-management
 
+## 0.1.8
+
+### Patch Changes
+
+- Fix store types
+
+## 0.1.7
+
+### Patch Changes
+
+- Fix web types
+
+## 0.1.6
+
+### Patch Changes
+
+- Fix types
+- Fix state management types
+
 ## 0.1.5
 
 ### Patch Changes

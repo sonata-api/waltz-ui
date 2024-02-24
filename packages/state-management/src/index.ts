@@ -10,7 +10,7 @@ import {
 
 } from 'vue'
 
-export type StoreState<TContent extends object = Record<string, Exclude<any, Function>>> = TContent
+export type StoreState = Record<string, any>
 
 export type Store = StoreState & {
   $id: string
@@ -77,12 +77,6 @@ export const internalRegisterStore = <
   TStoreState extends StoreState,
   TStoreGetters extends Record<string, ComputedRef<any>>,
   TStoreActions extends Record<string, (...args: any[]) => any>,
-  Return = TStoreState & UnRef<TStoreGetters> & {
-    $id: TStoreId,
-    $actions: TStoreActions
-    $functions: Record<string, (...args: any[]) => any>
-  }
-
 >(
   manager: GlobalStateManager,
   fn: (manager: GlobalStateManager) => {
@@ -142,7 +136,7 @@ export const internalRegisterStore = <
   }
 
   globalState[$id] = store
-  return <Return>store
+  return store
 }
 
 export const registerStore = <
@@ -150,6 +144,15 @@ export const registerStore = <
   TStoreState extends StoreState,
   TStoreGetters extends Record<string, ComputedRef<any>>,
   TStoreActions extends Record<string, (...args: any[]) => any>,
+  Getters = string extends keyof TStoreGetters
+    ? {}
+    : UnRef<TStoreGetters>,
+  Return = TStoreState & Getters & {
+    $id: TStoreId,
+    $actions: TStoreActions
+    $functions: Record<string, (...args: any[]) => any>
+  }
+
 >(
   fn: (manager: GlobalStateManager) => {
     $id: TStoreId
@@ -159,7 +162,7 @@ export const registerStore = <
   }
 ) => {
   return (manager: GlobalStateManager) => {
-    return internalRegisterStore(manager, fn)
+    return internalRegisterStore(manager, fn) as Return
   }
 }
 

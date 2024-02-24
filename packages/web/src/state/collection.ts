@@ -278,8 +278,8 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
 
 export const createCollectionStore = <TItem extends CollectionStoreItem>() => <
   TStoreId extends string,
-  TStoreState extends StoreState<any>=any,
-  TStoreGetters extends Record<string, ComputedRef<any>>={},
+  TStoreState extends StoreState = any,
+  TStoreGetters extends Record<string, ComputedRef<any>> = {},
   TStoreActions extends Record<string, (...args: any[]) => any>={}
 >(newer: {
   $id: TStoreId
