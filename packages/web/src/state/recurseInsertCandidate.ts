@@ -1,8 +1,8 @@
 import type { Property } from '@sonata-api/types'
 import { getReferenceProperty, isLeft } from '@sonata-api/common'
-import { useStore } from '@waltz-ui/state-management'
+import { useStore, type GlobalStateManager } from '@waltz-ui/state-management'
 
-export const recurseInsertCandidate = async (obj: any, property: Property): Promise<any> => {
+export const recurseInsertCandidate = async (obj: any, property: Property, manager: GlobalStateManager): Promise<any> => {
   if( !property ) {
     return obj
   }
@@ -10,7 +10,7 @@ export const recurseInsertCandidate = async (obj: any, property: Property): Prom
   if( 'properties' in property ) {
     const entries: [string, string][] = []
     for( const key in obj ) {
-      const result = await recurseInsertCandidate(obj[key], property.properties[key])
+      const result = await recurseInsertCandidate(obj[key], property.properties[key], manager)
       if( result && isLeft(result) ) {
         return result
       }
@@ -27,7 +27,7 @@ export const recurseInsertCandidate = async (obj: any, property: Property): Prom
   if( 'items' in property ) {
     const arr: any[] = []
     for( const elem of obj ) {
-      const result = await recurseInsertCandidate(elem, property.items)
+      const result = await recurseInsertCandidate(elem, property.items, manager)
       if( result && isLeft(result) ) {
         return result
       }
@@ -39,7 +39,7 @@ export const recurseInsertCandidate = async (obj: any, property: Property): Prom
 
   if( 'inline' in property && property.inline ) {
     const collection = getReferenceProperty(property)!.$ref
-    const helperStore = useStore(collection)
+    const helperStore = useStore(collection, manager)
 
     const result = await helperStore.$actions.deepInsert({
       what: obj,

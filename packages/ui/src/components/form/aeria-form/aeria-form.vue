@@ -196,11 +196,13 @@ const fieldStyle = (key: string, property: any) => {
     conditionMemo[key] = result.satisfied
   }
 
+  const span = breakpoints.value.md
+    ? layout?.span || 6
+    : 6
+
   style.push(`
-    --field-span: ${breakpoints.value.md
-      ? layout?.span || 6
-      : 6};
-          grid-column: span var(--field-span) / span var(--field-span);
+    --field-span: ${span};
+    grid-column: span var(--field-span) / span var(--field-span);
   `)
 
   if( !layout ) {
@@ -211,6 +213,15 @@ const fieldStyle = (key: string, property: any) => {
     style.push(`
       --vertical-spacing: ${layout.verticalSpacing};
       padding: var(--vertical-spacing) 0;
+    `)
+  }
+
+  if( layout.separator ) {
+    style.push(`
+      border-top: 1px solid var(--theme-border-color);
+      border-width: 1px 0 1px 0;
+      padding: 1rem 0;
+      margin: 1rem 0;
     `)
   }
 
@@ -289,6 +300,9 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
           <div
             :class="{
               'form__field-label': true,
+              'form__field-label--section': 'items' in fieldProperty
+                ? 'properties' in fieldProperty.items
+                : 'properties' in fieldProperty,
               'form__field-required-hint':
                 highlightRequired
                 && !searchOnly
@@ -367,7 +381,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
           <aeria-select
             v-bind="{
               property: fieldProperty as BooleanProperty,
-              propertyName,
+              propertyName: fieldPropertyName,
             }"
             boolean-ref
             :model-value="modelValue[fieldPropertyName]"
@@ -397,6 +411,26 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
           "
           style="display: grid; row-gap: .4rem"
         >
+          <div>
+            <aeria-button
+              small
+              variant="alt"
+              icon="plus"
+              :disabled="
+                !('inline' in fieldProperty.items && fieldProperty.items.inline) && (
+                  modelValue[fieldPropertyName]?.length >= fieldProperty.maxItems!
+                  || unfilled(modelValue[fieldPropertyName]?.[modelValue[fieldPropertyName]?.length - 1])
+                )
+              "
+              @click.prevent="
+                if(!modelValue[fieldPropertyName]) modelValue[fieldPropertyName] = [];
+                pushToArray(modelValue[fieldPropertyName], fieldProperty)
+              "
+            >
+              Adicionar
+            </aeria-button>
+          </div>
+
           <div
             v-for="(_, listIndex) in modelValue[fieldPropertyName]"
             :key="`rep-${fieldPropertyName}-${listIndex}`"
@@ -408,7 +442,7 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
                 v-model="modelValue[fieldPropertyName][listIndex]"
                 v-bind="{
                   property: fieldProperty.items,
-                  propertyName,
+                  propertyName: fieldPropertyName,
                   parentCollection: collectionName,
                   parentPropertyName,
                   columns: layout?.fields?.[fieldPropertyName]?.optionsColumns
@@ -430,25 +464,6 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
             />
           </div>
 
-          <div>
-            <aeria-button
-              small
-              variant="alt"
-              icon="plus"
-              :disabled="
-                !('inline' in fieldProperty.items && fieldProperty.items.inline) && (
-                  modelValue[fieldPropertyName]?.length >= fieldProperty.maxItems!
-                  || unfilled(modelValue[fieldPropertyName]?.[modelValue[fieldPropertyName]?.length - 1])
-                )
-              "
-              @click.prevent="
-                if(!modelValue[fieldPropertyName]) modelValue[fieldPropertyName] = [];
-                pushToArray(modelValue[fieldPropertyName], fieldProperty)
-              "
-            >
-              Adicionar
-            </aeria-button>
-          </div>
         </div>
 
         <component
@@ -456,8 +471,8 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
           v-else-if="modelValue"
           v-model="modelValue[fieldPropertyName]"
           v-bind="{
-            property,
-            propertyName,
+            property: fieldProperty,
+            propertyName: fieldPropertyName,
             parentPropertyName,
             parentCollection: collectionName,
             columns: layout?.fields?.[fieldPropertyName]?.optionsColumns
@@ -506,3 +521,4 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
 </template>
 
 <style scoped src="./aeria-form.less"></style>
+

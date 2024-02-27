@@ -40,8 +40,13 @@ export const createGlobalStateManager = (): GlobalStateManager => {
   }
 }
 
+export const getGlobalStateManager = () => {
+  return inject(GLOBAL_STATE_KEY, {} as GlobalState)
+}
+
 export const useStore = (storeId: string, manager?: GlobalStateManager) => {
-  const globalState = manager?.__globalState || inject(GLOBAL_STATE_KEY, {} as GlobalState)
+  const globalState = manager?.__globalState || getGlobalStateManager()
+
   if( !(storeId in globalState) ) {
     throw new Error(`tried to invoke unregistered store "${storeId}"`)
   }
@@ -68,7 +73,7 @@ export const useParentStore = (fallback?: string, manager?: GlobalStateManager) 
 }
 
 export const hasStore = (storeId: string, manager?: GlobalStateManager) => {
-  const globalState = manager?.__globalState || inject(GLOBAL_STATE_KEY, {} as GlobalState)
+  const globalState = manager?.__globalState || getGlobalStateManager()
   return storeId in globalState
 }
 

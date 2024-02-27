@@ -87,18 +87,18 @@ export const pushToArray = (modelValue: any[] | undefined, property: Property) =
   if( '$ref' in property ) {
     const helperStore = useStore(property.$ref)
     const newVal = deepClone(helperStore.$freshItem)
-    return modelValue.push(newVal)
+    return modelValue.unshift(newVal)
   }
 
   if( 'properties' in nestedProp ) {
-    return modelValue.push(freshItem(nestedProp))
+    return modelValue.unshift(freshItem(nestedProp))
   }
 
   if( 'type' in nestedProp && nestedProp.type === 'boolean' ) {
-    return modelValue.push({})
+    return modelValue.unshift({})
   }
 
-  return modelValue.push(null)
+  return modelValue.unshift(null)
 }
 
 export const spliceFromArray = (modelValue: any[], index: number) => {

@@ -9,6 +9,7 @@
 .panel {
   --min-width: var(--panel-min-width, 36rem);
   --max-width: var(--panel-max-width, unset);
+  --fixed-width: 50rem;
 
   &--fixed {
     position: absolute;
@@ -82,7 +83,7 @@
       overscroll-behavior: contain;
 
       @media screen and (width >= 768px) {
-        width: 46rem;
+        width: var(--fixed-width);
       }
     }
 

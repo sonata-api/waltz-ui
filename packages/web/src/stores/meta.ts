@@ -120,7 +120,7 @@ export const meta = registerStore((manager) => {
               freshFilters: deepClone(filters),
               rawDescription,
             },
-          }))(manager)
+          }, manager))(manager)
 
         }
 

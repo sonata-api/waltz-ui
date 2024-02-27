@@ -8,7 +8,12 @@ import { useClipboard } from '@waltz-ui/web'
 import AeriaInfo from '../../aeria-info/aeria-info.vue'
 import AeriaIcon from '../../aeria-icon/aeria-icon.vue'
 
-type InputType = string | number | Date | null | undefined
+type InputType =
+  | string
+  | number
+  | Date
+  | null
+  | undefined
 
 type InputVariant =
   | 'normal'
@@ -78,9 +83,9 @@ if( 'type' in property ) {
   inputBind.readonly = readOnly
 
   if( property.type === 'string' && [
-'date',
-'date-time',
-].includes(property.format!) ) {
+    'date',
+    'date-time',
+  ].includes(property.format!) ) {
     inputBind.type = !searchOnly && property.format === 'date-time'
       ? 'datetime-local'
       : 'date'
@@ -103,8 +108,8 @@ const getDatetimeString = () => {
 }
 
 const inputValue = ref([
-'date',
-'date-time',
+  'date',
+  'date-time',
 ].includes(inputBind.type)
     ? getDatetimeString()
     : props.modelValue === null || props.modelValue === undefined

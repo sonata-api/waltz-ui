@@ -177,3 +177,4 @@ const toggleCollapsed = (value: boolean) => {
 </template>
 
 <style scoped src="./aeria-panel.less"></style>
+

@@ -42,7 +42,7 @@ const insert = async () => {
       <aeria-button
         class="passchange__save-button"
         :disabled="!!passwordError"
-        @click="insert"
+        @click.prevent="insert"
       >
         Salvar
       </aeria-button>

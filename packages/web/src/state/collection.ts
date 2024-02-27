@@ -1,6 +1,6 @@
 import type { Description, Layout, LayoutName } from '@sonata-api/types'
 import { computed, reactive, type ComputedRef } from 'vue'
-import { useStore, type StoreState, type UnRef } from '@waltz-ui/state-management'
+import { useStore, type StoreState, type UnRef, type GlobalStateManager } from '@waltz-ui/state-management'
 import { deepClone, deepMerge, isReference, getReferenceProperty } from '@sonata-api/common'
 import { PAGINATION_PER_PAGE_DEFAULT } from '../constants'
 import { deepDiff } from './deepDiff'
@@ -299,23 +299,25 @@ export const createCollectionStore = <TItem extends CollectionStoreItem>() => <
   TStoreState extends StoreState = any,
   TStoreGetters extends Record<string, ComputedRef<any>> = {},
   TStoreActions extends Record<string, (...args: any[])=> any>={},
->(newer: {
-  $id: TStoreId
-  state?: TStoreState
-  getters?: (
-    state: CollectionStoreState & TStoreState,
-    actions: ReturnType<typeof useStoreActions> & TStoreActions
-  )=> TStoreGetters
-  actions?: (
-    state: CollectionStoreState & TStoreState,
-    actions: ReturnType<typeof useStoreActions>
-  )=> TStoreActions
-
-}) => {
+>(
+  newer: {
+    $id: TStoreId
+    state?: TStoreState
+    getters?: (
+      state: CollectionStoreState & TStoreState,
+      actions: ReturnType<typeof useStoreActions> & TStoreActions
+    )=> TStoreGetters
+    actions?: (
+      state: CollectionStoreState & TStoreState,
+      actions: ReturnType<typeof useStoreActions>
+    )=> TStoreActions
+  },
+  manager: GlobalStateManager
+) => {
   const initial = internalCreateCollectionStore<TItem>()
   const state: any = initial.state
 
-  const actions = useStoreActions(state)
+  const actions = useStoreActions(state, manager)
   if( newer.actions ) {
     Object.assign(actions, newer.actions(state, actions))
   }

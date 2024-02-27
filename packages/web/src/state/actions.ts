@@ -1,7 +1,7 @@
 import type { Property } from '@sonata-api/types'
 import type { CollectionStore } from './collection'
 import { formatValue, getReferenceProperty, deepClone, isLeft, unwrapEither, isReference } from '@sonata-api/common'
-import { useStore } from '@waltz-ui/state-management'
+import { useStore, type GlobalStateManager } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
 import { API_URL } from '../constants'
 import { request } from '../http'
@@ -28,7 +28,7 @@ export type CustomOptions = {
   insert?: boolean
 }
 
-export const useStoreActions = (store: CollectionStore) => {
+export const useStoreActions = (store: CollectionStore, manager: GlobalStateManager) => {
   const actions = {
     setItem(item: typeof store['item']) {
       for( const key in store.item ) {
@@ -212,7 +212,7 @@ export const useStoreActions = (store: CollectionStore) => {
 
     async deepInsert(payload?: { what: Partial<typeof store['item']> }, options?: CustomOptions) {
       const candidate = Object.assign({}, payload?.what || store.diffedItem)
-      const newItem = await recurseInsertCandidate(candidate, store.description as unknown as Property)
+      const newItem = await recurseInsertCandidate(candidate, store.description as unknown as Property, manager)
 
       if( isLeft(newItem) ) {
         return newItem
@@ -294,14 +294,14 @@ export const useStoreActions = (store: CollectionStore) => {
     },
 
     formatValue(args: {
-      value: string | object | object[],
+      value: string | object | (string | object)[],
       key: string,
       form?: boolean,
       property: Property,
       index?: string
     }) {
-      const value = args.property.translate
-        ? t(args.value as string)
+      const value = args.property.translate && typeof args.value === 'string'
+        ? t(args.value)
         : args.value
 
       if( args.key in store.transformers ) {
@@ -311,7 +311,7 @@ export const useStoreActions = (store: CollectionStore) => {
       if( isReference(args.property) ) {
         const index = args.index || args.property.indexes?.[0]
 
-        const helperStore = useStore(getReferenceProperty(args.property)!.$ref)
+        const helperStore = useStore(getReferenceProperty(args.property)!.$ref, manager)
         const property = helperStore.description.properties![index!]
 
         if( property?.isReference ) {

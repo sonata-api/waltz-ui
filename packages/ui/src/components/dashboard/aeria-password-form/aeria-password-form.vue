@@ -28,30 +28,31 @@ const passwordError = computed(() => {
 </script>
 
 <template>
-  <div>
-    <aeria-form
-      :form="{
-        password: {
-          type: 'string',
-          icon: 'key',
-          inputType: 'password'
-        },
-        confirmation: {
-          type: 'string',
-          icon: 'key',
-          inputType: 'password'
-        },
-      }"
+  <aeria-form
+    :form="{
+      password: {
+        type: 'string',
+        icon: 'key',
+        inputType: 'password'
+      },
+      confirmation: {
+        type: 'string',
+        icon: 'key',
+        inputType: 'password'
+      },
+    }"
 
-      :model-value="modelValue"
-      @update:model-value="$emit('update:modelValue', $event)"
-    />
+    :model-value="modelValue"
+    @update:model-value="$emit('update:modelValue', $event)"
+  >
+    <template #after>
+      <div>
+        {{ passwordError || 'Senhas conferem' }}
+      </div>
 
-    <div>
-      {{ passwordError || 'Senhas conferem' }}
-    </div>
+      <slot v-bind="{ passwordError }" />
+    </template>
+  </aeria-form>
 
-    <slot v-bind="{ passwordError }" />
-  </div>
 </template>
 

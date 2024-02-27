@@ -1,13 +1,13 @@
 {
   "name": "@waltz-ui/ui",
   "type": "module",
-  "version": "1.0.49",
+  "version": "1.0.51",
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite",
     "lint": "eslint src/",
-    "lint:fix": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "prepublishOnly": "pnpm build"
