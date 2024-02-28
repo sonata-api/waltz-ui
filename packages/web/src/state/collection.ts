@@ -312,7 +312,7 @@ export const createCollectionStore = <TItem extends CollectionStoreItem>() => <
       actions: ReturnType<typeof useStoreActions>
     )=> TStoreActions
   },
-  manager: GlobalStateManager
+  manager: GlobalStateManager,
 ) => {
   const initial = internalCreateCollectionStore<TItem>()
   const state: any = initial.state
