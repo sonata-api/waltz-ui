@@ -1,5 +1,17 @@
 # create-waltz-app
 
+## 0.0.25
+
+### Patch Changes
+
+- Fix cli
+
+## 0.0.24
+
+### Patch Changes
+
+- Fix cli
+
 ## 0.0.23
 
 ### Patch Changes
