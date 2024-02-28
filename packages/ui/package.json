@@ -6,11 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite",
-    "lint": "eslint src/",
-    "lint:fix": "eslint src/ --fix",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
-    "prepublishOnly": "pnpm build"
+    "prepublishOnly": "pnpm lint && pnpm build"
   },
   "keywords": [],
   "author": "",

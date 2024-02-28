@@ -91,7 +91,7 @@ export const normalizeFilters = (filters: Description['filters']) => {
 export const freshItem = (description: Description) => _freshItem(description)
 
 export const freshFilters = (description: Description) => {
-  return Object.entries(description.properties || {})
+  return Object.entries(description.properties)
     .reduce((a, [key, property]) => {
       if( isObject(property) ) {
         return {

@@ -334,7 +334,7 @@ export const useStoreActions = (store: CollectionStore, manager: GlobalStateMana
       )
     },
 
-    select(properties: (keyof typeof store['properties'])[], item: typeof store['items']) {
+    select(properties: (keyof typeof store['properties'])[], item?: typeof store['items']) {
       return Object.entries(item || store.item).reduce((a, [key, value]) => {
         if( !properties.includes(key) ) {
           return a

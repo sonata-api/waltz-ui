@@ -1,11 +1,12 @@
 {
   "name": "create-aeria-app",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "description": "",
   "license": "ISC",
   "scripts": {
+    "lint": "eslint src",
     "build": "tsc && rm -rf templates/*/node_modules",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "pnpm lint && pnpm build"
   },
   "keywords": [],
   "author": "",

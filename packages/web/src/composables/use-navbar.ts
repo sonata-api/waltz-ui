@@ -14,7 +14,7 @@ const findRoute = (path: string, router: Router) => {
     path,
   })
 
-  if( found ) {
+  if( found.matched.length ) {
     return {
       ...found,
       meta: <MenuNode['meta']>found.meta,
@@ -112,7 +112,7 @@ export const useNavbar = async (props: Props) => {
 
     const pathMatches = typeof subroute.redirect === 'string'
       ? subroute.redirect === route.path
-      : subroute.path === (route.redirectedFrom?.path || route.path)?.split(/\/home$/)[0]
+      : subroute.path === (route.redirectedFrom?.path || route.path).split(/\/home$/)[0]
 
     return pathMatches
   }

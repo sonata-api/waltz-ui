@@ -77,6 +77,7 @@ watch(() => store.item._id, (_id) => {
         layout: store.description.formLayout || {}
       }"
 
+      focus
       @add="$event.preventDefault()"
     >
       <template

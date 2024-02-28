@@ -53,6 +53,5 @@ const passwordError = computed(() => {
       <slot v-bind="{ passwordError }" />
     </template>
   </aeria-form>
-
 </template>
 

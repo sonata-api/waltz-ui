@@ -463,7 +463,6 @@ const getNestedValidationError = (key: string, listIndex?: number) => {
               @click="spliceFromArray(modelValue[fieldPropertyName], listIndex)"
             />
           </div>
-
         </div>
 
         <component

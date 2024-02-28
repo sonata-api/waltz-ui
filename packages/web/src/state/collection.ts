@@ -89,7 +89,10 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
       const sanitizedFilters = removeEmpty(deepClone(state.filters))
 
       const expr = (key: string, value: any) => {
-        const property = properties.value[key]
+        const property = key in properties.value
+          ? properties.value[key]
+          : null
+
         const getValue = (value: any) => {
           if( !property ) {
             return value
@@ -160,7 +163,7 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
 
     })
 
-    const properties = computed(() => description.value.properties || {})
+    const properties = computed(() => description.value.properties)
     const actions = computed(() => normalizeActions(description.value.actions))
 
     const diffedItem = computed(() => {
@@ -189,7 +192,7 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
       $filters,
       actions,
       individualActions: computed(() => normalizeActions(description.value.individualActions)),
-      hasSelectionActions: computed(() => actions.value.some((action) => !!action?.selection)),
+      hasSelectionActions: computed(() => actions.value.some((action) => !!action.selection)),
       condensedItem: computed(() => condenseItem(state.item)),
 
       $freshItem: computed(() => {
@@ -237,15 +240,17 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
           : isComplete
       }),
 
-      filtersCount: computed(() => Object.values($filters.value).filter((_: any) => !!_).length),
+      filtersCount: computed(() => Object.values($filters.value).filter((_) => !!_).length),
       hasActiveFilters: computed(() => Object.values(state.filters).some((_) => !!_)),
       availableFilters: computed(() => {
-        if( !description.value.filters || !description.value.properties ) {
+        if( !description.value.filters ) {
           return {}
         }
 
         return Object.keys(normalizeFilters(description.value.filters)).reduce((a, k) => {
-          const property = properties.value[k]
+          const property = k in properties.value
+            ? properties.value[k]
+            : null
 
           return {
             ...a,
@@ -259,9 +264,6 @@ const internalCreateCollectionStore = <TItem extends CollectionStoreItem>() => {
       }),
 
       references: computed(() => {
-        if( !description.value.properties ) {
-          return []
-        }
         return Object.entries(description.value.properties).filter(([, property]) => {
           return isReference(property) && property.inline
         })

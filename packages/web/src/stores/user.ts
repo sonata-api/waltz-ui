@@ -72,9 +72,6 @@ export const user = registerStore((manager) => {
       properties: computed(() => {
         const metaStore = meta(manager)
         const properties = state.description.properties
-        if( !properties ) {
-          return {}
-        }
 
         properties.roles.items.enum = metaStore.roles
         return properties
@@ -100,7 +97,7 @@ export const user = registerStore((manager) => {
             return left(error)
           }
 
-          const auth = unwrapEither(resultEither) as any
+          const auth: AuthResult = unwrapEither(resultEither)
 
           state.credentials = {
             email: '',

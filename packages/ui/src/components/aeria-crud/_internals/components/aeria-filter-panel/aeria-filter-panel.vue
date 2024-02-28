@@ -45,6 +45,8 @@ const filter = () => {
         form: store.availableFilters,
         layout: store.description.formLayout as any || {}
       }"
+
+      focus
     />
     <template #footer>
       <aeria-button

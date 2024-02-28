@@ -50,8 +50,11 @@ const buildValue = (value: any, property: Property) => {
 
 export const convertToSearchQuery = (store: CollectionStore) => {
   const entries: [string, string][] = []
-  for( const [key, value] of Object.entries(store.activeFilters as Record<string, any>) ) {
-    const property = store.properties[key]
+  for( const [key, value] of Object.entries(store.activeFilters) ) {
+    const property = key in store.properties
+      ? store.properties[key]
+      : null
+
     if( !property || !value ) {
       continue
     }
@@ -104,7 +107,10 @@ export const convertFromSearchQuery = (store: CollectionStore, route: RouteRecor
       ? key.slice(prefix.length, -2)
       : key.slice(prefix.length)
 
-    const property = store.properties[propName]
+    const property = propName in store.properties
+      ? store.properties[propName]
+      : null
+
     if( !property ) {
       continue
     }

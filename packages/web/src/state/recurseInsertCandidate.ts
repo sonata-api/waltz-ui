@@ -2,7 +2,7 @@ import type { Property } from '@sonata-api/types'
 import { getReferenceProperty, isLeft } from '@sonata-api/common'
 import { useStore, type GlobalStateManager } from '@waltz-ui/state-management'
 
-export const recurseInsertCandidate = async (obj: any, property: Property, manager: GlobalStateManager): Promise<any> => {
+export const recurseInsertCandidate = async (obj: any, property: Property | undefined, manager: GlobalStateManager): Promise<any> => {
   if( !property ) {
     return obj
   }

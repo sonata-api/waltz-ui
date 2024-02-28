@@ -26,12 +26,6 @@ export type Toast = {
 }
 
 export const meta = registerStore((manager) => {
-  if( !window.INSTANCE_VARS ) {
-    Object.assign(window, {
-      INSTANCE_VARS: {},
-    })
-  }
-
   const freshState = {
     descriptions: {} as Record<string, Description>,
     roles: [] as string[],
@@ -94,10 +88,6 @@ export const meta = registerStore((manager) => {
           const item = freshItem(description)
 
           const filters = freshFilters(description)
-
-          if( !description.properties ) {
-            throw new Error(`collection ${collectionName} has no properties`)
-          }
 
           if( hasStore(collectionName, manager) ) {
             const store = useStore(collectionName, manager)

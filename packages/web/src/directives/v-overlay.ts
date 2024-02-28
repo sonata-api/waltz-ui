@@ -19,9 +19,9 @@ const overlay: Directive = {
 
     const overlayElem = document.createElement('div')
 
-    const visible = !binding.modifiers?.invisible
+    const visible = !binding.modifiers.invisible
       && (
-        !binding.modifiers?.invisibleOnLarge
+        !binding.modifiers.invisibleOnLarge
           || window.matchMedia('(max-width: 600px)').matches
       )
 

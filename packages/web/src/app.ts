@@ -54,11 +54,11 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>) => {
 
   app.mixin({
     computed: {
-      instanceVars: () => INSTANCE_VARS || {},
+      instanceVars: () => INSTANCE_VARS,
       currentUser: () => userStore.currentUser,
       viewTitle: () => {
         const currentRoute = useRouter().currentRoute.value
-        const title = currentRoute.meta?.title as string
+        const title = currentRoute.meta.title as string
 
         if( !title ) {
           return
@@ -66,7 +66,7 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>) => {
 
         return title.replace(
           '%viewTitle%',
-          t(currentRoute.params?.collection as string, {
+          t(currentRoute.params.collection as string, {
             plural: true,
           }),
         )
@@ -74,7 +74,7 @@ export const useApp = async (optionsFn: ReturnType<typeof defineOptions>) => {
       viewIcon: () => {
         const currentRoute = router.currentRoute.value
         return currentRoute.meta.icon
-          || metaStore.descriptions[currentRoute.params?.collection as string]?.icon
+          || metaStore.descriptions[currentRoute.params.collection as string].icon
       },
     },
     methods: templateFunctions,
