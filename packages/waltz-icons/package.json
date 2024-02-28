@@ -19,7 +19,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src",
     "build": "tsc && node dist/__scripts__/bundleAllIcons.js",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "pnpm lint && pnpm build"
   },
   "exports": {
     ".": "./dist/index.js",
