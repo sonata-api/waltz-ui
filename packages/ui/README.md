@@ -3,8 +3,6 @@
 ## Installation
 
 ```sh
-$ yarn add @waltz-ui/ui
-# or
 $ npm install @waltz-ui/ui
 ```
 

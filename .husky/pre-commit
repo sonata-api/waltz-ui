@@ -2,6 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 for ws in $(git diff --name-only | grep -oE 'packages/([^/]+)'); do
+  echo pnpm --filter="./${ws}" lint:fix
   pnpm --filter="./${ws}" lint:fix
 done
 
