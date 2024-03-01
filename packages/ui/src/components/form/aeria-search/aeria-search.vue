@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { FormFieldProps, SearchProperty } from '../types'
 import { getReferenceProperty, convertConditionToQuery } from '@sonata-api/common'
-import { provide, computed, ref, watch, onMounted } from 'vue'
+import { provide, computed, ref, watch, onMounted, isRef } from 'vue'
 import { useDebounce, type Pagination } from '@waltz-ui/web'
 import { useStore, useParentStore, getStoreId, STORE_ID, type Store } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
@@ -69,7 +69,10 @@ const inputValue = ref<Record<NonNullable<typeof indexes>[number], any>>({})
 const defaultFilters = () => {
   const subject: Record<string, Store> = {}
   if( parentStoreId ) {
-    subject[parentStoreId] = parentStore!
+    const key = isRef(parentStoreId)
+      ? parentStoreId.value
+      : parentStoreId
+    subject[key] = parentStore!
   }
 
   return refProperty.constraints

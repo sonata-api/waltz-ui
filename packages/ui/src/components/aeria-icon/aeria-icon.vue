@@ -4,7 +4,7 @@ import type { IconStyle } from '@phosphor-icons/core'
 import { inject, computed } from 'vue'
 
 type Props = {
-  icon: Icon
+  icon?: Icon
   size?: string
   medium?: boolean
   reactive?: boolean | null
@@ -19,7 +19,7 @@ const reactive = typeof props.reactive === 'boolean'
   : inject('iconReactive', false)
 
 const computedIcon = computed((): Icon => {
-  return props.icon.includes(':')
+  return props.icon?.includes(':')
     ? props.icon
     : `regular:${<Exclude<Icon, `${IconStyle}:${string}`>>props.icon}`
 })

@@ -1,5 +1,23 @@
 # @waltz-ui/state-management
 
+## 0.1.14
+
+### Patch Changes
+
+- Minor fixes
+
+## 0.1.13
+
+### Patch Changes
+
+- Refactor duplicated code
+
+## 0.1.12
+
+### Patch Changes
+
+- Minor fixes
+
 ## 0.1.11
 
 ### Patch Changes

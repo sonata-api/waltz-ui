@@ -52,7 +52,7 @@ export const getGlobalState = (manager: GlobalStateManager) => {
 }
 
 export const getStoreId = () => {
-  return inject<string | null>(STORE_ID)
+  return inject<Ref<string> | string | null>(STORE_ID, null)
 }
 
 export const useStore = (storeId: string, manager?: GlobalStateManager) => {
@@ -66,7 +66,7 @@ export const useStore = (storeId: string, manager?: GlobalStateManager) => {
 }
 
 export const useParentStore = (fallback?: string, manager?: GlobalStateManager) => {
-  let parentStoreId = inject<Ref<string> | string | null>(STORE_ID, null)
+  let parentStoreId = getStoreId()
   if( !parentStoreId ) {
     if( !fallback ) {
       throw new Error('no parent store found')

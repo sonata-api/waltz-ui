@@ -1,12 +1,12 @@
 import { type Directive } from 'vue'
-import { useStore } from '@waltz-ui/state-management'
+import { useStore, type GlobalStateManager } from '@waltz-ui/state-management'
 
 const theme: Directive = {
   mounted(_, binding) {
-    useStore('meta').themeOverride = binding.arg
+    useStore('meta', <GlobalStateManager>binding.value).themeOverride = binding.arg
   },
-  unmounted() {
-    useStore('meta').themeOverride = ''
+  unmounted(_, binding) {
+    useStore('meta', <GlobalStateManager>binding.value).themeOverride = ''
   },
 }
 

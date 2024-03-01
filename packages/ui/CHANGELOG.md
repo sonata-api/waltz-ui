@@ -1,5 +1,28 @@
 # @waltz-ui/ui
 
+## 1.0.55
+
+### Patch Changes
+
+- Fix aeria-icon bug
+
+## 1.0.54
+
+### Patch Changes
+
+- Minor fixes
+- Updated dependencies
+  - @waltz-ui/state-management@0.1.14
+
+## 1.0.53
+
+### Patch Changes
+
+- Minor fixes
+- Updated dependencies
+  - @waltz-ui/web@1.0.33
+  - @waltz-ui/state-management@0.1.12
+
 ## 1.0.52
 
 ### Patch Changes

@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { useStore } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
+import { computed } from 'vue'
 import AeriaPanel from '../aeria-panel/aeria-panel.vue'
 import AeriaPrompt from '../dashboard/aeria-prompt/aeria-prompt.vue'
 import AeriaToast from '../dashboard/aeria-toast/aeria-toast.vue'
 
 const metaStore = useStore('meta')
+const theme = computed(() => metaStore.themeOverride || metaStore.theme)
 </script>
 
 <template>
@@ -13,8 +15,8 @@ const metaStore = useStore('meta')
     id="main"
     :class="`
       main
-      main--${metaStore.theme}
-      ${metaStore.theme === 'dark' && 'tw-dark'}
+      main--${theme}
+      ${theme === 'dark' && 'tw-dark'}
   `"
   >
     <Suspense>

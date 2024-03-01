@@ -1,5 +1,13 @@
 # waltz-build
 
+## 0.1.18
+
+### Patch Changes
+
+- Minor fixes
+- Updated dependencies
+  - waltz-icons@0.0.19
+
 ## 0.1.17
 
 ### Patch Changes

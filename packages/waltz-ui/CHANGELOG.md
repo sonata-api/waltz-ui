@@ -1,5 +1,16 @@
 # waltz-ui
 
+## 1.0.6
+
+### Patch Changes
+
+- Minor fixes
+- Updated dependencies
+  - @waltz-ui/web@1.0.33
+  - @waltz-ui/i18n@1.0.9
+  - @waltz-ui/state-management@0.1.12
+  - @waltz-ui/ui@1.0.53
+
 ## 1.0.5
 
 ### Patch Changes

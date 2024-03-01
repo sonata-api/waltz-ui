@@ -1,5 +1,11 @@
 # @waltz-ui/i18n
 
+## 1.0.9
+
+### Patch Changes
+
+- Minor fixes
+
 ## 1.0.8
 
 ### Patch Changes
