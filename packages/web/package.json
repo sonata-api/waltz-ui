@@ -5,6 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
     "build": "tsc",
     "watch": "tsc --watch",
     "prepublishOnly": "pnpm lint && pnpm build",
