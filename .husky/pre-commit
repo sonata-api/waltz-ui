@@ -1,7 +1,8 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-pnpm lint:fix
-pnpm lint-css:fix
+for ws in $(git diff --name-only | grep -oE 'packages/([^/]+)'); do
+  pnpm --filter="./${ws}" lint:fix
+done
 
-unlink packages/packages 2>/dev/null || true
+git rm --ignore-unmatch packages/packages

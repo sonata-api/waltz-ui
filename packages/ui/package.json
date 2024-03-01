@@ -6,8 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite",
-    "lint": "eslint src",
-    "lint:fix": "eslint src --fix",
+    "lint": "eslint src && pnpm lint-css",
+    "lint:fix": "eslint src --fix && pnpm lint-css:fix",
+    "lint-css": "stylelint '**/*.less'",
+    "lint-css:fix": "stylelint --fix '**/*.less'",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "prepublishOnly": "pnpm lint && pnpm build"

@@ -42,7 +42,7 @@ export const createGlobalStateManager = (): GlobalStateManager & Plugin => {
 
 export const getGlobalStateManager = () => {
   return {
-    __globalState: inject(GLOBAL_STATE_KEY, {} as GlobalState)
+    __globalState: inject(GLOBAL_STATE_KEY, {} as GlobalState),
   }
 }
 
