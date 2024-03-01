@@ -18,6 +18,10 @@ export default defineConfig(async () => {
         'bson': fileURLToPath(new URL('bson.cjs', import.meta.resolve('bson'))),
       },
     },
+    envPrefix: [
+      'VITE_',
+      'AERIA_',
+    ],
     plugins: [
       waltzIcons({
         hash: true,

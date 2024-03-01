@@ -1,7 +1,7 @@
 interface ImportMeta {
   env: Record<
-    | 'VITE_AERIAUI_STORAGE_NAMESPACE'
-    | 'VITE_WALTZUI_API_URL'
+    | 'AERIA_STORAGE_NAMESPACE'
+    | 'AERIA_API_URL'
   , string>
 }
 
