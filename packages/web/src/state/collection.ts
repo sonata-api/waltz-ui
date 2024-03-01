@@ -2,10 +2,10 @@ import type { Description, Layout, LayoutName } from '@sonata-api/types'
 import { computed, reactive, type ComputedRef } from 'vue'
 import { useStore, type StoreState, type UnRef, type GlobalStateManager } from '@waltz-ui/state-management'
 import { deepClone, deepMerge, isReference, getReferenceProperty } from '@sonata-api/common'
-import { PAGINATION_PER_PAGE_DEFAULT } from '../constants'
-import { deepDiff } from './deepDiff'
-import { isDocumentComplete } from './isDocumentComplete'
-import { useStoreActions } from './actions'
+import { PAGINATION_PER_PAGE_DEFAULT } from '../constants.js'
+import { deepDiff } from './deepDiff.js'
+import { isDocumentComplete } from './isDocumentComplete.js'
+import { useStoreActions } from './actions.js'
 
 import {
   condenseItem,
@@ -14,7 +14,7 @@ import {
   normalizeFilters,
   normalizeActions,
 
-} from './helpers'
+} from './helpers.js'
 
 export type CollectionStoreState<TItem extends CollectionStoreItem = any> =
   ReturnType<typeof internalCreateCollectionStore<TItem>>['state']

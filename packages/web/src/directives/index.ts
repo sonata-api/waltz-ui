@@ -1,10 +1,10 @@
 import type { App } from 'vue'
 
-import Overlay from './v-overlay'
-import Loading from './v-loading'
-import Clickable from './v-clickable'
-import Focus from './v-focus'
-import Theme from './v-theme'
+import Overlay from './v-overlay.js'
+import Loading from './v-loading.js'
+import Clickable from './v-clickable.js'
+import Focus from './v-focus.js'
+import Theme from './v-theme.js'
 
 export default (app: App) => {
   app.directive('overlay', Overlay)

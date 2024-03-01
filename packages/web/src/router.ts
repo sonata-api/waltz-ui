@@ -1,7 +1,7 @@
 import type { Icon } from '@sonata-api/types'
 import type { GlobalStateManager } from '@waltz-ui/state-management'
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
-import { meta } from './stores'
+import { meta } from './stores/index.js'
 
 export type RouteMeta = {
   meta: {

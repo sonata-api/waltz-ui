@@ -1,9 +1,9 @@
 import type { Router, RouteRecordRaw } from 'vue-router'
+import type { Route, MenuSchema, MenuNode } from '../index.js'
 import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from '@waltz-ui/state-management'
 import { arraysIntersects } from '@sonata-api/common'
-import { type Route, type MenuSchema, type MenuNode } from '..'
 
 type Props = {
   schema: MenuSchema

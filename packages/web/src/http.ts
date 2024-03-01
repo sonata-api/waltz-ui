@@ -1,5 +1,5 @@
 import { request as originalRequest, defaultRequestTransformer, type RequestConfig } from '@sonata-api/common'
-import { STORAGE_NAMESPACE } from './constants'
+import { STORAGE_NAMESPACE } from './constants.js'
 
 export const request = <Return = any>(url: string, payload?: any, _config?: RequestConfig) => {
   const config = Object.assign({}, _config)

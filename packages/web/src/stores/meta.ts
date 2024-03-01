@@ -1,16 +1,16 @@
-import type { PromptAction } from '../behavior'
+import type { PromptAction } from '../behavior.js'
 import { deepClone, deserialize, isLeft } from '@sonata-api/common'
 import { type Description } from '@sonata-api/types'
 import { reactive } from 'vue'
 
 import { useStore, hasStore, registerStore } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
-import { createCollectionStore } from '../state/collection'
-import { freshItem, freshFilters } from '../state/helpers'
-import { API_URL } from '../constants'
-import { STORAGE_NAMESPACE } from '../constants'
-import { request } from '../http'
-import { user } from './user'
+import { createCollectionStore } from '../state/collection.js'
+import { freshItem, freshFilters } from '../state/helpers.js'
+import { API_URL } from '../constants.js'
+import { STORAGE_NAMESPACE } from '../constants.js'
+import { request } from '../http.js'
+import { user } from './user.js'
 
 type CollectionName = string
 type PromptAnswer = { name: string }

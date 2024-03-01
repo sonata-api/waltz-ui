@@ -1,1 +1,1 @@
-export * from './aeria-async'
+export * from './aeria-async.js'

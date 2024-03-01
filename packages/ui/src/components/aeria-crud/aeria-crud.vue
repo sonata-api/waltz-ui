@@ -9,7 +9,6 @@ import { deepClone, getReferenceProperty } from '@sonata-api/common'
 import { useAction, useBreakpoints, useDebounce, useScrollObserver, convertFromSearchQuery } from '@waltz-ui/web'
 import { useStore, STORE_ID } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
-import { watchStore } from './_internals/helpers'
 
 import AeriaPagination from '../aeria-pagination/aeria-pagination.vue'
 import AeriaButton from '../aeria-button/aeria-button.vue'
@@ -17,10 +16,11 @@ import AeriaIcon from '../aeria-icon/aeria-icon.vue'
 import AeriaInput from '../form/aeria-input/aeria-input.vue'
 import AeriaContextMenu from '../aeria-context-menu/aeria-context-menu.vue'
 import AeriaBadge from '../aeria-badge/aeria-badge.vue'
-
-import { getLayout } from './_internals/layouts'
 import AeriaFilterPanel from './_internals/components/aeria-filter-panel/aeria-filter-panel.vue'
 import AeriaInsertPanel from './_internals/components/aeria-insert-panel/aeria-insert-panel.vue'
+
+import { watchStore } from './_internals/helpers.js'
+import { getLayout } from './_internals/layouts/index.js'
 
 import {
   isInsertVisible,
@@ -29,7 +29,7 @@ import {
   call,
   actionEventBus,
 
-} from './_internals/store'
+} from './_internals/store.js'
 
 type Props = {
   collection: string

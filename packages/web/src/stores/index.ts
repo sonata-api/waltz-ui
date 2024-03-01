@@ -1,2 +1,2 @@
-export * from './meta'
-export * from './user'
+export * from './meta.js'
+export * from './user.js'

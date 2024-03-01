@@ -1,2 +1,2 @@
-export * from './pagination'
-export * from './prompt'
+export * from './pagination.js'
+export * from './prompt.js'

@@ -2,9 +2,9 @@ import type { Description } from '@sonata-api/types'
 import { registerStore } from '@waltz-ui/state-management'
 import { left, right, isLeft, unwrapEither } from '@sonata-api/common'
 import { reactive, computed } from 'vue'
-import { createCollectionStore } from '../state/collection'
-import { STORAGE_NAMESPACE } from '../constants'
-import { meta } from '.'
+import { createCollectionStore } from '../state/collection.js'
+import { STORAGE_NAMESPACE } from '../constants.js'
+import { meta } from './meta.js'
 
 type User = {
   _id: string

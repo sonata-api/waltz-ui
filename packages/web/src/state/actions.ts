@@ -1,12 +1,12 @@
 import type { Property } from '@sonata-api/types'
-import type { CollectionStore } from './collection'
+import type { CollectionStore } from './collection.js'
 import { formatValue, getReferenceProperty, deepClone, isLeft, unwrapEither, isReference } from '@sonata-api/common'
 import { useStore, type GlobalStateManager } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
-import { API_URL } from '../constants'
-import { request } from '../http'
-import { condenseItem } from './helpers'
-import { recurseInsertCandidate } from './recurseInsertCandidate'
+import { API_URL } from '../constants.js'
+import { request } from '../http.js'
+import { condenseItem } from './helpers.js'
+import { recurseInsertCandidate } from './recurseInsertCandidate.js'
 
 export type CrudParameters = {
   filters: Record<string, any>

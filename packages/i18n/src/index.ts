@@ -1,2 +1,2 @@
-export * from './define'
-export * from './locale'
+export * from './define.js'
+export * from './locale.js'

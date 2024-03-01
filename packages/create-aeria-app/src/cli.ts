@@ -12,9 +12,9 @@ import {
   $,
   LogLevel,
   log,
-} from './util'
+} from './util.js'
 
-import { printBanner } from './banner'
+import { printBanner } from './banner.js'
 
 const {
   positionals,

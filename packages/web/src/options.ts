@@ -2,7 +2,7 @@ import type { App, Component } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 import type { I18nConfig } from '@waltz-ui/i18n'
 import type { GlobalStateManager } from '@waltz-ui/state-management'
-import type { RouteMeta } from './router'
+import type { RouteMeta } from './router.js'
 
 export type MenuNodeBase = Partial<RouteMeta> & {
   roles?: string[] | ((role: string[])=> boolean | Promise<boolean>)

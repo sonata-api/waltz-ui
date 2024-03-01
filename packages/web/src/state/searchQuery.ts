@@ -1,6 +1,6 @@
 import type { Property } from '@sonata-api/types'
 import type { RouteRecordNormalized } from 'vue-router'
-import type { CollectionStore } from '.'
+import type { CollectionStore } from './collection.js'
 
 const dateTupleToString = (tuple: { $gte?: string, $lte?: string }) => {
   if( !tuple.$gte || !tuple.$lte ) {
