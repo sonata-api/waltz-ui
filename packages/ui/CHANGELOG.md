@@ -1,5 +1,11 @@
 # @waltz-ui/ui
 
+## 1.0.52
+
+### Patch Changes
+
+- Fix ui bug
+
 ## 1.0.51
 
 ### Patch Changes

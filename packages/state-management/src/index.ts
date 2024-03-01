@@ -19,7 +19,7 @@ export type Store = StoreState & {
 }
 
 export type GlobalState = Record<string, Store>
-export type GlobalStateManager = Plugin & {
+export type GlobalStateManager = {
   __globalState: GlobalState
 }
 
@@ -27,9 +27,9 @@ export type UnRef<TObj extends Record<string, ComputedRef<any>>> = {
   [P in keyof TObj]: UnwrapRef<TObj[P]>
 }
 
-const GLOBAL_STATE_KEY = '__globalState'
+export const GLOBAL_STATE_KEY = Symbol('globalState')
 
-export const createGlobalStateManager = (): GlobalStateManager => {
+export const createGlobalStateManager = (): GlobalStateManager & Plugin => {
   const globalState: GlobalState = {}
 
   return {
@@ -41,11 +41,17 @@ export const createGlobalStateManager = (): GlobalStateManager => {
 }
 
 export const getGlobalStateManager = () => {
-  return inject(GLOBAL_STATE_KEY, {} as GlobalState)
+  return {
+    __globalState: inject(GLOBAL_STATE_KEY, {} as GlobalState)
+  }
+}
+
+export const getGlobalState = (manager: GlobalStateManager) => {
+  return manager.__globalState
 }
 
 export const useStore = (storeId: string, manager?: GlobalStateManager) => {
-  const globalState = manager?.__globalState || getGlobalStateManager()
+  const globalState = getGlobalState(manager || getGlobalStateManager())
 
   if( !(storeId in globalState) ) {
     throw new Error(`tried to invoke unregistered store "${storeId}"`)
@@ -73,7 +79,7 @@ export const useParentStore = (fallback?: string, manager?: GlobalStateManager) 
 }
 
 export const hasStore = (storeId: string, manager?: GlobalStateManager) => {
-  const globalState = manager?.__globalState || getGlobalStateManager()
+  const globalState = getGlobalState(manager || getGlobalStateManager())
   return storeId in globalState
 }
 

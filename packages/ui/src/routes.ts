@@ -87,6 +87,7 @@ export const dashboardRoutes = (component: Component | (()=> Promise<Component>)
         },
         {
           path: 'changepass',
+          name: '/dashboard/user/changepass',
           component: () => import('./views/dashboard/user/password-change/password-change.vue'),
           meta: {
             title: 'Mudar senha',
