@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { FormFieldProps, SearchProperty } from '../types'
 import { getReferenceProperty, convertConditionToQuery } from '@sonata-api/common'
-import { provide, inject, computed, ref, watch, onMounted } from 'vue'
+import { provide, computed, ref, watch, onMounted } from 'vue'
 import { useDebounce, type Pagination } from '@waltz-ui/web'
-import { useStore, useParentStore, type Store } from '@waltz-ui/state-management'
+import { useStore, useParentStore, getStoreId, STORE_ID, type Store } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
 
 import AeriaPanel from '../../aeria-panel/aeria-panel.vue'
@@ -40,14 +40,14 @@ const emit = defineEmits<{
 
 const store = useStore(getReferenceProperty(props.property)!.$ref)
 
-const parentStoreId = inject<string | null>('storeId', null)
+const parentStoreId = getStoreId()
 const parentStore = parentStoreId
   ? useParentStore()
   : null
 
 const indexes = refProperty.indexes!
 
-provide('storeId', getReferenceProperty(props.property)!.$ref)
+provide(STORE_ID, getReferenceProperty(props.property)!.$ref)
 provide('innerInputLabel', true)
 provide('omitInputLabels', true)
 

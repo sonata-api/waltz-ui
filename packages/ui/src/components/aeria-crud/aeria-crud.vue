@@ -7,7 +7,7 @@ import { onUnmounted, ref, computed, provide, inject, watch, isRef, type Ref } f
 import { useRouter } from 'vue-router'
 import { deepClone, getReferenceProperty } from '@sonata-api/common'
 import { useAction, useBreakpoints, useDebounce, useScrollObserver, convertFromSearchQuery } from '@waltz-ui/web'
-import { useStore } from '@waltz-ui/state-management'
+import { useStore, STORE_ID } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
 import { watchStore } from './_internals/helpers'
 
@@ -329,7 +329,7 @@ const actionButtons = computed(() => {
   return store.actions.filter((action) => !action.button)
 })
 
-provide('storeId', computed(() => props.collection))
+provide(STORE_ID, computed(() => props.collection))
 provide('individualActions', individualActions)
 </script>
 

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { Property, CollectionAction, TableLayout } from '@sonata-api/types'
-import { inject, computed, type Ref } from 'vue'
+import { computed, type Ref } from 'vue'
 import { evaluateCondition, getReferenceProperty } from '@sonata-api/common'
 import { useBreakpoints } from '@waltz-ui/web'
-import { useStore } from '@waltz-ui/state-management'
+import { useStore, getStoreId } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
 
 import AeriaBareButton from '../aeria-bare-button/aeria-bare-button.vue'
@@ -32,7 +32,7 @@ const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 const breakpoints = useBreakpoints()
 
-const collectionName = props.collection || inject<Ref<string> | string>('storeId', '')
+const collectionName = props.collection || getStoreId()
 const store = collectionName
   ? useStore(typeof collectionName === 'string'
 ? collectionName

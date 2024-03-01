@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { inject, computed } from 'vue'
-import { type LayoutOptions } from '@sonata-api/types'
-import { useParentStore } from '@waltz-ui/state-management'
+import type { LayoutOptions } from '@sonata-api/types'
+import { computed } from 'vue'
+import { useParentStore, getStoreId } from '@waltz-ui/state-management'
 import AeriaTable from '../../../../aeria-table/aeria-table.vue'
 
 type Props = {
@@ -13,10 +13,10 @@ type Props = {
 const props = defineProps<Props>()
 const store = useParentStore()
 
-const storeId = inject('storeId', '')
+const storeId = getStoreId()
 const componentProps = computed(() => {
   const original = {
-    collection: storeId,
+    collection: storeId!,
     checkbox: store.hasSelectionActions,
     columns: store.tableProperties,
     rows: store.items,

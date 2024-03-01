@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { Property, FileProperty } from '@sonata-api/types'
 import type { FormFieldProps } from '../types'
-import { inject, ref, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { request, API_URL } from '@waltz-ui/web'
-import { useParentStore } from '@waltz-ui/state-management'
+import { useParentStore, getStoreId } from '@waltz-ui/state-management'
 import AeriaPicture from '../../aeria-picture/aeria-picture.vue'
 import AeriaButton from '../../aeria-button/aeria-button.vue'
 
@@ -24,7 +24,7 @@ const emit = defineEmits<{
   ): void
 }>()
 
-const parentStoreId = inject('storeId')
+const parentStoreId = getStoreId()
 const store = parentStoreId
   ? useParentStore()
   : null

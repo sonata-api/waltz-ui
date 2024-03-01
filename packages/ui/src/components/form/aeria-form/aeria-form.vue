@@ -4,7 +4,7 @@ import type { FormFieldProps } from '../types'
 import { onBeforeMount, ref, computed, provide, inject, isRef, type Ref } from 'vue'
 import { evaluateCondition, deepClone, isRequired, getReferenceProperty } from '@sonata-api/common'
 import { useBreakpoints, isDocumentComplete } from '@waltz-ui/web'
-import { useStore } from '@waltz-ui/state-management'
+import { useStore, getStoreId, STORE_ID } from '@waltz-ui/state-management'
 import { t } from '@waltz-ui/i18n'
 
 import AeriaIcon from '../../aeria-icon/aeria-icon.vue'
@@ -71,7 +71,7 @@ onBeforeMount(() => {
 const refProperty = props.property && getReferenceProperty(props.property)
 const collectionName = refProperty
     ? refProperty.$ref
-    : props.collection || inject('storeId', null)
+    : props.collection || getStoreId()
 
 const store = collectionName
   ? useStore(isRef(collectionName)
@@ -122,7 +122,7 @@ const omitInputLabels = passAhead('omitInputLabels')
 const innerInputLabel = passAhead('innerInputLabel')
 
 if( collectionName ) {
-  provide('storeId', collectionName)
+  provide(STORE_ID, collectionName)
 }
 
 provide('searchOnly', props.searchOnly)

@@ -28,6 +28,7 @@ export type UnRef<TObj extends Record<string, ComputedRef<any>>> = {
 }
 
 export const GLOBAL_STATE_KEY = Symbol('globalState')
+export const STORE_ID = Symbol('storeId')
 
 export const createGlobalStateManager = (): GlobalStateManager & Plugin => {
   const globalState: GlobalState = {}
@@ -50,6 +51,10 @@ export const getGlobalState = (manager: GlobalStateManager) => {
   return manager.__globalState
 }
 
+export const getStoreId = () => {
+  return inject<string | null>(STORE_ID)
+}
+
 export const useStore = (storeId: string, manager?: GlobalStateManager) => {
   const globalState = getGlobalState(manager || getGlobalStateManager())
 
@@ -61,7 +66,7 @@ export const useStore = (storeId: string, manager?: GlobalStateManager) => {
 }
 
 export const useParentStore = (fallback?: string, manager?: GlobalStateManager) => {
-  let parentStoreId = inject<Ref<string> | string | null>('storeId', null)
+  let parentStoreId = inject<Ref<string> | string | null>(STORE_ID, null)
   if( !parentStoreId ) {
     if( !fallback ) {
       throw new Error('no parent store found')

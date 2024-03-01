@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { usePasswordPolicy } from '@waltz-ui/web'
+import { STORE_ID } from '@waltz-ui/state-management'
 import { computed, provide } from 'vue'
 import AeriaForm from '../../form/aeria-form/aeria-form.vue'
 
@@ -11,7 +12,7 @@ type Props = {
 }
 
 const props = defineProps<Props>()
-provide('storeId', null)
+provide(STORE_ID, null)
 
 defineEmits<{
   (e: 'update:modelValue', value: Props['modelValue']): void
