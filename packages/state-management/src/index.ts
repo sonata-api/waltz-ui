@@ -1,8 +1,9 @@
 import {
   inject,
   isRef,
-  reactive,
   isReactive,
+  reactive,
+  computed,
   type Ref,
   type ComputedRef,
   type UnwrapRef,
@@ -91,7 +92,7 @@ export const hasStore = (storeId: string, manager?: GlobalStateManager) => {
 export const internalRegisterStore = <
   const TStoreId extends string,
   TStoreState extends StoreState,
-  TStoreGetters extends Record<string, ComputedRef<any>>,
+  TStoreGetters extends Record<string, () => any>,
   TStoreActions extends Record<string, (...args: any[])=> any>,
 >(
   manager: GlobalStateManager,
@@ -118,7 +119,10 @@ export const internalRegisterStore = <
   })
 
   if( getters ) {
-    Object.assign(store, getters)
+    Object.assign(
+      store,
+      Object.fromEntries(Object.entries(getters).map(([key, getter]) => [key, computed(getter)]))
+    )
   }
 
   if( actions ) {
@@ -158,12 +162,9 @@ export const internalRegisterStore = <
 export const registerStore = <
   const TStoreId extends string,
   TStoreState extends StoreState,
-  TStoreGetters extends Record<string, ComputedRef<any>>,
+  TStoreGetters extends Record<string, () => any>,
   TStoreActions extends Record<string, (...args: any[])=> any>,
-  Getters = string extends keyof TStoreGetters
-    ? {}
-    : UnRef<TStoreGetters>,
-  Return = TStoreState & Getters & {
+  Return = TStoreState & TStoreGetters & {
     $id: TStoreId,
     $actions: TStoreActions
     $functions: Record<string, (...args: any[])=> any>

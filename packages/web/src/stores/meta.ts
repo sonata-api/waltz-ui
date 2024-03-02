@@ -1,6 +1,6 @@
+import type { Description } from '@sonata-api/types'
 import type { PromptAction } from '../behavior/index.js'
 import { deepClone, deserialize, isLeft } from '@sonata-api/common'
-import { type Description } from '@sonata-api/types'
 import { reactive } from 'vue'
 
 import { useStore, hasStore, registerStore } from '@waltz-ui/state-management'

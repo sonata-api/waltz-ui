@@ -1,7 +1,7 @@
 import type { Description } from '@sonata-api/types'
 import { registerStore } from '@waltz-ui/state-management'
 import { left, right, isLeft, unwrapEither } from '@sonata-api/common'
-import { reactive, computed } from 'vue'
+import { reactive } from 'vue'
 import { createCollectionStore } from '../state/collection.js'
 import { STORAGE_NAMESPACE } from '../constants.js'
 import { meta } from './meta.js'
@@ -69,14 +69,14 @@ export const user = registerStore((manager) => {
     $id: 'user',
     state,
     getters: (state) => ({
-      properties: computed(() => {
+      properties: () => {
         const metaStore = meta(manager)
         const properties = state.description.properties
 
         properties.roles.items.enum = metaStore.roles
         return properties
-      }),
-      signedIn: computed(() => !!state.currentUser.roles?.length),
+      },
+      signedIn: () => !!state.currentUser.roles?.length,
     }),
     actions: (state) => ({
       setCurrentUser,
